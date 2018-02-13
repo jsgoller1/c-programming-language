@@ -29,6 +29,9 @@ int main()
         if (state == IN)
             ++word_length;
     }
+    if (state == IN){ // catches edge case where user hits CTRL-D mid-word.
+        words[word_length-1]++;
+    }
 
      
     printf("Word Lengths contents\n");

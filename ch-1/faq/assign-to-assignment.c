@@ -1,9 +1,10 @@
 #include <stdio.h>
 
-// test the differences between using single and double quotes
+// What happens if you assign to an assignment?
 
 int main()
 {
+    // In C, an assignment operation results in the rvalue.
     int a, b, c, d;
     a = (b = 200); 
     d = c = 100;

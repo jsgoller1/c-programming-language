@@ -1,5 +1,14 @@
 # k-and-r
-Exercises from "The C Programming Language" by Kernighan / Ritchie
+Exercises from "The C Programming Language" by Kernighan / Ritchie. Each chapter has three subfolders:
+
+* **examples/** - examples from the chapter text, usually written as-is.
+* **exercises/** - chapter exercises.
+* **faq/** - questions I ask myself to check my understanding, with my own examples.
+
+
+# Running
+`gcc -std=c99 path/to/src -o out; ./out`
+Tested on Ubuntu 17.04
 
 
 ## Incomplete exercises

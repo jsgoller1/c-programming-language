@@ -5,8 +5,10 @@ Exercises from "The C Programming Language" by Kernighan / Ritchie. Each chapter
 * **exercises/** - chapter exercises.
 * **faq/** - questions I ask myself to check my understanding, with my own examples.
 
+## Source text
+You can find the full 2nd edition text [here](http://cs.indstate.edu/~cbasavaraj/cs559/the_c_programming_language_2.pdf).
 
-# Running
+## Running
 `gcc -std=c99 path/to/src -o out; ./out`
 Tested on Ubuntu 17.04
 

@@ -15,8 +15,8 @@ int main(){
   With this convention, we use the "two's complement" procedure to derive a negative
   int from a positive one. The two's complement can be calculated by flipping all
   bits and adding one. Take the number 8 on a 32-bit machine as an example:
-  8 = 0b0000...1000 = 0x00000008.
-  Flip all bits: 0b1111...0111 (0xFFFFFFF7)
+  8 = 0x00000008 =       0b0000...1000.
+  Flip all bits:         0b1111...0111 (0xFFFFFFF7)
   Add 1 (0b0000...0001): 0b1111...1000 (0xFFFFFFF8)
   */
   printf(" 0x8: %4x\n-0x8: %4x\n", 8, -8);

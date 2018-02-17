@@ -52,8 +52,7 @@ int main(){
 
   /*
   Armed with this knowledge, we can now as an important question: what is the biggest
-  possible positive number, and least possible negative number? Note that we can actually
-  confirm this with the header and values above. However, let's actually calculate it.
+  possible positive number, and least possible negative number? Let's calculate it.
   My current machine (2017 Macbook Pro w/ Intel Core i7) has a 32bit address space,
   which can be determined with WORD_BIT rom limits.h
   */

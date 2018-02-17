@@ -1,6 +1,7 @@
 #include <stdio.h>
 #include <limits.h>
 
+
 // Write a program to calculate the largest and smallest char, short, int, and long variables, signed and unsigned.
 int pow2(int pow);
 long lpow2(int pow);
@@ -15,6 +16,7 @@ int main(){
   long max_long, min_long, max_lpow = 0;
   unsigned long ulmax = 0.0;
 
+  #define WORD_BIT 32
   for (i = 0; i < WORD_BIT; i++)
   {
     max_pow = max_pow | pow2(i);

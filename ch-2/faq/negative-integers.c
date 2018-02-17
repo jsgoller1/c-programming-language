@@ -10,11 +10,11 @@ int main(){
   the sign; values with it set are negative, and unset are positive.
   Whenever we see any hex value from 0x80000000 to 0xFFFFFFFF representing a signed int,
   we know they're negative, and any value from 0x00000001 to 0x7FFFFFFF is positive (zero
-  is not positive or negative but it "counts" as a positive number, which we will revisit at the end).
+  is not positive or negative but it "counts" as a positive integer, which we will revisit at the end).
 
   With this convention, we use the "two's complement" procedure to derive a negative
   int from a positive one. The two's complement can be calculated by flipping all
-  bits and adding one. Take the number 8 on a 32-bit machine as an example:
+  bits and adding one. Take the integer 8 on a 32-bit machine as an example:
   8 = 0x00000008 =       0b0000...1000.
   Flip all bits:         0b1111...0111 (0xFFFFFFF7)
   Add 1 (0b0000...0001): 0b1111...1000 (0xFFFFFFF8)
@@ -33,7 +33,7 @@ int main(){
 
 
   /*
-  What if we want to go from a negative number to a positive? Same procedure.
+  What if we want to go from a negative integer to a positive? Same procedure.
   -754 = 0xFFFFFD0E = 0b1111....1101 0000 1110
   Flip all bits:      0b0000....0010 1111 0001
   Add one:            0b0000....0010 1111 0010
@@ -52,7 +52,7 @@ int main(){
 
   /*
   Armed with this knowledge, we can now as an important question: what is the biggest
-  possible positive number, and least possible negative number? Let's calculate it.
+  possible positive integer, and least possible negative integer? Let's calculate it.
   My current machine (2017 Macbook Pro w/ Intel Core i7) has a 32bit address space,
   which can be determined with WORD_BIT from limits.h
   */
@@ -64,14 +64,14 @@ int main(){
   0x7FFFFFFF is the greatest possible positive value, but what represents the least
   possible negative value - 0x80000000 or 0xFFFFFFFF?
 
-  Well, let's think about our range of positive numbers - the negative version of the greatest positive number
-  will almost certainly give us the least negative number, and the negative version of the least positive
+  Well, let's think about our range of positive integers - the negative version of the greatest positive integer
+  will almost certainly give us the least negative integer, and the negative version of the least positive
   integer will give us the greatest negative integer. Flipping all bits for 0x00000001 gives
   us 0xFFFFFFFE, and then adding 1 gives us 0xFFFFFFFF - so we can hazard a guess that 0x80000000
   is less than 0xFFFFFFFF. But there's an interesting issue here - two's complement of the greatest
-  possible positive number, 0x7FFFFFFF is 0x80000001 (flipping all bits is 0x80000000, then add 1
+  possible positive integer, 0x7FFFFFFF is 0x80000001 (flipping all bits is 0x80000000, then add 1
   to get 0x80000001), not 0x80000000. What gives? If two's complement is the binary equivalent
-  of multiplying a decimal number by -1, why does performing this operation on the greatest positive
+  of multiplying a decimal integer by -1, why does performing this operation on the greatest positive
   integer _not_ give us the least negative one?
 
   Remember above that I said zero "counts" as a positive integer. If you pair

@@ -4,7 +4,7 @@ int mylower(char c);
 
 int main(){
     int i = 0;
-    char name[14] = {"JOSHUA GOLLER"};
+    char name[] = {"JOSHUA GOLLER"};
     for (i = 0; i < 13; i++) {
         printf("%d, %d, %c\n", i, mylower(name[i]), mylower(name[i]));
     }

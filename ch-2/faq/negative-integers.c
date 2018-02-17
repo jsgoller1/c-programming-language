@@ -54,7 +54,7 @@ int main(){
   Armed with this knowledge, we can now as an important question: what is the biggest
   possible positive number, and least possible negative number? Let's calculate it.
   My current machine (2017 Macbook Pro w/ Intel Core i7) has a 32bit address space,
-  which can be determined with WORD_BIT rom limits.h
+  which can be determined with WORD_BIT from limits.h
   */
   printf("CPU word size: %d\n\n", WORD_BIT);
 
@@ -87,23 +87,23 @@ int main(){
   To double check, you can use the following constants from <limits.h> to see your architecture's
   various max and min values for different types:
 
-CHAR_BIT	  |  Number of bits in the smallest variable that is not a bit field.
-SCHAR_MIN	  |  Minimum value for a variable of type signed char.
-SCHAR_MAX	  |  Maximum value for a variable of type signed char.
-UCHAR_MAX	  |  Maximum value for a variable of type unsigned char.
-CHAR_MIN	  |  Minimum value for a variable of type char.
-CHAR_MAX	  |  Maximum value for a variable of type char.
-MB_LEN_MAX	|  Maximum number of bytes in a multicharacter constant.
-SHRT_MIN	  |  Minimum value for a variable of type short.
-SHRT_MAX	  |  	Maximum value for a variable of type short.
-USHRT_MAX	  |  	Maximum value for a variable of type unsigned short.
-INT_MIN	    |  	Minimum value for a variable of type int.
-INT_MAX	    |  	Maximum value for a variable of type int.
-UINT_MAX	  |  	Maximum value for a variable of type unsigned int.
-LONG_MIN	  |  	Minimum value for a variable of type long.
-LONG_MAX	  |  	Maximum value for a variable of type long.
-ULONG_MAX	  |  	Maximum value for a variable of type unsigned long.
-*/
+  CHAR_BIT    |   Number of bits in the smallest variable that is not a bit field.
+  SCHAR_MIN   |   Minimum value for a variable of type signed char.
+  SCHAR_MAX   |   Maximum value for a variable of type signed char.
+  UCHAR_MAX   |   Maximum value for a variable of type unsigned char.
+  CHAR_MIN    |   Minimum value for a variable of type char.
+  CHAR_MAX    |   Maximum value for a variable of type char.
+  MB_LEN_MAX  |   Maximum number of bytes in a multicharacter constant.
+  SHRT_MIN    |   Minimum value for a variable of type short.
+  SHRT_MAX    |   Maximum value for a variable of type short.
+  USHRT_MAX   |   Maximum value for a variable of type unsigned short.
+  INT_MIN     |   Minimum value for a variable of type int.
+  INT_MAX     |   Maximum value for a variable of type int.
+  UINT_MAX    |   Maximum value for a variable of type unsigned int.
+  LONG_MIN    |   Minimum value for a variable of type long.
+  LONG_MAX    |   Maximum value for a variable of type long.
+  ULONG_MAX   |   Maximum value for a variable of type unsigned long.
+  */
 
   signed int neg_1 = 0xffffffff;
   signed int max_pos = 0x7fffffff;

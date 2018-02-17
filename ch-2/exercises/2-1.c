@@ -1,25 +1,6 @@
 #include <stdio.h>
 #include <limits.h>
 
-/*
-CHAR_BIT	  |  Number of bits in the smallest variable that is not a bit field.
-SCHAR_MIN	  |  Minimum value for a variable of type signed char.
-SCHAR_MAX	  |  Maximum value for a variable of type signed char.
-UCHAR_MAX	  |  Maximum value for a variable of type unsigned char.
-CHAR_MIN	  |  Minimum value for a variable of type char.
-CHAR_MAX	  |  Maximum value for a variable of type char.
-MB_LEN_MAX	|  Maximum number of bytes in a multicharacter constant.
-SHRT_MIN	  |  Minimum value for a variable of type short.
-SHRT_MAX	  |  	Maximum value for a variable of type short.
-USHRT_MAX	  |  	Maximum value for a variable of type unsigned short.
-INT_MIN	    |  	Minimum value for a variable of type int.
-INT_MAX	    |  	Maximum value for a variable of type int.
-UINT_MAX	  |  	Maximum value for a variable of type unsigned int.
-LONG_MIN	  |  	Minimum value for a variable of type long.
-LONG_MAX	  |  	Maximum value for a variable of type long.
-ULONG_MAX	  |  	Maximum value for a variable of type unsigned long.
-*/
-
 // Write a program to calculate the largest and smallest char, short, int, and long variables, signed and unsigned.
 int pow2(int pow);
 long lpow2(int pow);

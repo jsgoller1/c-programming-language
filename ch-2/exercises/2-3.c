@@ -30,6 +30,14 @@ int main()
     char hex5[] = {"12345"}; 
     printf("%s = %d\n", hex5, htoi(hex5, 5));
 
+    // 11184810
+    char hex6[] = {"0xaaaaaa"}; 
+    printf("%s = %d\n", hex6, htoi(hex6, 8));
+
+    // 1715004
+    char hex7[] = {"0x1A2B3C"}; 
+    printf("%s = %d\n", hex7, htoi(hex7, 8));
+
     return 0;
 }
 
@@ -61,21 +69,27 @@ int htoi(char string[], int len)
                 case 'A':
                 case 'a':
                     charval = 10;
+                    break;
                 case 'B':
                 case 'b':
                     charval = 11;
+                    break;                   
                 case 'C':
                 case 'c':
                     charval = 12;
+                    break;
                 case 'D':
                 case 'd':
                     charval = 13;
+                    break;
                 case 'E':
                 case 'e':
                     charval = 14;
+                    break;
                 case 'F':
                 case 'f':
-                    charval = 15;                                                                                                    
+                    charval = 15;
+                    break;                                                                                                                        
             }
         }
         val += charval * mypow(16, (len-1)-i);

@@ -40,6 +40,10 @@ int main()
     char hex7[] = {"0x1A2B3C"}; 
     printf("%s = %d\n", hex7, htoi(hex7, 8));
 
+    // 1715004
+    char hex8[] = {"0xFFFFFFFF"};
+    printf("%s = %u\n", hex8, htoi(hex8, 10));
+
     return 0;
 }
 

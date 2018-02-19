@@ -4,6 +4,8 @@
 int htoi(char string[], int len);
 int mypow(int base, int exp);
 
+// Write a function htoi() that converts hex numbers prefixed with "0x" or "OX" to decimal numbers.
+
 int main()
 {
     // 344865

@@ -2,7 +2,7 @@
 
 // Write a function rotate(x,p) rotates x by n bits right.
 
-unsigned rotate(int x, int n, int str_size);
+unsigned rotate(unsigned x, unsigned n, unsigned str_size);
 
 int main()
 {
@@ -17,11 +17,21 @@ int main()
     
     // 0xFF, no effect
     printf("%x\n", rotate(0b11111111, 3, 8));
+
+    // 0xEFDEADBE, no effect
+    printf("%x\n", rotate(0xDEADBEEF, 8, 32));
+    
     return 0;
 }
 
-unsigned rotate(int x, int n, int str_size) 
+unsigned rotate(unsigned x, unsigned n, unsigned str_size) 
 {
+    if (str_size > 32)
+    {
+        printf("Input must be smaller than int.\n");
+        return 0xffffffff;
+    }
+
     // capture n lowest bits
     int lowest_mask = ~(~0 << n);
     int lowest = x & lowest_mask;
@@ -31,7 +41,7 @@ unsigned rotate(int x, int n, int str_size)
 
     // take n lowest bits and make them n highest bits
     int highest = lowest << (str_size - n);
-    
+
     // combine
     return highest | x;
 }

@@ -27,8 +27,8 @@ int main() {
     printf("%d\n", any(string5, string6));
 
     char string7[] = {"Nick"};
-    char string8[] = {"Slavoj"};
-    // -1
+    char string8[] = {"Dennis"};
+    // 1
     printf("%d\n", any(string7, string8));
 
     return 0;
@@ -39,7 +39,7 @@ int any(char s1[], char s2[])
     int i, j;
     for(i = 0; s1[i] != '\0'; i++)
     {
-        for(j = 0; s1[j] != '\0'; j++)
+        for(j = 0; s2[j] != '\0'; j++)
         {
             if (s1[i] == s2[j])
             {

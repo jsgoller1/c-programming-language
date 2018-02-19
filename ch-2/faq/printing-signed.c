@@ -11,8 +11,8 @@ int main()
     signed int c = 0x80000000;
     signed int d = 0x00000001;
 
-    printf("0x%x = unsigned %u\n", a+b, a+b);
-    printf("0x%x = signed %d\n", c+d, c+d);
+    printf("0x%x = unsigned %u, signed %d\n", a+b, a+b, a+b);
+    printf("0x%x = signed %d, unsigned %u\n", c+d, c+d, c+d);
 
     return 0;
 }

@@ -35,7 +35,7 @@ unsigned rotate(unsigned x, unsigned n, unsigned str_size)
         return 0xffffffff;
     }
 
-    // Rotating 33 places is the same as rotating 1.
+    // Rotating 33 places is the same as rotating 1 for a 32bit word.
     if (n >= str_size)
     {
         n = n % str_size;

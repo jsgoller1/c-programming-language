@@ -28,10 +28,10 @@ int main()
 
 void mylower(char str[])
 {
-    int z, i = 0;
+    int i = 0;
     while(str[i] != '\0')
     {
-        ((str[i] >= 'A') && (str[i] <= 'Z')) ? (str[i] += 32) : (str[i] = str[i]);
+        ((str[i] >= 'A') && (str[i] <= 'Z')) ? (str[i] += 32) : str[i]; // second clause is a no-op.
         i++;
     }
 

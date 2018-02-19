@@ -1,7 +1,7 @@
 #include <stdio.h>
 
 /*
-Write a function setbits(x,p,n) that inverts the n bits right of p in x:
+Write a function setbits(x,p,n) that inverts the n bits starting at p:
 
 Assuming p = 5 and n = 3 
 

@@ -18,8 +18,11 @@ int main()
     // 0xFF, no effect
     printf("%x\n", rotate(0b11111111, 3, 8));
 
-    // 0xEFDEADBE, no effect
+    // 0xEFDEADBE
     printf("%x\n", rotate(0xDEADBEEF, 8, 32));
+
+    // 0xEFDEADBE
+    printf("%x\n", rotate(0xDEADBEEF, 40, 32));
     
     return 0;
 }
@@ -30,6 +33,12 @@ unsigned rotate(unsigned x, unsigned n, unsigned str_size)
     {
         printf("Input must be smaller than int.\n");
         return 0xffffffff;
+    }
+
+    // Rotating 33 places is the same as rotating 1.
+    if (n >= str_size)
+    {
+        n = n % str_size;
     }
 
     // capture n lowest bits

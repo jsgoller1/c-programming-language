@@ -65,21 +65,21 @@ int main()
     char a4[MAX_LEN];
     expand(t4, 3, a4); 
     printf("%s == %s\n", t4, a4);
-*/
+
     // null input
     // ""
     char t5[] = {""};
     char a5[MAX_LEN];
     expand(t5, 0, a5); 
     printf("%s == %s\n", t5, a5);
-/*
+*/
     // edge cases, all of which should
     // print their input
-    char t3[] = {"-"};
-    char a3[MAX_LEN];
-    expand(t3, 2, a3); 
-    printf("%s == %s\n", t3, a3);
-
+    char t6[] = {"-"};
+    char a6[MAX_LEN];
+    expand(t6, 2, a6); 
+    printf("%s == %s\n", t6, a6);
+/*
     char t4[] = {"-a-"};
     char a4[MAX_LEN];
     expand(t4, 3, a4); 
@@ -164,6 +164,7 @@ void expand(char s1[], int s1_len, char s2[])
             j++;   
         }
     }
+    s2[j] = '\0';
 }
 
 int is_valid_range(char a, char b)

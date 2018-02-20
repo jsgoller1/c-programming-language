@@ -30,78 +30,78 @@ int main()
     // (as long as the test vars are 
     // grouped correctly, I don't really 
     // care here)
-/*
+
     // basic expansion, lower case
     // abcd
     char t0[] = {"a-d"};
     char a0[MAX_LEN];
     expand(t0, 3, a0); 
-    printf("%s == %s\n", t0, a0);
+    printf("test 0: %s == %s\n", t0, a0);
 
     // basic expansion, upper case
     // ABCD
     char t1[] = {"A-D"};
     char a1[MAX_LEN];
     expand(t1, 3, a1); 
-    printf("%s == %s\n", t1, a1);
+    printf("test 1: %s == %s\n", t1, a1);
 
     // basic expansion, ints
     // 01234
     char t2[] = {"0-4"};
     char a2[MAX_LEN];
     expand(t2, 3, a2); 
-    printf("%s == %s\n", t2, a2);
+    printf("test 2: %s == %s\n", t2, a2);
 
    // Average input
    // abcd01234ABCD
     char t3[] = {"a-d0-4A-D"};
     char a3[MAX_LEN];
     expand(t3, 9, a3); 
-    printf("%s == %s\n", t3, a3);
+    printf("test 3: %s == %s\n", t3, a3);
 
    // Reverse input
    // dcba
     char t4[] = {"d-a"};
     char a4[MAX_LEN];
     expand(t4, 3, a4); 
-    printf("%s == %s\n", t4, a4);
+    printf("test 4: %s == %s\n", t4, a4);
 
     // null input
     // ""
     char t5[] = {""};
     char a5[MAX_LEN];
     expand(t5, 0, a5); 
-    printf("%s == %s\n", t5, a5);
+    printf("test 5: %s == %s\n", t5, a5);
 
     // edge cases, all of which should
     // print their input
     char t6[] = {"-"};
     char a6[MAX_LEN];
     expand(t6, 2, a6); 
-    printf("%s == %s\n", t6, a6);
+    printf("test 6: %s == %s\n", t6, a6);
 
     char t7[] = {"-a-"};
     char a7[MAX_LEN];
     expand(t7, 3, a7); 
-    printf("%s == %s\n", t7, a7);
+    printf("test 7: %s == %s\n", t7, a7);
 
     // broken
     char t8[] = {"a--a"};
     char a8[MAX_LEN];
     expand(t8, 4, a8); 
-    printf("%s == %s\n", t8, a8);
-*/
+    printf("test 8: %s == %s\n", t8, a8);
+
     char t9[] = {"abcd"};
     char a9[MAX_LEN];
     expand(t9, 4, a9); 
-    printf("%s == %s\n", t9, a9);
-/*
+    printf("test 9: %s == %s\n", t9, a9);
+
     // broken
     char t10[] = {"1-a"};
     char a10[MAX_LEN];
     expand(t10, 3, a10); 
-    printf("%s == %s\n", t10, a10);
-*/
+    printf("test 10: %s == %s\n", t10, a10);
+
     return 0;
 }
 
@@ -130,7 +130,7 @@ void expand(char s1[], int s1_len, char s2[])
                     // iteration, so skip it.
                     for (k = (s1[i-1]+1); k <= s1[i+1]; k++)
                     {
-                        printf("inc: inserting %c at s2[%d]\n", k, j);
+                        //printf("inc: inserting %c at s2[%d]\n", k, j);
                         s2[j] = k;
                         j++;
                     }
@@ -141,7 +141,7 @@ void expand(char s1[], int s1_len, char s2[])
                     // the left bound is already the first correct char
                     for (k = (s1[i-1]-1); k >= s1[i+1]; k--)
                     {
-                        printf("dec: inserting %c at s2[%d]\n", k, j);                        
+                        //printf("dec: inserting %c at s2[%d]\n", k, j);                        
                         s2[j] = k;
                         j++;
                     }
@@ -149,19 +149,19 @@ void expand(char s1[], int s1_len, char s2[])
 
                 } else // they're equal, just copy the character;
                 {
-                    printf("eq: inserting %c at s2[%d]\n", s1[i], j);
+                    //printf("eq: inserting %c at s2[%d]\n", s1[i], j);
                     s2[j] = s1[i];
                     j++;   
                 }
             } else // invalid range bounds, copy the '-' mark
             {
-                printf("invalid range bounds: inserting %c at s2[%d]\n", s1[i], j);             
+                //printf("invalid range bounds: inserting %c at s2[%d]\n", s1[i], j);             
                 s2[j] = s1[i];
                 j++;   
             }
         } else // left or right is outside of s1, copy the '-' mark
         {
-            printf("bounds outside s1 or normal char: inserting %c at s2[%d]\n", s1[i], j);           
+            //printf("bounds outside s1 or normal char: inserting %c at s2[%d]\n", s1[i], j);           
             s2[j] = s1[i];
             j++;   
         }
@@ -174,6 +174,7 @@ int is_valid_range(char a, char b)
     int type_a, type_b;
     type_a = get_type(a);
     type_b = get_type(b);
+    //printf("types a: %d, b: %d\n", type_a, type_b);
 
     return ((type_a == type_b) && (type_a != -1));
 }
@@ -197,15 +198,16 @@ int get_type(char a)
 
 int is_upper(char a)
 {
-    return (a >= 'A') || (a <= 'Z');
+    //printf("%c, %d %d %d\n", a, 'A', a, 'Z');
+    return (a >= 'A') && (a <= 'Z');
 }
 
 int is_lower(char a)
 {
-    return (a >= 'a') || (a <= 'z');    
+    return (a >= 'a') && (a <= 'z');    
 }
 
 int is_int(char a)
 {
-    return (a >= '0') || (a <= '9');
+    return (a >= '0') && (a <= '9');
 }

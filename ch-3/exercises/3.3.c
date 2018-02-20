@@ -84,21 +84,23 @@ int main()
     char a7[MAX_LEN];
     expand(t7, 3, a7); 
     printf("%s == %s\n", t7, a7);
-*/
+
+    // broken
     char t8[] = {"a--a"};
     char a8[MAX_LEN];
     expand(t8, 4, a8); 
     printf("%s == %s\n", t8, a8);
+*/
+    char t9[] = {"abcd"};
+    char a9[MAX_LEN];
+    expand(t9, 4, a9); 
+    printf("%s == %s\n", t9, a9);
 /*
-    char t8[] = {"abcd"};
-    char a8[MAX_LEN];
-    expand(t8, 4, a8); 
-    printf("%s == %s\n", t8, a8);
-
-    char t8[] = {"1-a"};
-    char a8[MAX_LEN];
-    expand(t8, 3, a8); 
-    printf("%s == %s\n", t8, a8);
+    // broken
+    char t10[] = {"1-a"};
+    char a10[MAX_LEN];
+    expand(t10, 3, a10); 
+    printf("%s == %s\n", t10, a10);
 */
     return 0;
 }

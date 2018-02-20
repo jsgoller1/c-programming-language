@@ -30,7 +30,7 @@ int main()
     // (as long as the test vars are 
     // grouped correctly, I don't really 
     // care here)
-
+/*
     // basic expansion, lower case
     // abcd
     char t0[] = {"a-d"};
@@ -56,23 +56,23 @@ int main()
    // abcd01234ABCD
     char t3[] = {"a-d0-4A-D"};
     char a3[MAX_LEN];
-    expand(t3, 9, a1); 
+    expand(t3, 9, a3); 
     printf("%s == %s\n", t3, a3);
-/*
+
    // Reverse input
    // dcba
-    char t9[] = {"d-a"};
-    char a9[MAX_LEN];
-    expand(t9, 3, a9); 
-    printf("%s == %s\n", t9, a9);
-
+    char t4[] = {"d-a"};
+    char a4[MAX_LEN];
+    expand(t4, 3, a4); 
+    printf("%s == %s\n", t4, a4);
+*/
     // null input
     // ""
-    char t2[] = {""};
-    char a2[MAX_LEN];
-    expand(t2, 0, a2); 
-    printf("%s == %s\n", t2, a2);
-
+    char t5[] = {""};
+    char a5[MAX_LEN];
+    expand(t5, 0, a5); 
+    printf("%s == %s\n", t5, a5);
+/*
     // edge cases, all of which should
     // print their input
     char t3[] = {"-"};

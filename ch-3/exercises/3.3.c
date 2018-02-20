@@ -79,17 +79,17 @@ int main()
     char a6[MAX_LEN];
     expand(t6, 2, a6); 
     printf("%s == %s\n", t6, a6);
-*/
+
     char t7[] = {"-a-"};
     char a7[MAX_LEN];
     expand(t7, 3, a7); 
     printf("%s == %s\n", t7, a7);
+*/
+    char t8[] = {"a--a"};
+    char a8[MAX_LEN];
+    expand(t8, 4, a8); 
+    printf("%s == %s\n", t8, a8);
 /*
-    char t5[] = {"a--a"};
-    char a5[MAX_LEN];
-    expand(t5, 4, a5); 
-    printf("%s == %s\n", t5, a5);
-
     char t8[] = {"abcd"};
     char a8[MAX_LEN];
     expand(t8, 4, a8); 

@@ -33,32 +33,32 @@ int main()
 
     // basic expansion, lower case
     // abcd
-    char t7[] = {"a-d"};
-    char a7[MAX_LEN];
-    expand(t7, 3, a7); 
-    printf("%s == %s\n", t7, a7);
-
-    // basic expansion, upper case
-    // ABCD
-    char t6[] = {"A-D"};
-    char a6[MAX_LEN];
-    expand(t6, 3, a6); 
-    printf("%s == %s\n", t6, a6);
-
-    // basic expansion, ints
-    // 01234
-    char t0[] = {"0-4"};
+    char t0[] = {"a-d"};
     char a0[MAX_LEN];
     expand(t0, 3, a0); 
     printf("%s == %s\n", t0, a0);
-/*
-   // Average input
-   // abcd01234ABCD
-    char t1[] = {"a-d0-4A-D"};
+
+    // basic expansion, upper case
+    // ABCD
+    char t1[] = {"A-D"};
     char a1[MAX_LEN];
-    expand(t1, 9, a1); 
+    expand(t1, 3, a1); 
     printf("%s == %s\n", t1, a1);
 
+    // basic expansion, ints
+    // 01234
+    char t2[] = {"0-4"};
+    char a2[MAX_LEN];
+    expand(t2, 3, a2); 
+    printf("%s == %s\n", t2, a2);
+
+   // Average input
+   // abcd01234ABCD
+    char t3[] = {"a-d0-4A-D"};
+    char a3[MAX_LEN];
+    expand(t3, 9, a1); 
+    printf("%s == %s\n", t3, a3);
+/*
    // Reverse input
    // dcba
     char t9[] = {"d-a"};
@@ -132,7 +132,7 @@ void expand(char s1[], int s1_len, char s2[])
                         s2[j] = k;
                         j++;
                     }
-                    i+=2; // in a-c, don't evaluate c; 
+                    i++; // in a-c, don't evaluate c after evaluating -; 
                 } else if (s1[i-1] > s1[i+1])
                 {
                     // for descending, expand by looping down; remember
@@ -143,7 +143,7 @@ void expand(char s1[], int s1_len, char s2[])
                         s2[j] = k;
                         j++;
                     }
-                    i+=2; // in c-a, don't evaluate a; 
+                    i++; // in c-a, don't evaluate a after evaluating -; 
 
                 } else // they're equal, just copy the character;
                 {

@@ -38,7 +38,6 @@ int main()
     expand(t7, 3, a7); 
     printf("%s == %s\n", t7, a7);
 
-/*
     // basic expansion, upper case
     // ABCD
     char t6[] = {"A-D"};
@@ -52,7 +51,7 @@ int main()
     char a0[MAX_LEN];
     expand(t0, 3, a0); 
     printf("%s == %s\n", t0, a0);
-
+/*
    // Average input
    // abcd01234ABCD
     char t1[] = {"a-d0-4A-D"};
@@ -115,7 +114,8 @@ void expand(char s1[], int s1_len, char s2[])
     for (i = 0; i < s1_len; i++)
     {
     // check if the chars left and right of it are within bounds
-        if ((i-1 >= 0) && (i+1 < s1_len))
+        //printf("i: %d\n", i);
+        if ((s1[i] == '-') && ((i-1 >= 0) && (i+1 < s1_len)))
         {
             // if so, determine if specificed range is of valid "types" (upper, lower, or int, both bounds are the same "type")
             if (is_valid_range(s1[i-1], s1[i+1]))
@@ -128,6 +128,7 @@ void expand(char s1[], int s1_len, char s2[])
                     // iteration, so skip it.
                     for (k = (s1[i-1]+1); k <= s1[i+1]; k++)
                     {
+                        printf("inc: inserting %c at s2[%d]\n", k, j);
                         s2[j] = k;
                         j++;
                     }
@@ -138,6 +139,7 @@ void expand(char s1[], int s1_len, char s2[])
                     // the left bound is already the first correct char
                     for (k = (s1[i-1]-1); k >= s1[i+1]; k--)
                     {
+                        printf("dec: inserting %c at s2[%d]\n", k, j);                        
                         s2[j] = k;
                         j++;
                     }
@@ -145,20 +147,20 @@ void expand(char s1[], int s1_len, char s2[])
 
                 } else // they're equal, just copy the character;
                 {
+                    printf("eq: inserting %c at s2[%d]\n", s1[i], j);
                     s2[j] = s1[i];
-                    i++;
                     j++;   
                 }
             } else // invalid range bounds, copy the '-' mark
             {
+                printf("invalid range bounds: inserting %c at s2[%d]\n", s1[i], j);             
                 s2[j] = s1[i];
-                i++;
                 j++;   
             }
         } else // left or right is outside of s1, copy the '-' mark
         {
+            printf("bounds outside s1 or normal char: inserting %c at s2[%d]\n", s1[i], j);           
             s2[j] = s1[i];
-            i++;
             j++;   
         }
     }

@@ -72,19 +72,19 @@ int main()
     char a5[MAX_LEN];
     expand(t5, 0, a5); 
     printf("%s == %s\n", t5, a5);
-*/
+
     // edge cases, all of which should
     // print their input
     char t6[] = {"-"};
     char a6[MAX_LEN];
     expand(t6, 2, a6); 
     printf("%s == %s\n", t6, a6);
+*/
+    char t7[] = {"-a-"};
+    char a7[MAX_LEN];
+    expand(t7, 3, a7); 
+    printf("%s == %s\n", t7, a7);
 /*
-    char t4[] = {"-a-"};
-    char a4[MAX_LEN];
-    expand(t4, 3, a4); 
-    printf("%s == %s\n", t4, a4);
-
     char t5[] = {"a--a"};
     char a5[MAX_LEN];
     expand(t5, 4, a5); 

@@ -85,7 +85,6 @@ int main()
     expand(t7, 3, a7); 
     printf("test 7: %s == %s\n", t7, a7);
 
-    // broken
     char t8[] = {"a--a"};
     char a8[MAX_LEN];
     expand(t8, 4, a8); 
@@ -96,7 +95,6 @@ int main()
     expand(t9, 4, a9); 
     printf("test 9: %s == %s\n", t9, a9);
 
-    // broken
     char t10[] = {"1-a"};
     char a10[MAX_LEN];
     expand(t10, 3, a10); 
@@ -130,7 +128,6 @@ void expand(char s1[], int s1_len, char s2[])
                     // iteration, so skip it.
                     for (k = (s1[i-1]+1); k <= s1[i+1]; k++)
                     {
-                        //printf("inc: inserting %c at s2[%d]\n", k, j);
                         s2[j] = k;
                         j++;
                     }
@@ -141,7 +138,6 @@ void expand(char s1[], int s1_len, char s2[])
                     // the left bound is already the first correct char
                     for (k = (s1[i-1]-1); k >= s1[i+1]; k--)
                     {
-                        //printf("dec: inserting %c at s2[%d]\n", k, j);                        
                         s2[j] = k;
                         j++;
                     }
@@ -149,19 +145,16 @@ void expand(char s1[], int s1_len, char s2[])
 
                 } else // they're equal, just copy the character;
                 {
-                    //printf("eq: inserting %c at s2[%d]\n", s1[i], j);
                     s2[j] = s1[i];
                     j++;   
                 }
             } else // invalid range bounds, copy the '-' mark
             {
-                //printf("invalid range bounds: inserting %c at s2[%d]\n", s1[i], j);             
                 s2[j] = s1[i];
                 j++;   
             }
-        } else // left or right is outside of s1, copy the '-' mark
+        } else // either left or right is outside of s1 or the s[i] != '-'; copy s[i]
         {
-            //printf("bounds outside s1 or normal char: inserting %c at s2[%d]\n", s1[i], j);           
             s2[j] = s1[i];
             j++;   
         }
@@ -174,7 +167,6 @@ int is_valid_range(char a, char b)
     int type_a, type_b;
     type_a = get_type(a);
     type_b = get_type(b);
-    //printf("types a: %d, b: %d\n", type_a, type_b);
 
     return ((type_a == type_b) && (type_a != -1));
 }
@@ -198,7 +190,6 @@ int get_type(char a)
 
 int is_upper(char a)
 {
-    //printf("%c, %d %d %d\n", a, 'A', a, 'Z');
     return (a >= 'A') && (a <= 'Z');
 }
 

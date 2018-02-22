@@ -65,11 +65,14 @@ void itob(int n, char s[], int b)
       remainder = (val % b);
       if (remainder >= 10)
       {
-        //
+        // If we go above base 10, start using
+        // A through Z; offset is different, and
+        // we need to start from 0 (subtract 10).
         (s[i] = ('A' + remainder - 10));
       }
       else
       {
+        // same logic as itoa()
         ( s[i] = '0' + remainder);
       }
       i++;

@@ -20,4 +20,4 @@ Ch. 3:
 * 3.3 is solved but not as cleanly as @robot-dreams 's [solution](https://gist.github.com/robot-dreams/34d10248bc474f5a4312fa72e325656a).
 
 ## Special thanks
-* @robot-dreams for the many hours of help debugging and review.
+* [Elliott Jin (@robot-dreams)](https://github.com/robot-dreams) for the many hours of help debugging and review.

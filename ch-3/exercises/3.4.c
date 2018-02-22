@@ -52,24 +52,17 @@ int main()
 void itoa(int n, char s[])
 {
     int i, sign;
-    //int max_neg;
     unsigned val;
 
-    /*
-    max_neg = 1 << (8 * WORD_SIZE) - 1;
-    if (n == max_neg)
-    {
-
-    }
-    */
-
     sign = (n < 0);
-    val = n;
-    printf("%d,%d\n", sign, n);
+
+    // Do the two's complement procedure and store the result
+    // as an unsigned int; this will covert the value to its
+    // associated unsigned value, including 0x80...00
+    val = n * -1;
 
     do
     {
-        printf("Iterating for %d\n", val);
         s[i++] = val % 10 + '0';
     }
     while ((val /= 10) > 0);
@@ -85,9 +78,8 @@ void reverse(char s[], int len)
 {
     int i;
     char temp;
-    for(i=0; i < len/2; i++)
+    for (i=0; i < len/2; i++)
     {
-        printf("Swapping %c with %c\n", s[i], s[len - i - 1]);
         temp = s[len - i - 1];
         s[len-i-1] = s[i];
         s[i] = temp;

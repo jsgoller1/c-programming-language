@@ -51,19 +51,21 @@ int main()
 
 void itoa(int n, char s[])
 {
-    int i, sign;
+    int i, is_negative;
     unsigned val;
     i = 0;
 
-    // Abuse my notation harder, daddy.
-    (sign = (n < 0)) ? (val = n *-1) : (val = n);
+    // If the value is negative, multiply by
+    // -1 and store the result as an unsigned int.
+    is_negative = (n < 0);
+    is_negative ? (val = n * -1) : (val = n);
 
     do
     {
         s[i++] = val % 10 + '0';
     }
     while ((val /= 10) > 0);
-    if (sign)
+    if (is_negative)
     {
         s[i++] = '-';
     }

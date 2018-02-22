@@ -12,8 +12,12 @@ You can find the full 2nd edition text [here](http://cs.indstate.edu/~cbasavaraj
 `gcc -std=c99 path/to/src -o out; ./out`
 Tested on Ubuntu 17.04
 
-
 ## Incomplete exercises
 Ch. 1:
 * 1-14, 1-22.
 * 1-20 and 1-21 were solved, but not using tab stops (which I didn't understand when I wrote the solution); they are simply written as search-and-replace algorithms for the specified characters.
+Ch. 3:
+* 3.3 is solved but not as cleanly as @robot-dreams 's [solution](https://gist.github.com/robot-dreams/34d10248bc474f5a4312fa72e325656a).
+
+## Special thanks
+* @robot-dreams for the many hours of help debugging and review.

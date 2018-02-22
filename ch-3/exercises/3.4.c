@@ -53,6 +53,7 @@ void itoa(int n, char s[])
 {
     int i, sign;
     unsigned val;
+    i = 0;
 
     sign = (n < 0);
 

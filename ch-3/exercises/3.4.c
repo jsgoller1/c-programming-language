@@ -55,7 +55,7 @@ void itoa(int n, char s[])
     unsigned val;
     i = 0;
 
-    // Clarity? Who needs clarity?
+    // Abuse my notation harder, daddy.
     (sign = (n < 0)) ? (val = n *-1) : (val = n);
 
     do

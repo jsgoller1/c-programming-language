@@ -55,12 +55,8 @@ void itoa(int n, char s[])
     unsigned val;
     i = 0;
 
-    sign = (n < 0);
-
-    // Do the two's complement procedure and store the result
-    // as an unsigned int; this will covert the value to its
-    // associated unsigned value, including 0x80...00
-    val = n * -1;
+    // Clarity? Who needs clarity?
+    (sign = (n < 0)) ? (val = n *-1) : (val = n);
 
     do
     {

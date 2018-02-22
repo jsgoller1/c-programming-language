@@ -6,8 +6,8 @@ Write the function itob(n,s,b) that converts the integer n
 into a base b character representation in the string s. In particular,
 itob(n,s, 16) formats n as a hexadecimal integer in s.
 
-For the purposes of this, I am only implementing base 0 through base 16 to avoid having
-to pick characters to represent 16+.
+For the purposes of this, I am only implementing base 0 through base 36 to avoid having
+to pick characters to represent 36+.
 */
 
 void itob(int n, char s[], int b);

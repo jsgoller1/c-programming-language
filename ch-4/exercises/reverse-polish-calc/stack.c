@@ -1,16 +1,14 @@
 #include "calc.h"
 
-#define MAXVAL 100 // maximum depth of val stack
-
 int sp = 0;
-double val[MAXVAL];
+double values[MAX_STACK_SIZE];
 
 // push() - push f onto value stack
 void push(double f)
 {
-    if (sp < MAXVAL)
+    if (sp < MAX_STACK_SIZE)
     {
-        val[sp++] = f;
+        values[sp++] = f;
     }
     else
     {
@@ -18,12 +16,13 @@ void push(double f)
     }
 }
 
-// pop: pop and return top value from stack
+// pop: pop and return top value from stack; if the values are variables,
+// dereference them and then return them.
 double pop()
 {
     if (sp > 0)
     {
-        return val[--sp];
+        return values[--sp];
     }
     else{
         printf("Error: stack empty\n");
@@ -39,7 +38,7 @@ double peek()
         printf("Error, stack empty; returning 0.\n");
         return 0;
     }
-    return val[sp-1];
+    return values[sp-1];
 }
 
 // duplicate_top: instructions were unclear, but assuming that 
@@ -62,3 +61,4 @@ void swap_top()
     push(elem1);
     push(elem2);
 }
+

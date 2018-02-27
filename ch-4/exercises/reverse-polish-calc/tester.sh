@@ -1,40 +1,47 @@
 #!/bin/bash
 
-FILE=$1
+gcc -std=c99 -I ch-4/exercises/reverse-polish-calc/ ch-4/exercises/reverse-polish-calc/*.c -o ./calculator
 
-gcc -std=c99 ch-4/exercises/$FILE -o ./calculator
+function test_expression() {
+   echo $1 | tee /dev/tty | ./calculator
+}
 
 # basic operators
 ## 3
-echo "1.0 2.0 +" | tee /dev/tty | ./calculator
+test_expression "1.0 2.0 +" 
 ## 1
-echo "3 2 -" | tee /dev/tty | ./calculator
+test_expression "3 2 -"
 ## 2
-echo "4 2 /" | tee /dev/tty | ./calculator
+test_expression "4 2 /"
 ## 36
-echo "6 6 *" | tee /dev/tty | ./calculator
+test_expression "6 6 *"
 ## 0
-echo "6 6 %" | tee /dev/tty | ./calculator
+test_expression "6 6 %"
+## Prints "OK", result is unchanged
+test_expression "5 A ="
+
 
 
 # compound expressions
 ## 24
-echo "1 2 + 3 5 + *" | tee /dev/tty | ./calculator
+test_expression "1 2 + 3 5 + *"
 
 # negatives
 ## -1
-echo "3 4 -" | tee /dev/tty | ./calculator
+test_expression "3 4 -"
 ## -5
-echo "5 3 4 - / " | tee /dev/tty | ./calculator
+test_expression "5 3 4 - / "
 ## -10
-echo "5 3 5 - * " | tee /dev/tty | ./calculator
+test_expression "5 3 5 - * "
 ## 3
-echo "5 3 5 - + " | tee /dev/tty | ./calculator
+test_expression "5 3 5 - + "
 
 # malformed input
 ## "Error: stack empty"
-echo "" | tee /dev/tty | ./calculator
+test_expression ""
 ## "Error: unknown command" (for each letter, then "Error: stack empty")
-echo "asdasf" | tee /dev/tty | ./calculator
+test_expression "asdasf"
+## Invalid, result is unchanged
+test_expression "A 5 ="
 
 rm ./calculator

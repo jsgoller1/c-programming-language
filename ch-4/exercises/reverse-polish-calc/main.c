@@ -1,7 +1,5 @@
 #include "calc.h"
 
-#define MAXOP 100 // max size for operand or operator
-
 // Reverse Polish calculator
 int main()
 {
@@ -41,6 +39,10 @@ int main()
                 op2 = pop();
                 op1 = pop();
                 push((int)op1 % (int)op2);
+                break;
+            case '=':
+                // in the expression A 5 =, A is pushed first
+                assign();
                 break;            
             case '\n':
                 printf("\t%.8f\n", pop());

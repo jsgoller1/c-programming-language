@@ -131,8 +131,11 @@ char buf[BUFSIZE]; // buffer for ungetch
 int bufp = 0;
 
 int getch()
-{
-    return (bufp > 0) ? buf[--bufp] : getchar();
+{   
+    int gotten;
+    gotten = (bufp > 0) ? buf[--bufp] : getchar();
+    printf("Got this: %c == %d\n", gotten, gotten);
+    return gotten;
 }
 
 void ungetch(int c)

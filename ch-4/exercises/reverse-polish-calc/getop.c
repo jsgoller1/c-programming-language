@@ -10,10 +10,17 @@ int getop(char s[])
         // no op; get all characters until a space/tab/newline is hit
     }
     s[1] = '\0';
+    if (isalpha(c))
+    {
+        printf("%c is alpha, dereferencing.\n", c);
+        sprintf(s, "%g", dereference(c));
+        return NUMBER;
+    }
     if (!isdigit(c) && c != '.')
     {
         return c; // if not a number or floating point
     }
+
     i = 0;
     if (isdigit(c)) // collect integer part
     {
@@ -34,6 +41,7 @@ int getop(char s[])
     {
         ungetch(c);
     }
+
     return NUMBER;        
 }
 

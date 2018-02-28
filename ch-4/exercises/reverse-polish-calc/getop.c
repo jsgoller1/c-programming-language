@@ -12,9 +12,7 @@ int getop(char s[])
     s[1] = '\0';
     if (isalpha(c))
     {
-        printf("%c is alpha, dereferencing.\n", c);
-        sprintf(s, "%g", dereference(c));
-        return NUMBER;
+        return VAR;
     }
     if (!isdigit(c) && c != '.')
     {
@@ -42,6 +40,6 @@ int getop(char s[])
         ungetch(c);
     }
 
-    return NUMBER;        
+    return RAW;        
 }
 

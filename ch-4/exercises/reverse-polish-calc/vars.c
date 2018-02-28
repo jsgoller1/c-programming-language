@@ -12,8 +12,9 @@ double vars_stack[MAX_STACK_SIZE];
 
 // store: saves data to the variables stack; if pop() encounters a
 // non-int, it will attempt to dereference it from this stack.
-void store_var(int lval, double rval)
+void store_var(double val1[], double val2[])
 {
+    /*
     // Suppose we want to assign to 'Q'. Upper case variable values are 
     // stored starting at vars_stack[26]; to correctly 
     // store the value associated with 'Q', we can use
@@ -42,10 +43,12 @@ void store_var(int lval, double rval)
     }
 
     printf("Stored %c = %f.\n", lval, rval);
+    */
 }
 
-void assign()
+void assign(double val1[], double val2[])
 {
+    /*
     int lval, valid_rval, c;
     char s[MAXOP];
 
@@ -71,10 +74,12 @@ void assign()
     {
         printf("Error: Invalid rvalue for variable assignment.\n");
     }
+    */
 }
 
-double dereference(int var)
+double dereference(double var[])
 {
+    /*
     int upper_case_offset = 65 - 26;
     double ret;
 
@@ -94,4 +99,5 @@ double dereference(int var)
 
     printf("ret: %f\n", ret);
     return ret;
+    */
 }

@@ -1,52 +1,64 @@
 #include "calc.h"
 
 int sp = 0;
-double values[MAX_STACK_SIZE];
+double stack[MAX_STACK_SIZE]; // 2 for value and type
 
 // push() - push f onto value stack
-void push(double f)
+void push(double val[])
 {
-    if (sp < MAX_STACK_SIZE)
+    if (sp < MAX_STACK_SIZE-1)
     {
-        values[sp++] = f;
+        stack[sp++] = val[1];
+        stack[sp++] = val[0];
     }
     else
     {
-        printf("Error; stack full - can't push %g\n", f);
+        printf("Error; stack full.\n");
     }
 }
 
-// pop: pop and return top value from stack; if the values are variables,
-// dereference them and then return them.
-double pop()
-{
-    if (sp > 0)
-    {
-        return values[--sp];
-    }
-    else{
-        printf("Error: stack empty\n");
-        return 0.0;
-    }
-}
-
-// peek: reveal the top element of the stack without decrementing sp
-double peek()
+// pop: return the top value/type pair from stack and decrement the stack pointer
+void pop(double ret[])
 {
     if (sp == 0)
     {
-        printf("Error, stack empty; returning 0.\n");
-        return 0;
+        printf("Error: stack empty.\n");
     }
-    return values[sp-1];
+    else if (sp < 1)
+    {
+        printf("Error: stack invalid.\n");
+    }
+    else
+    {
+        ret[0] = stack[sp--]; // val
+        ret[1] = stack[sp--]; // type
+    }
+}
+
+// peek: return the top value/type pair from stack without decrementing sp;
+void peek(double ret[])
+{
+    if (sp == 0)
+    {
+        printf("Error: stack empty.\n");
+    }
+    else if (sp < 1)
+    {
+        printf("Error: stack invalid.\n");
+    }
+    else
+    {
+        ret[0] = stack[sp];   // val
+        ret[1] = stack[sp-1]; // type
+    }
 }
 
 // duplicate_top: instructions were unclear, but assuming that 
 // this means add another element equal to the top element.
 void duplicate_top()
 {
-    double top;
-    top = pop();
+    double top[2];
+    pop(top); // and the fun don't stop!
     push(top);
     push(top);
 }
@@ -54,11 +66,12 @@ void duplicate_top()
 // swap_top: switch the top two elements of the stack
 void swap_top()
 {
-    double elem1, elem2;
-    elem1 = pop();
-    elem2 = pop();
+    double top[2];
+    double second[2];
+    pop(top);
+    pop(second);
 
-    push(elem1);
-    push(elem2);
+    push(top);
+    push(second);
 }
 

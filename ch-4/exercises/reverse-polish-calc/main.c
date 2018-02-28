@@ -4,48 +4,57 @@
 int main()
 {
     int type;
-    double op2, op1;
+    double op1[2];
+    double op2[2];
     char s[MAXOP];
 
     while ((type = getop(s)) != EOF)
     {
         switch(type)
         {
-            case NUMBER:
-                push(atof(s));
+            case (int)RAW:
+                op1[0] = atof(s);
+                op1[1] = RAW;
+                push(op1);
                 break;
+            case (int)VAR:
+                op1[0] = s[0];
+                op1[1] = VAR;
+                push(op1);
+                break;                
             case '+':
-                push(pop() + pop()); // commutative; pop() order is irrelevant
+                pop(op1);
+                pop(op2);
+                add(op1, op2);
                 break;
             case '*':
-                push(pop() * pop()); // commutative; pop() order is irrelevant
+                pop(op1);
+                pop(op2);
+                multiply(op1, op2);
                 break;
             case '-':
-                op2 = pop();
-                push(pop() - op2);
+                pop(op1);
+                pop(op2);
+                subtract(op1, op2);
                 break;
             case '/':
-                op2 = pop();
-                if (op2 != 0.0)
-                {
-                    push(pop() / op2);
-                }
-                else 
-                {
-                    printf("Error: div by zero");
-                }
+                pop(op1);
+                pop(op2);
+                divide(op1, op2);
                break;
             case '%':
-                op2 = pop();
-                op1 = pop();
-                push((int)op1 % (int)op2);
+                pop(op1);
+                pop(op2);
+                modulus(op1, op2);
                 break;
             case '=':
-                // in the expression A 5 =, A is pushed first
-                assign();
+                pop(op1);
+                pop(op2);
+                assign(op1, op2);
                 break;            
             case '\n':
-                printf("\t%.8f\n", pop());
+                pop(op1);
+                printf("\t%.8f\n", op1[0]);
                 break;
             default:
                 printf("error: unknown command %s\n", s);

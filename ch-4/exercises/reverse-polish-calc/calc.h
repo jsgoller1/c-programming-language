@@ -13,6 +13,7 @@
 // or a raw float; the "type" is pushed first and the value is pushed second. 
 #define VAR 0.0
 #define RAW 1.0
+#define GARBAGE 2.0
 
 #define true 1
 #define false 0
@@ -39,6 +40,6 @@ void duplicate_top();
 void swap_top();
 
 // vars.c
-void store_var(double val1[], double val2[]);
 void assign(double val1[], double val2[]);
-double dereference(double var[]);
+void dereference(double var[]);
+int validate_var(double var[]);

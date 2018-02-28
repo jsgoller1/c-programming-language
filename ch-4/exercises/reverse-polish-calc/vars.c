@@ -6,15 +6,13 @@
 int vars_stack_pointer = 0;
 double vars_stack[MAX_STACK_SIZE];
 
-// this flag is set if the last character parsed 
-// by getop() was a variable
-// extern parsed_var;
-
-// store: saves data to the variables stack; if pop() encounters a
-// non-int, it will attempt to dereference it from this stack.
-void store_var(double val1[], double val2[])
+void assign(double val1[], double val2[])
 {
-    /*
+    if (!validate_var(val1))
+    {
+        return;
+    }
+
     // Suppose we want to assign to 'Q'. Upper case variable values are 
     // stored starting at vars_stack[26]; to correctly 
     // store the value associated with 'Q', we can use
@@ -27,77 +25,67 @@ void store_var(double val1[], double val2[])
     int upper_case_offset = 65 - 26;
 
     // coerce to int to use lval as index
-    int lval_index = lval;
+    int lval_index = val1[0];
 
-    if (lval >= 'a' && lval <= 'z')
+    if (val2[1] == VAR)
     {
-        vars_stack[lval_index - 'a'] = rval;        
-    }
-    else if (lval >= 'A' && lval <= 'Z')
-    {
-        vars_stack[lval_index - upper_case_offset] = rval;        
-    }
-    else
-    {
-        printf("Error - invalid variable assignment; no variables assigned.\n");
+        dereference(val2);
     }
 
-    printf("Stored %c = %f.\n", lval, rval);
-    */
+    if (lval_index >= 'a' && lval_index <= 'z')
+    {
+        vars_stack[lval_index - 'a'] = val2[0];        
+    }
+    else if (lval_index >= 'A' && lval_index <= 'Z')
+    {
+        vars_stack[lval_index - upper_case_offset] = val2[0];        
+    }
+
+    printf("Stored %c = %f.\n", (int)val1[0], val2[0]);
+
+    // Observe C style where assignment returns the value assigned
+    push(val2);
 }
 
-void assign(double val1[], double val2[])
+void dereference(double var[])
 {
-    /*
-    int lval, valid_rval, c;
-    char s[MAXOP];
+    int upper_case_offset = 65 - 26;
+    int index;
 
-    while (((c = getchar()) == ' ') || c == '\t' )
+    if (!validate_var(var))
     {
-        // no op; get all characters until a space/tab/newline is hit
-    }    
+        return;
+    }
 
-    lval = c;
-    if (!((lval >= 'a' && lval <= 'z') || (lval >= 'A' && lval <= 'Z')))
+    index = (int)var[0];
+    if (index >= 'a' && index <= 'z')
+    {
+        var[0] = vars_stack[index - 'a'];        
+    }
+    else if (index >= 'A' && index <= 'Z')
+    {
+        var[0] = vars_stack[index - upper_case_offset];        
+    }    
+    else
     {
         printf("Error: Invalid lvalue for variable assignment.\n");
         return;
     }
-    
-    valid_rval = getop(s);
 
-    if (valid_rval == NUMBER)
-    {
-        store_var(lval, atof(s));
-    }
-    else
-    {
-        printf("Error: Invalid rvalue for variable assignment.\n");
-    }
-    */
+    var[1] = RAW;
 }
 
-double dereference(double var[])
+int validate_var(double var[])
 {
-    /*
-    int upper_case_offset = 65 - 26;
-    double ret;
-
-    if (var >= 'a' && var <= 'z')
+    if (!((var[0] >= 'a' && var[0] <= 'z') || (var[0] >= 'A' && var[0] <= 'Z')))
     {
-        ret = vars_stack[var - 'a'];        
+        printf("Error: invalid variable name.\n");        
+        return 0;
     }
-    else if (var >= 'A' && var <= 'Z')
+    else if (var[1] != VAR)
     {
-        ret = vars_stack[var - upper_case_offset];        
-    }    
-    else
-    {
-        printf("Error: Invalid lvalue for variable assignment.\n");
-        return 0.0;
+        printf("Error: not a variable, cannot assign.\n");
+        return 0;
     }
-
-    printf("ret: %f\n", ret);
-    return ret;
-    */
+    return 1;
 }

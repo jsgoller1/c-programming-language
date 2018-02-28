@@ -8,18 +8,18 @@ function test_expression() {
 
 # basic operators
 ## 3
-test_expression "42.0 666.0 +"
+#test_expression "42.0 666.0 +"
 ## 1
-test_expression "3 2 -"
+#test_expression "3 2 -"
 ## 2
-test_expression "4 2 /"
+#test_expression "4 2 /"
 ## 36
 #test_expression "6 6 *"
 ## 0
-test_expression "6 6 %"
+#test_expression "6 6 %"
 ## Prints "OK", result is unchanged
-test_expression "5 A ="
-
+test_expression "A 5 ="
+## Prints "OK", result is unchanged
 
 
 # compound expressions
@@ -44,4 +44,4 @@ test_expression "5 A ="
 ## Invalid, result is unchanged
 #test_expression "A 5 ="
 
-rm ./calculator
+# rm ./calculator

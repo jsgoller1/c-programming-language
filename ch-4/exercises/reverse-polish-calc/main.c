@@ -54,10 +54,15 @@ int main()
                 break;            
             case '\n':
                 pop(op1);
+                if (op1[1] == VAR)
+                {
+                    dereference(op1);
+                }
                 printf("\t%.8f\n", op1[0]);
                 break;
+            case (int)GARBAGE:
             default:
-                printf("error: unknown command %s\n", s);
+                printf("error: invalid expression %s\n", s);
                 break;
         }
     }

@@ -1,3 +1,5 @@
+#include "calc.h"
+
 // operations.c
 void add(double val1[], double val2[])
 {

@@ -23,33 +23,33 @@ int main()
                 push(op1);
                 break;                
             case '+':
-                pop(op1);
                 pop(op2);
+                pop(op1);
                 add(op1, op2);
                 break;
             case '*':
-                pop(op1);
                 pop(op2);
+                pop(op1);
                 multiply(op1, op2);
                 break;
             case '-':
-                pop(op1);
                 pop(op2);
+                pop(op1);
                 subtract(op1, op2);
                 break;
             case '/':
-                pop(op1);
                 pop(op2);
+                pop(op1);
                 divide(op1, op2);
                break;
             case '%':
-                pop(op1);
                 pop(op2);
+                pop(op1);
                 modulus(op1, op2);
                 break;
             case '=':
-                pop(op1);
                 pop(op2);
+                pop(op1);
                 assign(op1, op2);
                 break;            
             case '\n':

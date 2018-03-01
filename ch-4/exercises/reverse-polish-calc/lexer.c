@@ -9,12 +9,11 @@ this file do.
 */
 
 // lex: get next operator or numeric operand
-int lex(char s[])
+int lex(char symbol[], int token_len)
 {
     int i, c, c2, len;
-    char symbol[MAX_TOKEN_SIZE];
 
-    while(len = parse(symbol, MAX_TOKEN_SIZE))
+    while(len = parse(symbol, token_len))
     {
         if (len == 0)
         {
@@ -34,6 +33,9 @@ int lex(char s[])
             return GARBAGE;
         }
     }
+
+    // Should never be hit, but just to avoid garbage return.
+    return EXIT;
 }
 
 int handle_alpha(char operator[], int len)
@@ -101,10 +103,6 @@ int handle_alpha(char operator[], int len)
         else if (strncmp(operator, FLOR_STR, len) == 0)
         {
             return FLOR;
-        }
-        else if (strncmp(operator, CIEL_STR, len) == 0)
-        {
-            return CIEL;
         }
     }
 

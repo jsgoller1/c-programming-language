@@ -2,6 +2,7 @@
 
 #include <stdio.h>
 #include <stdlib.h> // for atof()
+#include <string.h>
 #include <ctype.h>
 #include <math.h>
 
@@ -40,8 +41,6 @@
 #define SQRT_STR "SQRT"
 #define FLOR 13
 #define FLOR_STR "FLOR"
-#define CIEL 14
-#define CIEL_STR "CEIL"
 
 // bools
 #define true 1
@@ -53,16 +52,16 @@ void ungetch(int);
 int parse(char s[], int s_size);
 
 // lexer.c
-int lex(char []);
+int lex(char symbol[], int len);
 int handle_alpha(char operator[], int len);
 int handle_numeric(char operator[], int len);
 
 // rpn_math.c
-void add(double val1[], double val2[]);
-void subtract(double val1[], double val2[]);
-void multiply(double val1[], double val2[]);
-void divide(double val1[], double val2[]);
-void modulus(double val1[], double val2[]);
+void rpn_add(double val1[], double val2[]);
+void rpn_subtract(double val1[], double val2[]);
+void rpn_multiply(double val1[], double val2[]);
+void rpn_divide(double val1[], double val2[]);
+void rpn_modulus(double val1[], double val2[]);
 void rpn_sin(double val1[]);
 void rpn_cos(double val1[]);
 void rpn_tan(double val1[]);
@@ -73,7 +72,6 @@ void rpn_pow(double val1[], double val2[]);
 void rpn_exp(double val1[]);
 void rpn_sqrt(double val1[]);
 void rpn_floor(double val1[]);
-void rpn_ciel(double val1[]);
 
 
 // stack.c

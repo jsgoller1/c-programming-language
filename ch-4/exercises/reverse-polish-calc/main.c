@@ -8,7 +8,7 @@ int main()
     int type;
     char token[MAX_TOKEN_SIZE];
 
-    while (type = lex(token))
+    while (type = lex(token, MAX_TOKEN_SIZE))
     {
         switch(type)
         {
@@ -92,10 +92,6 @@ int main()
             case FLOR:
                 pop(op1);
                 rpn_floor(op1);
-                break;
-            case CIEL:
-                pop(op1);
-                rpn_ciel(op1);
                 break;
             case EXIT:
                 break;

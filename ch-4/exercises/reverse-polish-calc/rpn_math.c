@@ -99,7 +99,7 @@ void rpn_sin(double val1[])
     }
 
     val1[0] = sin(val1[0]);
-    val1[1] == RAW;
+    val1[1] = RAW;
     push(val1);
 }
 
@@ -111,7 +111,7 @@ void rpn_cos(double val1[])
     }
 
     val1[0] = cos(val1[0]);
-    val1[1] == RAW;
+    val1[1] = RAW;
     push(val1);
 }
 
@@ -123,7 +123,7 @@ void rpn_tan(double val1[])
     }
 
     val1[0] = tan(val1[0]);
-    val1[1] == RAW;
+    val1[1] = RAW;
     push(val1);
 }
 
@@ -135,7 +135,7 @@ void rpn_asin(double val1[])
     }
 
     val1[0] = asin(val1[0]);
-    val1[1] == RAW;
+    val1[1] = RAW;
     push(val1);
 }
 
@@ -147,7 +147,7 @@ void rpn_acos(double val1[])
     }
 
     val1[0] = acos(val1[0]);
-    val1[1] == RAW;
+    val1[1] = RAW;
     push(val1);
 }
 
@@ -159,7 +159,7 @@ void rpn_atan(double val1[])
     }
 
     val1[0] = atan(val1[0]);
-    val1[1] == RAW;
+    val1[1] = RAW;
     push(val1);
 }
 
@@ -175,7 +175,7 @@ void rpn_pow(double val1[], double val2[])
     }
 
     val1[0] = pow(val1[0], val2[0]);
-    val1[1] == RAW;
+    val1[1] = RAW;
     push(val1);
 }
 
@@ -187,7 +187,7 @@ void rpn_exp(double val1[])
     }
 
     val1[0] = exp(val1[0]);
-    val1[1] == RAW;
+    val1[1] = RAW;
     push(val1);
 }
 
@@ -199,7 +199,7 @@ void rpn_sqrt(double val1[])
     }
 
     val1[0] = sqrt(val1[0]);
-    val1[1] == RAW;
+    val1[1] = RAW;
     push(val1);
 }
 
@@ -211,18 +211,6 @@ void rpn_floor(double val1[])
     }
 
     val1[0] = floor(val1[0]);
-    val1[1] == RAW;
-    push(val1);
-}
-
-void rpn_ciel(double val1[])
-{
-    if (val1[1] == VAR)
-    {
-        dereference(val1);
-    }
-
-    val1[0] = ciel(val1[0]);
-    val1[1] == RAW;
+    val1[1] = RAW;
     push(val1);
 }

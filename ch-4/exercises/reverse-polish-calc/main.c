@@ -6,7 +6,7 @@ int main()
     double op1[2];
     double op2[2];
     int type;
-    char token[MAXOP];
+    char token[MAX_TOKEN_SIZE];
 
     while (type = lex(token))
     {
@@ -22,51 +22,88 @@ int main()
                 op1[1] = (double)VAR;
                 push(op1);
                 break;
-            case '+':
-                pop(op2);
-                pop(op1);
-                add(op1, op2);
-                break;
-            case '*':
-                pop(op2);
-                pop(op1);
-                multiply(op1, op2);
-                break;
-            case '-':
-                pop(op2);
-                pop(op1);
-                subtract(op1, op2);
-                break;
-            case '/':
-                pop(op2);
-                pop(op1);
-                divide(op1, op2);
-               break;
-            case '%':
-                pop(op2);
-                pop(op1);
-                modulus(op1, op2);
-                break;
             case '=':
                 pop(op2);
                 pop(op1);
                 assign(op1, op2);
                 break;
-            case '\n':
+            case '+':
+                pop(op2);
                 pop(op1);
-                if (op1[1] == VAR)
-                {
-                    dereference(op1);
-                }
-                printf("\t%.8f\n", op1[0]);
+                rpn_add(op1, op2);
+                break;
+            case '*':
+                pop(op2);
+                pop(op1);
+                rpn_multiply(op1, op2);
+                break;
+            case '-':
+                pop(op2);
+                pop(op1);
+                rpn_subtract(op1, op2);
+                break;
+            case '/':
+                pop(op2);
+                pop(op1);
+                rpn_divide(op1, op2);
+               break;
+            case '%':
+                pop(op2);
+                pop(op1);
+                rpn_modulus(op1, op2);
+                break;
+            case SIN:
+                pop(op1);
+                rpn_sin(op1);
+                break;
+            case COS:
+                pop(op1);
+                rpn_cos(op1);
+                break;
+            case TAN:
+                pop(op1);
+                rpn_tan(op1);
+                break;
+            case ASIN:
+                pop(op1);
+                rpn_asin(op1);
+                break;
+            case ACOS:
+                pop(op1);
+                rpn_acos(op1);
+                break;
+            case ATAN:
+                pop(op1);
+                rpn_atan(op1);
+                break;
+            case POW:
+                pop(op1);
+                rpn_pow(op1);
+                break;
+            case EXP:
+                pop(op1);
+                rpn_exp(op1);
+                break;
+            case SQRT:
+                pop(op1);
+                rpn_sqrt(op1);
+                break;
+            case FLOR:
+                pop(op1);
+                rpn_floor(op1);
+                break;
+            case CIEL:
+                pop(op1);
+                rpn_ciel(op1);
                 break;
             case EXIT:
                 break;
-                case GARBAGE:
+            case GARBAGE:
             default:
-                printf("error: invalid expression %s\n", s);
+                printf("error: invalid expression %s\n", token);
                 break;
         }
+    // pop stack and display result, unless the resultant expression is bad
     }
     return 0;
 }

@@ -7,7 +7,7 @@
 
 #define NUMBER '0'
 #define MAX_STACK_SIZE 100      // maximum depth of values stack
-#define MAX_OP_SIZE 100               // max size for operand or operator
+#define MAX_TOKEN_SIZE 100      // max size for operand or operator
 #define PARSE_BUFFER_SIZE 100   // buffer for ungetch
 
 // The calculator accepts whitespace separated operands; as we parse

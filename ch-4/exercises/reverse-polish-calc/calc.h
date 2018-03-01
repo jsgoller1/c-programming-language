@@ -57,18 +57,24 @@ int lex(char []);
 int handle_alpha(char operator[], int len);
 int handle_numeric(char operator[], int len);
 
-// operations.c
+// rpn_math.c
 void add(double val1[], double val2[]);
 void subtract(double val1[], double val2[]);
 void multiply(double val1[], double val2[]);
 void divide(double val1[], double val2[]);
 void modulus(double val1[], double val2[]);
-void sin(double val1[]);
-void cos(double val1[]);
-void tan(double val1[]);
-void pow(double val1[], double val2[]);
-void exp(double val1[]);
-void sqrt(double val1[]);
+void rpn_sin(double val1[]);
+void rpn_cos(double val1[]);
+void rpn_tan(double val1[]);
+void rpn_asin(double val1[]);
+void rpn_acos(double val1[]);
+void rpn_atan(double val1[]);
+void rpn_pow(double val1[], double val2[]);
+void rpn_exp(double val1[]);
+void rpn_sqrt(double val1[]);
+void rpn_floor(double val1[]);
+void rpn_ciel(double val1[]);
+
 
 // stack.c
 void push(double val[]);

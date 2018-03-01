@@ -16,6 +16,11 @@ int lex(char s[])
 
     while(len = parse(symbol, MAX_TOKEN_SIZE))
     {
+        if (len == 0)
+        {
+            return EXIT;
+        }
+
         if (isalpha(symbol[0]))
         {
             handle_alpha(symbol, len);

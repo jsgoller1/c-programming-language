@@ -12,9 +12,9 @@ this file do.
 int lex(char s[])
 {
     int i, c, c2, len;
-    char symbol[MAX_OP_SIZE];
+    char symbol[MAX_TOKEN_SIZE];
 
-    while(len = parse(symbol, MAX_OP_SIZE))
+    while(len = parse(symbol, MAX_TOKEN_SIZE))
     {
         if (isalpha(symbol[0]))
         {
@@ -22,7 +22,7 @@ int lex(char s[])
         }
         else if (isdigit(symbol[0]) || symbol[0] == '.')
         {
-            handle_alpha(symbol, len);
+            return RAW;
         }
         else
         {
@@ -108,6 +108,7 @@ int handle_alpha(char operator[], int len)
     return GARBAGE;
 }
 
+/*
 int handle_numeric(char operator[], int len)
 {
     int i;
@@ -115,7 +116,7 @@ int handle_numeric(char operator[], int len)
     {
 
     }
-    /*
+
     if (!isdigit(c) && c != '.')
     {
         return c; // if not a number or floating point
@@ -141,5 +142,5 @@ int handle_numeric(char operator[], int len)
     {
         ungetch(c);
     }
-*/
 }
+*/

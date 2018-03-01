@@ -77,8 +77,9 @@ int main()
                 rpn_atan(op1);
                 break;
             case POW:
+                pop(op2);
                 pop(op1);
-                rpn_pow(op1);
+                rpn_pow(op1, op2);
                 break;
             case EXP:
                 pop(op1);
@@ -100,10 +101,20 @@ int main()
                 break;
             case GARBAGE:
             default:
-                printf("error: invalid expression %s\n", token);
+                printf("Error: invalid expression %s\n", token);
                 break;
         }
-    // pop stack and display result, unless the resultant expression is bad
+
+        // pop stack and display result, unless the resultant expression is bad
+        if (get_stack_size() != 1)
+        {
+            printf("Error: expression resulted in invalid computation.\n");
+        }
+        else
+        {
+            pop(op1);
+            printf("%.8g\n", op1[0]);
+        }
     }
     return 0;
 }

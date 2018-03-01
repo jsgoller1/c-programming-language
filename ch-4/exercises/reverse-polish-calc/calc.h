@@ -82,6 +82,7 @@ void pop(double ret[]);
 void peek(double ret[]);
 void duplicate_top();
 void swap_top();
+int get_stack_size();
 
 // vars.c
 void assign(double val1[], double val2[]);

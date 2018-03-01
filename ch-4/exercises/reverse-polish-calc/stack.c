@@ -55,7 +55,7 @@ void peek(double ret[])
     }
 }
 
-// duplicate_top: instructions were unclear, but assuming that 
+// duplicate_top: instructions were unclear, but assuming that
 // this means add another element equal to the top element.
 void duplicate_top()
 {
@@ -77,3 +77,7 @@ void swap_top()
     push(second);
 }
 
+int get_stack_size()
+{
+    return sp / 2;
+}

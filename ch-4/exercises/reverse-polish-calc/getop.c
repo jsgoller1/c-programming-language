@@ -57,6 +57,7 @@ int getop(char s[])
         ungetch(c);
     }
 
-    return RAW;        
+    return RAW;
 }
 
+int

@@ -12,16 +12,16 @@ int main()
     {
         switch(type)
         {
-            case (int)RAW:
+            case RAW:
                 op1[0] = atof(s);
-                op1[1] = RAW;
+                op1[1] = (double)RAW;
                 push(op1);
                 break;
-            case (int)VAR:
+            case VAR:
                 op1[0] = s[0];
-                op1[1] = VAR;
+                op1[1] = (double)VAR;
                 push(op1);
-                break;                
+                break;
             case '+':
                 pop(op2);
                 pop(op1);
@@ -51,7 +51,7 @@ int main()
                 pop(op2);
                 pop(op1);
                 assign(op1, op2);
-                break;            
+                break;
             case '\n':
                 pop(op1);
                 if (op1[1] == VAR)
@@ -60,7 +60,7 @@ int main()
                 }
                 printf("\t%.8f\n", op1[0]);
                 break;
-            case (int)GARBAGE:
+            case GARBAGE:
             default:
                 printf("error: invalid expression %s\n", s);
                 break;

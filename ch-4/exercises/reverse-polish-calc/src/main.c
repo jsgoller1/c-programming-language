@@ -22,32 +22,32 @@ int main()
                 op1[1] = (double)VAR;
                 push(op1);
                 break;
-            case '=':
+            case ASSIGN:
                 pop(op2);
                 pop(op1);
                 assign(op1, op2);
                 break;
-            case '+':
+            case ADD:
                 pop(op2);
                 pop(op1);
                 rpn_add(op1, op2);
                 break;
-            case '*':
+            case MUL:
                 pop(op2);
                 pop(op1);
                 rpn_multiply(op1, op2);
                 break;
-            case '-':
+            case SUB:
                 pop(op2);
                 pop(op1);
                 rpn_subtract(op1, op2);
                 break;
-            case '/':
+            case DIV:
                 pop(op2);
                 pop(op1);
                 rpn_divide(op1, op2);
                break;
-            case '%':
+            case MOD:
                 pop(op2);
                 pop(op1);
                 rpn_modulus(op1, op2);
@@ -100,17 +100,17 @@ int main()
                 printf("Error: invalid expression %s\n", token);
                 break;
         }
-
-        // pop stack and display result, unless the resultant expression is bad
-        if (get_stack_size() != 1)
-        {
-            printf("Error: expression resulted in invalid computation.\n");
-        }
-        else
-        {
-            pop(op1);
-            printf("%.8g\n", op1[0]);
-        }
     }
+
+    // pop stack and display result, unless the resultant expression is bad
+    if (get_stack_size() != 1)
+    {
+        printf("Error: expression resulted in invalid computation.\n");
+    }
+    else
+    {
+        pop(op1);
+        printf("%.8g\n", op1[0]);
+    }    
     return 0;
 }

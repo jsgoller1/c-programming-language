@@ -41,6 +41,12 @@
 #define SQRT_STR "SQRT"
 #define FLOR 13
 #define FLOR_STR "FLOR"
+#define ASSIGN 14
+#define ADD 15
+#define SUB 16
+#define DIV 17
+#define MUL 18
+#define MOD 19
 
 // bools
 #define true 1
@@ -55,6 +61,8 @@ int parse(char s[], int s_size);
 int lex(char symbol[], int len);
 int handle_alpha(char oper[], int len);
 int handle_numeric(char oper[], int len);
+int is_operator(char oper[]);
+int handle_operator(char oper[]);
 
 // rpn_math.c
 void rpn_add(double val1[], double val2[]);

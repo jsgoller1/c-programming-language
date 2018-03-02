@@ -19,17 +19,25 @@ int lex(char symbol[], int token_len)
         {
             return EXIT;
         }
+        if (is_operator(symbol))
+        {
+            //printf("Returning operator.\n");
+            return handle_operator(symbol);
+        }
 
         if (isalpha(symbol[0]))
         {
-            handle_alpha(symbol, len);
+            //printf("Returning alpha.\n");
+            return handle_alpha(symbol, len);
         }
         else if (isdigit(symbol[0]) || symbol[0] == '.')
         {
+            //printf("Returning raw.\n");
             return RAW;
         }
         else
         {
+            //printf("Returning garbage.\n");            
             return GARBAGE;
         }
     }
@@ -110,39 +118,26 @@ int handle_alpha(char operator[], int len)
     return GARBAGE;
 }
 
-/*
-int handle_numeric(char operator[], int len)
+int is_operator(char oper[])
 {
-    int i;
-    for (i = 0; i < len; i++)
-    {
+    return ((oper[0] == '+') ||  (oper[0] == '-') ||  (oper[0] == '/') ||  (oper[0] == '*') ||  (oper[0] == '%'));
+}
 
-    }
-
-    if (!isdigit(c) && c != '.')
+int handle_operator(char operator[])
+{
+    switch(operator[0])
     {
-        return c; // if not a number or floating point
-    }
-
-    i = 0;
-    if (isdigit(c)) // collect integer part
-    {
-        while(isdigit(s[++i] = c = getch()))
-        {
-            // no-op
-        }
-    }
-    if (c == '.') // collect fractional part
-    {
-        while(isdigit(s[++i] = c = getch()))
-        {
-            // no-op
-        }
-    }
-    s[i] = '\0';
-    if (c != EOF)
-    {
-        ungetch(c);
+        case '+':
+            return ADD;
+        case '-':
+            return SUB;
+        case '*':
+            return MUL;
+        case '/':
+            return DIV;
+        case '%':
+            return MOD;
+        default:
+            return GARBAGE;                            
     }
 }
-*/

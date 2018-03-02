@@ -10,7 +10,7 @@ void push(double val[])
     {
         stack[sp++] = val[1];
         stack[sp++] = val[0];
-        //printf("push: %f (type: %f)\n", val[0], val[1]);
+        //printf("stack::push: %f (type: %f)\n", val[0], val[1]);
     }
     else
     {
@@ -33,7 +33,7 @@ void pop(double ret[])
     {
         ret[0] = stack[--sp]; // val
         ret[1] = stack[--sp]; // type
-        //printf("pop: %f (type: %f)\n", ret[0], ret[1]);
+        //printf("stack::pop: %f (type: %f)\n", ret[0], ret[1]);
     }
 }
 

@@ -47,6 +47,7 @@
 #define DIV 17
 #define MUL 18
 #define MOD 19
+#define DISPLAY 20
 
 // bools
 #define true 1
@@ -89,6 +90,7 @@ void peek(double ret[]);
 void duplicate_top();
 void swap_top();
 int get_stack_size();
+void display();
 
 // vars.c
 void assign(double val1[], double val2[]);

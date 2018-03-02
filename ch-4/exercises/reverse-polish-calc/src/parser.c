@@ -40,10 +40,10 @@ int parse(char s[], int s_size)
     // if the very first char is \n, it means
     // the line is empty or the last call to parse
     // was at the end of a line, so we can safely
-    // exit.
+    // print the result of the expression.
     if (c == '\n')
     {
-        printf("Initial parse encountered newline, returning 0.\n");
+        getch(); // remove it from the buffer so we start clean next time we parse
         return 0;
     }
 
@@ -52,22 +52,25 @@ int parse(char s[], int s_size)
     // a newline, push it back into the buffer, return
     // and let the next call to parse() end lexing.
     while (((c = getch()) != EOF) && !(c == ' ' || c == '\t' || c == '\n') && (i < s_size))
-    //while ((c = getch()) != EOF)
     {
         //printf("parsed: %c\n", c);
         s[i++] = c;
     }
     s[i] = '\0';
 
-    if (c == '\n')
-    {
-        ungetch(c);
-    }
-
     if (c == EOF)
     {
-        //printf("returning 0\n");        
-        return 0;
+        //printf("returning -1\n");        
+        return -1;
+    }
+    else if (c == '\n')
+    {
+        // \n indicates we're at the end of the expression,
+        // but we need to parse the last operator, so
+        // push this back and then on the next parse
+        // iteration we'll quit based on it.
+        ungetch(c);
+        return i;
     }
     else
     {

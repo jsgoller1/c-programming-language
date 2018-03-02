@@ -84,3 +84,19 @@ int get_stack_size()
 {
     return sp / 2;
 }
+
+void display()
+{
+    double op1[2];
+
+    // pop stack and display result, unless the resultant expression is bad
+    if (get_stack_size() != 1)
+    {
+        printf("Error: expression resulted in invalid computation.\n");
+    }
+    else
+    {
+        pop(op1);
+        printf("%8.g\n", op1[0]);
+    }    
+}

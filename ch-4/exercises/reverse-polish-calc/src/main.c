@@ -93,24 +93,17 @@ int main()
                 pop(op1);
                 rpn_floor(op1);
                 break;
+            case DISPLAY:
+                display();
+                break;    
             case EXIT:
+                printf("Quitting, bye!\n"); // TODO: Never actually called?
                 break;
             case GARBAGE:
             default:
-                printf("Error: invalid expression %s\n", token);
+                printf("Error: invalid expression %s.\n", token);
                 break;
         }
     }
-
-    // pop stack and display result, unless the resultant expression is bad
-    if (get_stack_size() != 1)
-    {
-        printf("Error: expression resulted in invalid computation.\n");
-    }
-    else
-    {
-        pop(op1);
-        printf("%.8g\n", op1[0]);
-    }    
     return 0;
 }

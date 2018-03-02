@@ -15,7 +15,7 @@ int lex(char symbol[], int token_len)
 
     while((len = parse(symbol, token_len)))
     {
-        if (len == 0)
+        if (len == -1)
         {
             return EXIT;
         }
@@ -42,8 +42,8 @@ int lex(char symbol[], int token_len)
         }
     }
 
-    // Should never be hit, but just to avoid garbage return.
-    return EXIT;
+    // Loop breaks on display.
+    return DISPLAY;
 }
 
 int handle_alpha(char operator[], int len)

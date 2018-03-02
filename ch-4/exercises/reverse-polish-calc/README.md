@@ -8,16 +8,16 @@ may either be floating point values, variables, or a nested expression.
 * You can assign single-character variables via the `=` operator: `a 4 =`; assignment is C-style (i.e. returns the value assigned).
 * Basic arithmetic operators: `+`, `-`, `*`, `/`, and `%`.
 * Math functions as operators, which are 3 or 4 letters long:
-* * SIN
-* * COS
-* * TAN
-* * ASIN
-* * ACOS
-* * ATAN
-* * POW
-* * EXP
-* * SQRT
-* * FLOR
+  * SIN
+  * COS
+  * TAN
+  * ASIN
+  * ACOS
+  * ATAN
+  * POW
+  * EXP
+  * SQRT
+  * FLOR
 
 ## Building
 `make calc`

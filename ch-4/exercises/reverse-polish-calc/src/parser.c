@@ -53,14 +53,12 @@ int parse(char s[], int s_size)
     // and let the next call to parse() end lexing.
     while (((c = getch()) != EOF) && !(c == ' ' || c == '\t' || c == '\n') && (i < s_size))
     {
-        //printf("parsed: %c\n", c);
         s[i++] = c;
     }
     s[i] = '\0';
 
     if (c == EOF)
     {
-        //printf("returning -1\n");        
         return -1;
     }
     else if (c == '\n')
@@ -74,7 +72,6 @@ int parse(char s[], int s_size)
     }
     else
     {
-        //printf("returning %d for: %s\n", i, s);
         return i;
     }
 }

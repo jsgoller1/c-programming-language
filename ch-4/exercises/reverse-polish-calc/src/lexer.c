@@ -21,23 +21,19 @@ int lex(char symbol[], int token_len)
         }
         if (is_operator(symbol))
         {
-            //printf("Returning operator.\n");
             return handle_operator(symbol);
         }
 
         if (isalpha(symbol[0]))
         {
-            //printf("Returning alpha.\n");
             return handle_alpha(symbol, len);
         }
         else if (isdigit(symbol[0]) || symbol[0] == '.')
         {
-            //printf("Returning raw.\n");
             return RAW;
         }
         else
         {
-            //printf("Returning garbage.\n");            
             return GARBAGE;
         }
     }

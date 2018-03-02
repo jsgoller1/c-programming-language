@@ -2,7 +2,6 @@
 
 void rpn_add(double val1[], double val2[])
 {
-    //printf("+: %f (type: %f), %f (type: %f),\n", val1[0], val1[1], val2[0], val2[1]);
     if (val1[1] == VAR)
     {
         dereference(val1);
@@ -18,7 +17,6 @@ void rpn_add(double val1[], double val2[])
 
 void rpn_subtract(double val1[], double val2[])
 {
-    //printf("-: %f (type: %f), %f (type: %f),\n", val1[0], val1[1], val2[0], val2[1]);
     if (val1[1] == VAR)
     {
         dereference(val1);
@@ -34,7 +32,6 @@ void rpn_subtract(double val1[], double val2[])
 
 void rpn_multiply(double val1[], double val2[])
 {
-    //printf("*: %f (type: %f), %f (type: %f),\n", val1[0], val1[1], val2[0], val2[1]);
     if (val1[1] == VAR)
     {
         dereference(val1);
@@ -50,7 +47,6 @@ void rpn_multiply(double val1[], double val2[])
 
 void rpn_divide(double val1[], double val2[])
 {
-    //printf("/: %f (type: %f), %f (type: %f),\n", val1[0], val1[1], val2[0], val2[1]);
     if (val1[1] == VAR)
     {
         dereference(val1);
@@ -71,7 +67,6 @@ void rpn_divide(double val1[], double val2[])
 
 void rpn_modulus(double val1[], double val2[])
 {
-    //printf("mod: %f (type: %f), %f (type: %f),\n", val1[0], val1[1], val2[0], val2[1]);
     if (val1[1] == VAR)
     {
         dereference(val1);

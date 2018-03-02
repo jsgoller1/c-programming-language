@@ -1,4 +1,4 @@
-#include "calc.h"
+#include <calc.h>
 
 char buf[PARSE_BUFFER_SIZE]; // buffer for ungetch
 int bufp = 0;

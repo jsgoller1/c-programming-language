@@ -53,8 +53,8 @@ int parse(char s[], int s_size);
 
 // lexer.c
 int lex(char symbol[], int len);
-int handle_alpha(char operator[], int len);
-int handle_numeric(char operator[], int len);
+int handle_alpha(char oper[], int len);
+int handle_numeric(char oper[], int len);
 
 // rpn_math.c
 void rpn_add(double val1[], double val2[]);

@@ -1,4 +1,4 @@
-#include "calc.h"
+#include <calc.h>
 
 int sp = 0;
 double stack[MAX_STACK_SIZE]; // 2 for value and type
@@ -59,7 +59,9 @@ void peek(double ret[])
 // this means add another element equal to the top element.
 void duplicate_top()
 {
-    double top[2];
+    // zero-initialize for -Werror=maybe-uninitialized
+    double top[2] = {0.0, 0.0};
+    
     pop(top); // and the fun don't stop!
     push(top);
     push(top);
@@ -68,11 +70,12 @@ void duplicate_top()
 // swap_top: switch the top two elements of the stack
 void swap_top()
 {
-    double top[2];
-    double second[2];
+    // zero-initialize for -Werror=maybe-uninitialized
+    double top[2] = {0.0, 0.0};
+    double second[2] = {0.0, 0.0};
+    
     pop(top);
     pop(second);
-
     push(top);
     push(second);
 }

@@ -1,10 +1,7 @@
-#!/bin/bash
 
-gcc -std=c99 -I ch-4/exercises/reverse-polish-calc/ ch-4/exercises/reverse-polish-calc/*.c -o ./calculator
-
-function test_expression() {
-   echo $1 | tee /dev/tty | ./calculator
-}
+#function test_expression() {
+#   echo $1 | tee /dev/tty | ./calculator
+#}
 
 # basic operators
 ## 3
@@ -18,7 +15,7 @@ function test_expression() {
 ## 0
 #test_expression "6 6 %"
 ## Prints "OK", result is unchanged
-test_expression "A 5 ="
+#test_expression "A 5 ="
 ## Prints "OK", result is unchanged
 
 

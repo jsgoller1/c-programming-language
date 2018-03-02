@@ -1,4 +1,4 @@
-#include "calc.h"
+#include <calc.h>
 
 // Reverse Polish calculator
 int main()
@@ -8,7 +8,7 @@ int main()
     int type;
     char token[MAX_TOKEN_SIZE];
 
-    while (type = lex(token, MAX_TOKEN_SIZE))
+    while ((type = lex(token, MAX_TOKEN_SIZE)))
     {
         switch(type)
         {

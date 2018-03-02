@@ -1,4 +1,4 @@
-#include "calc.h"
+#include <calc.h>
 
 /*
 NOTE: I do not actually know anything serious about lexing as I write this;
@@ -11,9 +11,9 @@ this file do.
 // lex: get next operator or numeric operand
 int lex(char symbol[], int token_len)
 {
-    int i, c, c2, len;
+    int len;
 
-    while(len = parse(symbol, token_len))
+    while((len = parse(symbol, token_len)))
     {
         if (len == 0)
         {
@@ -47,7 +47,6 @@ int handle_alpha(char operator[], int len)
     which are either 3 or 4 characters long. Anything else can
     be safely assumed to be garbage.
     */
-    int i;
 
     if (len == 1)
     {

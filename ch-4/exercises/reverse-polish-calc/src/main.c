@@ -96,14 +96,13 @@ int main()
             case DISPLAY:
                 display();
                 break;    
-            case EXIT:
-                printf("Quitting, bye!\n"); // TODO: Never actually called?
-                break;
             case GARBAGE:
             default:
                 printf("Error: invalid expression %s.\n", token);
                 break;
         }
     }
+
+    printf("Quitting, bye!\n"); // TODO: Never actually called?    
     return 0;
 }

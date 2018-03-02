@@ -95,6 +95,6 @@ void display()
     else
     {
         pop(op1);
-        printf("%8.g\n", op1[0]);
+        printf("%8.8g\n", op1[0]);
     }    
 }

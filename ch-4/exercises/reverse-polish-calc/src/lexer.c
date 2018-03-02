@@ -116,7 +116,7 @@ int handle_alpha(char operator[], int len)
 
 int is_operator(char oper[])
 {
-    return ((oper[0] == '+') ||  (oper[0] == '-') ||  (oper[0] == '/') ||  (oper[0] == '*') ||  (oper[0] == '%'));
+    return ((oper[0] == '+') ||  (oper[0] == '-') ||  (oper[0] == '/') ||  (oper[0] == '*') ||  (oper[0] == '%') ||  (oper[0] == '='));
 }
 
 int handle_operator(char operator[])
@@ -133,6 +133,8 @@ int handle_operator(char operator[])
             return DIV;
         case '%':
             return MOD;
+        case '=':
+            return ASSIGN;            
         default:
             return GARBAGE;                            
     }

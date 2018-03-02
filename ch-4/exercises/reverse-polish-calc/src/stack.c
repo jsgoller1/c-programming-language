@@ -87,10 +87,12 @@ void display()
 {
     double op1[2];
 
-    // pop stack and display result, unless the resultant expression is bad
+    // pop stack and display result, unless the 
+    // resultant expression is bad. If so, dump the stack.
     if (get_stack_size() != 1)
     {
         printf("Error: expression resulted in invalid computation.\n");
+        sp = 0;
     }
     else
     {

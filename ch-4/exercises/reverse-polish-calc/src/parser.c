@@ -1,15 +1,36 @@
 #include <calc.h>
 
 char buf[PARSE_BUFFER_SIZE]; // buffer for ungetch
+int buffered = false;
+int bufval; // this answers 4-8
 int bufp = 0;
 
 int getch()
 {
+    // uncomment for 4-8
+    /*
+    if (buffered == true > 0)
+    {
+        buffered = false;
+        return bufval;
+    }
+    else
+    {
+        return getchar();
+    }
+    */
+
     return (bufp > 0) ? buf[--bufp] : getchar();
 }
 
 void ungetch(int c)
 {
+    // uncomment for 4-8
+    /*
+    buffered = true;
+    bufval = c;
+    */
+
     if (bufp >= PARSE_BUFFER_SIZE)
     {
         printf("ungetch: too many characters\n");

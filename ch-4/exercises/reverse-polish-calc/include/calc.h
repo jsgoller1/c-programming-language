@@ -56,6 +56,7 @@
 // parser.c
 int getch(void);
 void ungetch(int);
+void ungets(char s[], int len);
 int parse(char s[], int s_size);
 
 // lexer.c

@@ -20,6 +20,16 @@ void ungetch(int c)
     }
 }
 
+void ungets(char s[], int len)
+{
+    int i;
+
+    for (i = 0; i < len && s[len] != '0'; i++)
+    {
+        ungetch(s[i]);
+    }
+}
+
 int parse(char s[], int s_size)
 {
     int i, c;

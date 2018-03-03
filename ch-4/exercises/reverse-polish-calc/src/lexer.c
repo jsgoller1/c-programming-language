@@ -30,6 +30,11 @@ int lex(char symbol[], int token_len)
         }
         else if (isdigit(symbol[0]) || symbol[0] == '.')
         {
+            // uncomment this line to test ungets();
+            // this will push all floats back to the
+            // buffer before pushing them onto the
+            // stack, i.e. "4 +" will evaluate to 8
+            // ungets(symbol, len);
             return RAW;
         }
         else
@@ -134,8 +139,8 @@ int handle_operator(char operator[])
         case '%':
             return MOD;
         case '=':
-            return ASSIGN;            
+            return ASSIGN;
         default:
-            return GARBAGE;                            
+            return GARBAGE;
     }
 }

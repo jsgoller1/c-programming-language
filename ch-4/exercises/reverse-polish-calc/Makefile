@@ -1,5 +1,6 @@
 INCLUDES:= -I ./include
 LIBRARIES:= -lm
+CC:= clang
 SRC:= ./src/*.c
 BIN:= calculator
 CFLAGS:= -Wall -Werror -g -std=gnu11
@@ -7,7 +8,7 @@ CFLAGS:= -Wall -Werror -g -std=gnu11
 all: clean calc
 
 clean:
-	-rm calculator calculator.dSYM
+	-@rm -r calculator.dSYM calculator
 
 calc:
-	gcc $(INCLUDES) $(SRC) $(LIBRARIES) $(CFLAGS) -o $(BIN) 
+	$(CC) $(INCLUDES) $(SRC) $(LIBRARIES) $(CFLAGS) -o $(BIN)

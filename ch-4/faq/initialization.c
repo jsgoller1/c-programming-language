@@ -14,11 +14,12 @@ static int x;
 static int y;
 /* 
 z and w are declared and initialized at the same time. 
-Note that this won't compile - z cannot be assigned to 
+Note that this won't compile if uncommented - z cannot be assigned to 
 the return value of a function during compilation (how would
 that code run?).
-*/
+
 static int z = some_func(5);
+*/
 static int w = 10;
 
 int main()

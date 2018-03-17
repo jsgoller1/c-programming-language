@@ -45,7 +45,6 @@ int main()
     reverse(string_number, 0, len-1);
     printf("%d == %s\n", x, string_number);
 
-
     int y = -41236124;
     len = itoa(string_number, MAX_LEN, y);
     printf("%d == %s\n", y, string_number);
@@ -67,19 +66,8 @@ int itoa(char arr[], int len, int val)
 {
     int res;
     bool negative = false;
-    /*
-    Determine if array is sufficiently sized; we need space for a negative and a null
-    terminator. 100 requires 5 spaces, 10000 requires 7, etc. So:
-    if (val / 10 >= len)
-    {
-        printf("Error: Insufficient space to print string.\n");
-        return -1;
-    }
-    */
 
-    /*
-    Handle negative case
-    */
+    // Handle negative case
     if (val < 0)
     {
         val *= -1;
@@ -87,10 +75,8 @@ int itoa(char arr[], int len, int val)
     }
 
     // Begin recursive conversion
-    //printf("Val: %d\n", val);
     res = convert(arr, len, val, 1, 0);
 
-    //
     if ((res == -1) || (res == len+1)) // Is this correct?
     {
         printf("Error: Insufficient space for conversion; quitting...\n");
@@ -102,15 +88,6 @@ int itoa(char arr[], int len, int val)
         arr[res++] = '-';
     }
     arr[res] = '\0';
-
-    /*
-    printf("Pre-reversal: ");
-    for (int i = 0; i < res; i++)
-    {
-        printf("%c ", arr[i]);
-    }
-    printf("\n");
-    */
     reverse(arr, 0, res - 1);
 
     return 0;
@@ -127,6 +104,8 @@ int convert(char arr[], int len, int val, int place, int index)
     printf("%d\n", (1256 % 1000) / 100);        // prints 2
     printf("%d\n", (1256 % 10000) / 1000);      // prints 1
     printf("%d\n", (1256 % 100000) / 10000);    // prints 0
+
+    This algorithm requires special handling for 0, as shown below.
     */
     int new_val;
 
@@ -134,6 +113,13 @@ int convert(char arr[], int len, int val, int place, int index)
     {
         // Buffer overrun
         return -1;
+    }
+
+    // Explicitly handle zero
+    if (val == 0)
+    {
+        arr[0] = '0';
+        return index+1;
     }
 
     new_val = (val % (10 * place)) / place;
@@ -145,7 +131,6 @@ int convert(char arr[], int len, int val, int place, int index)
     else
     {
         arr[index] = (char)(new_val + '0');
-        //printf("Inserting: %d\n", new_val);
         return convert(arr, len, val, place * 10, index + 1);
     }
 }

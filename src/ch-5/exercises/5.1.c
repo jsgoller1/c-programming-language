@@ -28,6 +28,7 @@ int getint(int *pn) {
     c = getch();
     if (c == '\n') {
       printf("Error: '-' is invalid.\n");
+      ungetch('-');
       return -1;
     }
   }

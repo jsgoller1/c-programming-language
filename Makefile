@@ -15,5 +15,5 @@ setup:
 	./out/ch-5/examples/$@
 
 5.1 5.2:
-	$(CC) $(FLAGS) -I include/ch-5/ src/ch-5/exercises/$@.c -o bin/ch-5/exercises/$@
+	$(CC) $(FLAGS) -I include/ch-5/ src/ch-5/exercises/{$@,5-common}.c -o bin/ch-5/exercises/$@
 	./bin/ch-5/exercises/$@

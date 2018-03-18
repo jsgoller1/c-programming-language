@@ -2,5 +2,8 @@
   "editor.formatOnPaste": true,
   "editor.formatOnSave": true,
   "C_Cpp.clang_format_fallbackStyle": "Google",
-  "C_Cpp.clang_format_path": "/usr/local/bin/clang-format"
+  "C_Cpp.clang_format_path": "/usr/local/bin/clang-format",
+  "files.associations": {
+    "5-common.h": "c"
+  }
 }

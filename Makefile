@@ -19,3 +19,8 @@ setup:
 5.1 5.2:
 	$(CC) $(FLAGS) -I include/ch-5/ src/ch-5/exercises/{$@,5-common}.c -o bin/ch-5/exercises/$@
 	./bin/ch-5/exercises/$@
+
+# Chapter 5 faq
+arithmetic-ops-with-pointers:
+	$(CC) $(FLAGS) src/ch-5/faq/$@.c -o bin/ch-5/faq/$@
+	./bin/ch-5/faq/$@

@@ -1,4 +1,5 @@
 # Reverse Polish Notation (RPN) calculator
+To avoid unnecessary code replication over minor changes, exercises 4.3 through 4.9 have been grouped into a single application here, which I completely overhauled to use more robust parsing / lexing.
 
 ## Use
 Valid input is of the form `<EXPRESSION> <EXPRESSION> <OPERATOR>`. Expressions

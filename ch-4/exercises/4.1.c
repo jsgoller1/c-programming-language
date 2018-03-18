@@ -7,8 +7,7 @@ int strrindex(char source[], int s_len, char searchfor[]);
 char pattern[] = {"ould"};
 
 // Find all lines matching pattern
-int main()
-{
+int main() {
   // 9
   char good1[] = "goodfoodwouldmold";
   printf("%d\n", strrindex(good1, 17, pattern));
@@ -24,20 +23,16 @@ int main()
 }
 
 // strindex: return the rightmost index of t in s, -1 if not found.
-// start at the right and go left until either the beginning of the string occurs or
-// a match is found
-int strrindex(char s[], int s_len, char t[])
-{
+// start at the right and go left until either the beginning of the string
+// occurs or a match is found
+int strrindex(char s[], int s_len, char t[]) {
   int i, j, k;
 
-  for (i = s_len-1; i > 0; i--)
-  {
-    for (j = i, k = 0; t[k] != '\0' && s[j] == t[k]; j++, k++)
-    {
+  for (i = s_len - 1; i > 0; i--) {
+    for (j = i, k = 0; t[k] != '\0' && s[j] == t[k]; j++, k++) {
       // noop
     }
-    if ((k > 0) && (t[k] == '\0'))
-    {
+    if ((k > 0) && (t[k] == '\0')) {
       return i;
     }
   }

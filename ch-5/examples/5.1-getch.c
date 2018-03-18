@@ -4,20 +4,13 @@ int getch();
 void ungetch(int val);
 int getint(int *pn);
 
-int main()
-{
+int main() { return 0; }
 
-  return 0;
-}
-
-int getint(int *pn)
-{
+int getint(int *pn) {
   int c, sign;
 
-  while (isspace(c = getch()))
-  {
+  while (isspace(c = getch())) {
     // no op
   }
 
-  if (!isdigit(c) && c != EOF && )
-}
+  if (!isdigit(c) && c != EOF &&) }

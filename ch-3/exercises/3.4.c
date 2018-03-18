@@ -23,64 +23,56 @@ by -1 produces a positive value.
 void itoa(int val, char s[]);
 void reverse(char s[], int len);
 
-int main()
-{
+int main() {
+  char numstring0[MAX_LEN];
+  int num0 = 0;  // 0
+  itoa(num0, numstring0);
+  printf("%d == %s\n", num0, numstring0);
 
-    char numstring0[MAX_LEN];
-    int num0 = 0; // 0
-    itoa(num0, numstring0);
-    printf("%d == %s\n", num0, numstring0);
+  char numstring1[MAX_LEN];
+  int num1 = 0x7FFFFFFF;  // 2147483647
+  itoa(num1, numstring1);
+  printf("%d == %s\n", num1, numstring1);
 
-    char numstring1[MAX_LEN];
-    int num1 = 0x7FFFFFFF; // 2147483647
-    itoa(num1, numstring1);
-    printf("%d == %s\n", num1, numstring1);
+  char numstring2[MAX_LEN];
+  int num2 = 0x80000000;  // -2147483648
+  itoa(num2, numstring2);
+  printf("%d == %s\n", num2, numstring2);
 
-    char numstring2[MAX_LEN];
-    int num2 = 0x80000000; // -2147483648
-    itoa(num2, numstring2);
-    printf("%d == %s\n", num2, numstring2);
+  char numstring3[MAX_LEN];
+  int num3 = 0xFFFFFFFF;  // -1
+  itoa(num3, numstring3);
+  printf("%d == %s\n", num3, numstring3);
 
-    char numstring3[MAX_LEN];
-    int num3 = 0xFFFFFFFF; // -1
-    itoa(num3, numstring3);
-    printf("%d == %s\n", num3, numstring3);
-
-    return 0;
+  return 0;
 }
 
-void itoa(int n, char s[])
-{
-    int i, is_negative;
-    unsigned val;
-    i = 0;
+void itoa(int n, char s[]) {
+  int i, is_negative;
+  unsigned val;
+  i = 0;
 
-    // If the value is negative, multiply by
-    // -1 and store the result as an unsigned int.
-    is_negative = (n < 0);
-    is_negative ? (val = n * -1) : (val = n);
+  // If the value is negative, multiply by
+  // -1 and store the result as an unsigned int.
+  is_negative = (n < 0);
+  is_negative ? (val = n * -1) : (val = n);
 
-    do
-    {
-        s[i++] = val % 10 + '0';
-    }
-    while ((val /= 10) > 0);
-    if (is_negative)
-    {
-        s[i++] = '-';
-    }
-    s[i] = '\0';
-    reverse(s, i);
+  do {
+    s[i++] = val % 10 + '0';
+  } while ((val /= 10) > 0);
+  if (is_negative) {
+    s[i++] = '-';
+  }
+  s[i] = '\0';
+  reverse(s, i);
 }
 
-void reverse(char s[], int len)
-{
-    int i;
-    char temp;
-    for (i=0; i < len/2; i++)
-    {
-        temp = s[len - i - 1];
-        s[len-i-1] = s[i];
-        s[i] = temp;
-    }
+void reverse(char s[], int len) {
+  int i;
+  char temp;
+  for (i = 0; i < len / 2; i++) {
+    temp = s[len - i - 1];
+    s[len - i - 1] = s[i];
+    s[i] = temp;
+  }
 }

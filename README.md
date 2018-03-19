@@ -1,4 +1,4 @@
-# k-and-r
+# The C Programming Language (K&R)
 Exercises from "The C Programming Language" by Kernighan / Ritchie. Each chapter has three subfolders:
 
 * **examples/** - examples from the chapter text, usually written as-is.

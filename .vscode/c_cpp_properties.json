@@ -37,7 +37,11 @@
       "includePath": [
         "/usr/include",
         "/usr/local/include",
-        "${workspaceRoot}"
+        "${workspaceRoot}",
+        "${workspaceRoot}/include/",
+        "${workspaceRoot}/include/reverse-polish-calc/",
+        "${workspaceRoot}/include/ch-5/exercises",
+        "${workspaceRoot}/include/ch-5/examples"
       ],
       "defines": [],
       "intelliSenseMode": "clang-x64",

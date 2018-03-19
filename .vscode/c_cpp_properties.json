@@ -10,7 +10,8 @@
         "/usr/include",
         "${workspaceRoot}/include/",
         "${workspaceRoot}/include/reverse-polish-calc/",
-        "${workspaceRoot}/include/ch-5/"
+        "${workspaceRoot}/include/ch-5/exercises",
+        "${workspaceRoot}/include/ch-5/examples"
       ],
       "defines": [],
       "intelliSenseMode": "clang-x64",

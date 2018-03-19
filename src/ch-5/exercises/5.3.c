@@ -2,7 +2,8 @@
 #include <stdio.h>
 #include <stdlib.h>
 
-// append s to the end of t; since K&R talked about
+// Write a program to concatenate a string at
+// the end of another string. Since K&R talked about
 // alloc already(), I'm going to use malloc() here -
 // we cannot just append t to the end of s, because
 // we don't know if s has enough space for all

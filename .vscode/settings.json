@@ -5,6 +5,8 @@
   "C_Cpp.clang_format_path": "/usr/local/bin/clang-format",
   "files.associations": {
     "5-common.h": "c",
-    "stdio.h": "c"
-  }
+    "stdio.h": "c",
+    "5.4-alloc.h": "c"
+  },
+  "files.insertFinalNewline": true
 }

@@ -16,7 +16,7 @@ ensure that a total of n bytes are written (I looked at the man page for part
 of this).
 */
 
-int my_strncpy(char *s, char *t, unsigned int len) {
+char *my_strncpy(char *s, char *t, unsigned int len) {
   unsigned int i;
   for (i = 0; i < len && s[i] != '\0'; i++) {
     t[i] = s[i];
@@ -25,15 +25,38 @@ int my_strncpy(char *s, char *t, unsigned int len) {
     t[i] = '\0';
   }
 
-  return 0;
+  return t;
 }
 
-char *my_strncat(char *s, char *t, unsigned int len) {
-  char *new;
-  s = t = new = NULL;
-  len = 0;
+/*
+The  strcat()  function appends the src string to the dest string,
+overwriting the terminating null byte ('\0') at the end of dest, and then
+adds a terminating null byte.
 
-  return new;
+The strncat() function is similar, except that: 1) it will use at most n bytes
+from src; and 2) src does not need to be null-terminated if it contains n or
+more bytes. As with strcat(), the resulting string in dest is always
+null-terminated. If src contains n or more bytes, strncat() writes n+1 bytes to
+dest(n from src plus the terminating null byte). Therefore, the size of dest
+must be at least strlen(dest)+n+1.
+*/
+
+char *my_strncat(char *s, char *t, unsigned int len) {
+  unsigned int i, j;
+  t = (void *)t;
+
+  // advance to the end of the string,
+  for (i = 0; s[i] != '\0'; i++) {
+    // no-op
+  }
+
+  // copy up to len bytes of t into s
+  for (j = 0; j < len; j++, i++) {
+    s[i] = t[j];
+  }
+  s[i] = '\0';
+
+  return s;
 }
 
 int my_strncmp(char *s, char *t, unsigned int len) {
@@ -51,19 +74,25 @@ int my_strncmp(char *s, char *t, unsigned int len) {
 
 int main() {
   char first[MAX_LEN] = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
-  my_strncpy("Joshua", first, 3);
-  printf("%s\n", first);
 
-  my_strncpy("Joshua", first, 6);
-  printf("%s\n", first);
+  // JosDEFGHIJKLMNOPQRSTUVWXYZ
+  printf("%s\n", my_strncpy("Joshua", first, 3));
+  // JoshuaGHIJKLMNOPQRSTUVWXYZ
+  printf("%s\n", my_strncpy("Joshua", first, 6));
+  // Joshua + nulls
+  printf("%s\n\n", my_strncpy("Joshua", first, 11));
 
-  my_strncpy("Joshua", first, 11);
-  printf("%s\n", first);
+  // JoshuaGoller
+  printf("%s\n", my_strncat(first, "Goller", 6));
+  // JoshuaGollerGOL
+  printf("%s\n", my_strncat(first, "GOLLER", 3));
+  // JoshuaGollerGOL
+  printf("%s\n\n", my_strncat(first, "RELLOG", 0));
 
   // What exactly does "greater than" / "less than" mean in the strncmp
-  // description? Basically, that when a[i] != b[i], a[i] - b[i] is returned;
-  // if one of the strings terminates before the other, the first character
-  // after the termination is returned in the non-terminating string.
+  // description? Basically, that when a[i] != b[i], a[i] - b[i] is
+  // returned; if one of the strings terminates before the other, the first
+  // character after the termination is returned in the non-terminating string.
   printf("%d == %d\n", strncmp("Joshua", "Josh", 6),
          my_strncmp("Joshua", "Josh", 6));
   printf("%d == %d\n", strncmp("Joshua", "Joshua", 6),

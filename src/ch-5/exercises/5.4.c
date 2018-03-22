@@ -6,36 +6,31 @@
 // doesn't use len parameters because (probably) it relies on
 // null-terminated strings, but I don't think that's a safe assumption.
 // Here, it is the caller's responsibility to provide the correct lengths.
-int strend(char *s, unsigned int s_len, char *t, unsigned int t_len)
-{
+int strend(char *s, unsigned int s_len, char *t, unsigned int t_len) {
   // By convention, a null-terminated string is found at the end of any string.
-  if (t_len == 0)
-  {
+  if (t_len == 0) {
     return 1;
   }
 
   // The only string at the end of a null string is another null string.
-  if (s_len == 0)
-  {
+  if (s_len == 0) {
     return (t_len ? 0 : 1);
   }
 
   // Starting from the end of each string, compare char-by-char; if we reach
-  // zero for t_len before or at the same time as s_len, it's at the end of s; otherwise, it isn't.
+  // zero for t_len before or at the same time as s_len, it's at the end of s;
+  // otherwise, it isn't.
   unsigned int t_end = t_len - 1;
   unsigned int s_end = s_len - 1;
-  while(s[s_end] == t[t_end])
-  {
-
-    // if we hit the end of s first, t is not at the end of s unless t == s (and thus t_end is also zero)
-    if (s_end == 0)
-    {
+  while (s[s_end] == t[t_end]) {
+    // if we hit the end of s first, t is not at the end of s unless t == s (and
+    // thus t_end is also zero)
+    if (s_end == 0) {
       return (t_end ? 0 : 1);
     }
 
     // if we hit t_end first, it is at the end of s.
-    if (t_end == 0)
-    {
+    if (t_end == 0) {
       return 1;
     }
 

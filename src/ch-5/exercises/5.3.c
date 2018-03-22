@@ -11,18 +11,15 @@
 // array is passed in that does have sufficient capacity,
 // but doing this is probably the safest and most concise
 // approach.
-char* my_strcat(char *s, unsigned int s_len, char *t, unsigned int t_len)
-{
+char* my_strcat(char* s, unsigned int s_len, char* t, unsigned int t_len) {
   int i = 0;
   char* new = malloc(sizeof(char) * (s_len + t_len));
 
-  for (unsigned int j = 0; j < s_len; j++)
-  {
+  for (unsigned int j = 0; j < s_len; j++) {
     new[i++] = s[j];
   }
 
-  for (unsigned int k = 0; k < s_len; k++)
-  {
+  for (unsigned int k = 0; k < s_len; k++) {
     new[i++] = t[k];
   }
 
@@ -31,8 +28,8 @@ char* my_strcat(char *s, unsigned int s_len, char *t, unsigned int t_len)
 }
 
 int main() {
-  char first[] = {"Joshua "}; // len = 7
-  char last[] = {"Goller"}; // len = 6
+  char first[] = {"Joshua "};  // len = 7
+  char last[] = {"Goller"};    // len = 6
   char* full_name = my_strcat(&first[0], 7, &last[0], 6);
   printf("My name is: %s.\n", full_name);
   return 0;

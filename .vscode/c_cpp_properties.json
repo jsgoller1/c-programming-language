@@ -37,6 +37,8 @@
       "includePath": [
         "/usr/include",
         "/usr/local/include",
+        "/usr/include/x86_64-linux-gnu",
+        "/usr/include/clang/4.0.1/include",
         "${workspaceRoot}",
         "${workspaceRoot}/include/",
         "${workspaceRoot}/include/reverse-polish-calc/",

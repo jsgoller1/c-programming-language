@@ -11,8 +11,8 @@ setup:
 	mkdir -p bin/ch-{1,2,3,4,5,6,7,8}/{examples,exercises,faq}
 
 # Chapter 5 examples
-5.1-getch 5.3-strlen 5.4-alloc 5.4-strlen2 5.5-strcpy 5.5-strcmp:
-	$(CC) $(FLAGS) -I include/ch-5/examples/ src/ch-5/examples/$@.c -o bin/ch-5/examples/$@
+5.1-getch 5.3-strlen 5.4-alloc 5.4-strlen2 5.5-strcpy 5.5-strcmp 5.6-sort:
+	$(CC) $(FLAGS) -I include/ch-5/examples/ -I include/ch-5/ src/ch-5/5-common.c src/ch-5/examples/$@.c -o bin/ch-5/examples/$@
 	./bin/ch-5/examples/$@
 
 # Chapter 5 exercises

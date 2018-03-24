@@ -1,1 +1,0 @@
-int getdouble(double *pf);

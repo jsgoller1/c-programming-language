@@ -40,11 +40,9 @@
         "/usr/include/x86_64-linux-gnu",
         "/usr/include/clang/4.0.1/include",
         "${workspaceRoot}",
-        "${workspaceRoot}/include/",
-        "${workspaceRoot}/include/reverse-polish-calc/",
-        "${workspaceRoot}/include/ch-5/",
-        "${workspaceRoot}/include/ch-5/exercises",
-        "${workspaceRoot}/include/ch-5/examples"
+        "${workspaceRoot}/ch-5/include/examples",
+        "${workspaceRoot}/ch-5/include/common",
+        "${workspaceRoot}/ch-5/include/exercises"
       ],
       "defines": [],
       "intelliSenseMode": "clang-x64",

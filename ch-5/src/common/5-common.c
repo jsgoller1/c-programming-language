@@ -36,7 +36,7 @@ int mygetline(char s[], int lim) {
     ++i;
   }
   s[i] = '\0';
-  printf("getline(): %d bytes.\n", i);
+  // printf("getline(): %d bytes.\n", i);
   return i;
 }
 
@@ -53,7 +53,7 @@ char *myalloc(int n)  // return pointer to n characters
   // remaining free space (base addr + total size - currently used size)
   if (allocbuf + ALLOCSIZE - allocp >= n) {
     allocp += n;
-    printf("alloc(): allocating %d bytes.\n", n);
+    // printf("alloc(): allocating %d bytes.\n", n);
     return allocp - n;  // old p
   } else {
     printf("alloc(): can't allocate %d bytes.\n", n);
@@ -68,4 +68,3 @@ void myafree(char *p) {  // free storage pointed to by p
                  // higher ones are allocated, you lose everything above it.
   }
 }
-

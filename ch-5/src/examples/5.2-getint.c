@@ -1,4 +1,4 @@
-#include "5.1-getch.h"
+#include "5.2-getint.h"
 #include <ctype.h>
 #include <stdio.h>
 

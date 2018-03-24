@@ -1,6 +1,5 @@
 # The C Programming Language (K&R)
-Exercises from "The C Programming Language" by Kernighan / Ritchie. Each chapter
-has three subfolders:
+Exercises from "The C Programming Language" by Kernighan / Ritchie.
 
 * **examples/** - examples from the chapter text
 * **exercises/** - solutions to chapter exercises.
@@ -13,21 +12,21 @@ In following the 2nd ed. of K&R, examples are C89 compliant but may compile
 with warnings.
 
 Oppositely, the exercise code is aimed to be as high quality as I can make it.
-Per the Makefile, it should compile without issue at the maximum warning level
-(with all warnings being errors), be C11 compliant, enforce `const`-correctness,
-have no unnecessary replication, and be adequately commented. The only caveat
-that I have tried to avoid using concepts that may be more
+It should compile without issue at the maximum warning level (with all warnings being errors),
+be C11 compliant, enforce `const`-correctness, have no unnecessary replication,
+and be adequately commented. The only caveat that I have tried to avoid using concepts that may be more
 "correct" idomatically but hadn't been introduced in the text yet; e.g. the RPN
 calculator should probably store tokens in structs, but the exercise is from
 chapter 4, whereas structs are introduced in chapter 6.I assume the authors
 intended to challenge the reader or show the necessity of a feature before
 introducing it.
 
+
 ## Source text
 You can find the full 2nd edition text [here](http://cs.indstate.edu/~cbasavaraj/cs559/the_c_programming_language_2.pdf).
 
 ## Running
-Everything compiles out of the Makefile.
+Each chapter has its own folder with a Makefile, except chapter 4, which has two folders - I split the RPN calculator exercises into their own directory since I did a good amount of refactoring for the solutions. Everything compiles out of the Makefiles in each chapter's directory.
 
 ## Notes about the exercises
 * Ch. 1:

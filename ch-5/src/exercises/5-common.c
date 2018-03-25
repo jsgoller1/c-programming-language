@@ -1,9 +1,16 @@
 #include "5-common.h"
 #include <stdio.h>
+#include <string.h>
 
 #define BUFSIZE 100
 static int buf[BUFSIZE];  // buffer for ungetch
 static int bufp = 0;
+
+/*
+--------------------------------------------------------
+ Character I/O
+--------------------------------------------------------
+*/
 
 // getch(): Read characters from input or the character buffer
 int getch() {
@@ -21,7 +28,11 @@ void ungetch(int c) {
   }
 }
 
-/* -------------------------------------------------------- */
+/*
+--------------------------------------------------------
+ Line I/O
+--------------------------------------------------------
+*/
 
 // getline(): read a line into s, return length
 int mygetline(char s[], int lim) {
@@ -40,7 +51,38 @@ int mygetline(char s[], int lim) {
   return i;
 }
 
-/* -------------------------------------------------------- */
+// readlines(): read input lines into a string buffer
+int readlines(char *lineptr[], int maxlines) {
+  int len, nlines;
+  char *p, line[MAXLEN];
+
+  nlines = 0;
+  while ((len = mygetline(line, MAXLEN)) > 1) {
+    if (nlines >= maxlines || (p = myalloc(len)) == NULL) {
+      return -1;
+    } else {
+      line[len - 1] = '\0';  // delete the newline
+      strcpy(p, line);
+      lineptr[nlines++] = p;
+    }
+  }
+  return nlines;
+}
+
+// writelines(): write output lines from a string buffer
+void writelines(char *lineptr[], int nlines) {
+  int i;
+
+  for (i = 0; i < nlines; i++) {
+    printf("%s\n", lineptr[i]);
+  }
+}
+
+/*
+--------------------------------------------------------
+ Memory / storage
+--------------------------------------------------------
+*/
 
 #define ALLOCSIZE 100  // Amount of available space
 

@@ -8,10 +8,7 @@
         "/Library/Developer/CommandLineTools/usr/lib/clang/9.0.0/include",
         "/Library/Developer/CommandLineTools/usr/include",
         "/usr/include",
-        "${workspaceRoot}/include/",
-        "${workspaceRoot}/include/reverse-polish-calc/",
-        "${workspaceRoot}/include/ch-5/exercises",
-        "${workspaceRoot}/include/ch-5/examples"
+        "${workspaceRoot}/ch-5/include"
       ],
       "defines": [],
       "intelliSenseMode": "clang-x64",
@@ -48,27 +45,6 @@
         "path": [
           "/usr/include",
           "/usr/local/include",
-          "${workspaceRoot}"
-        ],
-        "limitSymbolsToIncludedHeaders": true,
-        "databaseFilename": ""
-      }
-    },
-    {
-      "name": "Win32",
-      "includePath": [
-        "C:/Program Files (x86)/Microsoft Visual Studio 14.0/VC/include",
-        "${workspaceRoot}"
-      ],
-      "defines": [
-        "_DEBUG",
-        "UNICODE",
-        "_UNICODE"
-      ],
-      "intelliSenseMode": "msvc-x64",
-      "browse": {
-        "path": [
-          "C:/Program Files (x86)/Microsoft Visual Studio 14.0/VC/include/*",
           "${workspaceRoot}"
         ],
         "limitSymbolsToIncludedHeaders": true,

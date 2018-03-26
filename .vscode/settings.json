@@ -8,5 +8,6 @@
     "stdio.h": "c",
     "5.2.h": "c"
   },
-  "files.insertFinalNewline": true
+  "files.insertFinalNewline": true,
+  "editor.tabSize": 2
 }

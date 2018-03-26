@@ -6,7 +6,7 @@
   "files.associations": {
     "5-common.h": "c",
     "stdio.h": "c",
-    "5.4-alloc.h": "c"
+    "5.2.h": "c"
   },
   "files.insertFinalNewline": true
 }

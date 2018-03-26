@@ -1,32 +1,19 @@
 # The C Programming Language (K&R)
 Exercises from "The C Programming Language" by Kernighan / Ritchie.
 
-* **examples/** - examples from the chapter text
-* **exercises/** - solutions to chapter exercises.
-* **faq/** - questions I ask myself to check my understanding, with my own examples.
-
-The examples code is aimed to be as self-contained and close to the original as
-possible, so it may contain code duplication and things not considered best
-practices for modern C (braceless `for` / `if` statements, no `const` use, etc).
-In following the 2nd ed. of K&R, examples are C89 compliant but may compile
-with warnings.
-
-Oppositely, the exercise code is aimed to be as high quality as I can make it.
-It should compile without issue at the maximum warning level (with all warnings being errors),
-be C11 compliant, enforce `const`-correctness, have no unnecessary replication,
-and be adequately commented. The only caveat that I have tried to avoid using concepts that may be more
+As part of the learning experience, the solutions should compile without issue at the maximum warning level (with all warnings being errors), be C11 compliant, enforce `const`-correctness, have no unnecessary replication,
+and be adequately commented. The only caveat is that I have tried to avoid using concepts that may be more
 "correct" idomatically but hadn't been introduced in the text yet; e.g. the RPN
 calculator should probably store tokens in structs, but the exercise is from
-chapter 4, whereas structs are introduced in chapter 6.I assume the authors
+chapter 4, whereas structs are introduced in chapter 6. I assume the authors
 intended to challenge the reader or show the necessity of a feature before
 introducing it.
 
-
 ## Source text
-You can find the full 2nd edition text [here](http://cs.indstate.edu/~cbasavaraj/cs559/the_c_programming_language_2.pdf).
+You can find the full 2nd edition text with examples [here](http://cs.indstate.edu/~cbasavaraj/cs559/the_c_programming_language_2.pdf).
 
 ## Running
-Each chapter has its own folder with a Makefile, except chapter 4, which has two folders - I split the RPN calculator exercises into their own directory since I did a good amount of refactoring for the solutions. Everything compiles out of the Makefiles in each chapter's directory.
+See the Makefile for the list of targets - each exercise has its own target (e.g. `make 5.4` will make exercise 4 in chapter 5).
 
 ## Notes about the exercises
 * Ch. 1:
@@ -39,6 +26,9 @@ Each chapter has its own folder with a Makefile, except chapter 4, which has two
   * "Completed, but..."
     * 3.3, but not as cleanly as @robot-dreams 's [solution](https://gist.github.com/robot-dreams/34d10248bc474f5a4312fa72e325656a).
 * Ch. 4:
+  * "Completed, but..."
+    * Any exercise not listed in chapter 4 was moved to the `reverse-polish-notation` directory; I re-architected the program to be
+      more robust and implemented several of the solutions to exercises as part of the entire program.
   * Skipped
     * 4.10, because I completely re-architected the RPN calculator to loosely couple and more robustly handle parsing, lexing, and token handling; a solution involving parsing the entire string either would require 1) tightly-recoupling these  things so that in one loop you can handle the entire string, determining symbols and pushing it to the stack, or 2) having an intermediary data structure similar to the ungetch() buffer.
   * "Completed, but..."

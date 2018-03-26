@@ -40,9 +40,7 @@
         "/usr/include/x86_64-linux-gnu",
         "/usr/include/clang/4.0.1/include",
         "${workspaceRoot}",
-        "${workspaceRoot}/ch-5/include/examples",
-        "${workspaceRoot}/ch-5/include/common",
-        "${workspaceRoot}/ch-5/include/exercises"
+        "${workspaceRoot}/ch-5/include/"
       ],
       "defines": [],
       "intelliSenseMode": "clang-x64",

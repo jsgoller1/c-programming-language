@@ -1,7 +1,7 @@
 #include "5.6-sort.h"
 #include <stdio.h>
 #include <string.h>
-#include "5-common.h"
+#include "common.h"
 
 static char *glineptr[MAXLINES];
 

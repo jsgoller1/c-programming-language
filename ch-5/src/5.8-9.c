@@ -1,4 +1,4 @@
-#include "5.8.h"
+#include "5.8-9.h"
 #include <stdio.h>
 #include <stdlib.h>
 
@@ -6,17 +6,17 @@
 Exercise 5-8. There is no error checking in day_of_year or month_day.
 Remedy this defect.
 
+Exercise 5-9. Rewrite the routines day_of _year and month_day with
+pointers instead of indexing.
+
 Wikipedia algorithm for determining a leap year:
 if (year is not divisible by 4) then (it is a common year)
 else if (year is not divisible by 100) then (it is a leap year)
 else if (year is not divisible by 400) then (it is a common year)
 else (it is a leap year)
-
 */
 
-static char daytab[2][13] = {
-    {0, 31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31},
-    {0, 31, 29, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31}};
+static char *daytab[2];
 
 // set day of year from month & day
 int day_of_year(const int year, const int month, int day) {
@@ -75,26 +75,46 @@ int month_day(const int year, int yearday, int *const pmonth, int *const pday) {
 }
 
 int main() {
-  int year = 2010;
-  int month = 6;
-  int day = 12;
-  int yearday;
+  int year, month, day, yearday;
   int *pday, *pmonth;
   pday = malloc(sizeof(int));
   pmonth = malloc(sizeof(int));
 
+  // daytab is an array of pointers to arrays of chars; these could now
+  // be of different lengths as opposed to a "true" array of arrays
+  char non_leap_arr[] = {0, 31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31};
+  char leap_arr[] = {0, 31, 29, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31};
+  daytab[0] = non_leap_arr;
+  daytab[1] = leap_arr;
+
+  // Valid conversion
+  year = 2010;
+  month = 6;
+  day = 12;
   yearday = day_of_year(year, month, day);
   month_day(year, yearday, pmonth, pday);
   printf("%d/%d/%d was day #%d.\n", month, day, year, yearday);
-  printf("day %d of year %d was %d/%d.\n", yearday, year, *pmonth, *pday);
+  printf("day %d of year %d was %d/%d.\n\n", yearday, year, *pmonth, *pday);
 
-  year = 2010;
-  month = 6;
+  // Invalid day
   day = 2000;
   yearday = day_of_year(year, month, day);
   month_day(year, yearday, pmonth, pday);
   printf("%d/%d/%d was day #%d.\n", month, day, year, yearday);
-  printf("day %d of year %d was %d/%d.\n", yearday, year, *pmonth, *pday);
+  printf("day %d of year %d was %d/%d.\n\n", yearday, year, *pmonth, *pday);
 
+  // Invalid month
+  month = 87;
+  yearday = day_of_year(year, month, day);
+  month_day(year, yearday, pmonth, pday);
+  printf("%d/%d/%d was day #%d.\n", month, day, year, yearday);
+  printf("day %d of year %d was %d/%d.\n\n", yearday, year, *pmonth, *pday);
+
+  // Invalid year
+  year = -2587;
+  yearday = day_of_year(year, month, day);
+  month_day(year, yearday, pmonth, pday);
+  printf("%d/%d/%d was day #%d.\n", month, day, year, yearday);
+  printf("day %d of year %d was %d/%d.\n\n", yearday, year, *pmonth, *pday);
   return 0;
 }

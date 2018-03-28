@@ -13,6 +13,75 @@ prints the last n lines. The program should behave rationally no matter how
 unreasonable the input or the value of n. Write the program so it makes the
 best use of available storage; lines should be stored as in the sorting program
 of Section 5.6, not in a two-dimensional array of fixed size.
+
+/ *****************************************************************************
+
+Design / considerations
+------------------------
+
+1) We will get m lines of input; we don't know if m > n, m < n, or m == n.
+2) We need to keep the order of the lines recieved.
+3) We can safely ignore lines that are not in the n last.
+4) We don't know when the input will terminate (i.e. when we will get an EOF)
+5) We don't know how much input we will recieve before a newline
+
+Given 1 - 3, it seems that a FIFO data structure (i.e. a queue) is the right
+approach; we should queue every line we get, and if on appending the queue size
+ever exceeds n, we should remove the last item from the queue.
+
+Given 3 and 4 and the memory efficient demand in the problem statement, we
+should only queue pointers to the strings, not the strings themselves.
+
+Additionally, we should use just enough memory to store the string; we can
+obtain that length by reading the string into a large-but-fixed temporary
+buffer of size MAX_LEN, and then using malloc() to get just enough space and
+copying it over to the allocated space - this way, we avoid a large 2D
+fixed-size array. Note that GNU tail can handle arbitrarily long lines - this
+approach will overflow the temporary buffer if lines are longer than MAX_LEN. We
+can probably think of some ways to overcome this issue (like "chunking up" the
+strings themselves by storing them as linked lists of n-character substrings and
+pointers to the next n characters, but this would necessitate more calls to
+malloc() and free(), which could cause their own performance issues).
+
+Implementing the queue will be tricky; naively, we could create an array
+of n pointers when the program starts, but this will cause problems when we
+read in the n+1th line - we would have to remove the 0th pointer in the array
+and "push back" each pointer after it to make room for the n+1th pointer.
+
+A better solution is to use a linked list for our queue; each node can consist
+of a pointer to the next node and a pointer to the respective line of input. We
+can store references to the first node and the most recent one, so enqueuing
+another node would simply mean dequeuing the first node, setting the new first
+node to the current first's next node, and then enqueuing the most recent line
+as the last node's next.
+
+When reading ends, we can walk the list and print every node, which will print
+all lines.
+
+Suppose we had an example where we read 4 lines in, but n = 3; A graphical
+representation would look like:
+
+[*][*]----> This is line #0; n = 3; // this line was dequeued and cleaned up
+                                    // when line #3 was queued
+
+[*][*]----> This is line #1; n = 3;
+ |
+ V
+[*][*]----> This is line #2; n = 3;
+ |
+ V
+[*][*]----> This is line #3; n = 3;
+ |
+ V
+NULL
+
+This example would print:
+This is line #1; n = 3
+This is line #2; n = 3
+This is line #3; n = 3
+
+We have not learned about structs yet but I'm going to use them anyway because
+it's the cleanest approach for implementing linked list nodes.
 */
 
 // the maximum character count of a line given to tail()

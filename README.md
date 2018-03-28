@@ -36,7 +36,8 @@ See the Makefile for the list of targets - each exercise has its own target (e.g
 * Ch. 5:
   * Skipped
     * 5.6 (rewriting previously written functions but with pointers).
-
+    * 5.13, for now - I came up with a solution that I'm _pretty_ sure I understand, but it uses `struct`s and I want to make sure I grok them
+    first.
 
 ## Special thanks
 * [Elliott Jin (@robot-dreams)](https://github.com/robot-dreams) for the many hours of help debugging and review.

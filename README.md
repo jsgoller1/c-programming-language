@@ -15,6 +15,43 @@ You can find the full 2nd edition text with examples [here](http://cs.indstate.e
 ## Running
 See the Makefile for the list of targets - each exercise has its own target (e.g. `make 5.4` will make exercise 4 in chapter 5).
 
+## TODO
+- [ ] Ch. 1
+  - [x] Reading
+  - [x] Exercises
+  - [ ] Revisit skipped/bad solutions
+  - [ ] C11 / `-Werror -Wall` compliance
+- [ ] Ch. 2
+  - [x] Reading
+  - [x] Exercises
+  - [ ] C11 / `-Werror -Wall` compliance
+- [ ] Ch. 3
+  - [x] Reading
+  - [x] Exercises
+  - [ ] Revisit bad solutions
+  - [ ] C11 / `-Werror -Wall` compliance
+- [ ] Ch. 4
+  - [x] Reading
+  - [x] Exercises
+  - [ ] C11 / `-Werror -Wall` compliance
+- [ ] Ch. 5
+  - [x] Reading
+  - [ ] Exercises
+  - [ ] Revisit skipped solutions
+  - [ ] C11 / `-Werror -Wall` compliance
+- [ ] Ch. 6
+  - [ ] Reading
+  - [ ] Exercises
+  - [ ] C11 / `-Werror -Wall` compliance
+- [ ] Ch. 7
+  - [ ] Reading
+  - [ ] Exercises
+  - [ ] C11 / `-Werror -Wall` compliance
+- [ ] Ch. 8
+  - [ ] Reading
+  - [ ] Exercises
+  - [ ] C11 / `-Werror -Wall` compliance
+
 ## Notes about the exercises
 * Ch. 1:
   * Skipped

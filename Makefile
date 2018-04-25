@@ -2,8 +2,6 @@ SHELL:=/bin/bash
 CC:= clang
 CFLAGS := -std=c11 -g -Weverything -Werror -lm
 
-all: signed-unsigned-ints
-
 clean:
 	-rm ch-*/bin/*
 

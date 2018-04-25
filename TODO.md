@@ -1,0 +1,77 @@
+# TODO
+---
+- [ ] Ch. 1
+  - [x] Reading
+  - [ ] All exercises completed
+    - [ ] 1-14
+    - [ ] 1-20
+    - [ ] 1-21
+    - [ ] 1-22
+  - [ ] C11 / `-Werror -Wall` compliance
+- [ ] Ch. 2
+  - [x] Reading
+  - [x] Exercises
+  - [ ] C11 / `-Werror -Wall` compliance
+- [ ] Ch. 3
+  - [x] Reading
+  - [ ] Exercises
+    - [ ] 3-3: make this [better](https://gist.github.com/robot-dreams/34d10248bc474f5a4312fa72e325656a)
+  - [ ] C11 / `-Werror -Wall` compliance
+- [ ] Ch. 4
+  - [x] Reading
+  - [ ] Exercises
+    - [ ] 4-9: Ensure that my comment is actually correct
+  - [ ] C11 / `-Werror -Wall` compliance
+- [ ] Ch. 5
+  - [x] Reading
+  - [ ] Exercises
+    - [ ] 5-6
+    - [ ] 5-13
+    - [ ] 5-14
+    - [ ] 5-15
+    - [ ] 5-16
+    - [ ] 5-17
+    - [ ] 5-18
+    - [ ] 5-19
+    - [ ] 5-20
+  - [ ] C11 / `-Werror -Wall` compliance
+- [ ] Ch. 6
+  - [X] Reading
+  - [ ] Exercises
+    - [ ] 6-1
+    - [ ] 6-2
+    - [ ] 6-3
+    - [ ] 6-4
+    - [ ] 6-5
+    - [ ] 6-6
+  - [ ] C11 / `-Werror -Wall` compliance
+- [ ] Ch. 7
+  - [X] Reading
+  - [ ] Exercises
+    - [ ] 7-1
+    - [ ] 7-2
+    - [ ] 7-3
+    - [ ] 7-4
+    - [ ] 7-5
+    - [ ] 7-6
+    - [ ] 7-7
+    - [ ] 7-8
+  - [ ] C11 / `-Werror -Wall` compliance
+- [ ] Ch. 8
+  - [ ] Reading
+  - [ ] Exercises
+    - [ ] 8-1
+    - [ ] 8-2
+    - [ ] 8-3
+    - [ ] 8-4
+    - [ ] 8-5
+    - [ ] 8-6
+    - [ ] 8-7
+    - [ ] 8-8    
+  - [ ] C11 / `-Werror -Wall` compliance
+- [ ] Appendix A
+  - [ ] Reading
+- [ ] Appendix B 
+  - [ ] Reading  
+- [ ] Appendix C 
+  - [ ] Reading 

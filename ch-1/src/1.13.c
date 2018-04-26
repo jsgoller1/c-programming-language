@@ -35,8 +35,7 @@ void gather_inputs(int* words) {
 
 void print_histogram(int* words) {
   int i = 0;
-  int curr_column, curr_row, more_rows;
-  char hist_row[10];
+  int curr_column, more_rows;
 
   // Print the header
   for (i = 0; i < 9; i++) {
@@ -44,23 +43,21 @@ void print_histogram(int* words) {
   }
   printf("%4d+\n", 10);
 
-  // Print the actual rows
-  curr_column = curr_row = 0;
+  // Print the actual rows; decrement
+  // each nonzero entry in words[] and print
+  // spaced X characters until all entries are zero
+  curr_column = 0;
   more_rows = 1;
   while (more_rows) {
     more_rows = 0;
     for (curr_column = 0; curr_column <= 9; curr_column++) {
-      if (words[curr_column] > curr_row) {
+      if (words[curr_column] != 0) {
         more_rows = 1;
-        hist_row[curr_column] = 'X';
+        printf("%4c", 'X');
+        words[curr_column]--;
       } else {
-        hist_row[curr_column] = ' ';
+        printf("%4c", ' ');
       }
-    }
-    ++curr_row;
-
-    for (i = 0; i < 10; i++) {
-      printf("%4c", hist_row[i]);
     }
     printf("\n");
   }

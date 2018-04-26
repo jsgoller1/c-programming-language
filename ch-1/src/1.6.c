@@ -1,13 +1,15 @@
 #include <stdio.h>
 
-// Verify that the expression `getchar() != EOF` is 0 or 1.
+// 1.6 - Verify that the expression `getchar() != EOF` is 0 or 1.
 
 int main() {
-  int foo = (getchar() != EOF);
-  if (foo == 1 || foo == 0) {
-    return 0;  // somewhat confusing, but this is supposed to be unix style for
-               // "this worked correctly"
-  } else {
-    return 1;
+  int c = getchar();
+  if (c == EOF) {  // getchar == EOF is 1 (or possibly some other nonzero value,
+                   // but `==` should only evaluate to 0 or 1)
+    printf("getchar() returned EOF.\n");
+    return 0;
+  } else {  // getchar == EOF is 0
+    printf("getchar() didn't return EOF.\n");
+    return 0;
   }
 }

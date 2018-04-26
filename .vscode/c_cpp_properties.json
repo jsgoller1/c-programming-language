@@ -1,56 +1,66 @@
 {
-  "configurations": [
-    {
-      "name": "Mac",
-      "includePath": [
-        "/Library/Developer/CommandLineTools/usr/include/c++/v1",
-        "/usr/local/include",
-        "/Library/Developer/CommandLineTools/usr/lib/clang/9.0.0/include",
-        "/Library/Developer/CommandLineTools/usr/include",
-        "/usr/include",
-        "${workspaceRoot}/ch-5/include"
-      ],
-      "defines": [],
-      "intelliSenseMode": "clang-x64",
-      "browse": {
-        "path": [
-          "/Library/Developer/CommandLineTools/usr/include/c++/v1",
-          "/usr/local/include",
-          "/Library/Developer/CommandLineTools/usr/lib/clang/9.0.0/include",
-          "/Library/Developer/CommandLineTools/usr/include",
-          "/usr/include",
-          "${workspaceRoot}"
-        ],
-        "limitSymbolsToIncludedHeaders": true,
-        "databaseFilename": ""
-      },
-      "macFrameworkPath": [
-        "/System/Library/Frameworks",
-        "/Library/Frameworks"
-      ]
-    },
-    {
-      "name": "Linux",
-      "includePath": [
-        "/usr/include",
-        "/usr/local/include",
-        "/usr/include/x86_64-linux-gnu",
-        "/usr/include/clang/4.0.1/include",
-        "${workspaceRoot}",
-        "${workspaceRoot}/ch-5/include/"
-      ],
-      "defines": [],
-      "intelliSenseMode": "clang-x64",
-      "browse": {
-        "path": [
-          "/usr/include",
-          "/usr/local/include",
-          "${workspaceRoot}"
-        ],
-        "limitSymbolsToIncludedHeaders": true,
-        "databaseFilename": ""
-      }
-    }
-  ],
-  "version": 3
+    "configurations": [
+        {
+            "name": "Mac",
+            "includePath": [
+                "/Library/Developer/CommandLineTools/usr/include/c++/v1",
+                "/usr/local/include",
+                "/Library/Developer/CommandLineTools/usr/lib/clang/9.0.0/include",
+                "/Library/Developer/CommandLineTools/usr/include",
+                "/usr/include",
+                "${workspaceRoot}/ch-1/include",
+                "${workspaceRoot}/ch-2/include",
+                "${workspaceRoot}/ch-3/include",
+                "${workspaceRoot}/ch-4/include",
+                "${workspaceRoot}/ch-5/include",
+                "${workspaceRoot}/ch-6/include",
+                "${workspaceRoot}/ch-7/include",
+                "${workspaceRoot}/ch-8/include"
+            ],
+            "defines": [],
+            "intelliSenseMode": "clang-x64",
+            "browse": {
+                "path": [
+                    "/Library/Developer/CommandLineTools/usr/include/c++/v1",
+                    "/usr/local/include",
+                    "/Library/Developer/CommandLineTools/usr/lib/clang/9.0.0/include",
+                    "/Library/Developer/CommandLineTools/usr/include",
+                    "/usr/include",
+                    "${workspaceRoot}"
+                ],
+                "limitSymbolsToIncludedHeaders": true,
+                "databaseFilename": ""
+            },
+            "macFrameworkPath": [
+                "/System/Library/Frameworks",
+                "/Library/Frameworks"
+            ],
+            "compilerPath": "/usr/bin/clang",
+            "cStandard": "c11",
+            "cppStandard": "c++17"
+        },
+        {
+            "name": "Linux",
+            "includePath": [
+                "/usr/include",
+                "/usr/local/include",
+                "/usr/include/x86_64-linux-gnu",
+                "/usr/include/clang/4.0.1/include",
+                "${workspaceRoot}",
+                "${workspaceRoot}/ch-5/include/"
+            ],
+            "defines": [],
+            "intelliSenseMode": "clang-x64",
+            "browse": {
+                "path": [
+                    "/usr/include",
+                    "/usr/local/include",
+                    "${workspaceRoot}"
+                ],
+                "limitSymbolsToIncludedHeaders": true,
+                "databaseFilename": ""
+            }
+        }
+    ],
+    "version": 3
 }

@@ -1,9 +1,11 @@
 #include <stdio.h>
 
 /*
+Ex 1.3: Modify the temperature conversion program
+to print a heading above the table.
 Ex 1.4: Write a program to convert celcius
 temps into Fahrenheit. Since C = 5/9 * (F-32),
-F = (C * 9/5) + 32
+F = (C * 9/5) + 32.
 */
 
 int main() {

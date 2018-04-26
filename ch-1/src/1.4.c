@@ -8,20 +8,20 @@ temps into Fahrenheit. Since C = 5/9 * (F-32),
 F = (C * 9/5) + 32.
 */
 
+#define LOWER 0.0    // lower limit of temperature table
+#define UPPER 300.0  // upper limit
+#define STEP 20.0    // size increment
+
 int main() {
-  double fahr, celsius, lower, upper, step;
+  double fahr, celsius;
 
-  lower = 0.0;    // lower limit of temperature table
-  upper = 300.0;  // upper limit
-  step = 20.0;    // size increment
-
-  celsius = lower;
+  celsius = LOWER;
   printf("C\tF\n");
   printf("-------------\n");
-  while (celsius <= upper) {
+  while (celsius <= UPPER) {
     fahr = (9.0 / 5.0 * celsius) + 32.0;
     printf("%3.0f %6.1f\n", celsius, fahr);
-    celsius = celsius + step;
+    celsius = celsius + STEP;
   }
 
   return 0;

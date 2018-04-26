@@ -1,2 +1,2 @@
-void get_words(int* words);
-void print_histogram(int* words);
+void get_words(int* const words);
+void print_histogram(int* const words);

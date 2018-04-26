@@ -9,7 +9,7 @@ vertical is harder than horizontal.
 #define IN 1   // inside a word
 #define OUT 0  // outside a word
 
-void get_words(int* words) {
+void get_words(int* const words) {
   int i, c, word_length, state;
   i = c = word_length = 0;
   state = OUT;
@@ -33,7 +33,7 @@ void get_words(int* words) {
   }
 }
 
-void print_histogram(int* words) {
+void print_histogram(int* const words) {
   int i = 0;
   int curr_column, more_rows;
 

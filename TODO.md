@@ -3,7 +3,6 @@
 - [ ] Ch. 1
   - [x] Reading
   - [ ] All exercises completed
-    - [ ] 1-14
     - [ ] 1-20
     - [ ] 1-21
     - [ ] 1-22
@@ -67,11 +66,11 @@
     - [ ] 8-5
     - [ ] 8-6
     - [ ] 8-7
-    - [ ] 8-8    
+    - [ ] 8-8
   - [ ] C11 / `-Werror -Wall` compliance
 - [ ] Appendix A
   - [ ] Reading
-- [ ] Appendix B 
-  - [ ] Reading  
-- [ ] Appendix C 
-  - [ ] Reading 
+- [ ] Appendix B
+  - [ ] Reading
+- [ ] Appendix C
+  - [ ] Reading

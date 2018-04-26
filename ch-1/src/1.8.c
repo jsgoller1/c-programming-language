@@ -1,21 +1,23 @@
 #include <stdio.h>
 
-// Write a program to count blanks, tabs, and newlines.
+// Ex 1.8: Write a program to count blanks, tabs, and newlines.
 
 int main() {
-  int c, count;
+  int c, spaces, tabs, newlines;
+  spaces = tabs = newlines = 0;
 
+  printf("Begin typing, terminate via ctrl-D on an empty line.\n");
   while ((c = getchar()) != EOF) switch (c) {
       case ' ':
-        count++;
+        spaces++;
         break;
       case '\t':
-        count++;
+        tabs++;
         break;
       case '\n':
-        count++;
+        newlines++;
         break;
     }
-  printf("%d\n", count);
+  printf("spaces: %d\ntabs: %d\nnewlines: %d\n\n", spaces, tabs, newlines);
   return 0;
 }

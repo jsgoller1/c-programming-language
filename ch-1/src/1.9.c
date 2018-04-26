@@ -1,18 +1,21 @@
 #include <stdio.h>
 
-// Write a program to copy its input to its output,
-// replacing each string of one or more blanks with a single blank
+/*
+Ex 1.9: Write a program to copy its input to its output,
+replacing each string of one or more blanks with a single blank.
+*/
 
 int main() {
-  int c, count, was_space;
+  int c = 0, space = 0;
 
+  printf("Begin typing, terminate via ctrl-D on an empty line.\n");
   while ((c = getchar()) != EOF) {
     if (c == ' ') {
-      was_space = 1;
+      space = 1;
     } else {
-      if (was_space == 1) {
+      if (space == 1) {
         putchar(' ');
-        was_space = 0;
+        space = 0;
       }
       putchar(c);
     }

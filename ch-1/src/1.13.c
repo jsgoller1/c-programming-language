@@ -2,14 +2,14 @@
 #include <stdio.h>
 
 /*
-Ex 1-9:  Write a program to print a histogram of words lengths in its input;
+Ex 1.13:  Write a program to print a histogram of words lengths in its input;
 vertical is harder than horizontal.
 */
 
 #define IN 1   // inside a word
 #define OUT 0  // outside a word
 
-void gather_inputs(int* words) {
+void get_words(int* words) {
   int i, c, word_length, state;
   i = c = word_length = 0;
   state = OUT;
@@ -50,7 +50,7 @@ void print_histogram(int* words) {
   more_rows = 1;
   while (more_rows) {
     more_rows = 0;
-    for (curr_column = 0; curr_column <= 9; curr_column++) {
+    for (curr_column = 0; curr_column < 10; curr_column++) {
       if (words[curr_column] != 0) {
         more_rows = 1;
         printf("%4c", 'X');
@@ -66,7 +66,7 @@ void print_histogram(int* words) {
 int main() {
   int words[10] = {0};  // Initializes all elements to zero
 
-  gather_inputs(words);
+  get_words(words);
   print_histogram(words);
 
   return 0;

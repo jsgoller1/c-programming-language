@@ -10,12 +10,8 @@ See the Makefile for the list of targets - each exercise has its own target (e.g
 - [ ] All solutions compile against C11 with `-Werror -Wall`
 - [ ] Maximum const correctness
 
-In some places, I have tried to avoid using concepts that may be more
-"correct" idomatically but hadn't been introduced in the text yet; e.g. the RPN
-calculator should probably store tokens in structs, but the exercise is from
-chapter 4, whereas structs are introduced in chapter 6. I assume the authors
-intended to challenge the reader or show the necessity of a feature before
-introducing it.
+Admittedly, I have cheated some in my solutions - this was not my experience with C, so I jumped around some while reading and as such used concepts that may not have been introduced yet in the
+text. The overall goal I had with this book was `write the best C I possibly can`, not `hold to the text as closely as possible`.
 
 ## Notes about the exercises
 See `TODO.md` for the remaining work to be done.

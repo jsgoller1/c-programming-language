@@ -1,14 +1,13 @@
+#include "1.15.h"
 #include <stdio.h>
 
-/* print Fahrenheit-Celsius table
-   for fahr = 0, 20, ... , 300 */
+/*
+Ex 1.15: Rewrite the temperature conversion program of Section 1.2 to use a
+function for conversion.
+*/
 
-float fahr_to_cels(float fahr);
-float cels_to_fahr(float cels);
-
-float fahr_to_cels(float fahr) { return 5.0 / 9.0 * (fahr - 32.0); }
-
-float cels_to_fahr(float cels) { return 32.0 + (cels * (9.0 / 5.0)); }
+double fahr_to_cels(const double fahr) { return 5.0 / 9.0 * (fahr - 32.0); }
+double cels_to_fahr(const double cels) { return 32.0 + (cels * (9.0 / 5.0)); }
 
 int main() {
   printf("%f\n", fahr_to_cels(212.0));

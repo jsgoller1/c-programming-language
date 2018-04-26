@@ -19,6 +19,8 @@ introducing it.
 
 ## Notes about the exercises
 See `TODO.md` for the remaining work to be done.
+* General:
+  * For programs reading from stdin, it is expected behavior that you will need to hit CTRL-D twice to exit if the last character entered was not a newline - this behavior is defined by the POSIX standard (see this [Stack Overflow question](https://stackoverflow.com/questions/21260674/why-do-i-need-to-type-ctrl-d-twice-to-mark-end-of-file?utm_medium=organic&utm_source=google_rich_qa&utm_campaign=google_rich_qa)).
 * Ch. 1:
   * 1.1 and 1.2 did not have any demo-able code; the instructins were just `experiment with hello world`.
   * 1.3 and 1.4 were both implemented in 1.4.c

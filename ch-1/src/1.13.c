@@ -1,3 +1,4 @@
+#include "1.13.h"
 #include <stdio.h>
 
 /*
@@ -8,15 +9,12 @@ vertical is harder than horizontal.
 #define IN 1   // inside a word
 #define OUT 0  // outside a word
 
-int main() {
+void gather_inputs(int* words) {
   int i, c, word_length, state;
-  int words[10];  // 1 through 9, then 10+
-
-  word_length = 0;
+  i = c = word_length = 0;
   state = OUT;
 
-  for (i = 0; i < 10; i++) words[i] = 0;
-
+  printf("Begin typing, terminate via ctrl-D on an empty line.\n");
   while ((c = getchar()) != EOF) {
     if (c == ' ' || c == '\n' || c == '\t') {
       state = OUT;
@@ -33,19 +31,20 @@ int main() {
   if (state == IN) {  // catches edge case where user hits CTRL-D mid-word.
     words[word_length - 1]++;
   }
+}
 
-  printf("Word Lengths contents\n");
-  for (i = 0; i < 9; i++) {
-    printf("%d: %4d\n", i + 1, words[i]);
-  }
+void print_histogram(int* words) {
+  int i = 0;
+  int curr_column, curr_row, more_rows;
+  char hist_row[10];
 
+  // Print the header
   for (i = 0; i < 9; i++) {
     printf("%4d", i + 1);
   }
   printf("%4d+\n", 10);
 
-  int curr_column, curr_row, more_rows;
-  char hist_row[10];
+  // Print the actual rows
   curr_column = curr_row = 0;
   more_rows = 1;
   while (more_rows) {
@@ -65,6 +64,13 @@ int main() {
     }
     printf("\n");
   }
+}
+
+int main() {
+  int words[10] = {0};  // Initializes all elements to zero
+
+  gather_inputs(words);
+  print_histogram(words);
 
   return 0;
 }

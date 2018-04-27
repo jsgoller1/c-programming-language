@@ -7,6 +7,17 @@ Ex 1.14:  Write a program to print a histogram
 of the frequencies of different characters in its input.
 */
 
+int main() {
+  int char_counts[26] = {0};  // Initializes all elements to zero
+  char characters[26] = {'a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i',
+                         'j', 'k', 'l', 'm', 'n', 'o', 'p', 'q', 'r',
+                         's', 't', 'u', 'v', 'w', 'x', 'y', 'z'};
+  get_chars(char_counts);
+  print_histogram(characters, char_counts);
+
+  return 0;
+}
+
 // get_chars(): reads character-by-character input until EOF from stdin
 void get_chars(int* const char_counts) {
   int i, c, word_length;
@@ -51,15 +62,4 @@ void print_histogram(const char* const characters, int* const char_counts) {
     }
     printf("\n");
   }
-}
-
-int main() {
-  int char_counts[26] = {0};  // Initializes all elements to zero
-  char characters[26] = {'a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i',
-                         'j', 'k', 'l', 'm', 'n', 'o', 'p', 'q', 'r',
-                         's', 't', 'u', 'v', 'w', 'x', 'y', 'z'};
-  get_chars(char_counts);
-  print_histogram(characters, char_counts);
-
-  return 0;
 }

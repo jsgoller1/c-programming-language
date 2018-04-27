@@ -1,8 +1,6 @@
+#include "1.20.h"
 #include <stdio.h>
-#define MAXLINE 1000  // maximum input line size
-
-int getline(char line[], int maxline);
-void detab(char string[], int len, int whitespaces);
+#include "common.h"
 
 // Write a function that replaces tabs with the correct number of whitespaces
 // (or any other character).
@@ -45,25 +43,4 @@ void detab(char string[], int len, int whitespaces) {
   }
 
   string[k] = '\0';
-}
-
-// getline(): read a line into s, return length
-int getline(char s[], int lim) {
-  int c, i;
-
-  for (i = 0; (i < lim - 1) && ((c = getchar()) != EOF) && (c != '\n'); ++i) {
-    s[i] = c;
-  }
-
-  if (c == EOF) {
-    printf("\nGot EOF, quitting immediately.\n");
-    return 0;
-  } else if (c == '\n') {
-    s[i] = c;
-    ++i;
-  }
-
-  s[i] = '\0';
-
-  return i;
 }

@@ -10,16 +10,6 @@ text.
 Note: if multiple strings are the longest, this program prints the first one.
 */
 
-// copy(): copy 'from' into 'to'; assumes 'to' is big enough
-void copy(char to[], const char from[]) {
-  int i;
-
-  i = 0;
-  while ((to[i] = from[i]) != '\0') {
-    ++i;
-  }
-}
-
 int main() {
   int len;                // current line length
   int max;                // maximum length seen so far
@@ -35,4 +25,14 @@ int main() {
   if (max > 0)  // there was a line
     printf("%d: %s", max - 1, longest);
   return 0;
+}
+
+// copy(): copy 'from' into 'to'; assumes 'to' is big enough
+void copy(char to[], const char from[]) {
+  int i;
+
+  i = 0;
+  while ((to[i] = from[i]) != '\0') {
+    ++i;
+  }
 }

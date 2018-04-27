@@ -9,6 +9,15 @@ vertical is harder than horizontal.
 #define IN 1   // inside a word
 #define OUT 0  // outside a word
 
+int main() {
+  int words[10] = {0};  // Initializes all elements to zero
+
+  get_words(words);
+  print_histogram(words);
+
+  return 0;
+}
+
 // get_words(): reads whitespace separated words from stdin until EOF
 void get_words(int* const words) {
   int i, c, word_length, state;
@@ -63,13 +72,4 @@ void print_histogram(int* const words) {
     }
     printf("\n");
   }
-}
-
-int main() {
-  int words[10] = {0};  // Initializes all elements to zero
-
-  get_words(words);
-  print_histogram(words);
-
-  return 0;
 }

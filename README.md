@@ -16,7 +16,7 @@ text. The overall strategy with the solutions was `write the best C I possibly c
 
 ## Conventions
 - Everything should be `lower_snake_case`.
-- Every function should have a single comment above the definition, starting with `name(): ...` and a description using its parameters.
+- Every non-main function should have a single comment above the definition, starting with `name(): ...` and a description using its parameters.
   - E.g.: `swap(): swaps s[i] and s[j] in s`.
 - Constants should always be `#define`ed in `UPPER_SNAKE_CASE`.
 - Every function parameter should be const (pointers and values) unless they need to mutate.
@@ -26,7 +26,7 @@ text. The overall strategy with the solutions was `write the best C I possibly c
   - Problem statement, starting with `Ex <chapter>.<problem>: ...`
   - `#define`s
   - `main()`
-  - Other function definitions
+  - Other function definitions in alphabetical order (by name)
 
 ## Notes about the exercises
 See `TODO.md` for the remaining work to be done.

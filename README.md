@@ -5,13 +5,28 @@ Exercises from "The C Programming Language" by Kernighan / Ritchie.
 See the Makefile for the list of targets - each exercise has its own target (e.g. `make 5.4` will make exercise 4 in chapter 5).
 
 ## Goals
+Other than learning C, my aim with this text was for it to be an exercise in `fanatical conscientiousness`, so my goals are:
 - [ ] All pages read
 - [ ] All exercised solved correctly
 - [ ] All solutions compile against C11 with `-Werror -Wall`
-- [ ] Maximum const correctness
+- [ ] Aggressive adherence to conventions (see below)
 
-Admittedly, I have cheated some in my solutions - this was not my experience with C, so I jumped around some while reading and as such used concepts that may not have been introduced yet in the
-text. The overall goal I had with this book was `write the best C I possibly can`, not `hold to the text as closely as possible`.
+Admittedly, I have cheated some in my solutions - this was not my experience with C, so I jumped around while reading and thus used concepts that may not have been introduced yet in the
+text. The overall strategy with the solutions was `write the best C I possibly can`, not `hold to the text as closely as possible`.
+
+## Conventions
+- Everything should be `lower_snake_case`.
+- Every function should have a single comment above the definition, starting with `name(): ...` and a description using its parameters.
+  - E.g.: `swap(): swaps s[i] and s[j] in s`.
+- Constants should always be `#define`ed in `UPPER_SNAKE_CASE`.
+- Every function parameter should be const (pointers and values) unless they need to mutate.
+- Comments longer than one line should use `/* ... */`, oneliners use `//`. 
+- The order of things in each file is:
+  - `#include`s
+  - Problem statement, starting with `Ex <chapter>.<problem>: ...`
+  - `#define`s
+  - `main()`
+  - Other function definitions
 
 ## Notes about the exercises
 See `TODO.md` for the remaining work to be done.
@@ -23,7 +38,7 @@ See `TODO.md` for the remaining work to be done.
 * Ch. 4:
   * Any exercise not listed in chapter 4 was moved to the `reverse-polish-notation` directory; I re-architected the program to be more robust and implemented several of the solutions to exercises as part of the entire program.
   * I skipped 4.10, because I completely re-architected the RPN calculator to loosely couple and more robustly handle parsing, lexing, and token handling; a solution involving parsing the entire string either would require 1) tightly-recoupling these  things so that in one loop you can handle the entire string, determining symbols and pushing it to the stack, or 2) having an intermediary data structure similar to the ungetch() buffer.
-  * K&R claim that in 4.9 `getch()` / `ungetch()` don't handle `EOF` correctly, but the expected behavior occurs both in my implementation and theirs so I'm not quite sure what this question is asking. `EOF` does cause the program to exit correctly, although the `EOF` character gets pushed back into the array by `ungets()`. However, given "worse is better" philosophy, it seems like it's better to have a slightly-incorrect implementation that causes this instead of a "more-correct" one that makes sure `EOF`s never wind up in the `ungets()` buffer. Of note, on Linux, the CTRL-D character is mapped to `EOF`, but flushes all bytes to the process; it only passes EOF to the program if it is the first character ([see the POSIX docs specifiying this  behavior](https://stackoverflow.com/questions/21260674/why-do-i-need-to-type-ctrl-d-twice-to-mark-end-of-file)).
+  * K&R claim that in 4.9 `getch()` / `ungetch()` don't handle `EOF` correctly, but the expected behavior occurs both in my implementation and theirs so I'm not quite sure what this question is asking. `EOF` does cause the program to exit correctly, although the `EOF` character gets pushed back into the array by `ungets()`.
 
 ## Source text
 You can find the full 2nd edition text with examples [here](http://cs.indstate.edu/~cbasavaraj/cs559/the_c_programming_language_2.pdf).

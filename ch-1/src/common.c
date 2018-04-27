@@ -1,7 +1,8 @@
 #include "common.h"
 #include <stdio.h>
 
-// mygetline(): read a line into s, return length
+// mygetline(): read a line into line[], return length
+// Always returns a null terminated string.
 int mygetline(char line[], const int maxline) {
   int c = 0, i;
 

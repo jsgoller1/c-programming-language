@@ -9,6 +9,7 @@ vertical is harder than horizontal.
 #define IN 1   // inside a word
 #define OUT 0  // outside a word
 
+// get_words(): reads whitespace separated words from stdin until EOF
 void get_words(int* const words) {
   int i, c, word_length, state;
   i = c = word_length = 0;
@@ -33,6 +34,7 @@ void get_words(int* const words) {
   }
 }
 
+// print_histogram(): prints a histogram of frequencies of words by length
 void print_histogram(int* const words) {
   int i = 0;
   int curr_column, more_rows;

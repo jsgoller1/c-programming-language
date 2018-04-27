@@ -7,6 +7,7 @@ Ex 1.14:  Write a program to print a histogram
 of the frequencies of different characters in its input.
 */
 
+// get_chars(): reads character-by-character input until EOF from stdin
 void get_chars(int* const char_counts) {
   int i, c, word_length;
   i = c = word_length = 0;
@@ -21,6 +22,8 @@ void get_chars(int* const char_counts) {
   }
 }
 
+// print_histogram(): prints a histogram of character frequencies from
+// array args.
 void print_histogram(const char* const characters, int* const char_counts) {
   int i = 0;
   int curr_column, more_rows;

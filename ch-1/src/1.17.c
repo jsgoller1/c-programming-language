@@ -13,6 +13,8 @@ int main() {
   char line[MAXLINE];  // current input line
 
   while ((len = mygetline(line, MAXLINE)) > 0)
-    if (len > 80) printf("%d: %s", len - 1, line);
+    if (len > 80) {
+      printf("%d: %s", len - 1, line);
+    }
   return 0;
 }

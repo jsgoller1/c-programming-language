@@ -18,10 +18,11 @@ int main() {
       line[last] = '\n';
       last--;
     }
-    line[++last] = '\0';
+    line[last + 2] = '\0';  // if no trailing spaces, line[len] is the null
+                            // terminator so this is safe
 
     if (last > 0) {
-      printf("%s\n", line);
+      printf("%s", line);
     }
   }
   return 0;

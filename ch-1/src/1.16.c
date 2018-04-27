@@ -10,8 +10,6 @@ text.
 Note: if multiple strings are the longest, this program prints the first one.
 */
 
-#define MAXLINE 1000  // maximum input line size
-
 // copy(): copy 'from' into 'to'; assumes 'to' is big enough
 void copy(char to[], const char from[]) {
   int i;

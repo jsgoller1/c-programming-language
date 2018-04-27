@@ -6,8 +6,6 @@ Ex 1.18: Write a program to remove trailing blanks and tabs from each
 line of input, and to delete entirely blank lines.
 */
 
-#define MAXLINE 1000  // maximum input line size
-
 int main() {
   int len, last;       // current line length, and string index
   char line[MAXLINE];  // current input line

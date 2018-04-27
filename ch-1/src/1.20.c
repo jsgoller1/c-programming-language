@@ -1,6 +1,7 @@
 #include "1.20.h"
 #include <stdio.h>
 #include <stdlib.h>
+#include <string.h>
 #include "common.h"
 
 /*
@@ -16,51 +17,46 @@ with whitespaces. Entering another 9 characters and pressing tab populates
 columns 11 through 19 with characters and column 20 with a whitespace.
 */
 
-/*
-typedef struct str {
-  char* data;
-  int len;
-} string;
-*/
+#define WHITESPACE '.'
 
 int main() {
-  // int len, i;          // current line length, and string index
-  // char line[MAXLINE];  // current input line
+  int len;             // current line length, and string index
+  char line[MAXLINE];  // current input line
+  char* tabless_line;
 
-  /*
-    while ((len = mygetline(line, MAXLINE)) > 0) {
-      detab(line, len, 4);
-      printf("%s\n", line);
-    }
-  */
+  printf("Begin entering text; whitespace will be printed as '.'\n");
+  while ((len = mygetline(line, MAXLINE)) > 0) {
+    tabless_line = detab(line, len, 5);
+    printf("%s", tabless_line);
+    free(tabless_line);
+  }
 
-  detab("this\thas\ttwo", 12, 5);
   return 0;
 }
 
-// detab():
-void detab(char line[], const int len, const int tab_stop) {
+// detab(): replace tabs in in_line with with
+// whitespace up to next tab_stop-th column
+char* detab(const char* const in_line, const int in_len, const int tab_stop) {
+  char* out_line;
   int i, j;
-  char new[MAXLINE];
-  for (j = i = 0; i < len; i++) {
-    if (line[i] != '\t') {
-      new[j] = line[i];
+  char temp[MAXLINE];
+
+  // go through in_line until a tab is found and convert
+  // to appropriate number of whitespace up to tab stop
+  for (j = i = 0; i < in_len; i++) {
+    if (in_line[i] != '\t') {
+      temp[j] = in_line[i];
       j++;
     } else {
       while (j % tab_stop) {
-        // printf("Filling in tab...\n");
-        new[j] = '.';
+        temp[j] = WHITESPACE;
         j++;
       }
     }
   }
-  new[j] = '\0';
-  printf("%s\n", new);
-}
+  temp[j] = '\0';
 
-/*
-// stringify(): create a null-terminated string of len characters in line
-string* stringify(char line[], int len) {
-  string* str = (string*)malloc(sizeof(string));
+  out_line = (char*)malloc((unsigned long)j + 1);
+  strncpy(out_line, temp, (unsigned long)j + 1);
+  return out_line;
 }
-*/

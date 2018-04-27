@@ -25,6 +25,7 @@ text. The overall strategy with the solutions was `write the best C I possibly c
   - `#include`s
   - Problem statement, starting with `Ex <chapter>.<problem>: ...`
   - `#define`s
+  - `typedefs` and struct definitions
   - `main()`
   - Other function definitions in alphabetical order (by name)
 

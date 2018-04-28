@@ -1,3 +1,4 @@
+#include "1.24.h"
 #include <stdio.h>
 
 /*
@@ -5,74 +6,95 @@ Ex 1.24: Write a program to check a C program for rudimentary syntax
 errors like unbalanced parentheses, brackets and braces. Don't forget about
 quotes, both single and double, escape sequences, and comments. (This
 program is hard if you do it in full generality.)
+----
+At the time of publication, "comments" technically meant only C-style
+comments, i.e. the type this text is in, but I did both here.
 */
 
 int main() {
-  int in_comment = 0, quotes = 0, ticks = 0, paren = 0, curly = 0, square = 0,
-      comment_braces = 0;
-  int c;
+  int in_single_comment = 0, in_multi_comment = 0, c = 0;
+  input_registry ir = {0, 0, 0, 0, 0, 0};
 
   while ((c = getchar()) != EOF) {
-    // Check if we're in a comment
-    if (comment_braces == 2) {
-      in_comment = 1;
-    }
-
-    if (c == '\n') {
-      comment_braces = in_comment = 0;
-    }
-
-    if (!in_comment) {
-      switch (c) {
-        case '/':
-          comment_braces++;
-          break;
-        case '"':
-          quotes++;
-          break;
-        case '\'':
-          ticks++;
-          break;
-        case '(':
-          paren++;
-          break;
-        case ')':
-          paren--;
-          break;
-        case '{':
-          curly++;
-          break;
-        case '}':
-          curly--;
-          break;
-        case '[':
-          square++;
-          break;
-        case ']':
-          square--;
-          break;
-      }
+    comment_test(c, &in_single_comment, &in_multi_comment);
+    if (!(in_single_comment || in_multi_comment)) {
+      input_test(c, &ir);
     }
   }
-  /*
-  printf(
-      " quotes: %d\n ticks: %d\n paren_l: %d\n paren_r: %d\n curly_l: %d\n "
-      "curly_r: %d\n square_l: %d\n square_r: %d\n",
-      quotes, ticks, paren_l, paren_r, curly_l, curly_r, square_l, square_r);
-  */
-  if ((quotes % 2) != 0) {
+  return 0;
+}
+
+void comment_test(int c1, int* in_single_comment, int* in_multi_comment) {
+  int c2 = 0;
+
+  // Test for beginning of single or multi comment
+  if (c1 == '/') {
+    c2 = getchar();
+    if (c2 == '*' && *in_multi_comment == 0) {
+      *in_multi_comment = 1;
+    } else if (c2 == '/' && *in_multi_comment == 0) {
+      *in_single_comment = 1;
+    } else {
+      ungetc(c2, stdin);
+    }
+  }  // test for ending of a multi comment
+  else if (c1 == '*' && *in_multi_comment == 1) {
+    c2 = getchar();
+    if (c2 == '/') {
+      *in_multi_comment = 0;
+    } else {
+      ungetc(c2, stdin);
+    }
+  }  // exit a
+  else if (c1 == '\n') {
+    *in_single_comment = 0;
+  }
+}
+
+void input_test(int c1, input_registry* ir) {
+  switch (c1) {
+    case '/':
+      ir->comment_braces++;
+      break;
+    case '"':
+      ir->quotes++;
+      break;
+    case '\'':
+      ir->ticks++;
+      break;
+    case '(':
+      ir->parens++;
+      break;
+    case ')':
+      ir->parens--;
+      break;
+    case '{':
+      ir->curlys++;
+      break;
+    case '}':
+      ir->curlys--;
+      break;
+    case '[':
+      ir->squares++;
+      break;
+    case ']':
+      ir->squares--;
+      break;
+  }
+}
+
+void print_output(input_registry* ir) {
+  if ((ir->quotes % 2) != 0) {
     printf("Program has mismatched closing/opening double quotes.\n");
-  } else if ((ticks % 2) != 0) {
+  } else if ((ir->ticks % 2) != 0) {
     printf("Program has mismatched closing/opening single-ticks.\n");
-  } else if (paren) {
+  } else if (ir->parens) {
     printf("Program has mismatched parens.\n");
-  } else if (curly) {
+  } else if (ir->curlys) {
     printf("Program has mismatched curly braces.\n");
-  } else if (square) {
+  } else if (ir->squares) {
     printf("Program has mismatched square braces.\n");
   } else {
     printf("Program is possibly correct.\n");
   }
-
-  return 0;
 }

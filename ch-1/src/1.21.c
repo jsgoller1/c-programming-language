@@ -13,6 +13,8 @@ Write a program entab that replaces strings of blanks by the minimum number of
 tabs and blanks to achieve the same spacing. Use the same tab stops as for
 detab(). When either a tab or a single blank would suffice to reach a tab stop,
 which should be given preference?
+---
+We will use a tab for a single blank before a tab stop.
 */
 
 int main() {
@@ -35,32 +37,29 @@ int main() {
 // length replaced by tabs (represented by "$" for clarity)
 char* entab(const char* const in_line, const int in_len, const int tab_stop) {
   char* out_line = {""};
-  int i, j;
+  int i = 0, j = 0, next_stop = 0;
   char temp[MAXLINE] = {0};
 
+  // Copy char by char til we get a whitespace; if so,
+  // look_ahead() to see if we can entab - do so if possible,
+  // otherwise just copy the char.
   for (j = i = 0; i < in_len; i++) {
     if (in_line[i] == ' ') {
-      if (look_ahead(in_line, in_len, i, tab_stop)) {
-        // blanks up to tab
+      if ((next_stop = look_ahead(in_line, in_len, i, tab_stop))) {
         temp[j] = TAB_CHAR;
         j++;
-        // advance to next stop minus one as loop will increment
-        i += tab_stop - (i % tab_stop) - 1;
-        // printf("Replaced spaces with tabchar: %s.\n", temp);
+        i = next_stop - 1;
       } else {
         temp[j] = in_line[i];
         j++;
-        // printf("Lookahead failed, copied %c to temp.\n", in_line[i]);
       };
     } else {
       temp[j] = in_line[i];
       j++;
-      // printf("No whitespace, copied %c to temp.\n", in_line[i]);
     }
   }
   temp[j] = '\0';
 
-  // printf("j: %d, final temp: %s\n", j, temp);
   out_line = (char*)malloc((unsigned long)j + 1);
   strncpy(out_line, temp, (unsigned long)j + 1);
   return out_line;
@@ -69,21 +68,17 @@ char* entab(const char* const in_line, const int in_len, const int tab_stop) {
 /*
 look_ahead(): given string in_line of length in_len, determine if
 the characters between in_line[offset] and the nearest tab_stop are
-all whitespaces.
-
-If they are, return 1; otherwise, return 0. Returns -1 if we attempt to read
-past the end of the buffer.
+all whitespaces. If they are, return the next tab stop's offset; otherwise,
+return 0.
 */
 int look_ahead(const char* const in_line, const int in_len, int offset,
                const int tab_stop) {
   int next_stop;
 
-  // 0 presents a pathological edge case in determining the next tab stop
-  next_stop =
-      (offset == 0) ? tab_stop : offset + (tab_stop - (offset % tab_stop));
+  next_stop = offset + (tab_stop - (offset % tab_stop));
 
+  // Quit if we try to read past the buffer
   if (next_stop > in_len) {
-    // we are attempting to read past the end of the buffer.
     return 0;
   }
   for (; offset < next_stop; offset++) {
@@ -91,5 +86,5 @@ int look_ahead(const char* const in_line, const int in_len, int offset,
       return 0;
     }
   }
-  return 1;
+  return next_stop;
 }

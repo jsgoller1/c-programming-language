@@ -1,90 +1,76 @@
+#include "1.21.h"
 #include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
+#include "common.h"
+
 #define MAXLINE 1000  // maximum input line size
+//#define TAB_CHAR '$'
 
-int getline(char line[], int maxline);
-void entab(char string[], int len, int whitespaces);
-
-// Write a function that replaces tabs with the correct number of whitespaces
-// (or any other character).
-
-// ALWAYS USE CURLY BRACES, YOU IDIOT
+/*
+Write a program entab that replaces strings of blanks by the minimum number of
+tabs and blanks to achieve the same spacing. Use the same tab stops as for
+detab(). When either a tab or a single blank would suffice to reach a tab stop,
+which should be given preference?
+*/
 
 int main() {
-  int len, i;          // current line length, and string index
+  int len;             // current line length
   char line[MAXLINE];  // current input line
 
-  while ((len = getline(line, MAXLINE)) > 0) {
-    entab(line, len, 4);
+  while ((len = mygetline(line, MAXLINE)) > 0) {
+    entab(line, len, 5);
     printf("%s\n", line);
   }
+
   return 0;
 }
 
 // entab(): given a string of len, return it with all whitespaces of a given
 // length replaced by tabs (represented by "$" for clarity)
-void entab(char string[], int len, int whitespaces) {
-  char copy[MAXLINE];
-  int i, j, k, do_tab;
-  do_tab = k = 0;
+char* entab(const char* const in_line, const int in_len, const int tab_stop) {
+  char* out_line = {""};
+  int i, j, none;
+  char temp[MAXLINE];
+  none = tab_stop;  // remove this
 
-  for (i = 0; i < len; i++) {
-    // If we hit a whitespace, check the following chars
-    // to see if we can replace it with a tab
-    if (string[i] == ' ') {
-      do_tab = 1;
-      for (j = 0; j < whitespaces; j++) {
-        do_tab &= (string[i + j] == ' ');
-      }
-
-      // we can, do the replacement, and then
-      // advance the source string the correct
-      // number of chars
-      if (do_tab) {
-        copy[k] = '$';
-        k++;
-        i += whitespaces - 1;
-      } else {
-        // There weren't enough whitespaces for
-        // replacement, so copy the characters we
-        // already checked so we don't have to
-        // check them again.
-        for (j = 0; j < whitespaces; j++) {
-          copy[k] = string[i];
-          k++;
-          i++;
-        }
-      }
+  for (j = i = 0; i < in_len; i++) {
+    if (in_line[i] == ' ') {
+      printf("Test between %d and %d + (i mod tabstop) (%d).\n", i);
+      temp[j] = in_line[i];
+      j++;
     } else {
-      copy[k] = string[i];
-      k++;
+      temp[j] = in_line[i];
+      j++;
     }
   }
+  temp[j] = '\0';
 
-  // Copy newly formatted string back to the old one
-  for (i = 0; i < k; i++) {
-    string[i] = copy[i];
-  }
-
-  string[k] = '\0';
+  out_line = (char*)malloc((unsigned long)j + 1);
+  strncpy(out_line, temp, (unsigned long)j + 1);
+  return out_line;
 }
 
-// getline(): read a line into s, return length
-int getline(char s[], int lim) {
-  int c, i;
+/*
+look_ahead(): given string in_line of length in_len, determine if
+the characters between in_line[offset] and the nearest tab_stop are
+all whitespaces.
 
-  for (i = 0; (i < lim - 1) && ((c = getchar()) != EOF) && (c != '\n'); ++i) {
-    s[i] = c;
+If they are, return 1; otherwise, return 0. Returns -1 if we attempt to read
+past the end of the buffer.
+*/
+int look_ahead(const char* const in_line, const int in_len, int offset,
+               const int tab_stop) {
+  if (offset + tab_stop >= in_len) {
+    // we are attempting to read past the end of the buffer.
+    return -1;
   }
-
-  if (c == EOF) {
-    printf("\nGot EOF, quitting immediately.\n");
-    return 0;
-  } else if (c == '\n') {
-    s[i] = c;
-    ++i;
-  }
-
-  s[i] = '\0';
-
-  return i;
+  do {
+    // printf("Evaluating %c\n", in_line[offset]);
+    if (in_line[offset] != ' ') {
+      return 0;
+    }
+    offset++;
+  } while (offset % tab_stop);
+  return 1;
 }

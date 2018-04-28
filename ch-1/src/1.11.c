@@ -5,3 +5,5 @@ You could cycle through every character available via ordinals (i.e. using
 single quotes) and see if any inputs break the program. You could also try
 having input as something other than ASCII characters, maybe binary.
 */
+
+int main() { return 0; }

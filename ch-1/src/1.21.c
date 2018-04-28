@@ -5,7 +5,8 @@
 #include "common.h"
 
 #define MAXLINE 1000  // maximum input line size
-//#define TAB_CHAR '$'
+#define TAB_CHAR '$'
+#define TAB_STOPS 5
 
 /*
 Write a program entab that replaces strings of blanks by the minimum number of
@@ -17,10 +18,14 @@ which should be given preference?
 int main() {
   int len;             // current line length
   char line[MAXLINE];  // current input line
+  char* stripped;
 
+  printf(
+      "Begin typing - tab stops every %d columns; \\t is represented as '$'\n",
+      TAB_STOPS);
   while ((len = mygetline(line, MAXLINE)) > 0) {
-    entab(line, len, 5);
-    printf("%s\n", line);
+    stripped = entab(line, len, TAB_STOPS);
+    printf("%s\n", stripped);
   }
 
   return 0;
@@ -30,22 +35,32 @@ int main() {
 // length replaced by tabs (represented by "$" for clarity)
 char* entab(const char* const in_line, const int in_len, const int tab_stop) {
   char* out_line = {""};
-  int i, j, none;
-  char temp[MAXLINE];
-  none = tab_stop;  // remove this
+  int i, j;
+  char temp[MAXLINE] = {0};
 
   for (j = i = 0; i < in_len; i++) {
     if (in_line[i] == ' ') {
-      printf("Test between %d and %d + (i mod tabstop) (%d).\n", i);
-      temp[j] = in_line[i];
-      j++;
+      if (look_ahead(in_line, in_len, i, tab_stop)) {
+        // blanks up to tab
+        temp[j] = TAB_CHAR;
+        j++;
+        // advance to next stop minus one as loop will increment
+        i += tab_stop - (i % tab_stop) - 1;
+        // printf("Replaced spaces with tabchar: %s.\n", temp);
+      } else {
+        temp[j] = in_line[i];
+        j++;
+        // printf("Lookahead failed, copied %c to temp.\n", in_line[i]);
+      };
     } else {
       temp[j] = in_line[i];
       j++;
+      // printf("No whitespace, copied %c to temp.\n", in_line[i]);
     }
   }
   temp[j] = '\0';
 
+  // printf("j: %d, final temp: %s\n", j, temp);
   out_line = (char*)malloc((unsigned long)j + 1);
   strncpy(out_line, temp, (unsigned long)j + 1);
   return out_line;
@@ -61,16 +76,20 @@ past the end of the buffer.
 */
 int look_ahead(const char* const in_line, const int in_len, int offset,
                const int tab_stop) {
-  if (offset + tab_stop >= in_len) {
+  int next_stop;
+
+  // 0 presents a pathological edge case in determining the next tab stop
+  next_stop =
+      (offset == 0) ? tab_stop : offset + (tab_stop - (offset % tab_stop));
+
+  if (next_stop > in_len) {
     // we are attempting to read past the end of the buffer.
-    return -1;
+    return 0;
   }
-  do {
-    // printf("Evaluating %c\n", in_line[offset]);
+  for (; offset < next_stop; offset++) {
     if (in_line[offset] != ' ') {
       return 0;
     }
-    offset++;
-  } while (offset % tab_stop);
+  }
   return 1;
 }

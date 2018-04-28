@@ -8,8 +8,8 @@ program is hard if you do it in full generality.)
 */
 
 int main() {
-  int in_comment = 0, quotes = 0, ticks = 0, paren_l = 0, paren_r = 0,
-      curly_l = 0, curly_r = 0, square_l = 0, square_r = 0, comment_braces = 0;
+  int in_comment = 0, quotes = 0, ticks = 0, paren = 0, curly = 0, square = 0,
+      comment_braces = 0;
   int c;
 
   while ((c = getchar()) != EOF) {
@@ -34,39 +34,41 @@ int main() {
           ticks++;
           break;
         case '(':
-          paren_l++;
+          paren++;
           break;
         case ')':
-          paren_r++;
+          paren--;
           break;
         case '{':
-          curly_l++;
+          curly++;
           break;
         case '}':
-          curly_r++;
+          curly--;
           break;
         case '[':
-          square_l++;
+          square++;
           break;
         case ']':
-          square_r++;
+          square--;
           break;
       }
     }
   }
+  /*
   printf(
       " quotes: %d\n ticks: %d\n paren_l: %d\n paren_r: %d\n curly_l: %d\n "
       "curly_r: %d\n square_l: %d\n square_r: %d\n",
       quotes, ticks, paren_l, paren_r, curly_l, curly_r, square_l, square_r);
+  */
   if ((quotes % 2) != 0) {
     printf("Program has mismatched closing/opening double quotes.\n");
   } else if ((ticks % 2) != 0) {
     printf("Program has mismatched closing/opening single-ticks.\n");
-  } else if (paren_l != paren_r) {
+  } else if (paren) {
     printf("Program has mismatched parens.\n");
-  } else if (curly_l != curly_r) {
+  } else if (curly) {
     printf("Program has mismatched curly braces.\n");
-  } else if (square_l != square_r) {
+  } else if (square) {
     printf("Program has mismatched square braces.\n");
   } else {
     printf("Program is possibly correct.\n");

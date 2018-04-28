@@ -11,32 +11,29 @@ At the time of publication, "comments" technically meant only C-style
 comments, i.e. the type this text is in, but I did both here.
 */
 
-#define IN_SINGLE_COMMENT 0x1
-#define IN_MULTI_COMMENT 0x2
-#define IN_SINGLE_QUOTE 0x4
-#define IN_MULTI_QUOTE 0x8
-
 int main() {
   int c = 0;
-  // parsing_state ps = {0, 0, 0, 0, 0};
-  char parsing_flags = 0;
-  input_registry ir = {0, 0, 0, 0, 0, 0};
+  parsing_state ps = {0, 0, 0, 0, 0};
+  input_registry ir = {0, 0, 0, 0};
 
   while ((c = getchar()) != EOF) {
-    parsing_test(c, parsing_flags);
-    if (!(parsing_flags)) {
+    parsing_test(c, &ps);
+    if (ps.should_parse) {
       input_test(c, &ir);
     }
   }
-  print_output(&ir);
+  print_output(&ir, &ps);
   return 0;
 }
 
-void parsing_test(const int c1, char parsing_flags) {
+// parsing_test(): A nasty function with a lot of nested
+// logic to determine if we should count any of the symbols
+// we read in; implements a simple FSM for parsing.
+void parsing_test(const int c1, parsing_state* ps) {
   int c2 = 0;
 
   // Test for beginning of single or multi comment
-  if (c1 == '/') {
+  if (c1 == '/' && !(ps->in_single_quote || ps->in_double_quote)) {
     c2 = getchar();
     if (c2 == '*' && ps->in_multi_comment == 0) {
       ps->in_multi_comment = 1;
@@ -56,21 +53,29 @@ void parsing_test(const int c1, char parsing_flags) {
   }  // exit a single line comment
   else if (c1 == '\n') {
     ps->in_single_comment = 0;
+  }  // enter or exit a single-tick quote
+  else if (c1 == '\'' &&
+           !(ps->in_single_comment || ps->in_multi_comment ||
+             ps->in_double_quote)) {
+    ps->in_single_quote = ~(ps->in_single_quote);
+  }  // enter or exit a double-tick quote
+  else if (c1 == '\"' &&
+           !(ps->in_single_comment || ps->in_multi_comment ||
+             ps->in_single_quote)) {
+    ps->in_double_quote = ~(ps->in_double_quote);
   }
+
+  // combine all flags to determine if parsing should occur
   ps->should_parse = !(ps->in_single_comment || ps->in_multi_comment ||
                        ps->in_single_quote || ps->in_multi_comment);
 }
 
+// input_test(): keeps track of what syntactically relevant characters
+// we've observed
 void input_test(const int c1, input_registry* const ir) {
   switch (c1) {
     case '/':
       ir->comment_braces++;
-      break;
-    case '"':
-      ir->quotes++;
-      break;
-    case '\'':
-      ir->ticks++;
       break;
     case '(':
       ir->parens++;
@@ -93,10 +98,12 @@ void input_test(const int c1, input_registry* const ir) {
   }
 }
 
-void print_output(const input_registry* const ir) {
-  if ((ir->quotes % 2) != 0) {
+// print_output(): print whether our C program is kosher or not.
+void print_output(const input_registry* const ir,
+                  const parsing_state* const ps) {
+  if (ps->in_double_quote) {
     printf("Program has mismatched closing/opening double quotes.\n");
-  } else if ((ir->ticks % 2) != 0) {
+  } else if (ps->in_single_quote) {
     printf("Program has mismatched closing/opening single-ticks.\n");
   } else if (ir->parens) {
     printf("Program has mismatched parens.\n");

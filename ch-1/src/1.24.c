@@ -1,17 +1,16 @@
 #include <stdio.h>
 
-// Write a function that can detect rudimentary syntax errors in C programs.
-// I may come back to this and write more features into it, but for now, it
-// only ignores single-line comments.
-
-// ALWAYS USE CURLY BRACES, YOU IDIOT
+/*
+Ex 1.24: Write a program to check a C program for rudimentary syntax
+errors like unbalanced parentheses, brackets and braces. Don't forget about
+quotes, both single and double, escape sequences, and comments. (This
+program is hard if you do it in full generality.)
+*/
 
 int main() {
-  int in_comment, quotes, ticks, paren_l, paren_r, curly_l, curly_r, square_l,
-      square_r, comment_braces;
-  in_comment, quotes = ticks = paren_l = paren_r = curly_l = curly_r =
-                  square_l = square_r = comment_braces = 0;
-  char c;
+  int in_comment = 0, quotes = 0, ticks = 0, paren_l = 0, paren_r = 0,
+      curly_l = 0, curly_r = 0, square_l = 0, square_r = 0, comment_braces = 0;
+  int c;
 
   while ((c = getchar()) != EOF) {
     // Check if we're in a comment

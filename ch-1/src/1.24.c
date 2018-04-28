@@ -11,47 +11,57 @@ At the time of publication, "comments" technically meant only C-style
 comments, i.e. the type this text is in, but I did both here.
 */
 
+#define IN_SINGLE_COMMENT 0x1
+#define IN_MULTI_COMMENT 0x2
+#define IN_SINGLE_QUOTE 0x4
+#define IN_MULTI_QUOTE 0x8
+
 int main() {
-  int in_single_comment = 0, in_multi_comment = 0, c = 0;
+  int c = 0;
+  // parsing_state ps = {0, 0, 0, 0, 0};
+  char parsing_flags = 0;
   input_registry ir = {0, 0, 0, 0, 0, 0};
 
   while ((c = getchar()) != EOF) {
-    comment_test(c, &in_single_comment, &in_multi_comment);
-    if (!(in_single_comment || in_multi_comment)) {
+    parsing_test(c, parsing_flags);
+    if (!(parsing_flags)) {
       input_test(c, &ir);
     }
   }
+  print_output(&ir);
   return 0;
 }
 
-void comment_test(int c1, int* in_single_comment, int* in_multi_comment) {
+void parsing_test(const int c1, char parsing_flags) {
   int c2 = 0;
 
   // Test for beginning of single or multi comment
   if (c1 == '/') {
     c2 = getchar();
-    if (c2 == '*' && *in_multi_comment == 0) {
-      *in_multi_comment = 1;
-    } else if (c2 == '/' && *in_multi_comment == 0) {
-      *in_single_comment = 1;
+    if (c2 == '*' && ps->in_multi_comment == 0) {
+      ps->in_multi_comment = 1;
+    } else if (c2 == '/' && ps->in_multi_comment == 0) {
+      ps->in_single_comment = 1;
     } else {
       ungetc(c2, stdin);
     }
   }  // test for ending of a multi comment
-  else if (c1 == '*' && *in_multi_comment == 1) {
+  else if (c1 == '*' && ps->in_multi_comment == 1) {
     c2 = getchar();
     if (c2 == '/') {
-      *in_multi_comment = 0;
+      ps->in_multi_comment = 0;
     } else {
       ungetc(c2, stdin);
     }
-  }  // exit a
+  }  // exit a single line comment
   else if (c1 == '\n') {
-    *in_single_comment = 0;
+    ps->in_single_comment = 0;
   }
+  ps->should_parse = !(ps->in_single_comment || ps->in_multi_comment ||
+                       ps->in_single_quote || ps->in_multi_comment);
 }
 
-void input_test(int c1, input_registry* ir) {
+void input_test(const int c1, input_registry* const ir) {
   switch (c1) {
     case '/':
       ir->comment_braces++;
@@ -83,7 +93,7 @@ void input_test(int c1, input_registry* ir) {
   }
 }
 
-void print_output(input_registry* ir) {
+void print_output(const input_registry* const ir) {
   if ((ir->quotes % 2) != 0) {
     printf("Program has mismatched closing/opening double quotes.\n");
   } else if ((ir->ticks % 2) != 0) {

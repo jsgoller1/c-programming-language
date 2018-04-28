@@ -1,14 +1,15 @@
 #include <stdio.h>
 
-// Write a program to remove all comments from a C program. Run this program on
-// its source!
-
-/* ALWAYS USE CURLY BRACES, YOU IDIOT */
+/*
+Ex 1.23: Write a program to remove all comments from a C program. Don't forget
+to handle quoted strings and character constants properly. C comments do not
+nest.
+*/
 
 int main() {
   int in_single_comment, in_multi_comment; /* this gets removed */
   in_single_comment = in_multi_comment = 0;
-  int c, temp, not_used;
+  int c, temp;
 
   while ((c = getchar()) != EOF) {
     /*
@@ -43,13 +44,9 @@ int main() {
       }
     }
 
-    if (!in_single_comment && !in_multi_comment) {
+    if (!(in_single_comment || in_multi_comment)) {
       putchar(c);
     }
-
-    // This doesn't get used, but it should be present
-    // when you run this program against its source.
-    not_used = 2 / 4;
   }
   return 0;
 }

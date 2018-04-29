@@ -2,8 +2,11 @@
 #include <stdio.h>
 
 /*
-Write a program to calculate the largest and smallest char, short, int, and
-long variables, signed and unsigned.
+Ex 2.1: Write a program to determine the ranges of char, short, int,
+and long variables, both signed and unsigned, by printing appropriate
+values from standard headers and by direct computation. Harder if you
+compute them: determine the ranges of the various floating-point types.
+
 ---
 Although the C spec determines what the max / min sizes for each type is, this
 program is not portable; I am working on an Intel Core i7-6800K CPU, and:

@@ -1,15 +1,22 @@
+#include "2.2.h"
+#include <stdbool.h>
 #include <stdio.h>
-#define MAXLINE 1000  // maximum input line size
+#include "common.h"
 
-#define true 1
-#define false 0
+/*
+Ex 2.2: Write a loop equivalent to the for loop below without using &&
+or ||.
 
-int get_line_no_comp(char s[], int lim);
+for (i=0; i<lim-1 && (c=getchar()) != '\n' && c != EOF; ++i) {
+  s[i] = c;
+}
+
+*/
 
 int main() {
   int len;
   char line[MAXLINE];  // current input line
-  while ((len = get_line_no_comp(line, MAXLINE)) > 0) {
+  while ((len = getline_nobool(line, MAXLINE)) > 0) {
     printf("%d: %s\n", len, line);
   }
 
@@ -17,30 +24,21 @@ int main() {
 }
 
 // getline(): read a line into s, return length
-int get_line_no_comp(char s[], int lim) {
-  int c, i;
-  int loop = true;
+int getline_nobool(char s[], const int lim) {
+  int i;
+  char c = 0;
 
-  for (i = 0; loop; ++i) {
-    // Check if we have space, then get the char
-    if (i >= lim - 1) {
-      loop = !loop;
-    } else {
-      c = getchar();
-    }
-
-    // Test char and take action accordingly
+  for (i = 0; i < lim - 1; i++) {
+    c = (char)getchar();
     if (c == EOF) {
-      printf("\n");  // don't goof up output if user EOFs mid-line
-      loop = !loop;
+      break;
     } else if (c == '\n') {
-      s[i] = c;
-      loop = !loop;
+      break;
     } else {
       s[i] = c;
     }
   }
 
   s[i] = '\0';
-  return i - 1;
+  return i;
 }

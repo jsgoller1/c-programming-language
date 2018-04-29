@@ -13,6 +13,15 @@ I'm assuming this question is asking me to replicate the $fold program.
 
 #define FOLD_COLUMN 5
 
+int main() {
+  char line[MAXLINE];
+  int len;
+  while ((len = mygetline(line, MAXLINE))) {
+    fold(line, MAXLINE, FOLD_COLUMN);
+  }
+  return 0;
+}
+
 void fold(const char* const line, const int len, const int column) {
   if (column == 0) {
     printf("Error - cannot fold to 0th column.\n");
@@ -26,13 +35,4 @@ void fold(const char* const line, const int len, const int column) {
     }
   }
   printf("\n");
-}
-
-int main() {
-  char line[MAXLINE];
-  int len;
-  while ((len = mygetline(line, MAXLINE))) {
-    fold(line, MAXLINE, FOLD_COLUMN);
-  }
-  return 0;
 }

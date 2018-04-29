@@ -20,14 +20,14 @@ text. The overall strategy with the solutions was `write the best C I possibly c
   - E.g.: `swap(): swaps s[i] and s[j] in s`.
 - Constants should always be `#define`ed in `UPPER_SNAKE_CASE`.
 - Every function parameter should be const (pointers and values) unless they need to mutate.
-- Comments longer than one line should use `/* ... */`, oneliners use `//`. 
+- Comments longer than one line should use `/* ... */`, oneliners use `//`.
 - The order of things in each file is:
   - `#include`s
   - Problem statement, starting with `Ex <chapter>.<problem>: ...`
   - `#define`s
   - `typedefs` and struct definitions
   - `main()`
-  - Other function definitions in alphabetical order (by name)
+  - Other function definitions either in alphabetical order (by name) or ordered by appearance in main() (whichever makes more contextual sense).
 
 ## Notes about the exercises
 See `TODO.md` for the remaining work to be done.

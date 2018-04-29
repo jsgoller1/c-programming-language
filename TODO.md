@@ -1,12 +1,5 @@
 # TODO
 ---
-- [ ] Ch. 1
-  - [x] Reading
-  - [ ] All exercises completed
-    - [ ] 1-20
-    - [ ] 1-21
-    - [ ] 1-22
-  - [ ] C11 / `-Werror -Wall` compliance
 - [ ] Ch. 2
   - [x] Reading
   - [x] Exercises

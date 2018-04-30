@@ -43,7 +43,7 @@ int main() {
 }
 
 // setbits(): set n bits starting at p in x to rightmost bits in y
-int setbits(int x, const int y, int position, const int n) {
+int setbits(int x, const int y, const int position, const int n) {
   int mask = 0;
   if (n > 31 || position > 31) {
     printf("Error: can't set bits outside of word.\n");
@@ -67,7 +67,7 @@ int setbits(int x, const int y, int position, const int n) {
 // create_rightmost_mask(): get the rightmost n bits in y,
 // and shift them position
 int create_rightmost_mask(const int y, const int position, const int n,
-                          int* mask) {
+                          int* const mask) {
   int shiftval;
   if (n > 31 || position > 31) {
     printf("Error: can't set mask larger than wordsize.\n");
@@ -85,7 +85,7 @@ int create_rightmost_mask(const int y, const int position, const int n,
 }
 
 // clear_bitfield(): clears n bits starting at position in x
-int clear_bitfield(int* x, const int position, const int n) {
+int clear_bitfield(int* const x, const int position, const int n) {
   int mask, shiftval;
 
   if (n > 31 || position > 31) {
@@ -122,6 +122,7 @@ int set_rightmost(const int n) {
   return rightmost_mask;
 }
 
+// test(): execute function, test against hypothesis
 void test(const int x, const int y, const int position, const int count,
           const int hypothesis) {
   const int z = setbits(x, y, position, count);

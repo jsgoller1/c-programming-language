@@ -1,97 +1,136 @@
+#include "2.6.h"
 #include <stdio.h>
 
+#pragma clang diagnostic ignored "-Wgnu-binary-literal"
+
 /*
-Write a function setbits(x,p,n,y) that returns x with the n
+Ex 2.6: Write a function setbits(x,p,n,y) that returns x with the n
 bits that begin at position p set to the rightmost n bits of y, leaving the
-other bits unchanged. That is:
+other bits unchanged.
+-----
+That is, assuming p = 5 and n =3,
+n bits of x starting at p:
+       | | |
+x = 0b 0 0 1 1 0 0 1 1
+       7 6 5 4 3 2 1 0
 
-Assuming p = 5 and n =3
+n rightmost bits of y:
+                 | | |
+y = 0b 0 1 0 1 0 1 0 1
+       7 6 5 4 3 2 1 0
 
-               p 2 3
-x = 0b 1 1 0 0 1 1 0 0 1 1
-y = 0b 0 1 0 1 0 1 0 1 0 1
+So setting the bits of x to the same in y,
+       | | |
+x = 0b 1 0 1 1 0 0 1 1
+y = 0b 0 1 0 1 0 1 0 1
+                 | | |
 
-So set those bits to the same in y,
-               | | |
-x = 0b 1 1 0 0 0 1 0 0 1 1
-y = 0b 0 1 0 1 0 1 0 1 0 1
-               | | |
+The procedure for doing this is:
+1) Capture n rightmost bits in y and shift them to position.
+2) Clear n bits starting at p in x.
+3) bitwise-or x and y.
 */
 
-unsigned setbits(int x, int y, int position, int count);
-
 int main() {
-  // 0b10100110 = 0xA6
-  printf("%x\n", setbits(0b10101010, 0b00110100, 3, 2));
-  // 0b10101010 = 0xAA (unchanged)
-  printf("%x\n", setbits(0b10101010, 0b00111000, 3, 2));
-  // 0x01
-  printf("%x\n", setbits(0, 0b000001, 3, 4));
-  // 0x00
-  printf("%x\n", setbits(1, 0b000000, 3, 4));
+  test(0xff, 0x00, 5, 4, 0x0f);
+  test(0xff, 0x0d, 5, 4, 0xdf);
+  test(0xff, 0x1d, 0, 4, 0xfd);
+  test(0x0, 0xf, 4, 4, 0x78);
+  test(0x0, 0xf, 4, 999, -1);
+  test(0x0, 0xf, 999, 1, -1);
+
   return 0;
 }
 
-unsigned setbits(int x, int y, int position, int count) {
-  if (count == 0) {
-    return x;
-  }
-  // for the comment example, assume:
-  // x = 0b00101010
-  // y = 0b00110100
-  // position = 3
-  // count = 2
-  int mask, trim_mask, y_bits, new_x;
-  mask = trim_mask = 0;
-
-  // Generate correct bitmask; start by creating a mask that
-  // gets all bits to the right - we create a mask of all bits
-  // set, then shift to the (zero-indexed) position and flip again.
-  // Suppose position = 3; then we would generate 0b1...1111,
-  // shift to 0b1...0000, then flip to 0b0...1111 = 0xf
-  mask = ~(~mask << position + 1);
-
-  // Now, if position >= count, we have to trim the mask; getting
-  // all 4+ bits to the right of the 3rd bit is 0b0...1111, but
-  // all 2 bits to the right of the 3rd bit is 0b0...1100.
-  // So create a new string, flip it to 1s, and shift.
-  if (!(position < count)) {
-    trim_mask = ~(~trim_mask << (position - count + 1));
+// setbits(): set n bits starting at p in x to rightmost bits in y
+int setbits(int x, const int y, int position, const int n) {
+  int mask = 0;
+  if (n > 31 || position > 31) {
+    printf("Error: can't set bits outside of word.\n");
+    return -1;
   }
 
-  // Now, for the example of position = 3, count = 2, we have
-  //      mask = 0b0...1111 = 0xf
-  // trim_mask = 0b0...0011 = 0x3
-  // If we XOR the two, we'll get the mask we actually want,
-  //             0b0...1100 = 0xc
-  mask = mask ^ trim_mask;
+  // 1) capture n rightmost in y, shift them to position
+  if (create_rightmost_mask(y, position, n, &mask) == -1) {
+    return -1;
+  }
 
-  // Get required bits from y; to do this, we can just
-  // AND with y. y = 0b110100, so with the mask
-  // from before, we'd have:
-  //               ||
-  //   mask: 0b00001100
-  //      y: 0b00110100
-  //               ||
-  // y_bits: 0b00000100 = 0x4
-  y_bits = mask & y;
+  // 2) Clear n bits starting at p in x
+  clear_bitfield(&x, position, n);
 
-  // Finally, set them in x. We have:
-  //   mask: 0b00001100
-  // y_bits: 0b00000100
-  //      x: 0b10101010
-  //  new_x: 0b00000000
-  // So to set our new x, we want the
-  // current bits of x, except the y-bits
-  // set correctly. So zero those bits in new_x,
-  new_x = x & (~mask);
-  //     x: 0b10101010
-  // ~mask: 0b11110011
-  // new_x: 0b10100010
-  // Now OR with y_bits to set them:
-  //  new_x: 0b10100010
-  // y_bits: 0b00000100
-  new_x = new_x | y_bits;
+  // 3) bitwise-or x and mask created from rightmost bits in y
+  printf("x: %x\n", x);
+  printf("mask: %x\n", mask);
+  return (x | mask);
+}
 
-  return new_x;
+// create_rightmost_mask(): get the rightmost n bits in y,
+// and shift them position
+int create_rightmost_mask(const int y, const int position, const int n,
+                          int* mask) {
+  int shiftval;
+  if (n > 31 || position > 31) {
+    printf("Error: can't set mask larger than wordsize.\n");
+    return -1;
+  }
+
+  // set all rightmost bits in the bitmask, then
+  // bitwise-and the mask with y to set the same as y
+  *mask = set_rightmost(n);
+  *mask &= y;
+  shiftval = (position == 0) ? 0 : position - 1;  // << -x is >> x; avoid this
+  *mask = *mask << shiftval;
+
+  return 0;
+}
+
+// clear_bitfield(): clears n bits starting at position in x
+int clear_bitfield(int* x, const int position, const int n) {
+  int mask, shiftval;
+
+  if (n > 31 || position > 31) {
+    printf("Error: can't clear bits outside of word.\n");
+    return -1;
+  }
+
+  // create mask with n bits starting at p set
+  mask = set_rightmost(n);
+  shiftval = (position == 0) ? 0 : position - 1;  // << -x is >> x; avoid this
+  mask = mask << shiftval;
+
+  // flip the mask
+  mask = ~mask;
+
+  // bitwise-and mask with x to clear bits in x
+  *x &= mask;
+  return 0;
+}
+
+// create_rightmost_mask(): returns an int that has the n rightmost bits set.
+int set_rightmost(const int n) {
+  int i, rightmost_mask;
+
+  if (n > 31) {
+    printf("Error: can't set bits outside of word.\n");
+    return -1;
+  }
+  for (i = 0, rightmost_mask = 0; i < n; i++) {
+    rightmost_mask = rightmost_mask << 1;
+    rightmost_mask++;
+  }
+
+  return rightmost_mask;
+}
+
+void test(const int x, const int y, const int position, const int count,
+          const int hypothesis) {
+  const int z = setbits(x, y, position, count);
+  printf("x: 0x%x\n", x);
+  printf("y: 0x%x\n", y);
+  printf("Set %d bits at %d\n", count, position);
+  if (z == hypothesis) {
+    printf("PASS: result: 0x%x, expected: 0x%x\n\n", z, hypothesis);
+  } else {
+    printf("FAIL: result: 0x%x, expected: 0x%x\n\n", z, hypothesis);
+  }
 }

@@ -1,106 +1,120 @@
+#include "2.3.h"
 #include <stdio.h>
 #include <stdlib.h>
+#include <string.h>
+#include "common.h"
 
-int htoi(char string[], int len);
-int mypow(int base, int exp);
-
-// Write a function htoi() that converts hex numbers prefixed with "0x" or "OX"
-// to decimal numbers.
+/*
+Ex 2.3: Write the function htoi(s), which converts a string of
+hexadecimal digits (including an optional Ox or Ox) into its equivalent integer
+value. The allowable digits are 0 through 9, a through f, and A through F.
+*/
 
 int main() {
   // 344865
-  char hex0[] = {"0x54321"};
-  printf("%s = %d\n", hex0, htoi(hex0, 7));
+  mytest("0x54321");
 
   // 74565
-  char hex1[] = {"0X12345"};
-  printf("%s = %d\n", hex1, htoi(hex1, 7));
+  mytest("0X12345");
 
   // 0
-  char hex2[] = {"0X0"};
-  printf("%s = %d\n", hex2, htoi(hex2, 3));
-
-  // ERROR: Invalid length for hex number.
-  char hex3[] = {"0X"};
-  printf("%s = %d\n", hex3, htoi(hex3, 2));
-
-  // ERROR: Invalid length for hex number.
-  char hex4[] = {""};
-  printf("%s = %d\n", hex4, htoi(hex4, 0));
-
-  // ERROR: Not a hex number
-  char hex5[] = {"12345"};
-  printf("%s = %d\n", hex5, htoi(hex5, 5));
+  mytest("0X0");
 
   // 11184810
-  char hex6[] = {"0xaaaaaa"};
-  printf("%s = %d\n", hex6, htoi(hex6, 8));
+  mytest("0xaaaaaa");
 
   // 1715004
-  char hex7[] = {"0x1A2B3C"};
-  printf("%s = %d\n", hex7, htoi(hex7, 8));
+  mytest("0x1A2B3C");
 
   // 1715004
-  char hex8[] = {"0xFFFFFFFF"};
-  printf("%s = %u\n", hex8, htoi(hex8, 10));
+  mytest("0xFFFFFFFF");
+
+  // ERROR: Invalid length for hex number.
+  mytest("0X");
+
+  // ERROR: Invalid hex characters.
+  mytest("0X45DBEQQ");
+
+  // ERROR: Invalid length for hex number.
+  mytest("");
+
+  // ERROR: Not a hex number
+  mytest("12345");
 
   return 0;
 }
 
-int htoi(char string[], int len) {
+int myhtoi(const char* const string, const int len) {
   int val = 0;
+  int i, charval;
 
   if (len < 3) {
-    printf("ERROR: Invalid length for hex number.\n");
+    printf("ERROR: Invalid length in hex number %s.\n", string);
     return -1;
   }
 
-  if (string[0] != '0' || (string[1] != 'x' && string[1] != 'X')) {
+  if (string[0] != '0' || !(string[1] == 'x' || string[1] == 'X')) {
     printf("ERROR: '%s' is not a hex number.\n", string);
     return -1;
   }
 
-  int i, charval;
   for (i = len - 1; i > 1; i--) {
-    if (string[i] >= '0' && string[i] <= '9') {
-      charval = string[i] - '0';
+    charval = hex_to_dec(string[i]);
+    if (charval == -1) {
+      printf("ERROR: %s contains invalid hex characters.\n", string);
+      return -1;
     } else {
-      switch (string[i]) {
-        case 'A':
-        case 'a':
-          charval = 10;
-          break;
-        case 'B':
-        case 'b':
-          charval = 11;
-          break;
-        case 'C':
-        case 'c':
-          charval = 12;
-          break;
-        case 'D':
-        case 'd':
-          charval = 13;
-          break;
-        case 'E':
-        case 'e':
-          charval = 14;
-          break;
-        case 'F':
-        case 'f':
-          charval = 15;
-          break;
-      }
+      val += charval * powi(16, (len - 1) - i);
     }
-    val += charval * mypow(16, (len - 1) - i);
   }
   return val;
 }
 
-int mypow(int base, int exp) {
-  if (exp == 0) {
-    return 1;
+int hex_to_dec(const char hex) {
+  int val = 0;
+
+  if (hex >= '0' && hex <= '9') {
+    val = hex - '0';
   } else {
-    return base * mypow(base, exp - 1);
+    switch (hex) {
+      case 'A':
+      case 'a':
+        val = 10;
+        break;
+      case 'B':
+      case 'b':
+        val = 11;
+        break;
+      case 'C':
+      case 'c':
+        val = 12;
+        break;
+      case 'D':
+      case 'd':
+        val = 13;
+        break;
+      case 'E':
+      case 'e':
+        val = 14;
+        break;
+      case 'F':
+      case 'f':
+        val = 15;
+        break;
+      default:
+        printf("ERROR: %c is not a valid hex character.\n", hex);
+        return -1;
+    }
+  }
+  return val;
+}
+
+void mytest(const char* const numstring) {
+  const int len = (int)strlen(numstring);
+  const int dec = myhtoi(numstring, len);
+  if (dec == -1) {
+    return;
+  } else {
+    printf("%s = %u\n", numstring, dec);
   }
 }

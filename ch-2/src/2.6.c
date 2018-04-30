@@ -42,6 +42,20 @@ int main() {
   return 0;
 }
 
+// test(): execute setbits(), test against hypothesis
+void test(const int x, const int y, const int position, const int count,
+          const int hypothesis) {
+  const int z = setbits(x, y, position, count);
+  printf("x: 0x%x\n", x);
+  printf("y: 0x%x\n", y);
+  printf("Set %d bits at %d\n", count, position);
+  if (z == hypothesis) {
+    printf("PASS: result: 0x%x, expected: 0x%x\n\n", z, hypothesis);
+  } else {
+    printf("FAIL: result: 0x%x, expected: 0x%x\n\n", z, hypothesis);
+  }
+}
+
 // setbits(): set n bits starting at p in x to rightmost bits in y
 int setbits(int x, const int y, const int position, const int n) {
   int mask = 0;
@@ -59,8 +73,6 @@ int setbits(int x, const int y, const int position, const int n) {
   clear_bitfield(&x, position, n);
 
   // 3) bitwise-or x and mask created from rightmost bits in y
-  printf("x: %x\n", x);
-  printf("mask: %x\n", mask);
   return (x | mask);
 }
 
@@ -74,10 +86,11 @@ int create_rightmost_mask(const int y, const int position, const int n,
     return -1;
   }
 
-  // set all rightmost bits in the bitmask, then
-  // bitwise-and the mask with y to set the same as y
+  // set all rightmost bits in the bitmask to same as y
   *mask = set_rightmost(n);
   *mask &= y;
+
+  // shift to position
   shiftval = (position == 0) ? 0 : position - 1;  // << -x is >> x; avoid this
   *mask = *mask << shiftval;
 
@@ -106,7 +119,7 @@ int clear_bitfield(int* const x, const int position, const int n) {
   return 0;
 }
 
-// create_rightmost_mask(): returns an int that has the n rightmost bits set.
+// set_rightmost(): returns an int that has the n rightmost bits set.
 int set_rightmost(const int n) {
   int i, rightmost_mask;
 
@@ -120,18 +133,4 @@ int set_rightmost(const int n) {
   }
 
   return rightmost_mask;
-}
-
-// test(): execute function, test against hypothesis
-void test(const int x, const int y, const int position, const int count,
-          const int hypothesis) {
-  const int z = setbits(x, y, position, count);
-  printf("x: 0x%x\n", x);
-  printf("y: 0x%x\n", y);
-  printf("Set %d bits at %d\n", count, position);
-  if (z == hypothesis) {
-    printf("PASS: result: 0x%x, expected: 0x%x\n\n", z, hypothesis);
-  } else {
-    printf("FAIL: result: 0x%x, expected: 0x%x\n\n", z, hypothesis);
-  }
 }

@@ -1,7 +1,10 @@
 #include "2.6.h"
+#include <stdbool.h>
 #include <stdio.h>
+#include "common.h"
 
 #pragma clang diagnostic ignored "-Wgnu-binary-literal"
+// define DEBUG
 
 /*
 Ex 2.6: Write a function setbits(x,p,n,y) that returns x with the n
@@ -32,40 +35,54 @@ The procedure for doing this is:
 */
 
 int main() {
-  test(0xff, 0x00, 5, 4, 0x0f);
-  test(0xff, 0x0d, 5, 4, 0xdf);
-  test(0xff, 0x1d, 0, 4, 0xfd);
-  test(0x0, 0xf, 4, 4, 0x78);
-  test(0x0, 0xf, 4, 999, -1);
-  test(0x0, 0xf, 999, 1, -1);
+  int num_tests = 6, passing_tests = 0;
+  passing_tests += test(0xff, 0x00, 5, 4, 0x0f);
+  passing_tests += test(0xff, 0x0d, 5, 4, 0xdf);
+  passing_tests += test(0xff, 0x1d, 0, 4, 0xfd);
+  passing_tests += test(0x0, 0xf, 4, 4, 0x78);
+  passing_tests += test(0x0, 0xf, 4, 999, -1);
+  passing_tests += test(0x0, 0xf, 999, 1, -1);
+  if (passing_tests == num_tests) {
+    printf("2.6: PASS!\n");
+  } else {
+    printf("2.6: FAIL - enable debug and re-run.\n");
+  }
 
   return 0;
 }
 
 // test(): execute setbits(), test against hypothesis
-void test(const int x, const int y, const int position, const int count,
-          const int hypothesis) {
-  const int z = setbits(x, y, position, count);
+int test(const int x, const int y, const int position, const int count,
+         const int hypothesis) {
+  const int z = set_to_rightmost(x, y, position, count);
+#ifdef DEBUG
   printf("x: 0x%x\n", x);
   printf("y: 0x%x\n", y);
   printf("Set %d bits at %d\n", count, position);
+#endif
   if (z == hypothesis) {
+#ifdef DEBUG
     printf("PASS: result: 0x%x, expected: 0x%x\n\n", z, hypothesis);
+#endif
+    return 1;
   } else {
+#ifdef DEBUG
     printf("FAIL: result: 0x%x, expected: 0x%x\n\n", z, hypothesis);
+#endif
+    return 0;
   }
 }
 
-// setbits(): set n bits starting at p in x to rightmost bits in y
-int setbits(int x, const int y, const int position, const int n) {
+// set_to_rightmost(): set n bits starting at p in x to rightmost bits in y
+int set_to_rightmost(int x, const int y, const int position, const int n) {
   int mask = 0;
   if (n > 31 || position > 31) {
-    printf("Error: can't set bits outside of word.\n");
+    printf("set_to_rightmost(): can't set bits outside of word.\n");
     return -1;
   }
 
   // 1) capture n rightmost in y, shift them to position
-  if (create_rightmost_mask(y, position, n, &mask) == -1) {
+  if (prepare_rightmost(y, position, n, &mask) == -1) {
     return -1;
   }
 
@@ -76,10 +93,10 @@ int setbits(int x, const int y, const int position, const int n) {
   return (x | mask);
 }
 
-// create_rightmost_mask(): get the rightmost n bits in y,
+// prepare_rightmost(): get the rightmost n bits in y,
 // and shift them position
-int create_rightmost_mask(const int y, const int position, const int n,
-                          int* const mask) {
+int prepare_rightmost(const int y, const int position, const int n,
+                      int* const mask) {
   int shiftval;
   if (n > 31 || position > 31) {
     printf("Error: can't set mask larger than wordsize.\n");
@@ -87,7 +104,10 @@ int create_rightmost_mask(const int y, const int position, const int n,
   }
 
   // set all rightmost bits in the bitmask to same as y
-  *mask = set_rightmost(n);
+  if (create_mask(n, 0, mask, false) == -1) {
+    printf("Couldn't create mask.\n");
+    return -1;
+  }
   *mask &= y;
 
   // shift to position
@@ -95,42 +115,4 @@ int create_rightmost_mask(const int y, const int position, const int n,
   *mask = *mask << shiftval;
 
   return 0;
-}
-
-// clear_bitfield(): clears n bits starting at position in x
-int clear_bitfield(int* const x, const int position, const int n) {
-  int mask, shiftval;
-
-  if (n > 31 || position > 31) {
-    printf("Error: can't clear bits outside of word.\n");
-    return -1;
-  }
-
-  // create mask with n bits starting at p set
-  mask = set_rightmost(n);
-  shiftval = (position == 0) ? 0 : position - 1;  // << -x is >> x; avoid this
-  mask = mask << shiftval;
-
-  // flip the mask
-  mask = ~mask;
-
-  // bitwise-and mask with x to clear bits in x
-  *x &= mask;
-  return 0;
-}
-
-// set_rightmost(): returns an int that has the n rightmost bits set.
-int set_rightmost(const int n) {
-  int i, rightmost_mask;
-
-  if (n > 31) {
-    printf("Error: can't set bits outside of word.\n");
-    return -1;
-  }
-  for (i = 0, rightmost_mask = 0; i < n; i++) {
-    rightmost_mask = rightmost_mask << 1;
-    rightmost_mask++;
-  }
-
-  return rightmost_mask;
 }

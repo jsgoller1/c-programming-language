@@ -1,4 +1,5 @@
 #include "2.7.h"
+#include <stdbool.h>
 #include <stdio.h>
 #include "common.h"
 
@@ -26,9 +27,16 @@ The solution to this problem is:
 2) xor with x.
 */
 
-int main() { return 0; }
+int main() {
+  printf("0x%x\n", invert(0xff, 0, 4));
+  printf("0x%x\n", invert(0xff, 5, 4));
+  printf("0x%x\n", invert(0xff, 3, 4));
+
+  return 0;
+}
 
 int invert(const int x, const int position, const int count) {
-  const int mask = create_mask(const int position, const int count);
+  int mask = 0;
+  create_mask(count, position, &mask, false);
   return (x ^ mask);
 }

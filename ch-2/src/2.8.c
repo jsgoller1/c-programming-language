@@ -1,51 +1,53 @@
+#include "2.8.h"
 #include <stdio.h>
 
-// Write a function rotate(x,p) rotates x by n bits right.
+#pragma clang diagnostic ignored "-Wgnu-binary-literal"
 
-unsigned rotate(unsigned x, unsigned n, unsigned str_size);
+/*
+Ex 2.8: Write a function rightrot(x,n) that returns the value of the
+integer x rotated to the right by n bit positions.
+ */
 
 int main() {
   // 0b11010100 = 0xD4
-  printf("%x\n", rotate(0b10100110, 3, 8));
+  printf("%x\n", rightrot(0b10100110, 3));
 
   // 0b00000111 = 0x7
-  printf("%x\n", rotate(0b00111000, 3, 8));
+  printf("%x\n", rightrot(0b00111000, 3));
 
   // 0x00, no effect.
-  printf("%x\n", rotate(0, 3, 8));
+  printf("%x\n", rightrot(0, 3));
 
   // 0xFF, no effect
-  printf("%x\n", rotate(0b11111111, 3, 8));
+  printf("%x\n", rightrot(0b11111111, 3));
 
   // 0xEFDEADBE
-  printf("%x\n", rotate(0xDEADBEEF, 8, 32));
+  printf("%x\n", rightrot((unsigned)0xDEADBEEF, 8));
 
   // 0xEFDEADBE
-  printf("%x\n", rotate(0xDEADBEEF, 40, 32));
+  printf("%x\n", rightrot((unsigned)0xDEADBEEF, 40));
 
   return 0;
 }
 
-unsigned rotate(unsigned x, unsigned n, unsigned str_size) {
-  if (str_size > 32) {
-    printf("Input must be smaller than int.\n");
-    return 0xffffffff;
-  }
-
+// rightrot(): rotate x to the right n places, with wrapping.
+// rightrot() has to use unsigned ints so that C does not
+// try to preserve the sign bit if we shift a number with it set.
+unsigned int rightrot(unsigned int x, int n) {
   // Rotating 33 places is the same as rotating 1 for a 32bit word.
-  if (n >= str_size) {
-    n = n % str_size;
+  if (n >= 32) {
+    n = n % 32;
   }
 
   // capture n lowest bits
-  int lowest_mask = ~(~0 << n);
-  int lowest = x & lowest_mask;
+  unsigned lowest_mask = (unsigned)~(~0 << n);
+  unsigned int lowest = x & lowest_mask;
 
   // shift x by n to the right
   x = x >> n;
 
   // take n lowest bits and make them n highest bits
-  int highest = lowest << (str_size - n);
+  unsigned int highest = lowest << (32 - n);
 
   // combine
   return highest | x;

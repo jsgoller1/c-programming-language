@@ -4,7 +4,9 @@
 #include "common.h"
 
 /*
-Write a function setbits(x,p,n) that inverts the n bits starting at p. Assuming
+Ex 2.7: Write a function invert (x,p,n) that returns x with the n bits
+that begin at position p inverted (i.e., 1 changed into 0 and vice versa),
+leaving the others unchanged. Assuming
 p = 1 and n = 3
 
        3 2 p

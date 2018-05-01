@@ -1,35 +1,36 @@
+#include <2.10.h>
 #include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
 
-// Rewrite lower() to convert strings of uppercase letters to
-// lower, but without using if-else.
-
-void mylower(char str[]);
+/*
+Ex 2.10: Rewrite lower() to convert strings of
+uppercase letters to lower, but without using if-else.
+*/
 
 int main() {
-  char name[] = {"JOSHUA"};
-  mylower(name);
-  printf("%s\n", name);
-
-  char name2[] = {"bob"};
-  mylower(name2);
-  printf("%s\n", name2);
-
-  char name3[] = {""};
-  mylower(name3);
-  printf("%s\n", name3);
-
-  char name4[] = {"YoU ArE a GeNiUs!/#?"};
-  mylower(name4);
-  printf("%s\n", name4);
+  test("JOSHUA");
+  test("bob");
+  test("");
+  test("YoU ArE a GeNiUs!/#?");
 
   return 0;
 }
 
-void mylower(char str[]) {
-  int i = 0;
-  while (str[i] != '\0') {
-    ((str[i] >= 'A') && (str[i] <= 'Z')) ? (str[i] += 32)
-                                         : str[i];  // second clause is a no-op.
-    i++;
+// mylower(): converts a string to lowercase without if/else
+char* mylower(const char* const str, const int len) {
+  int i;
+  char* lowered = (char*)malloc((unsigned long)len + 1);
+  for (i = 0; i < len; i++) {
+    ((str[i] >= 'A') && (str[i] <= 'Z')) ? (lowered[i] = str[i] + 32)
+                                         : (lowered[i] = str[i]);
   }
+  lowered[i] = '\0';
+  return lowered;
+}
+
+void test(const char* const str) {
+  char* lowered = mylower(str, (int)strlen(str));
+  printf("%s\n", lowered);
+  free(lowered);
 }

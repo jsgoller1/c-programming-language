@@ -1,0 +1,1 @@
+int bitcount(unsigned x);

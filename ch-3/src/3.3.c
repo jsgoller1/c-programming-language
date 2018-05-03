@@ -1,4 +1,5 @@
 #include "3.3.h"
+#include <stdbool.h>
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
@@ -12,9 +13,8 @@ cases like a-b-c and a-zO-9 and -a-z. Arrange that a leading or trailing - is
 taken literally.
 ----
 For this, I'm assuming that:
-(no expansion for different chars)
-a-1 -> a-1,
-a-A -> a-A, etc.
+a-1 -> a-1 (no expansion for different char types)
+a-A -> a-A (no expansion for different char types)
 d-a -> dcba (reverse expansion)
 a-c-e -> abc-e -> abcde (chained expansion)
 */
@@ -40,6 +40,10 @@ int main() {
   // dcba
   test("d-a");
 
+  // Chained expansion
+  // abcd....z
+  test("a-k-z");
+
   // null input
   // ""
   test("");
@@ -51,6 +55,7 @@ int main() {
   test("a--a");
   test("abcd");
   test("1-a");
+
   return 0;
 }
 
@@ -61,31 +66,41 @@ void test(const char* const str) {
   free(expanded);
 }
 
+// expand(): performs expansion per the instructions
 char* expand(const char* const str, const int len) {
-  int i;   // s1 index
-  int j;   // s2 index
-  char k;  // temp var for expansion
+  int i;            // s1 index
+  int j;            // s2 index
+  char* expansion;  // temp var for expansion
 
   // We will assume that expand() will never
   // expand to more than 1000 characters,
   // which is not at all a reasonable assumption.
-  char* expanded = (char*)malloc((unsigned long)get_expanded_size(str) + 1);
+  char* expanded = (char*)malloc((unsigned long)1000);
 
-  // go through the string until we find a '-'
+  // Copy chars from str to expanded until we encounter a -
   for (i = 0, j = 0; i < len; i++) {
-    // check if the chars left and right of it are within bounds
     if (str[i] == '-') {
-      // if so, determine if specificed range is of valid "types" (upper, lower,
-      // or int, both bounds are the same "type")
-      if (is_valid_range(str[i - 1], str[i + 1])) {
-        range_expansion();
+      if (valid_expansion(str, i, len)) {
+        /*
+        The - represents a valid expansion; generate
+        the expansion, and append it to the expanded string;
+        the expanded string already has str[i-1], so overwrite
+        it with \0 given that strcat() needs a null to determine
+        where to append.
+        */
+        expansion = generate_expansion(str[i - 1], str[i + 1]);
+        expanded[j - 1] = '\0';
+        strcat(expanded, expansion);
+        j += strlen(expansion);
+        i += 2;
+        free(expansion);
       } else {
-        // invalid range bounds, copy the '-' mark
+        // the - doesn't represent a valid
+        // expansion, so just copy it
         expanded[j++] = str[i];
       }
     } else {
-      // either left or right is outside of s1 or the s[i] != '-'; copy
-      // s[i]
+      // not a -
       expanded[j++] = str[i];
     }
   }
@@ -93,44 +108,56 @@ char* expand(const char* const str, const int len) {
   return expanded;
 }
 
-int is_valid_range(char a, char b) {
-  int type_a, type_b;
-  type_a = get_char_type(a);
-  type_b = get_char_type(b);
+// valid_expansion(): tests if a three character expression with "-"
+// in the middle represents a valid expansion expression
+bool valid_expansion(const char* const str, const int i, const int len) {
+  int left = get_char_type(str[i + 1]);
+  int right = get_char_type(str[i - 1]);
+  bool is_valid = true;
 
-  return ((type_a == type_b) && (type_a != -1));
+  // the char is actually a -
+  is_valid &= (str[i] == '-');
+
+  // left and right bounds are not outside the string
+  is_valid &= (i - 1 >= 0) && (i + 1 < len);
+
+  // we don't try to expand a-5 or 6-q
+  is_valid &= (left == right);
+
+  // catch edge case where both a and b are invalid, like ?-#
+  is_valid &= (left != -1);
+
+  return is_valid;
 }
 
-void valid_bounds() { (str[i] == '-') && ((i - 1 >= 0) && (i + 1 < len)) }
+// generate_expansion(): given that "a-b" is a valid
+// expansion, generate the expansion and return it. The
+// callee is responsible for freeing the returned char*.
+char* generate_expansion(const char a, const char b) {
+  char* expansion = NULL;
+  int i = 0;
 
-void range_expansion() {
-  // given that they're the same type, determine if they're ascending or
-  // descending
-  if (str[i - 1] < str[i + 1]) {
-    // for ascending, expand by incrementing; remember
-    // the left bound is already in s2 from the previous
-    // iteration, so skip it.
-    for (k = (str[i - 1] + 1); k <= str[i + 1]; k++) {
-      expanded[j] = k;
-      j++;
+  if (a < b) {
+    expansion = (char*)malloc((unsigned long)(b - a) + 1);
+    for (i = 0; a + i <= b; i++) {
+      expansion[i] = a + (char)i;
     }
-    i++;  // in a-c, don't evaluate c after evaluating -;
-  } else if (str[i - 1] > str[i + 1]) {
-    // for descending, expand by looping down; remember
-    // the left bound is already the first correct char
-    for (k = (str[i - 1] - 1); k >= str[i + 1]; k--) {
-      expanded[j] = k;
-      j++;
+  } else if (a > b) {
+    expansion = (char*)malloc((unsigned long)(a - b) + 1);
+    for (i = 0; a - i >= b; i++) {
+      expansion[i] = a - (char)i;
     }
-    i++;  // in c-a, don't evaluate a after evaluating -;
-
-  } else  // they're equal, just copy the character;
-  {
-    expanded[j] = str[i];
-    j++;
+  } else {
+    // they're equal, so the "expansion" is just the character
+    expansion = (char*)malloc((unsigned long)2);
+    expansion[i++] = a;
   }
+  expansion[i] = '\0';
+
+  return expansion;
 }
 
+// get_char_type(): determines if a is an int, lowercase or uppercase char
 int get_char_type(const char a) {
   if (is_upper(a)) {
     return 0;
@@ -142,8 +169,6 @@ int get_char_type(const char a) {
     return -1;
   }
 }
-
-int get_expanded_size(const char* const str) { return 0; }
 
 int is_upper(const char a) { return (a >= 'A') && (a <= 'Z'); }
 

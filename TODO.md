@@ -5,7 +5,7 @@
   - [ ] Exercises
     - [ ] 3-3: make this [better](https://gist.github.com/robot-dreams/34d10248bc474f5a4312fa72e325656a)
   - [ ] C11 / `-Werror -Wall` compliance
-- [ ] Ch. 4
+- [ ] Ch. 4 / RPN
   - [x] Reading
   - [ ] Exercises
     - [ ] 4-9: Ensure that my comment is actually correct

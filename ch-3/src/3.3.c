@@ -69,51 +69,24 @@ char* expand(const char* const str, const int len) {
   // We will assume that expand() will never
   // expand to more than 1000 characters,
   // which is not at all a reasonable assumption.
-  char* expanded = (char*)malloc((unsigned long)1000);
+  char* expanded = (char*)malloc((unsigned long)get_expanded_size(str) + 1);
 
   // go through the string until we find a '-'
   for (i = 0, j = 0; i < len; i++) {
     // check if the chars left and right of it are within bounds
-    // printf("i: %d\n", i);
-    if ((str[i] == '-') && ((i - 1 >= 0) && (i + 1 < len))) {
+    if (str[i] == '-') {
       // if so, determine if specificed range is of valid "types" (upper, lower,
       // or int, both bounds are the same "type")
       if (is_valid_range(str[i - 1], str[i + 1])) {
-        // given that they're the same type, determine if they're ascending or
-        // descending
-        if (str[i - 1] < str[i + 1]) {
-          // for ascending, expand by incrementing; remember
-          // the left bound is already in s2 from the previous
-          // iteration, so skip it.
-          for (k = (str[i - 1] + 1); k <= str[i + 1]; k++) {
-            expanded[j] = k;
-            j++;
-          }
-          i++;  // in a-c, don't evaluate c after evaluating -;
-        } else if (str[i - 1] > str[i + 1]) {
-          // for descending, expand by looping down; remember
-          // the left bound is already the first correct char
-          for (k = (str[i - 1] - 1); k >= str[i + 1]; k--) {
-            expanded[j] = k;
-            j++;
-          }
-          i++;  // in c-a, don't evaluate a after evaluating -;
-
-        } else  // they're equal, just copy the character;
-        {
-          expanded[j] = str[i];
-          j++;
-        }
-      } else  // invalid range bounds, copy the '-' mark
-      {
-        expanded[j] = str[i];
-        j++;
+        range_expansion();
+      } else {
+        // invalid range bounds, copy the '-' mark
+        expanded[j++] = str[i];
       }
-    } else  // either left or right is outside of s1 or the s[i] != '-'; copy
-            // s[i]
-    {
-      expanded[j] = str[i];
-      j++;
+    } else {
+      // either left or right is outside of s1 or the s[i] != '-'; copy
+      // s[i]
+      expanded[j++] = str[i];
     }
   }
   expanded[j] = '\0';
@@ -128,6 +101,36 @@ int is_valid_range(char a, char b) {
   return ((type_a == type_b) && (type_a != -1));
 }
 
+void valid_bounds() { (str[i] == '-') && ((i - 1 >= 0) && (i + 1 < len)) }
+
+void range_expansion() {
+  // given that they're the same type, determine if they're ascending or
+  // descending
+  if (str[i - 1] < str[i + 1]) {
+    // for ascending, expand by incrementing; remember
+    // the left bound is already in s2 from the previous
+    // iteration, so skip it.
+    for (k = (str[i - 1] + 1); k <= str[i + 1]; k++) {
+      expanded[j] = k;
+      j++;
+    }
+    i++;  // in a-c, don't evaluate c after evaluating -;
+  } else if (str[i - 1] > str[i + 1]) {
+    // for descending, expand by looping down; remember
+    // the left bound is already the first correct char
+    for (k = (str[i - 1] - 1); k >= str[i + 1]; k--) {
+      expanded[j] = k;
+      j++;
+    }
+    i++;  // in c-a, don't evaluate a after evaluating -;
+
+  } else  // they're equal, just copy the character;
+  {
+    expanded[j] = str[i];
+    j++;
+  }
+}
+
 int get_char_type(const char a) {
   if (is_upper(a)) {
     return 0;
@@ -139,6 +142,8 @@ int get_char_type(const char a) {
     return -1;
   }
 }
+
+int get_expanded_size(const char* const str) { return 0; }
 
 int is_upper(const char a) { return (a >= 'A') && (a <= 'Z'); }
 

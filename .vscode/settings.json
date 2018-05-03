@@ -6,7 +6,10 @@
   "files.associations": {
     "5-common.h": "c",
     "stdio.h": "c",
-    "5.2.h": "c"
+    "5.2.h": "c",
+    "limits.h": "c",
+    "climits": "c",
+    "common.h": "c"
   },
   "files.insertFinalNewline": true,
   "editor.tabSize": 2

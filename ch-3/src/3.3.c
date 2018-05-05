@@ -22,19 +22,19 @@ a-c-e -> abc-e -> abcde (chained expansion)
 int main() {
   // basic expansion, lower case
   // abcd
-  test("a-d");
+  // test("a-d");
 
   // basic expansion, upper case
   // ABCD
-  test("A-D");
+  // test("A-D");
 
   // basic expansion, ints
   // 01234
-  test("0-4");
+  // test("0-4");
 
   // Average input
   // abcd01234ABCD
-  test("a-d0-4A-D");
+  // test("a-d0-4A-D");
 
   // Reverse input
   // dcba
@@ -44,25 +44,26 @@ int main() {
   // abcd....z
   test("a-k-z");
 
-  // null input
-  // ""
-  test("");
+  /*
+    // null input
+    // ""
+    test("");
 
-  // edge cases, all of which should
-  // print their input
-  test("-");
-  test("-a-");
-  test("a--a");
-  test("abcd");
-  test("1-a");
-
+    // edge cases, all of which should
+    // print their input
+    test("-");
+    test("-a-");
+    test("a--a");
+    test("abcd");
+    test("1-a");
+  */
   return 0;
 }
 
 void test(const char* const str) {
   char* expanded = expand(str, (int)strlen(str));
-  printf("original: %s\n", str);
-  printf("expanded: %s\n\n", expanded);
+  printf("test(): original: %s\n", str);
+  printf("test(): expanded: %s\n-------------\n", expanded);
   free(expanded);
 }
 
@@ -76,9 +77,11 @@ char* expand(const char* const str, const int len) {
   // expand to more than 1000 characters,
   // which is not at all a reasonable assumption.
   char* expanded = (char*)malloc((unsigned long)1000);
+  memset(expanded, '\0', 1000);
 
   // Copy chars from str to expanded until we encounter a -
   for (i = 0, j = 0; i < len; i++) {
+    // printf("%c\n", str[i]);
     if (str[i] == '-') {
       if (valid_expansion(str, i, len)) {
         /*
@@ -88,12 +91,24 @@ char* expand(const char* const str, const int len) {
         it with \0 given that strcat() needs a null to determine
         where to append.
         */
+        for (int k = 0; k < 11; k++) {
+          printf("%c |", expanded[k]);
+        }
+        printf("\n");
         expansion = generate_expansion(str[i - 1], str[i + 1]);
-        expanded[j - 1] = '\0';
-        strcat(expanded, expansion);
-        j += strlen(expansion);
-        i += 2;
+        for (int k = 0; k < 11; k++) {
+          printf("%c |", expanded[k]);
+        }
+        printf("\n");
+        strcpy(expanded + (j - 1), expansion);
+        for (int k = 0; k < 11; k++) {
+          printf("%c |", expanded[k]);
+        }
+        printf("\n");
+        j += strlen(expansion) - 1;
+        i += 1;
         free(expansion);
+        expansion = NULL;
       } else {
         // the - doesn't represent a valid
         // expansion, so just copy it
@@ -104,6 +119,7 @@ char* expand(const char* const str, const int len) {
       expanded[j++] = str[i];
     }
   }
+  printf("expanded, final: %s\n", expanded);
   expanded[j] = '\0';
   return expanded;
 }

@@ -9,7 +9,9 @@
     "5.2.h": "c",
     "limits.h": "c",
     "climits": "c",
-    "common.h": "c"
+    "common.h": "c",
+    "cmocka.h": "c",
+    "stdarg.h": "c"
   },
   "files.insertFinalNewline": true,
   "editor.tabSize": 2

@@ -7,4 +7,4 @@ int get_char_type(const char a);
 int is_upper(const char a);
 int is_lower(const char a);
 int is_int(const char a);
-void test(const char* const str);
+void test(const char* const str, const char* const expansion);

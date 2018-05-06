@@ -1,9 +1,15 @@
 #include "3.3.h"
+#include <assert.h>
+#include <setjmp.h>
+#include <stdarg.h>
 #include <stdbool.h>
+#include <stddef.h>
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
 #include "common.h"
+// -- cmocka has to be included last because it relies on stdlib headers --
+#include <cmocka.h>
 
 /*
 Exercise 3-3. Write a function expand(s1, s2) that expands shorthand
@@ -19,52 +25,81 @@ d-a -> dcba (reverse expansion)
 a-c-e -> abc-e -> abcde (chained expansion)
 */
 
-int main() {
-  // basic expansion, lower case
-  // abcd
-  // test("a-d");
-
-  // basic expansion, upper case
-  // ABCD
-  // test("A-D");
-
-  // basic expansion, ints
-  // 01234
-  // test("0-4");
-
-  // Average input
-  // abcd01234ABCD
-  // test("a-d0-4A-D");
-
-  // Reverse input
-  // dcba
-  test("d-a");
-
-  // Chained expansion
-  // abcd....z
-  test("a-k-z");
-
-  /*
-    // null input
-    // ""
-    test("");
-
-    // edge cases, all of which should
-    // print their input
-    test("-");
-    test("-a-");
-    test("a--a");
-    test("abcd");
-    test("1-a");
-  */
-  return 0;
+static void test_basic_expansion_lower(void** state) {
+  (void)state;
+  char base[] = "a-d";
+  char expected[] = "abcd";
+  char* actual = expand(base, (int)strlen(base));
+  assert_string_equal(actual, expected);
+  free(actual);
 }
 
-void test(const char* const str) {
-  char* expanded = expand(str, (int)strlen(str));
-  printf("test(): original: %s\n", str);
-  printf("test(): expanded: %s\n-------------\n", expanded);
-  free(expanded);
+static void test_basic_expansion_upper(void** state) {
+  (void)state;
+  char base[] = "A-D";
+  char expected[] = "ABCD";
+  char* actual = expand(base, (int)strlen(base));
+  assert_string_equal(actual, expected);
+  free(actual);
+}
+
+static void test_basic_expansion_ints(void** state) {
+  (void)state;
+  char base[] = "0-4";
+  char expected[] = "01234";
+  char* actual = expand(base, (int)strlen(base));
+  assert_string_equal(actual, expected);
+  free(actual);
+}
+
+static void test_normal_input(void** state) {
+  (void)state;
+  char base[] = "a-d0-4A-D";
+  char expected[] = "abcd01234ABCD";
+  char* actual = expand(base, (int)strlen(base));
+  assert_string_equal(actual, expected);
+  free(actual);
+}
+
+static void test_chained_expansion(void** state) {
+  (void)state;
+  char base[] = "a-k-z";
+  char expected[] = "abcdefghijklmnopqrstuvwxyz";
+  char* actual = expand(base, (int)strlen(base));
+  assert_string_equal(actual, expected);
+  free(actual);
+}
+
+static void test_reverse_expansion(void** state) {
+  (void)state;
+  char base[] = "5-0";
+  char expected[] = "543210";
+  char* actual = expand(base, (int)strlen(base));
+  assert_string_equal(actual, expected);
+  free(actual);
+}
+
+static void test_edge_cases_self_print(void** state) {
+  (void)state;
+  char* base[] = {"", "-", "-a-", "a--a", "abcd", "1-a"};
+  for (int i = 0; i < 5; i++) {
+    char* actual = expand(base[i], (int)strlen(base[i]));
+    assert_string_equal(actual, base[i]);
+    free(actual);
+  }
+}
+
+int main(void) {
+  const struct CMUnitTest tests[] = {
+      cmocka_unit_test(test_basic_expansion_lower),
+      cmocka_unit_test(test_basic_expansion_upper),
+      cmocka_unit_test(test_basic_expansion_ints),
+      cmocka_unit_test(test_normal_input),
+      cmocka_unit_test(test_chained_expansion),
+      cmocka_unit_test(test_reverse_expansion),
+      cmocka_unit_test(test_edge_cases_self_print),
+  };
+  return cmocka_run_group_tests(tests, NULL, NULL);
 }
 
 // expand(): performs expansion per the instructions
@@ -91,24 +126,11 @@ char* expand(const char* const str, const int len) {
         it with \0 given that strcat() needs a null to determine
         where to append.
         */
-        for (int k = 0; k < 11; k++) {
-          printf("%c |", expanded[k]);
-        }
-        printf("\n");
         expansion = generate_expansion(str[i - 1], str[i + 1]);
-        for (int k = 0; k < 11; k++) {
-          printf("%c |", expanded[k]);
-        }
-        printf("\n");
         strcpy(expanded + (j - 1), expansion);
-        for (int k = 0; k < 11; k++) {
-          printf("%c |", expanded[k]);
-        }
-        printf("\n");
         j += strlen(expansion) - 1;
         i += 1;
         free(expansion);
-        expansion = NULL;
       } else {
         // the - doesn't represent a valid
         // expansion, so just copy it
@@ -119,7 +141,7 @@ char* expand(const char* const str, const int len) {
       expanded[j++] = str[i];
     }
   }
-  printf("expanded, final: %s\n", expanded);
+
   expanded[j] = '\0';
   return expanded;
 }

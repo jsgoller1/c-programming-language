@@ -1,5 +1,9 @@
 #include <stdio.h>
 
+#ifndef VERBOSE_TEST
+#pragma clang diagnostic ignored "-Wunused-function"
+#endif
+
 // Ex 1.6: Verify that the expression `getchar() != EOF` is 0 or 1.
 
 static int verify() {

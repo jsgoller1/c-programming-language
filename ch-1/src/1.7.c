@@ -3,6 +3,10 @@
 // Ex 1.7: Write a program to print the value of EOF
 
 int main() {
-  printf("%d", EOF);
+#ifdef VERBOSE_TEST
+  printf("EOF: %d\n", EOF);
+#else
+  printf("1.7: No unit tests.\n");
+#endif
   return 0;
 }

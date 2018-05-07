@@ -1,12 +1,16 @@
 #include <stdio.h>
 
+#ifndef VERBOSE_TEST
+#pragma clang diagnostic ignored "-Wunused-function"
+#endif
+
 /*
-Ex 1.3: Modify the temperature conversion program
-to print a heading above the table.
-Ex 1.4: Write a program to convert celcius
-temps into Fahrenheit. Since C = 5/9 * (F-32),
-F = (C * 9/5) + 32.
-*/
+ * Ex 1.3: Modify the temperature conversion program
+ * to print a heading above the table.
+ * Ex 1.4: Write a program to convert celcius
+ * temps into Fahrenheit. Since C = 5/9 * (F-32),
+ * F = (C * 9/5) + 32.
+ */
 
 #define LOWER 0.0    // lower limit of temperature table
 #define UPPER 300.0  // upper limit

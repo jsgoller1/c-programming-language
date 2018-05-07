@@ -1,9 +1,13 @@
 #include <stdio.h>
 
+#ifndef VERBOSE_TEST
+#pragma clang diagnostic ignored "-Wunused-function"
+#endif
+
 /*
-Ex 1.5: Modify the temperature conversion program to print the table in
-reverse order, that is, from 300 degrees to O.
-*/
+ * Ex 1.5: Modify the temperature conversion program to print the table in
+ * reverse order, that is, from 300 degrees to O.
+ */
 
 static int reverse_table() {
   int fahr;

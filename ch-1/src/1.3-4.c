@@ -1,3 +1,4 @@
+#include "1.3-4.h"
 #include <stdio.h>
 
 /*
@@ -12,7 +13,7 @@ F = (C * 9/5) + 32.
 #define UPPER 300.0  // upper limit
 #define STEP 20.0    // size increment
 
-int main() {
+int cels_to_fahr() {
   double fahr, celsius;
 
   celsius = LOWER;
@@ -25,4 +26,12 @@ int main() {
   }
 
   return 0;
+}
+
+int main() {
+#ifdef VERBOSE_TEST
+  cels_to_fahr();
+#else
+  printf("1.3-4: No unit tests.\n");
+#endif
 }

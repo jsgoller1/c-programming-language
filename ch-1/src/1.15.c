@@ -12,6 +12,8 @@ static void test_f_to_c(const double f, const double expected,
   const double actual = fahr_to_cels(f);
 #ifdef TEST_MESSAGES
   printf("fahr_to_cels(): %s\n", message);
+#else
+  (void)message;
 #endif
 #ifdef DEBUG
   printf("Expected: %f\n", expected);

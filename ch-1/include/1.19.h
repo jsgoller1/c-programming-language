@@ -1,2 +1,2 @@
-void reverse(char string[], const int len);
-void swap(char string[], const int a, const int b);
+void reverse(char* const string, const int len);
+void swap(char* const string, const int a, const int b);

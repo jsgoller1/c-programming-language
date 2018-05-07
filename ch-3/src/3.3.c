@@ -23,12 +23,14 @@ a-c-e -> abc-e -> abcde (chained expansion)
 static void test(const char* const expr, const char* const expected,
                  const char* const message) {
   char* actual = expand(expr, (int)strlen(expr));
-#ifdef VERBOSE_TEST
+#ifdef TEST_MESSAGES
   printf("TEST: %s...\n", message);
-  printf("Expected: %s\n", expected);
-  printf("Actual: %s\n", actual);
 #else
   (void)message;
+#endif
+#ifdef DEBUG
+  printf("Expected: %s\n", expected);
+  printf("Actual: %s\n", actual);
 #endif
   assert_string_eq(actual, expected);
   free(actual);

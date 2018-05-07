@@ -1,7 +1,6 @@
 SHELL:=/bin/bash
 CC:= clang
 CFLAGS := -std=c11 -g -Weverything -Werror -lm
-CMOCKA := -l cmocka -L/usr/lib/libcmocka.so.0.4.1
 #VERBOSE_TEST=-D VERBOSE_TEST
 TESTS := $(VERBOSE_TEST) -I tests/include tests/src/tests.c
 
@@ -25,10 +24,10 @@ ch-7: 7.1 7.2 7.3 7.4 7.5 7.6 7.7 7.8
 ch-8: 8.1 8.2 8.3 8.4 8.5 8.6 8.8 8.8
 
 1.% 2.% 3.% 4.% 5.% 6.% 7.% 8.%:
-	@# When making "3.4", get "3"
-	@CH=$(shell echo $@ | grep -o "[1-8]\." | sed 's/\.//' ); \
-	$(CC) $(CFLAGS) -I ch-$$CH/include/ $(TESTS)  ch-$$CH/src/{$@,common}.c -o bin/$@
-	@#bin/$@
+	@# When making "3.4", get "3" as chapter value
+	@$(eval CH := $(shell echo $@ | grep -o "[1-8]\." | sed 's/\.//' ))
+	$(CC) $(CFLAGS) -I ch-$(CH)/include/ $(TESTS)  ch-$(CH)/src/{$@,common}.c -o bin/$@
+	bin/$@
 
 #rpc:
 #	$(CC) $(CFLAGS) -I reverse-polish-calc/include/ $(TESTS)  reverse-polish-calc/src/{$@,common}.c -o bin/$@

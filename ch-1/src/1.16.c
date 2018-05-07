@@ -3,14 +3,22 @@
 #include "common.h"
 
 /*
-1.16 Revise the main routine of the longest-line program so it will correctly
-print the length of arbitrarily long input lines, and as much as possible of the
-text.
-
-Note: if multiple strings are the longest, this program prints the first one.
-*/
+ * 1.16 Revise the main routine of the longest-line program so it will correctly
+ * print the length of arbitrarily long input lines, and as much as possible of
+ * the text.
+ *
+ * Note: if multiple strings are the longest, this program prints the first one.
+ */
 
 int main() {
+#ifdef DEBUG
+  longest_line();
+#else
+  printf("1.16: No unit tests.\n");
+#endif
+}
+
+int longest_line() {
   int len;                // current line length
   int max;                // maximum length seen so far
   char line[MAXLINE];     // current input line

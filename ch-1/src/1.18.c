@@ -1,12 +1,16 @@
 #include <stdio.h>
 #include "common.h"
 
+#ifndef VERBOSE_TEST
+#pragma clang diagnostic ignored "-Wunused-function"
+#endif
+
 /*
 Ex 1.18: Write a program to remove trailing blanks and tabs from each
 line of input, and to delete entirely blank lines.
 */
 
-int main() {
+static int remove_trailing() {
   int len, last;       // current line length, and string index
   char line[MAXLINE];  // current input line
 
@@ -24,4 +28,12 @@ int main() {
     }
   }
   return 0;
+}
+
+int main() {
+#ifdef DEBUG
+  remove_trailing();
+#else
+  printf("1.18: No unit tests.\n");
+#endif
 }

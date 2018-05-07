@@ -13,7 +13,7 @@ Admittedly, I have cheated some in my solutions - this was not my experience wit
 text. The overall strategy with the solutions was `write the best C I possibly can`, not `hold to the text as closely as possible`.
 
 ## Running
-* Each exercise has its own target (e.g. `make 5.4` will make exercise 4 in chapter 5). `make all` compiles all exercises and runs unit tests (assuming any exist).
+Each exercise has its own target (e.g. `make 5.4` will make exercise 4 in chapter 5). `make all` compiles all exercises and runs unit tests (assuming any exist).
 
 ## Tests
 I wrote my own simple testing library for the exercises, found in `tests/`; it wraps around the `assert(3)` macro and can do basic comparison for strings, ints, bools, and structs. Each exercise has a static `test()` function called by `main()` that consumes the testing library and may call other unit test functions in the file. `test()` relies on two preprocessor macros which can be set in the Makefile:

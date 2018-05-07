@@ -40,11 +40,12 @@ static void test(const char* const input, const int lines, const int words,
 
 int main() {
   // Covers all 3 branches
+  printf("1.11: Running tests...\n");
   test("this\t has many words\n and several lines.\n", 3, 7, 41,
        "expected input");
-  // Edge cases
   test("", 0, 0, 0, "edge case: empty string");
   test("   \t\n\t  \n  \t", 3, 0, 12, "edge case: all spacing chars");
+  printf("1.11: PASS!\n");
   return 0;
 }
 

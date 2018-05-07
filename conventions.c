@@ -32,7 +32,8 @@
 #pragma clang diagnostic ignored "-Wunused-function"
 
 /*
- * Ex 14.85: Write a function foobar() that bars every foo.
+ * Ex 9.1: Write a function foobaz_is_bar() that determines if a foo's baz is
+ * bar
  */
 
 #define MAX_FOO 100
@@ -55,8 +56,8 @@ int main() {
   return 0;
 }
 
-// foobar(): check if a foo's baz is bar
-int foobar(const foo* const myfoo, const int bar) {
+// foobaz_is_bar(): check if a foo's baz is bar
+int foobaz_is_bar(const foo* const myfoo, const int bar) {
   if (baz(myfoo) == bar) {
     return 1;
   } else {

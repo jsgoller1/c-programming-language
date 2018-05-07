@@ -1,15 +1,10 @@
 #include "3.3.h"
-#include <assert.h>
-#include <setjmp.h>
-#include <stdarg.h>
 #include <stdbool.h>
-#include <stddef.h>
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
 #include "common.h"
-// -- cmocka has to be included last because it relies on stdlib headers --
-#include <cmocka.h>
+#include "tests.h"
 
 /*
 Exercise 3-3. Write a function expand(s1, s2) that expands shorthand
@@ -25,81 +20,37 @@ d-a -> dcba (reverse expansion)
 a-c-e -> abc-e -> abcde (chained expansion)
 */
 
-static void test_basic_expansion_lower(void** state) {
-  (void)state;
-  char base[] = "a-d";
-  char expected[] = "abcd";
-  char* actual = expand(base, (int)strlen(base));
-  assert_string_equal(actual, expected);
+static void test(const char* const expr, const char* const expected,
+                 const char* const message) {
+  char* actual = expand(expr, (int)strlen(expr));
+#ifdef VERBOSE_TEST
+  printf("TEST: %s...\n", message);
+  printf("Expected: %s\n", expected);
+  printf("Actual: %s\n", actual);
+#else
+  (void)message;
+#endif
+  assert_string_eq(actual, expected);
   free(actual);
-}
-
-static void test_basic_expansion_upper(void** state) {
-  (void)state;
-  char base[] = "A-D";
-  char expected[] = "ABCD";
-  char* actual = expand(base, (int)strlen(base));
-  assert_string_equal(actual, expected);
-  free(actual);
-}
-
-static void test_basic_expansion_ints(void** state) {
-  (void)state;
-  char base[] = "0-4";
-  char expected[] = "01234";
-  char* actual = expand(base, (int)strlen(base));
-  assert_string_equal(actual, expected);
-  free(actual);
-}
-
-static void test_normal_input(void** state) {
-  (void)state;
-  char base[] = "a-d0-4A-D";
-  char expected[] = "abcd01234ABCD";
-  char* actual = expand(base, (int)strlen(base));
-  assert_string_equal(actual, expected);
-  free(actual);
-}
-
-static void test_chained_expansion(void** state) {
-  (void)state;
-  char base[] = "a-k-z";
-  char expected[] = "abcdefghijklmnopqrstuvwxyz";
-  char* actual = expand(base, (int)strlen(base));
-  assert_string_equal(actual, expected);
-  free(actual);
-}
-
-static void test_reverse_expansion(void** state) {
-  (void)state;
-  char base[] = "5-0";
-  char expected[] = "543210";
-  char* actual = expand(base, (int)strlen(base));
-  assert_string_equal(actual, expected);
-  free(actual);
-}
-
-static void test_edge_cases_self_print(void** state) {
-  (void)state;
-  char* base[] = {"", "-", "-a-", "a--a", "abcd", "1-a"};
-  for (int i = 0; i < 5; i++) {
-    char* actual = expand(base[i], (int)strlen(base[i]));
-    assert_string_equal(actual, base[i]);
-    free(actual);
-  }
 }
 
 int main(void) {
-  const struct CMUnitTest tests[] = {
-      cmocka_unit_test(test_basic_expansion_lower),
-      cmocka_unit_test(test_basic_expansion_upper),
-      cmocka_unit_test(test_basic_expansion_ints),
-      cmocka_unit_test(test_normal_input),
-      cmocka_unit_test(test_chained_expansion),
-      cmocka_unit_test(test_reverse_expansion),
-      cmocka_unit_test(test_edge_cases_self_print),
-  };
-  return cmocka_run_group_tests(tests, NULL, NULL);
+  printf("Running 3.3 tests...\n");
+  test("a-d", "abcd", "basic expansion, lowercase");
+  test("A-D", "ABCD", "basic expansion, uppercase");
+  test("0-4", "01234", "basic expansion, integers");
+  test("a-d0-4A-D", "abcd01234ABCD", "basic expansion, all chars");
+  test("a-k-z", "abcdefghijklmnopqrstuvwxyz", "chained expansion");
+  test("5-0", "543210", "reverse expansion");
+  test("", "", "edge-case; no expansion");
+  test("-", "-", "edge-case; no expansion");
+  test("-a-", "-a-", "edge-case; no expansion");
+  test("a--a", "a--a", "edge-case; no expansion");
+  test("1-a", "1-a", "edge-case; no expansion");
+  test("abcd", "abcd", "edge-case; no expansion");
+  printf("3.3 - PASS\n.");
+
+  return 0;
 }
 
 // expand(): performs expansion per the instructions

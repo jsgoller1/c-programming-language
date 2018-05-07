@@ -2,6 +2,8 @@ SHELL:=/bin/bash
 CC:= clang
 CFLAGS := -std=c11 -g -Weverything -Werror -lm
 CMOCKA := -l cmocka -L/usr/lib/libcmocka.so.0.4.1
+#VERBOSE_TEST=-D VERBOSE_TEST
+TESTS := $(VERBOSE_TEST) -I tests/include tests/src/tests.c
 
 all: setup ch-1 ch-2 ch-3 ch-4 ch-5 ch-6 ch-7 ch-8
 
@@ -23,7 +25,7 @@ ch-2: 2.1 2.2 2.3 2.4 2.5 2.6 2.7 2.8 2.9 2.10
 
 ch-3: 3.1 3.2 3.3 3.4 3.5 3.6
 3.%:
-	$(CC) $(CFLAGS) $(CMOCKA) -I ch-3/include/ ch-3/src/$@.c -o bin/$@
+	$(CC) $(CFLAGS) -I ch-3/include/ $(TESTS) ch-3/src/$@.c -o bin/$@
 	bin/$@
 
 ch-4: 4.1 4.2 4.11 4.12-13 4.14 rpc

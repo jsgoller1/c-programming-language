@@ -3,9 +3,9 @@
 #include "tests.h"
 
 /*
-Ex 1.15: Rewrite the temperature conversion program of Section 1.2 to use a
-function for conversion.
-*/
+ * Ex 1.15: Rewrite the temperature conversion program of Section 1.2 to use a
+ * function for conversion.
+ */
 
 static void test_f_to_c(const double f, const double expected,
                         const char* const message) {

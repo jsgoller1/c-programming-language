@@ -2,9 +2,9 @@
 #include <stdio.h>
 
 /*
-Ex 1.13:  Write a program to print a histogram of words lengths in its input;
-vertical is harder than horizontal.
-*/
+ * Ex 1.13:  Write a program to print a histogram of words lengths in its input;
+ * vertical is harder than horizontal.
+ */
 
 #define IN 1   // inside a word
 #define OUT 0  // outside a word

@@ -1,5 +1,6 @@
 #include "tests.h"
 #include <assert.h>
+#include <math.h>
 #include <stdbool.h>
 #include <stdio.h>
 #include <stdlib.h>
@@ -13,6 +14,16 @@
 // assert_ints_*(): compare integers
 void assert_int_eq(const int a, const int b) { assert(a == b); }
 void assert_int_neq(const int a, const int b) { assert(a != b); }
+
+// assert_double_*(): compare equality of doubles to arbitrary precision
+void assert_double_eq(const double a, const double b, const double error) {
+  const double difference = fabs(a - b);
+  assert(difference < error);
+}
+void assert_double_neq(const double a, const double b, const double error) {
+  const double difference = fabs(a - b);
+  assert(difference > error);
+}
 
 // assert_strings_*(): compare strings via strcmp(); assumes strings are null
 // terminated

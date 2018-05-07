@@ -3,6 +3,9 @@
 void assert_int_eq(const int a, const int b);
 void assert_int_neq(const int a, const int b);
 
+void assert_double_eq(const double a, const double b, const double error);
+void assert_double_neq(const double a, const double b, const double error);
+
 void assert_string_eq(const char* const a, const char* const b);
 void assert_string_neq(const char* const a, const char* const b);
 

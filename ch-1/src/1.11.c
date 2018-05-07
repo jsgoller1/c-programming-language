@@ -23,7 +23,7 @@
 static void test(const char* const input, const int lines, const int words,
                  const int chars, const char* const message) {
 #ifdef TEST_MESSAGES
-  printf("TEST: %s...\n", message);
+  printf("word_count(): %s\n", message);
 #endif
   counter counts = {0, 0, 0};
   word_count(input, (int)strlen(input), &counts);

@@ -6,7 +6,7 @@
 
 // Ex 1.12: Write a program that prints every word of input on its own line
 
-int print_every_word() {
+static int print_every_word() {
   int c;
 
   printf("Begin typing, terminate via ctrl-D on an empty line.\n");
@@ -22,7 +22,7 @@ int print_every_word() {
 
 int main() {
 #ifdef DEBUG
-  print_every_word()();
+  print_every_word();
 #else
   printf("1.12: No unit tests.\n");
 #endif

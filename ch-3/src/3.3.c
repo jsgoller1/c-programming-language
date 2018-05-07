@@ -24,7 +24,7 @@ static void test(const char* const expr, const char* const expected,
                  const char* const message) {
   char* actual = expand(expr, (int)strlen(expr));
 #ifdef TEST_MESSAGES
-  printf("TEST: %s...\n", message);
+  printf("expand(): %s...\n", message);
 #else
   (void)message;
 #endif

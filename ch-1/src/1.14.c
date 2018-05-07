@@ -8,13 +8,16 @@ of the frequencies of different characters in its input.
 */
 
 int main() {
+#ifdef DEBUG
   int char_counts[26] = {0};  // Initializes all elements to zero
   char characters[26] = {'a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i',
                          'j', 'k', 'l', 'm', 'n', 'o', 'p', 'q', 'r',
                          's', 't', 'u', 'v', 'w', 'x', 'y', 'z'};
   get_chars(char_counts);
   print_histogram(characters, char_counts);
-
+#else
+  printf("1.14: No unit tests.\n");
+#endif
   return 0;
 }
 

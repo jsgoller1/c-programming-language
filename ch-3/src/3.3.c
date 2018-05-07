@@ -35,7 +35,7 @@ static void test(const char* const expr, const char* const expected,
 }
 
 int main(void) {
-  printf("Running 3.3 tests...\n");
+  printf("3.3: Running tests...\n");
   test("a-d", "abcd", "basic expansion, lowercase");
   test("A-D", "ABCD", "basic expansion, uppercase");
   test("0-4", "01234", "basic expansion, integers");
@@ -48,7 +48,7 @@ int main(void) {
   test("a--a", "a--a", "edge-case; no expansion");
   test("1-a", "1-a", "edge-case; no expansion");
   test("abcd", "abcd", "edge-case; no expansion");
-  printf("3.3 - PASS\n.");
+  printf("3.3: PASS!\n");
 
   return 0;
 }

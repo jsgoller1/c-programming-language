@@ -1,15 +1,19 @@
 #include <stdio.h>
 
+#ifndef VERBOSE_TEST
+#pragma clang diagnostic ignored "-Wunused-function"
+#endif
+
 /*
-Ex 1.10: Write a program to copy its input to its output, replacing each tab
-by \t, each backspace by \b, and each backslash by \\. This makes tabs and
-backspaces visible in an unambiguous way.
+ * Ex 1.10: Write a program to copy its input to its output, replacing each tab
+ * by \t, each backspace by \b, and each backslash by \\. This makes tabs and
+ * backspaces visible in an unambiguous way.
+ *
+ * Note: \b doesn't work on my system, as backspacing just deletes characters up
+ * to an empty string, so I'll do this for spaces too.
+ */
 
-Note: \b doesn't work on my system, as backspacing just deletes characters up
-to an empty string, so I'll do this for spaces too
-*/
-
-int main() {
+static int replace_with_escape() {
   int c;
 
   printf("Begin typing, terminate via ctrl-D on an empty line.\n");
@@ -30,4 +34,12 @@ int main() {
     }
   }
   return 0;
+}
+
+int main() {
+#ifdef VERBOSE_TEST
+  replace_with_escape();
+#else
+  printf("1.10: No unit tests.\n");
+#endif
 }

@@ -1,12 +1,16 @@
 #include <stdio.h>
 #include "common.h"
 
-/*
-Ex 1.17: Write a program to print all input lines that are longer than 80
-characters.
-*/
+#ifndef VERBOSE_TEST
+#pragma clang diagnostic ignored "-Wunused-function"
+#endif
 
-int main() {
+/*
+ * Ex 1.17: Write a program to print all input lines that are longer than 80
+ * characters.
+ */
+
+static int longer_than_80() {
   int len;             // current line length
   char line[MAXLINE];  // current input line
 
@@ -15,4 +19,12 @@ int main() {
       printf("%d: %s", len - 1, line);
     }
   return 0;
+}
+
+int main() {
+#ifdef DEBUG
+  longer_than_80();
+#else
+  printf("1.17: No unit tests.\n");
+#endif
 }

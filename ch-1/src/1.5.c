@@ -1,4 +1,3 @@
-#include "1.5.h"
 #include <stdio.h>
 
 /*
@@ -6,7 +5,7 @@ Ex 1.5: Modify the temperature conversion program to print the table in
 reverse order, that is, from 300 degrees to O.
 */
 
-int reverse_table() {
+static int reverse_table() {
   int fahr;
 
   printf("F\tC\n");

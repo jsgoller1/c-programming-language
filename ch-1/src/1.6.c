@@ -2,7 +2,8 @@
 
 // Ex 1.6: Verify that the expression `getchar() != EOF` is 0 or 1.
 
-int main() {
+static int verify() {
+  printf("Enter a character: ");
   int c = getchar();
   if (c == EOF) {  // getchar == EOF is 1 (or possibly some other nonzero value,
                    // but `==` should only evaluate to 0 or 1)
@@ -12,4 +13,12 @@ int main() {
     printf("getchar() didn't return EOF.\n");
     return 0;
   }
+}
+
+int main() {
+#ifdef VERBOSE_TEST
+  verify();
+#else
+  printf("1.6: No unit tests.\n");
+#endif
 }

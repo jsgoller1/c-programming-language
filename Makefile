@@ -1,8 +1,10 @@
 SHELL:=/bin/bash
-CC:= clang
-CFLAGS := -std=c11 -g -Weverything -Werror -lm
-#VERBOSE_TEST=-D VERBOSE_TEST
-TESTS := $(VERBOSE_TEST) -I tests/include tests/src/tests.c
+CC:=clang
+CFLAGS :=-std=c11 -g -Weverything -Werror -lm
+#DEBUG:=-D DEBUG
+TEST_MESSAGES:=-D TEST_MESSAGES
+OUTPUT_LEVEL:= $(DEBUG) $(TEST_MESSAGES)
+TESTS := $(OUTPUT_LEVEL) -I tests/include tests/src/tests.c
 
 all: setup ch-1 ch-2 ch-3 ch-4 rpc ch-5 ch-6 ch-7 ch-8
 

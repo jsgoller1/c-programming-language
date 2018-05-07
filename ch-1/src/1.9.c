@@ -28,7 +28,7 @@ static int replace_blanks() {
 }
 
 int main() {
-#ifdef VERBOSE_TEST
+#ifdef DEBUG
   replace_blanks();
 #else
   printf("1.9: No unit tests.\n");

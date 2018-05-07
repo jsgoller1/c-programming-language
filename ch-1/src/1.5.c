@@ -20,7 +20,7 @@ static int reverse_table() {
 }
 
 int main() {
-#ifdef VERBOSE_TEST
+#ifdef DEBUG
   reverse_table();
 #else
   printf("1.5: No unit tests.\n");

@@ -1,21 +1,30 @@
 # The C Programming Language (K&R)
 Exercises from "The C Programming Language" by Kernighan / Ritchie.
 
-## Running
-* Each exercise has its own target (e.g. `make 5.4` will make exercise 4 in chapter 5).
-* `make all` - compiles all exercises and runs unit tests (assuming any exist).
-* `make verbose` - compiles all exercises and runs all unit tests with verbose output. Some exercises (particularly in chapter 1) are just single functions or don't have unit tests, so this will just run the functions and generate output, or skip them. 
-
 ## Goals
 Other than learning C, my aim with this text was for it to be an exercise in `fanatical conscientiousness`, so my goals are:
 - [ ] All pages read
 - [ ] All exercises solved correctly
 - [ ] All solutions compile against C11 with `-Werror -Wall`
-- [ ] Aggressive adherence to conventions (see below)
+- [ ] Aggressive adherence to conventions.
 - [ ] Lots of unit testing (even if it's overkill). 
 
 Admittedly, I have cheated some in my solutions - this was not my experience with C, so I jumped around while reading and thus used concepts that may not have been introduced yet in the
 text. The overall strategy with the solutions was `write the best C I possibly can`, not `hold to the text as closely as possible`.
+
+## Running
+* Each exercise has its own target (e.g. `make 5.4` will make exercise 4 in chapter 5).
+* `make all` - compiles all exercises and runs unit tests (assuming any exist).
+* `make messages` - compiles and runs all exercises so that individual tests are shown.
+* `make debug` - compiles and runs all exercises, and dumps debugging output for each one. Generally not useful except for me while working on exercises.
+
+## Tests
+I wrote my own simple testing library for the exercises, found in `tests/`; it wraps around the `assert(3)` macro and can do basic comparison for strings, ints, bools, and structs. Each exercise has a static `test()` function called by `main()` that consumes the testing library and may call other unit test functions in the file. `test()` relies on two preprocessor macros defined in the Makefile: 
+* `TEST_MESSAGES` - causes each individual test to be shown (if any exist) when testing.
+* `DEBUG` - dumps information about the exercise test results.
+
+Because all tests are based on `assert(3)`, compilation will immediately halt and fail
+if any tests fail.
 
 ## Conventions
 See `conventions.c` for an example file and listing of conventions.

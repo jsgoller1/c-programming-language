@@ -20,7 +20,7 @@ static int verify() {
 }
 
 int main() {
-#ifdef VERBOSE_TEST
+#ifdef DEBUG
   verify();
 #else
   printf("1.6: No unit tests.\n");

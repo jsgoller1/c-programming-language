@@ -27,7 +27,7 @@ static int count_empties() {
 }
 
 int main() {
-#ifdef VERBOSE_TEST
+#ifdef DEBUG
   count_empties();
 #else
   printf("1.8: No unit tests.\n");

@@ -37,7 +37,7 @@ static int replace_with_escape() {
 }
 
 int main() {
-#ifdef VERBOSE_TEST
+#ifdef DEBUG
   replace_with_escape();
 #else
   printf("1.10: No unit tests.\n");

@@ -32,7 +32,7 @@ static int cels_to_fahr() {
 }
 
 int main() {
-#ifdef VERBOSE_TEST
+#ifdef DEBUG
   cels_to_fahr();
 #else
   printf("1.3-4: No unit tests.\n");

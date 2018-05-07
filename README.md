@@ -2,32 +2,23 @@
 Exercises from "The C Programming Language" by Kernighan / Ritchie.
 
 ## Running
-See the Makefile for the list of targets - each exercise has its own target (e.g. `make 5.4` will make exercise 4 in chapter 5).
+* Each exercise has its own target (e.g. `make 5.4` will make exercise 4 in chapter 5).
+* `make all` - compiles all exercises and runs unit tests (assuming any exist).
+* `make verbose` - compiles all exercises and runs all unit tests with verbose output. Some exercises (particularly in chapter 1) are just single functions or don't have unit tests, so this will just run the functions and generate output, or skip them. 
 
 ## Goals
 Other than learning C, my aim with this text was for it to be an exercise in `fanatical conscientiousness`, so my goals are:
 - [ ] All pages read
-- [ ] All exercised solved correctly
+- [ ] All exercises solved correctly
 - [ ] All solutions compile against C11 with `-Werror -Wall`
 - [ ] Aggressive adherence to conventions (see below)
+- [ ] Lots of unit testing (even if it's overkill). 
 
 Admittedly, I have cheated some in my solutions - this was not my experience with C, so I jumped around while reading and thus used concepts that may not have been introduced yet in the
 text. The overall strategy with the solutions was `write the best C I possibly can`, not `hold to the text as closely as possible`.
 
 ## Conventions
-- Everything should be `lower_snake_case`.
-- Every non-main function should have a single comment above the definition, starting with `name(): ...` and a description using its parameters.
-  - E.g.: `swap(): swaps s[i] and s[j] in s`.
-- Constants should always be `#define`ed in `UPPER_SNAKE_CASE`.
-- Every function parameter should be const (pointers and values) unless they need to mutate.
-- Comments longer than one line should use `/* ... */`, oneliners use `//`.
-- The order of things in each file is:
-  - `#include`s
-  - Problem statement, starting with `Ex <chapter>.<problem>: ...`
-  - `#define`s
-  - `typedefs` and struct definitions
-  - `main()`
-  - Other function definitions either in alphabetical order (by name) or ordered by appearance in main() (whichever makes more contextual sense).
+See `conventions.c` for an example file and listing of conventions.
 
 ## Notes about the exercises
 See `TODO.md` for the remaining work to be done.

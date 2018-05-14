@@ -10,29 +10,13 @@
 static void test_f_to_c(const double f, const double expected,
                         const char* const message) {
   const double actual = fahr_to_cels(f);
-#ifdef TEST_MESSAGES
-  printf("fahr_to_cels(): %s\n", message);
-#else
-  (void)message;
-#endif
-#ifdef DEBUG
-  printf("Expected: %f\n", expected);
-  printf("Actual: %f\n", actual);
-#endif
-  assert_double_eq(actual, expected, .1);
+  assert_double_eq(actual, expected, .1, "fahr_to_cels", message);
 }
 
 static void test_c_to_f(const double c, const double expected,
                         const char* const message) {
   const double actual = cels_to_fahr(c);
-#ifdef TEST_MESSAGES
-  printf("cels_to_fahr(): %s\n", message);
-#endif
-#ifdef DEBUG
-  printf("Expected: %f\n", expected);
-  printf("Actual: %f\n", actual);
-#endif
-  assert_double_eq(actual, expected, .1);
+  assert_double_eq(actual, expected, .1, "cels_to_fahr", message);
 }
 
 int main() {

@@ -17,16 +17,7 @@ static void test(const char* const str, const char* const expected,
   char* actual = (char*)malloc((unsigned long)len + 1);
   strcpy(actual, str);
   reverse(actual, len);
-#ifdef TEST_MESSAGES
-  printf("reverse(): %s\n", message);
-#else
-  (void)message;
-#endif
-#ifdef DEBUG
-  printf("Expected: %s\n", expected);
-  printf("Actual: %s\n", actual);
-#endif
-  assert_string_eq(actual, expected);
+  assert_string_eq(actual, expected, "reverse", message);
   free(actual);
 }
 

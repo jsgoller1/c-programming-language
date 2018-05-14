@@ -22,20 +22,12 @@
 
 static void test(const char* const input, const int lines, const int words,
                  const int chars, const char* const message) {
-#ifdef TEST_MESSAGES
-  printf("word_count(): %s\n", message);
-#endif
   counter counts = {0, 0, 0};
   word_count(input, (int)strlen(input), &counts);
-#ifdef DEBUG
-  printf("%s\nlines: %d, words: %d, chars: %d\n", input, counts.lines,
-         counts.words, counts.chars);
-#else
-  (void)message;
-#endif
-  assert_int_eq(lines, counts.lines);
-  assert_int_eq(words, counts.words);
-  assert_int_eq(chars, counts.chars);
+
+  assert_int_eq(lines, counts.lines, "word_count", message);
+  assert_int_eq(words, counts.words, "word_count", message);
+  assert_int_eq(chars, counts.chars, "word_count", message);
 }
 
 int main() {

@@ -3,23 +3,33 @@
 #include <stdlib.h>
 #include <string.h>
 #include "common.h"
+#include "tests.h"
 
 /*
-Ex 1.20: Write a program detab() that replaces tabs in the input with the
-proper number of blanks to space to the next tab stop. Assume a fixed set of
-tab stops, say every n columns. Should n be a variable or a symbolic parameter?
----
-I am not sure what "symbolic parameter" means here, but a "tab stop" means
-the following: suppose that you declare every 10 columns to be a tab stop.
-Then entering 5 characters and pressing tab causes columns 1 through 5 to be
-populated with keystroke characters, and columns 6 through 10 to be populated
-with whitespaces. Entering another 9 characters and pressing tab populates
-columns 11 through 19 with characters and column 20 with a whitespace.
+* Ex 1.20: Write a program detab() that replaces tabs in the input with the
+* proper number of blanks to space to the next tab stop. Assume a fixed set of
+* tab stops, say every n columns. Should n be a variable or a symbolic
+* parameter?
+* ---
+* I am not sure what "symbolic parameter" means here, but a "tab stop" means
+* the following: suppose that you declare every 10 columns to be a tab stop.
+* Then entering 5 characters and pressing tab causes columns 1 through 5 to be
+* populated with keystroke characters, and columns 6 through 10 to be populated
+* with whitespaces. Entering another 9 characters and pressing tab populates
+* columns 11 through 19 with characters and column 20 with a whitespace.
 */
 
 #define WHITESPACE '.'
 
+static void test(const char* const input, const char* const expected,
+                 const int tab_stop, const char* const message) {
+  const int len = (int)strlen(input);
+  const char* const actual = detab(input, len, tab_stop);
+  assert_string_eq(actual, expected, "detab", message);
+}
+
 int main() {
+#ifdef DEBUG
   int len;             // current line length, and string index
   char line[MAXLINE];  // current input line
   char* tabless_line;
@@ -30,7 +40,9 @@ int main() {
     printf("%s", tabless_line);
     free(tabless_line);
   }
-
+#else
+  printf("1.20: No unit tests.\n");
+#endif
   return 0;
 }
 

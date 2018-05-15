@@ -2,14 +2,14 @@
 #include <stdio.h>
 
 /*
-Ex 1.24: Write a program to check a C program for rudimentary syntax
-errors like unbalanced parentheses, brackets and braces. Don't forget about
-quotes, both single and double, escape sequences, and comments. (This
-program is hard if you do it in full generality.)
-----
-At the time of publication, "comments" technically meant only C-style
-comments, i.e. the type this text is in, but I did both here.
-*/
+ * Ex 1.24: Write a program to check a C program for rudimentary syntax
+ * errors like unbalanced parentheses, brackets and braces. Don't forget about
+ * quotes, both single and double, escape sequences, and comments. (This
+ * program is hard if you do it in full generality.)
+ * ----
+ * At the time of publication, "comments" technically meant only C-style
+ * comments, i.e. the type this text is in, but I did both here.
+ */
 
 int main() {
   int c = 0;

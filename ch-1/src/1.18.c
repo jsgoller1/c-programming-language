@@ -1,7 +1,7 @@
 #include <stdio.h>
 #include "common.h"
 
-#ifndef VERBOSE_TEST
+#ifndef DEBUG
 #pragma clang diagnostic ignored "-Wunused-function"
 #endif
 

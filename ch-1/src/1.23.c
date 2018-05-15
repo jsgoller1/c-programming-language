@@ -1,12 +1,16 @@
 #include <stdio.h>
 
-/*
-Ex 1.23: Write a program to remove all comments from a C program. Don't forget
-to handle quoted strings and character constants properly. C comments do not
-nest.
-*/
+#ifndef DEBUG
+#pragma clang diagnostic ignored "-Wunused-function"
+#endif
 
-int main() {
+/*
+ * Ex 1.23: Write a program to remove all comments from a C program. Don't
+ * forget to handle quoted strings and character constants properly. C comments
+ * do not nest.
+ */
+
+static int remove_comments() {
   int in_single_comment, in_multi_comment; /* this gets removed */
   in_single_comment = in_multi_comment = 0;
   int c, temp;
@@ -49,4 +53,12 @@ int main() {
     }
   }
   return 0;
+}
+
+int main() {
+#ifdef DEBUG
+  remove_comments();
+#else
+  printf("1.23: No unit tests.\n");
+#endif
 }

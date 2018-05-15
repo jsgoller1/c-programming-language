@@ -4,20 +4,23 @@
 #include <string.h>
 #include "common.h"
 
-#define MAXLINE 1000  // maximum input line size
 #define TAB_CHAR '$'
+
+#ifdef DEBUG
 #define TAB_STOPS 5
+#endif
 
 /*
-Write a program entab that replaces strings of blanks by the minimum number of
-tabs and blanks to achieve the same spacing. Use the same tab stops as for
-detab(). When either a tab or a single blank would suffice to reach a tab stop,
-which should be given preference?
----
-We will use a tab for a single blank before a tab stop.
-*/
+ * Write a program entab that replaces strings of blanks by the minimum number
+ * of tabs and blanks to achieve the same spacing. Use the same tab stops as for
+ * detab(). When either a tab or a single blank would suffice to reach a tab
+ * stop, which should be given preference?
+ * ---
+ * We will use a tab for a single blank before a tab stop.
+ */
 
 int main() {
+#ifdef DEBUG
   int len;             // current line length
   char line[MAXLINE];  // current input line
   char* stripped;
@@ -29,10 +32,11 @@ int main() {
     stripped = entab(line, len, TAB_STOPS);
     printf("%s\n", stripped);
   }
-
+#else
+  printf("1.21: No unit tests.\n");
+#endif
   return 0;
 }
-
 // entab(): given a string of len, return it with all whitespaces of a given
 // length replaced by tabs (represented by "$" for clarity)
 char* entab(const char* const in_line, const int in_len, const int tab_stop) {

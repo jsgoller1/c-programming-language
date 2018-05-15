@@ -21,13 +21,6 @@
 
 #define WHITESPACE '.'
 
-static void test(const char* const input, const char* const expected,
-                 const int tab_stop, const char* const message) {
-  const int len = (int)strlen(input);
-  const char* const actual = detab(input, len, tab_stop);
-  assert_string_eq(actual, expected, "detab", message);
-}
-
 int main() {
 #ifdef DEBUG
   int len;             // current line length, and string index

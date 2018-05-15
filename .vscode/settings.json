@@ -11,7 +11,9 @@
     "climits": "c",
     "common.h": "c",
     "cmocka.h": "c",
-    "stdarg.h": "c"
+    "stdarg.h": "c",
+    "1.14.h": "c",
+    "1.15.h": "c"
   },
   "files.insertFinalNewline": true,
   "editor.tabSize": 2

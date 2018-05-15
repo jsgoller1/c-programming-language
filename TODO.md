@@ -1,15 +1,21 @@
 # TODO
 ---
+- [ ] Ch. 1
+  - All exercises have passing unit tests
+- [ ] Ch. 2
+  - All exercises have passing unit tests
 - [ ] Ch. 3
   - [x] Reading
   - [ ] Exercises
     - [ ] 3-3: make this [better](https://gist.github.com/robot-dreams/34d10248bc474f5a4312fa72e325656a)
+    - All exercises have passing unit tests 
   - [ ] C11 / `-Werror -Wall` compliance
 - [ ] Ch. 4 / RPN
   - [x] Reading
   - [ ] Exercises
     - [ ] 4-9: Ensure that my comment is actually correct
   - [ ] C11 / `-Werror -Wall` compliance
+  - All exercises have passing unit tests
 - [ ] Ch. 5
   - [x] Reading
   - [ ] Exercises
@@ -23,6 +29,7 @@
     - [ ] 5-19
     - [ ] 5-20
   - [ ] C11 / `-Werror -Wall` compliance
+  - All exercises have passing unit tests
 - [ ] Ch. 6
   - [X] Reading
   - [ ] Exercises
@@ -33,6 +40,7 @@
     - [ ] 6-5
     - [ ] 6-6
   - [ ] C11 / `-Werror -Wall` compliance
+  - All exercises have passing unit tests
 - [ ] Ch. 7
   - [X] Reading
   - [ ] Exercises
@@ -45,6 +53,7 @@
     - [ ] 7-7
     - [ ] 7-8
   - [ ] C11 / `-Werror -Wall` compliance
+  - All exercises have passing unit tests
 - [ ] Ch. 8
   - [ ] Reading
   - [ ] Exercises
@@ -57,6 +66,7 @@
     - [ ] 8-7
     - [ ] 8-8
   - [ ] C11 / `-Werror -Wall` compliance
+  - All exercises have passing unit tests
 - [ ] Appendix A
   - [ ] Reading
 - [ ] Appendix B

@@ -12,6 +12,7 @@
  */
 
 int main() {
+#ifdef DEBUG
   int c = 0;
   parsing_state ps = {0, 0, 0, 0, 0};
   input_registry ir = {0, 0, 0, 0};
@@ -23,6 +24,9 @@ int main() {
     }
   }
   print_output(&ir, &ps);
+#else
+  printf("1.24: No unit tests.\n");
+#endif
   return 0;
 }
 

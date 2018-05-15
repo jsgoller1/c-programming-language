@@ -11,6 +11,8 @@
  *   function needs to mutate it.
  * - Comments longer than three lines should use /* ... with * on each line
  *   (like in this file), one and two liners use //.
+ * - Functions that are relevant only to the file should be static; any code
+ *   that is used between files should be in common.c.
  * - The order of things in each file is:
  *   - #includes
  *   - #pragmas

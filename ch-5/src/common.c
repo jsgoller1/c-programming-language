@@ -1,4 +1,4 @@
-#include "5-common.h"
+#include "common.h"
 #include <stdio.h>
 #include <string.h>
 

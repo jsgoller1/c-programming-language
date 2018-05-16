@@ -34,7 +34,7 @@ void ungetch(int c) {
 --------------------------------------------------------
 */
 
-// getline(): read a line into s, return length
+// mygetline(): read a line into s, return length
 int mygetline(char s[], int lim) {
   int c, i;
   c = i = 0;

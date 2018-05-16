@@ -5,7 +5,7 @@ int getch(void);
 void ungetch(int val);
 
 // Line I/O
-int mygetline(char *, int);
+int mygetline(char *line, int maxline);
 int readlines(char *lineptr[], int nlines);
 void writelines(char *lineptr[], int nlines);
 

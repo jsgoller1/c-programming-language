@@ -22,7 +22,7 @@ void assert_int_eq(const int actual, const int expected,
 #endif
 #ifdef DEBUG
   printf("Expected: %d\n", expected);
-  printf("Actual: %d\n", actual);
+  printf("Actual: %d\n\n", actual);
 #endif
   assert(actual == expected);
 }
@@ -37,7 +37,7 @@ void assert_int_neq(const int actual, const int expected,
 #endif
 #ifdef DEBUG
   printf("Expected: %d\n", expected);
-  printf("Actual: %d\n", actual);
+  printf("Actual: %d\n\n", actual);
 #endif
   assert(actual != expected);
 }
@@ -56,7 +56,7 @@ void assert_double_eq(const double actual, const double expected,
 #ifdef DEBUG
   printf("Expected: %f\n", expected);
   printf("Actual: %f\n", actual);
-  printf("Difference: %f/n", difference);
+  printf("Difference: %f/n\n", difference);
 #endif
   assert(difference < error);
 }
@@ -73,7 +73,7 @@ void assert_double_neq(const double actual, const double expected,
 #ifdef DEBUG
   printf("Expected: %f\n", expected);
   printf("Actual: %f\n", actual);
-  printf("Difference: %f/n", difference);
+  printf("Difference: %f/n\n", difference);
 #endif
   assert(difference > error);
 }
@@ -90,7 +90,7 @@ void assert_string_eq(const char* const actual, const char* const expected,
 #endif
 #ifdef DEBUG
   printf("Expected: %s\n", expected);
-  printf("Actual: %s\n", actual);
+  printf("Actual: %s\n\n", actual);
 #endif
   assert(strcmp(actual, expected) == 0);
 }
@@ -105,7 +105,7 @@ void assert_string_neq(const char* const actual, const char* const expected,
 #endif
 #ifdef DEBUG
   printf("Expected: %s\n", expected);
-  printf("Actual: %s\n", actual);
+  printf("Actual: %s\n\n", actual);
 #endif
   assert(strcmp(actual, expected) != 0);
 }
@@ -121,7 +121,7 @@ void assert_true(const bool expr, const char* const func_name,
 #endif
 #ifdef DEBUG
   printf("Expected: %d\n", expr);
-  printf("Actual: %d\n", 1);
+  printf("Actual: %d\n\n", 1);
 #endif
   assert(expr);
 }
@@ -135,7 +135,7 @@ void assert_false(const bool expr, const char* const func_name,
 #endif
 #ifdef DEBUG
   printf("Expected: %d\n", expr);
-  printf("Actual: %d\n", 0);
+  printf("Actual: %d\n\n", 0);
 #endif
   assert(!(expr));
 }
@@ -153,7 +153,7 @@ void assert_mem_eq(const void* const actual, const void* const expected,
   const int result = memcmp(actual, expected, (unsigned long)size);
 #ifdef DEBUG
   printf("Expected: 0\n");
-  printf("Actual: %d\n", result);
+  printf("Actual: %d\n\n", result);
 #endif
   assert(result == 0);
 }
@@ -169,7 +169,7 @@ void assert_mem_neq(const void* const actual, const void* const expected,
   const int result = memcmp(actual, expected, (unsigned long)size);
 #ifdef DEBUG
   printf("Expected: nonzero\n");
-  printf("Actual: %d\n", result);
+  printf("Actual: %d\n\n", result);
 #endif
   assert(result != 0);
 }

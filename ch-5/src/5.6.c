@@ -21,15 +21,15 @@ static void test(char* const input, const char* const expected,
   strcpy(copy, input);
 
   reverse_p(copy, len);
-  printf("Original: %s\n", input);
-  printf("Actual: %s\n", copy);
-  printf("Expected: %s\n", expected);
-  printf("lens: %d\n", (int)strcmp(expected, copy));
   assert_string_eq(copy, expected, "reverse", message);
   free(copy);
 }
 
 int main() {
-  test("Joshua", "auhsoJ", "normal input");
+  test("Joshua", "auhsoJ", "even input");
+  test("Steve", "evetS", "odd input");
+  test("a", "a", "single input");
+  test("", "", "null input");
+  printf("5.6: PASS!\n");
   return 0;
 }

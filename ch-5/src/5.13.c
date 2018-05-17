@@ -28,17 +28,19 @@
 
 // tail(): print the last n lines from input
 int main(int argc, char** argv) {
-  const int line_num = check_input(argc, (const char* const*)argv);
-
-  if (line_num == -1) {
+  // Determine if input is valid
+  const int n = check_input(argc, (const char* const*)argv);
+  if (n == -1) {
     return -1;
-  } else if (line_num == 0) {
+  } else if (n == 0) {
     return 0;
   }
 
-  queue* q = new_queue(line_num);
+  // Instantiate queue and read input into it
+  queue* q = new_queue(n);
   read_lines(q);
 
+  // read out remaining n items in queue
   char* final_line = malloc(MAXLEN);
   while (dequeue(q, final_line) == 1) {
     printf("%s", final_line);
@@ -48,6 +50,8 @@ int main(int argc, char** argv) {
   return 0;
 }
 
+// check_input(): when tail starts, determine if arguments
+// are valid, and set default n if none is provided.
 int check_input(const int argc, const char* const* const argv) {
   // if -n is not given, default to 10
   if (argc == 1) {
@@ -62,7 +66,7 @@ int check_input(const int argc, const char* const* const argv) {
 
     for (int i = 0; i < arg_size; i++) {
       if (!(isdigit(count[i]))) {
-        printf("check_input(): error - n is not a number\n");
+        printf("error - %s is not a number\n", count);
         printf("usage: tail -n <line count>\n");
         return -1;
       }
@@ -70,25 +74,12 @@ int check_input(const int argc, const char* const* const argv) {
     return (int)atoi(argv[2]);
   } else {
     printf("check_input(): error - too many arguments:\n");
-    for (int i = 0; i < argc; i++) {
-      printf("arg: %s\n", argv[i]);
-    }
     printf("usage: tail -n <line count>\n");
     return -1;
   }
 }
 
-queue* new_queue(int max_size) {
-  queue* q = malloc(sizeof(queue));
-
-  q->head = NULL;
-  q->tail = NULL;
-  q->max_size = max_size;
-  q->current_size = 0;
-
-  return q;
-}
-
+// read_lines(): read input from stdin and enqueue each line
 void read_lines(queue* q) {
   char temp_line[MAXLEN];
   unsigned long line_len;
@@ -102,6 +93,19 @@ void read_lines(queue* q) {
   }
 }
 
+// new_queue(): Initialize a queue structure
+queue* new_queue(int max_size) {
+  queue* q = malloc(sizeof(queue));
+
+  q->head = NULL;
+  q->tail = NULL;
+  q->max_size = max_size;
+  q->current_size = 0;
+
+  return q;
+}
+
+// enqueue(): add an item to the queue
 int enqueue(queue* const q, char* data) {
   // Check if adding our node is allowed given the queue's size
   if (q->current_size == q->max_size) {
@@ -130,6 +134,7 @@ int enqueue(queue* const q, char* data) {
   return 0;
 }
 
+// dequeue(): remove an item from the queue
 int dequeue(queue* const q, char* data) {
   if (!(q->current_size && q->head)) {
     data = NULL;

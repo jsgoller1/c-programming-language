@@ -58,10 +58,14 @@ int main(int argc, char** argv) {
   read_lines(q);
 
   char* final_line = malloc(MAXLEN);
+  int i = 0;
   while (dequeue(q, final_line) == 1) {
+    printf("dequeuing: %d\n", i);
     printf("%s", final_line);
+    printf("dequeued: %d\n", i++);
   }
 
+  printf("Ready to free..\n");
   free(final_line);
   return 0;
 }
@@ -87,7 +91,10 @@ int check_input(const int argc, const char* const* const argv) {
     }
     return (int)atoi(argv[2]);
   } else {
-    printf("check_input(): error - too many arguments\n");
+    printf("check_input(): error - too many arguments:\n");
+    for (int i = 0; i < argc; i++) {
+      printf("arg: %s\n", argv[i]);
+    }
     printf("usage: tail -n <line count>\n");
     return -1;
   }

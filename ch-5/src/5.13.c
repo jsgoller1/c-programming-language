@@ -50,7 +50,7 @@ int main() {
 int main(int argc, char** argv) {
   int line_num;
 
-  if (!(line_num = check_input(argc, (const char* const*)argv))) {
+  if ((line_num = check_input(argc, (const char* const*)argv)) == -1) {
     return -1;
   }
 
@@ -80,12 +80,14 @@ int check_input(const int argc, const char* const* const argv) {
 
     for (int i = 0; i < arg_size; i++) {
       if (!(isdigit(count[i]))) {
+        printf("check_input(): error - n is not a number\n");
         printf("usage: tail -n <line count>\n");
         return -1;
       }
     }
     return (int)atoi(argv[2]);
   } else {
+    printf("check_input(): error - too many arguments\n");
     printf("usage: tail -n <line count>\n");
     return -1;
   }

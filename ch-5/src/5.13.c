@@ -107,8 +107,8 @@ queue* new_queue(int max_size) {
 
 // enqueue(): add an item to the queue
 int enqueue(queue* const q, char* data) {
-  // Check if adding our node is allowed given the queue's size
   if (q->current_size == q->max_size) {
+    // If the queue is full, dequeue the last item to make room
     char* deleted = malloc(MAXLEN);
     dequeue(q, deleted);
     free(deleted);
@@ -117,6 +117,7 @@ int enqueue(queue* const q, char* data) {
     return -1;
   }
 
+  // Make a new node
   node* new_tail = malloc(sizeof(node));
   new_tail->next = NULL;
   new_tail->data = data;
@@ -126,7 +127,6 @@ int enqueue(queue* const q, char* data) {
     q->head = new_tail;
     q->tail = new_tail;
   }
-
   q->tail->next = new_tail;
   q->tail = q->tail->next;
   q->current_size++;
@@ -137,9 +137,11 @@ int enqueue(queue* const q, char* data) {
 // dequeue(): remove an item from the queue
 int dequeue(queue* const q, char* data) {
   if (!(q->current_size && q->head)) {
+    // Queue is empty
     data = NULL;
     return 0;
   } else {
+    // Remove current head; make the next item the new head
     node* old_head = q->head;
     strcpy(data, old_head->data);
     q->head = old_head->next;

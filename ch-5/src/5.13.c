@@ -28,10 +28,12 @@
 
 // tail(): print the last n lines from input
 int main(int argc, char** argv) {
-  int line_num;
+  const int line_num = check_input(argc, (const char* const*)argv);
 
-  if ((line_num = check_input(argc, (const char* const*)argv)) == -1) {
+  if (line_num == -1) {
     return -1;
+  } else if (line_num == 0) {
+    return 0;
   }
 
   queue* q = new_queue(line_num);
@@ -102,13 +104,11 @@ void read_lines(queue* q) {
 
 int enqueue(queue* const q, char* data) {
   // Check if adding our node is allowed given the queue's size
-  if (q->current_size < q->max_size) {
-    q->current_size++;
-  } else if (q->current_size == q->max_size) {
+  if (q->current_size == q->max_size) {
     char* deleted = malloc(MAXLEN);
     dequeue(q, deleted);
     free(deleted);
-  } else {
+  } else if (q->current_size > q->max_size) {
     printf("enqueue(): Error - queue exceeds maximum size.\n");
     return -1;
   }
@@ -125,23 +125,22 @@ int enqueue(queue* const q, char* data) {
 
   q->tail->next = new_tail;
   q->tail = q->tail->next;
+  q->current_size++;
 
   return 0;
 }
 
 int dequeue(queue* const q, char* data) {
-  if (q->head == NULL) {
+  if (!(q->current_size && q->head)) {
     data = NULL;
     return 0;
-  } else if (q->head != NULL && q->tail != NULL) {
-    strcpy(data, q->head->data);
-    node* old_head = q->head;
-    q->head = q->head->next;
-    free(old_head);
-    return 1;
   } else {
-    printf("dequeue(): Error - queue head is not null but tail is?\n");
-    data = NULL;
-    return -1;
+    node* old_head = q->head;
+    strcpy(data, old_head->data);
+    q->head = old_head->next;
+
+    free(old_head);
+    q->current_size--;
+    return 1;
   }
 }

@@ -31,7 +31,7 @@ ch-8: 8.1 8.2 8.3 8.4 8.5 8.6 8.8 8.8
 	$(CC) $(CFLAGS) -I ch-$(CH)/include/ $(TESTS)  ch-$(CH)/src/{$@,common}.c -o bin/$@
 	bin/$@
 
-# Some assignments are tested via means other than in-file unit tests; these can be made here.
+# Some assignments tested via means other than in-file unit tests; these can be made here.
 tail:
 	$(CC) $(CFLAGS) -I ch-5/include/ $(TESTS)  ch-5/src/{5.13,common}.c -o bin/tail
 	./tests/tail_test.sh

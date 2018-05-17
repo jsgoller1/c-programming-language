@@ -54,7 +54,7 @@ int main(int argc, char** argv) {
 // are valid, and set default n if none is provided.
 int check_input(const int argc, const char* const* const argv) {
   // if -n is not given, default to 10
-  if (argc == 1) {
+  if (argc < 3) {
     return 10;
   }
   // If we get more than 1 arg, ensure that arg 2
@@ -73,7 +73,6 @@ int check_input(const int argc, const char* const* const argv) {
     }
     return (int)atoi(argv[2]);
   } else {
-    printf("check_input(): error - too many arguments:\n");
     printf("usage: tail -n <line count>\n");
     return -1;
   }

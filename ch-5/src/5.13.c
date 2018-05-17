@@ -14,33 +14,13 @@
  * as in the sorting program of Section 5.6, not in a two-dimensional array of
  * fixed size.
  * ----------------------------------
- * We will use a queue, and automatically free the nodes exceeding n.
+ * The easiest way to do this would be to seek to the end of input and then
+ * read back until we see n newlines. But we can't do this with stdin,
+ * so we can use a queue to handle arbitrary input. Every line we read is
+ * enqueued; if we read more than n lines, we dequeue one line every time we
+ * enqueue a new one. Once all input is read, we empty the queue and print each
+ * line.
  */
-
-/*
-static void test_queue() {
-  queue* q = new_queue(2);
-
-  char* string1 = malloc(50);
-  strcpy(string1, "first");
-  char* string2 = malloc(50);
-  strcpy(string2, "second");
-  char* string3 = malloc(50);
-  strcpy(string3, "third");
-
-  enqueue(q, string1);
-  enqueue(q, string2);
-
-  char* string4 = malloc(50);
-  dequeue(q, string4);
-  printf("dequeued: %s\n", string4);
-}
-
-int main() {
-  test_queue();
-  return 0;
-}
-*/
 
 // For some reason, VSCode can't see
 // this in common.h
@@ -58,14 +38,10 @@ int main(int argc, char** argv) {
   read_lines(q);
 
   char* final_line = malloc(MAXLEN);
-  int i = 0;
   while (dequeue(q, final_line) == 1) {
-    printf("dequeuing: %d\n", i);
     printf("%s", final_line);
-    printf("dequeued: %d\n", i++);
   }
 
-  printf("Ready to free..\n");
   free(final_line);
   return 0;
 }
@@ -125,9 +101,6 @@ void read_lines(queue* q) {
 }
 
 int enqueue(queue* const q, char* data) {
-  node* new_tail = malloc(sizeof(node));
-  new_tail->data = data;
-
   // Check if adding our node is allowed given the queue's size
   if (q->current_size < q->max_size) {
     q->current_size++;
@@ -137,9 +110,12 @@ int enqueue(queue* const q, char* data) {
     free(deleted);
   } else {
     printf("enqueue(): Error - queue exceeds maximum size.\n");
-    free(new_tail);
     return -1;
   }
+
+  node* new_tail = malloc(sizeof(node));
+  new_tail->next = NULL;
+  new_tail->data = data;
 
   // Add the node; handle empty queue if necessary.
   if (q->head == NULL) {

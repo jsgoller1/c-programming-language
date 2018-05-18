@@ -16,10 +16,11 @@
  * ----------------------------------
  * The easiest way to do this would be to seek to the end of input and then
  * read back until we see n newlines. But we can't do this with stdin,
- * so we can use a queue to handle arbitrary input. Every line we read is
- * enqueued; if we read more than n lines, we dequeue one line every time we
- * enqueue a new one. Once all input is read, we empty the queue and print each
- * line.
+ * so we can use a "bounded queue" to handle arbitrary input. This queue will
+ * be like a normal queue, except that it will have a maximum size. When
+ * enqueue() is called, if the current queue size exceeds the maximum size, an
+ * element will be dequeue()'d to make room for the new one. Once all input
+ * is read, we empty the queue and print each line.
  */
 
 // For some reason, VSCode can't see
@@ -47,6 +48,7 @@ int main(int argc, char** argv) {
   }
 
   free(final_line);
+  free(q);
   return 0;
 }
 
@@ -54,7 +56,7 @@ int main(int argc, char** argv) {
 // are valid, and set default n if none is provided.
 int check_input(const int argc, const char* const* const argv) {
   // if -n is not given, default to 10
-  if (argc < 3) {
+  if (argc == 1) {
     return 10;
   }
   // If we get more than 1 arg, ensure that arg 2
@@ -113,6 +115,7 @@ int enqueue(queue* const q, char* data) {
     free(deleted);
   } else if (q->current_size > q->max_size) {
     printf("enqueue(): Error - queue exceeds maximum size.\n");
+    free(data);
     return -1;
   }
 
@@ -134,10 +137,10 @@ int enqueue(queue* const q, char* data) {
 }
 
 // dequeue(): remove an item from the queue
-int dequeue(queue* const q, char* data) {
+int dequeue(queue* const q, char* const data) {
   if (!(q->current_size && q->head)) {
     // Queue is empty
-    data = NULL;
+    *data = '\0';
     return 0;
   } else {
     // Remove current head; make the next item the new head
@@ -145,6 +148,7 @@ int dequeue(queue* const q, char* data) {
     strcpy(data, old_head->data);
     q->head = old_head->next;
 
+    free(old_head->data);
     free(old_head);
     q->current_size--;
     return 1;

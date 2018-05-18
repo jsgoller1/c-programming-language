@@ -12,19 +12,26 @@ trap clean_up EXIT
 function fatal(){
   local MESSAGE=${1}
   echo $MESSAGE
+  echo "5.13: FAIL."
   exit
 }
 
 function tail_test(){
-  local N=${1}
+  if [[ -z ${1} ]]
+  then
+    local N=""
+  else
+    local N="-n ${1}"
+  fi
+
   local EXPECTED_OUT_LINES=${2}
   local TEST_NAME=${3}
 
-  ACTUAL_OUT_LINES=$(cat $TESTFILE | bin/tail -n $N | wc | awk '{print $1}')
+  ACTUAL_OUT_LINES=$(cat $TESTFILE | bin/tail $N | wc | awk '{print $1}')
   
   if [[ $ACTUAL_OUT_LINES -ne $EXPECTED_OUT_LINES ]]
   then
-    echo "Test failure, $TEST_NAME: $ACTUAL_OUT_LINES != $EXPECTED_OUT_LINES"
+    fatal "Test failure, $TEST_NAME: $ACTUAL_OUT_LINES != $EXPECTED_OUT_LINES"
   fi
 }
 

@@ -6,6 +6,7 @@ Other than learning C, my aim with this text was for it to be an exercise in `fa
 - [ ] All pages read
 - [ ] All exercises solved correctly
 - [ ] All solutions compile against C11 with `-Werror -Wall`
+- [ ] All solutions report no memeory leaks in Valgrind
 - [ ] Aggressive adherence to conventions.
 - [ ] Lots of unit testing (even if it's overkill). 
 

@@ -6,10 +6,13 @@
 #include "tests.h"
 
 /*
-Ex 1.19: Write a function reverse(s) that reverses the character
-string s. Use it to write a program that reverses its input a line
-at a time.
-*/
+ * Ex 1.19: Write a function reverse(s) that reverses the character
+ * string s. Use it to write a program that reverses its input a line
+ * at a time.
+ * -------
+ * TODO: reverse() should either be uncommented in common/src/strings.c,
+ * or it should be made static here.
+ */
 
 static void test(const char* const str, const char* const expected,
                  const char* const message) {

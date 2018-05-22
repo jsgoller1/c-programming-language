@@ -4,7 +4,9 @@ CFLAGS :=-std=c11 -g -Weverything -Werror -lm
 #DEBUG:=-D DEBUG
 #TEST_MESSAGES:=-D TEST_MESSAGES
 OUTPUT_LEVEL:= $(DEBUG) $(TEST_MESSAGES)
-TESTS := $(OUTPUT_LEVEL) -I tests/include tests/src/tests.c
+COMMON := $(OUTPUT_LEVEL) -I common/include common/src/*.c
+
+
 
 all: setup ch-1 ch-2 ch-3 ch-4 rpc ch-5 ch-6 ch-7 ch-8
 
@@ -28,7 +30,7 @@ ch-8: 8.1 8.2 8.3 8.4 8.5 8.6 8.8 8.8
 1.% 2.% 3.% 4.% 5.% 6.% 7.% 8.%:
 	@# When making "3.4", get "3" as chapter value
 	@$(eval CH := $(shell echo $@ | grep -o "[1-8]\." | sed 's/\.//' ))
-	$(CC) $(CFLAGS) -I ch-$(CH)/include/ $(TESTS)  ch-$(CH)/src/{$@,common}.c -o bin/$@
+	$(CC) $(CFLAGS) -I ch-$(CH)/include/ $(COMMON) ch-$(CH)/src/$@.c -o bin/$@
 	bin/$@
 
 .PHONY: rpc sort tail
@@ -46,7 +48,7 @@ sort:
 # Tail is exercise 5.13
 tail:
 	$(CC) $(CFLAGS) -I ch-5/include/ $(TESTS)  ch-5/src/{5.13,common}.c -o bin/tail
-	./tests/tail_test.sh
+	./ch-5/tail_test.sh
 
 
 

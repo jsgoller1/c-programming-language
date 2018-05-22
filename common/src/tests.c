@@ -6,7 +6,12 @@
 #include <stdlib.h>
 #include <string.h>
 
-/* This is a simple testing library I wrote around the assert(3) macro; I
+/*
+ * --------------------------------------------------------
+ *  Tests
+ * --------------------------------------------------------
+ *
+ * This is a simple testing library I wrote around the assert(3) macro; I
  * looked into some other testing libraries like cmocka but most of them were
  * overkill for my needs.
  */

@@ -1,3 +1,6 @@
+#pragma once
+#include <stdbool.h>
+
 #define MAXLEN 1000   // max len of any input line
 #define MAXLINE 1000  // maximum input line size
 
@@ -14,6 +17,7 @@ void ungetch(int val);
 int mygetline(char *const line, const int maxline);
 int readlines(char *const *const lineptr, const int nlines);
 void writelines(const char *const *const lineptr, const int nlines);
+void freelines(char *const *const lineptr, const int nlines);
 
 // Memory
 char *myalloc(int n);
@@ -23,4 +27,4 @@ void myafree(char *p);
 int powi(int base, int exp);
 
 // Strings
-void reverse(char *const s, const int len)
+void reverse(char *const s, const int len);

@@ -1,3 +1,7 @@
+#include <stdbool.h>
+#include <stdio.h>
+#include "common.h"
+
 /*
  * --------------------------------------------------------
  *  Bitwise functions

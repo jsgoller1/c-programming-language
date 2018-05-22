@@ -36,18 +36,18 @@ ch-8: 8.1 8.2 8.3 8.4 8.5 8.6 8.8 8.8
 .PHONY: rpc sort tail
 
 rpc:
-	$(CC) $(CFLAGS) -I rpc/include/ $(TESTS) rpc/src/{$@,common}.c -o bin/$@
+	$(CC) $(CFLAGS) -I rpc/include/ $(COMMON) rpc/src/{$@,common}.c -o bin/$@
 	bin/$@
 
 # sort is exercises 5.14 through 5.17
 sort:
-	$(CC) $(CFLAGS) -I sort/include/ $(TESTS) sort/src/*.c -o bin/$@
+	$(CC) $(CFLAGS) -I sort/include/ $(COMMON) sort/src/*.c -o bin/$@
 	bin/$@
 
 ## Some assignments tested via means other than in-file unit tests; these can be made here.
 # Tail is exercise 5.13
 tail:
-	$(CC) $(CFLAGS) -I ch-5/include/ $(TESTS)  ch-5/src/{5.13,common}.c -o bin/tail
+	$(CC) $(CFLAGS) -I ch-5/include/ $(COMMON) ch-5/src/5.13.c -o bin/tail
 	./ch-5/tail_test.sh
 
 

@@ -1,14 +1,15 @@
-#include "5.14-5.17.h"
+#include "5.14-17.h"
 #include <stdio.h>
+#include <stdlib.h>
 #include <string.h>
 #include "common.h"
 
 // main(): sort input lines
 int main() {
-  const char *lines[MAXLINES];
-  const int nlines = readlines(lines, MAXLINES);
+  char *lines[MAXLEN];
+  const int nlines = readlines(lines, MAXLEN);
 
-  qsort(lines, 0, nlines - 1);
+  myqsort(lines, 0, nlines - 1);
   writelines(lines, nlines);
   freelines(lines, nlines);
 
@@ -16,7 +17,7 @@ int main() {
 }
 
 // swap(): interchange v[i] and v[j] in char** v
-void swap(const void **v, const int i, const int j) {
+void swap_strs(char **v, const int i, const int j) {
   void *temp;
 
   temp = v[i];
@@ -25,20 +26,20 @@ void swap(const void **v, const int i, const int j) {
 }
 
 // qsort(): sort v[left]...v[right] into increasing order
-void qsort(char *v[], int left, int right) {
+void myqsort(char **strings, int left, int right) {
   int i, last;
 
   if (left >= right) {
     return;
   }
-  swap(v, left, (left + right) / 2);
+  swap_strs(strings, left, (left + right) / 2);
   last = left;
   for (i = left + 1; i <= right; i++) {
-    if (strcmp(v[i], v[left]) < 0) {
-      swap(v, ++last, i);
+    if (strcmp(strings[i], strings[left]) < 0) {
+      swap_strs(strings, ++last, i);
     }
   }
-  swap(v, left, last);
-  qsort(v, left, last - 1);
-  qsort(v, last + 1, right);
+  swap_strs(strings, left, last);
+  myqsort(strings, left, last - 1);
+  myqsort(strings, last + 1, right);
 }

@@ -31,7 +31,7 @@ int mygetline(char *const line, const int lim) {
 // mutate and the chars in the strings shouldn't either.
 
 // readlines(): read input lines into a string buffer
-int readlines(const char **const lineptr, const int maxlines) {
+int readlines(char **lineptr, const int maxlines) {
   int len, line_count;
   char *p, temp_line[MAXLEN];
 
@@ -51,7 +51,7 @@ int readlines(const char **const lineptr, const int maxlines) {
 // declare lineptr as const pointer to const pointer to const char; the array
 // pointer, string pointers, and chars in the strings should not mutate
 // writelines(): write output lines from a string buffer
-void writelines(const char *const *const lineptr, const int nlines) {
+void writelines(char **lineptr, const int nlines) {
   int i;
 
   for (i = 0; i < nlines; i++) {
@@ -60,7 +60,7 @@ void writelines(const char *const *const lineptr, const int nlines) {
 }
 
 // freelines(): frees all lines read in via readline()
-void freelines(char *const *const lineptr, const int nlines) {
+void freelines(char **lineptr, const int nlines) {
   for (int i = 0; i < nlines; i++) {
     free(lineptr[i]);
   }

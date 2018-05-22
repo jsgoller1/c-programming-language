@@ -42,7 +42,7 @@ rpc:
 
 # sort is exercises 5.14 through 5.17
 sort:
-	$(CC) $(CFLAGS) -I sort/include/ $(COMMON) ch-5/src/5.14-5.17.c -o bin/$@
+	$(CC) $(CFLAGS) -I ch-5/include/ $(COMMON) ch-5/src/5.14-17.c -o bin/$@
 	bin/$@
 
 # Tail is exercise 5.13; I decided external tests were better than unit tests.

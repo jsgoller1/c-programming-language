@@ -1,8 +1,7 @@
 #pragma once
 #include <stdbool.h>
 
-#define MAXLEN 1000   // max len of any input line
-#define MAXLINE 1000  // maximum input line size
+#define MAXLEN 1000  // max len of any input line
 
 // Bitwise functions
 int create_mask(const int n, const int position, int *const mask,
@@ -15,9 +14,9 @@ void ungetch(int val);
 
 // Line I/O
 int mygetline(char *const line, const int maxline);
-int readlines(const char **const lineptr, const int maxlines);
-void writelines(const char *const *const lineptr, const int nlines);
-void freelines(char *const *const lineptr, const int nlines);
+int readlines(char **lineptr, const int maxlines);
+void writelines(char **lineptr, const int nlines);
+void freelines(char **lineptr, const int nlines);
 
 // Memory
 char *myalloc(int n);

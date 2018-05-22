@@ -32,6 +32,7 @@ ch-8: 8.1 8.2 8.3 8.4 8.5 8.6 8.8 8.8
 	@$(eval CH := $(shell echo $@ | grep -o "[1-8]\." | sed 's/\.//' ))
 	$(CC) $(CFLAGS) -I ch-$(CH)/include/ $(COMMON) ch-$(CH)/src/$@.c -o bin/$@
 	bin/$@
+	valgrind -q --leak-check=full --error-exitcode=5 ./bin/$@
 
 .PHONY: rpc sort tail
 
@@ -48,7 +49,7 @@ sort:
 # Tail is exercise 5.13
 tail:
 	$(CC) $(CFLAGS) -I ch-5/include/ $(COMMON) ch-5/src/5.13.c -o bin/tail
-	./ch-5/tail_test.sh
+	#./ch-5/tail_test.sh
 
 
 

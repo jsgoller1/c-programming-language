@@ -23,10 +23,6 @@
  * is read, we empty the queue and print each line.
  */
 
-// For some reason, VSCode can't see
-// this in common.h
-#define MAXLEN 1000
-
 // tail(): print the last n lines from input
 int main(int argc, char** argv) {
   // Determine if input is valid

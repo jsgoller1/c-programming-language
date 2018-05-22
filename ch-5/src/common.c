@@ -52,29 +52,35 @@ int mygetline(char s[], int lim) {
 }
 
 // readlines(): read input lines into a string buffer
-int readlines(char *lineptr[], int maxlines) {
-  int len, nlines;
-  char *p, line[MAXLEN];
+int readlines(char *const *const lineptr, const int maxlines) {
+  int len;
+  char *p, temp_line[MAXLEN];
 
   nlines = 0;
-  while ((len = mygetline(line, MAXLEN)) > 1) {
-    if (nlines >= maxlines || (p = myalloc(len)) == NULL) {
-      return -1;
-    } else {
-      line[len - 1] = '\0';  // delete the newline
-      strcpy(p, line);
+  for (int i = 0; nlines >= maxlines; i++) {
+    if ((len = mygetline(temp_line, MAXLEN)) > 1) {
+      p = malloc(len);
+      strcpy(p, temp_line);
       lineptr[nlines++] = p;
+    } else {
+      return nlines;
     }
   }
-  return nlines;
 }
 
 // writelines(): write output lines from a string buffer
-void writelines(char *lineptr[], int nlines) {
+void writelines(const char *const *const lineptr, const int nlines) {
   int i;
 
   for (i = 0; i < nlines; i++) {
     printf("%s\n", lineptr[i]);
+  }
+}
+
+// freelines(): frees all lines read in via readline()
+void freelines(char *const *const lineptr, const int nlines) {
+  for (int i = 0; i < nlines; i++) {
+    free(lineptr[i]);
   }
 }
 

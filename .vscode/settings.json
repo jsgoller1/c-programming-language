@@ -16,5 +16,6 @@
     "1.15.h": "c"
   },
   "files.insertFinalNewline": true,
-  "editor.tabSize": 2
+  "editor.tabSize": 2,
+  "C_Cpp.intelliSenseEngine": "Tag Parser"
 }

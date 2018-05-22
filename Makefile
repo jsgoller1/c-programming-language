@@ -36,20 +36,20 @@ ch-8: 8.1 8.2 8.3 8.4 8.5 8.6 8.8 8.8
 
 .PHONY: rpc sort tail
 
+# the reverse polish calc is exercises 4.3 through 4.10.
 rpc:
 	$(CC) $(CFLAGS) -I rpc/include/ $(COMMON) rpc/src/{$@,common}.c -o bin/$@
 	bin/$@
 
 # sort is exercises 5.14 through 5.17
 sort:
-	$(CC) $(CFLAGS) -I sort/include/ $(COMMON) sort/src/*.c -o bin/$@
+	$(CC) $(CFLAGS) -I sort/include/ $(COMMON) ch-5/src/5.14-5.17.c -o bin/$@
 	bin/$@
 
-## Some assignments tested via means other than in-file unit tests; these can be made here.
-# Tail is exercise 5.13
+# Tail is exercise 5.13; I decided external tests were better than unit tests.
 tail:
 	$(CC) $(CFLAGS) -I ch-5/include/ $(COMMON) ch-5/src/5.13.c -o bin/tail
-	#./ch-5/tail_test.sh
+	./ch-5/tail_test.sh
 
 
 

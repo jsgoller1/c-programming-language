@@ -15,13 +15,13 @@ int mygetline(char *const line, const int lim) {
   c = i = 0;
 
   for (i = 0; i < lim - 1 && (c = getchar()) != EOF && c != '\n'; ++i) {
-    s[i] = (char)c;
+    line[i] = (char)c;
   }
   if (c == '\n') {
-    s[i] = (char)c;
+    line[i] = (char)c;
     ++i;
   }
-  s[i] = '\0';
+  line[i] = '\0';
   // printf("getline(): %d bytes.\n", i);
   return i;
 }
@@ -31,20 +31,21 @@ int mygetline(char *const line, const int lim) {
 // mutate and the chars in the strings shouldn't either.
 
 // readlines(): read input lines into a string buffer
-int readlines(char *const *const lineptr, const int maxlines) {
-  int len;
+int readlines(const char **const lineptr, const int maxlines) {
+  int len, line_count;
   char *p, temp_line[MAXLEN];
 
-  nlines = 0;
-  for (int i = 0; nlines >= maxlines; i++) {
+  line_count = 0;
+  for (int i = 0; line_count >= maxlines; i++) {
     if ((len = mygetline(temp_line, MAXLEN)) > 1) {
-      p = malloc(len);
+      p = malloc((unsigned long)len);
       strcpy(p, temp_line);
-      lineptr[nlines++] = p;
+      lineptr[line_count++] = p;
     } else {
-      return nlines;
+      break;
     }
   }
+  return line_count;
 }
 
 // declare lineptr as const pointer to const pointer to const char; the array

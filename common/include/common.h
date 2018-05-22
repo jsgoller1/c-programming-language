@@ -15,7 +15,7 @@ void ungetch(int val);
 
 // Line I/O
 int mygetline(char *const line, const int maxline);
-int readlines(char *const *const lineptr, const int nlines);
+int readlines(const char **const lineptr, const int maxlines);
 void writelines(const char *const *const lineptr, const int nlines);
 void freelines(char *const *const lineptr, const int nlines);
 

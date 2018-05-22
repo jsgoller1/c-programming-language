@@ -36,11 +36,12 @@ int readlines(char **lineptr, const int maxlines) {
   char *p, temp_line[MAXLEN];
 
   line_count = 0;
-  for (int i = 0; line_count >= maxlines; i++) {
+  for (int i = 0; line_count <= maxlines; i++) {
     if ((len = mygetline(temp_line, MAXLEN)) > 1) {
       p = malloc((unsigned long)len);
       strcpy(p, temp_line);
       lineptr[line_count++] = p;
+      // printf("read: %s\n", p);
     } else {
       break;
     }
@@ -55,7 +56,7 @@ void writelines(char **lineptr, const int nlines) {
   int i;
 
   for (i = 0; i < nlines; i++) {
-    printf("%s\n", lineptr[i]);
+    printf("%s", lineptr[i]);
   }
 }
 

@@ -37,13 +37,17 @@ void myqsort(char **strings, int left, int right, int (*comp)(void *, void *)) {
   }
 
   swap_strs(strings, left, (left + right) / 2);
+
   last = left;
   for (i = left + 1; i <= right; i++) {
     if ((*comp)(strings[i], strings[left]) < 0) {
       swap_strs(strings, ++last, i);
     }
   }
+
   swap_strs(strings, left, last);
+
+  // recursively sort subarrays
   myqsort(strings, left, last - 1, comp);
   myqsort(strings, last + 1, right, comp);
 }

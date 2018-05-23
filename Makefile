@@ -6,7 +6,7 @@ CFLAGS :=-std=c11 -g -Weverything -Werror -lm
 OUTPUT_LEVEL:= $(DEBUG) $(TEST_MESSAGES)
 COMMON := $(OUTPUT_LEVEL) -I common/include common/src/*.c
 
-chapters=$(shell for i in `seq 1 8`; do echo ch-$$i; done; ) 
+chapters=$(shell for i in `seq 1 8`; do echo ch-$$i; done; )
 
 all: setup $(chapters) # ch-1 ch-2 ch-3 ch-4 rpc ch-5 ch-6 ch-7 ch-8
 
@@ -43,7 +43,7 @@ rpc:
 # sort is exercises 5.14 through 5.17
 sort:
 	$(CC) $(CFLAGS) -I ch-5/include/ $(COMMON) ch-5/src/5.14-17.c -o bin/$@
-	bin/$@
+	cat ch-5/sort-test.txt | bin/$@
 
 # Tail is exercise 5.13; I decided external tests were better than unit tests.
 tail:

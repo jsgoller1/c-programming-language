@@ -1,22 +1,12 @@
-#include "5.14-17.h"
+#include "sort.h"
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
 #include "common.h"
 
-// main(): sort input lines
-int main() {
-  char *lines[MAXLEN];
-  const int nlines = readlines(lines, MAXLEN);
-  int numeric = 0;
-
-  myqsort(lines, 0, nlines - 1,
-          (int (*)(void *, void *))(numeric ? numcmp : strcmp));
-  writelines(lines, nlines);
-  freelines(lines, nlines);
-
-  return 0;
-}
+/*
+ * See README.md for exercise listing.
+ */
 
 // swap(): interchange v[i] and v[j] in char** v
 void swap_strs(char **v, const int i, const int j) {
@@ -27,7 +17,7 @@ void swap_strs(char **v, const int i, const int j) {
   v[j] = temp;
 }
 
-// myqsort(): sort v[left]...v[right] into increasing order
+// myqsort(): quicksort v into increasing order
 void myqsort(char **strings, int left, int right, int (*comp)(void *, void *)) {
   int i, last;
 

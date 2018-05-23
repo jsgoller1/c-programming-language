@@ -3,7 +3,8 @@ CC:=clang
 CFLAGS :=-std=c11 -g -Weverything -Werror -lm
 #DEBUG:=-D DEBUG
 #TEST_MESSAGES:=-D TEST_MESSAGES
-OUTPUT_LEVEL:= $(DEBUG) $(TEST_MESSAGES)
+TEST:=-D TEST
+OUTPUT_LEVEL:= $(DEBUG) $(TEST_MESSAGES) $(TEST)
 COMMON := $(OUTPUT_LEVEL) -I common/include common/src/*.c
 
 chapters=$(shell for i in `seq 1 8`; do echo ch-$$i; done; )
@@ -42,7 +43,7 @@ rpc:
 
 # sort is exercises 5.14 through 5.17
 sort:
-	$(CC) $(CFLAGS) -I ch-5/include/ $(COMMON) ch-5/src/5.14-17.c -o bin/$@
+	$(CC) $(CFLAGS) -I $@/include/ $(COMMON) $@/src/*.c -o bin/$@
 	cat ch-5/sort-test.txt | bin/$@
 
 # Tail is exercise 5.13; I decided external tests were better than unit tests.

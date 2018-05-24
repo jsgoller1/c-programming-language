@@ -27,16 +27,14 @@ int main(int argc, char **argv) {
   char *lines[MAXLEN];
   const int nlines = readlines(lines, MAXLEN);
 
-  int (*comparator)(void *, void *);
   if (flags.numeric) {
-    comparator = numcmp;
+    myqsort(lines, 0, nlines - 1, &flags, (int (*)(void *, void *))numcmp);
   } else if (flags.fold) {
-    comparator = foldcmp;
+    myqsort(lines, 0, nlines - 1, &flags, (int (*)(void *, void *))foldcmp);
   } else {
-    comparator = strcmp;
+    myqsort(lines, 0, nlines - 1, &flags, (int (*)(void *, void *))strcmp);
   }
 
-  myqsort(lines, 0, nlines - 1, &flags, comparator);
   writelines(lines, nlines);
   freelines(lines, nlines);
   return 0;

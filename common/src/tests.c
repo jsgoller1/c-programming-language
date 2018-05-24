@@ -145,6 +145,8 @@ void assert_false(const bool expr, const char* const func_name,
   assert(!(expr));
 }
 
+/* Broken, don't use.
+
 // assert_mem_*(): Compare regions of memory via memcmp()
 void assert_mem_eq(const void* const actual, const void* const expected,
                    const int size, const char* const func_name,
@@ -178,3 +180,4 @@ void assert_mem_neq(const void* const actual, const void* const expected,
 #endif
   assert(result != 0);
 }
+*/

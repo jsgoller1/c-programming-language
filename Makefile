@@ -2,8 +2,7 @@ SHELL:=/bin/bash
 CC:=clang
 CFLAGS :=-std=c11 -g -Weverything -Werror -lm
 #DEBUG:=-D DEBUG
-#TEST_MESSAGES:=-D TEST_MESSAGES
-#TEST:=-D TEST
+TEST_MESSAGES:=-D TEST_MESSAGES
 OUTPUT_LEVEL:=$(DEBUG) $(TEST_MESSAGES) $(TEST)
 COMMON := -I common/include common/src/*.c
 
@@ -44,7 +43,7 @@ rpc:
 # sort is exercises 5.14 through 5.17
 sort:
 	$(CC) $(CFLAGS) $(OUTPUT_LEVEL) -I $@/include/ $(COMMON) $@/src/*.c -o bin/$@
-	@if [[ -z "$(TEST)" ]]; then \
+	@if [[ -z "$(TEST_MESSAGES)" ]]; then \
 		cat sort/sort-test.txt | bin/$@; \
 		else bin/$@; \
 	fi

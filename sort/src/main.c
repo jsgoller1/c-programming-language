@@ -6,9 +6,10 @@
 
 // main(): sort input lines
 int main(int argc, char **argv) {
-#ifdef TEST
+#ifdef TEST_MESSAGES
   (void)argc;
   (void)argv;
+  printf("Launching tests...\n");
   test_parse_args();
 #else
   input_flags flags = {false, false, false, false};

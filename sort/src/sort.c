@@ -1,4 +1,6 @@
 #include "sort.h"
+#include <alloca.h>
+#include <ctype.h>
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
@@ -59,16 +61,22 @@ int numcmp(const char *const s1, const char *const s2) {
 
 // foldcmp(): compare s1 and s2, ignoring case
 int foldcmp(const char *const s1, const char *const s2) {
-  char s1_low[strlen(s1)];
-  char s2_low[strlen(s2)];
+  int s1_len = (int)strlen(s1);
+  char *s1_low = (char *)alloca(s1_len + 1);
 
-  for (; *s1; s1++) {
-    s1_low = tolower(*s1);
-  }
+  int s2_len = (int)strlen(s2);
+  char *s2_low = (char *)alloca(s2_len + 1);
 
-  for (; *s2; s2++) {
-    s2_low = tolower(*s2);
+  int i;
+  for (i = 0; i < s1_len; i++) {
+    s1_low[i] = (char)tolower(s1[i]);
   }
+  s1_low[i] = '\0';
+
+  for (i = 0; i < s2_len; i++) {
+    s2_low[i] = (char)tolower(s2[i]);
+  }
+  s2_low[i] = '\0';
 
   return strcmp(s1_low, s2_low);
 }

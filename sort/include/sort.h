@@ -14,3 +14,4 @@ void swap_strs(char** v, const int i, const int j);
 void myqsort(char** strings, int left, int right, input_flags* flags,
              int (*comp)(void*, void*));
 int numcmp(const char* const s1, const char* const s2);
+int foldcmp(const char* const s1, const char* const s2);

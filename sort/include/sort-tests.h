@@ -1,1 +1,1 @@
-void test_parse_args();
+void test_parse_args(void);

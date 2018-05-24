@@ -3,9 +3,9 @@ CC:=clang
 CFLAGS :=-std=c11 -g -Weverything -Werror -lm
 #DEBUG:=-D DEBUG
 #TEST_MESSAGES:=-D TEST_MESSAGES
-TEST:=-D TEST
-OUTPUT_LEVEL:= $(DEBUG) $(TEST_MESSAGES) $(TEST)
-COMMON := $(OUTPUT_LEVEL) -I common/include common/src/*.c
+#TEST:=-D TEST
+OUTPUT_LEVEL:=$(DEBUG) $(TEST_MESSAGES) $(TEST)
+COMMON := -I common/include common/src/*.c
 
 chapters=$(shell for i in `seq 1 8`; do echo ch-$$i; done; )
 
@@ -38,17 +38,20 @@ ch-8: 8.1 8.2 8.3 8.4 8.5 8.6 8.8 8.8
 
 # the reverse polish calc is exercises 4.3 through 4.10.
 rpc:
-	$(CC) $(CFLAGS) -I rpc/include/ $(COMMON) rpc/src/{$@,common}.c -o bin/$@
+	$(CC) $(CFLAGS) $(OUTPUT_LEVEL) -I rpc/include/ $(COMMON) rpc/src/{$@,common}.c -o bin/$@
 	bin/$@
 
 # sort is exercises 5.14 through 5.17
 sort:
-	$(CC) $(CFLAGS) -I $@/include/ $(COMMON) $@/src/*.c -o bin/$@
-	cat ch-5/sort-test.txt | bin/$@
+	$(CC) $(CFLAGS) $(OUTPUT_LEVEL) -I $@/include/ $(COMMON) $@/src/*.c -o bin/$@
+	@if [[ -z "$(TEST)" ]]; then \
+		cat sort/sort-test.txt | bin/$@; \
+		else bin/$@; \
+	fi
 
 # Tail is exercise 5.13; I decided external tests were better than unit tests.
 tail:
-	$(CC) $(CFLAGS) -I ch-5/include/ $(COMMON) ch-5/src/5.13.c -o bin/tail
+	$(CC) $(CFLAGS) $(OUTPUT_LEVEL) -I ch-5/include/ $(COMMON) ch-5/src/5.13.c -o bin/tail
 	./ch-5/tail_test.sh
 
 

@@ -1,17 +1,21 @@
 #include <stdio.h>
+#include <string.h>
+#include "common.h"
 #include "sort-tests.h"
 #include "sort.h"
 
 // main(): sort input lines
 int main(int argc, char **argv) {
 #ifdef TEST
+  (void)argc;
+  (void)argv;
   test_parse_args();
 #else
   input_flags flags = {false, false, false, false};
   if (parse_args(argc, argv, &flags) == -1) {
     return -1;
   }
-  char *lines[MAXLENGTH];
+  char *lines[MAXLEN];
   const int nlines = readlines(lines, MAXLEN);
   int numeric = 0;
 

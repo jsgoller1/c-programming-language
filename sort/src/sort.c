@@ -4,15 +4,6 @@
 #include <string.h>
 #include "common.h"
 
-// swap(): interchange v[i] and v[j] in char** v
-void swap_strs(char **v, const int i, const int j) {
-  void *temp;
-
-  temp = v[i];
-  v[i] = v[j];
-  v[j] = temp;
-}
-
 // myqsort(): quicksort v into increasing order
 void myqsort(char **strings, int left, int right, input_flags *flags,
              int (*comp)(void *, void *)) {
@@ -41,6 +32,15 @@ void myqsort(char **strings, int left, int right, input_flags *flags,
   myqsort(strings, last + 1, right, flags, comp);
 }
 
+// swap(): interchange v[i] and v[j] in char** v
+void swap_strs(char **v, const int i, const int j) {
+  void *temp;
+
+  temp = v[i];
+  v[i] = v[j];
+  v[j] = temp;
+}
+
 // numcmp(): compare s1 and s2 numerically
 int numcmp(const char *const s1, const char *const s2) {
   double v1, v2;
@@ -55,4 +55,20 @@ int numcmp(const char *const s1, const char *const s2) {
   } else {
     return 0;
   }
+}
+
+// foldcmp(): compare s1 and s2, ignoring case
+int foldcmp(const char *const s1, const char *const s2) {
+  char s1_low[strlen(s1)];
+  char s2_low[strlen(s2)];
+
+  for (; *s1; s1++) {
+    s1_low = tolower(*s1);
+  }
+
+  for (; *s2; s2++) {
+    s2_low = tolower(*s2);
+  }
+
+  return strcmp(s1_low, s2_low);
 }

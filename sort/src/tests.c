@@ -49,3 +49,18 @@ void test_parse_args() {
 
   printf("Args are tested.\n");
 }
+
+static void test_foldcmp_helper(const char* const s1, const char* const s2,
+                                int expected, const char* const message) {
+  int result = foldcmp(s1, s2);
+  assert_int_eq(result, expected, "foldcmp", message);
+}
+
+void test_foldcmp() {
+  test_foldcmp_helper("angelo", "AnGeLo", 0, "normal input");
+  test_foldcmp_helper("ANGELO", "ANGELO", 0 "all upper");
+  test_foldcmp_helper("ANGELO", "angelo", 0 "all lower");
+  test_foldcmp_helper("Angelo", "Anthony", -13 "non-matching");
+  test_foldcmp_helper("", "angelo", -97 "one empty");
+  test_foldcmp_helper("", "", 0 "both empty");
+}

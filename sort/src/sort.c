@@ -4,10 +4,6 @@
 #include <string.h>
 #include "common.h"
 
-/*
- * See README.md for exercise listing.
- */
-
 // swap(): interchange v[i] and v[j] in char** v
 void swap_strs(char **v, const int i, const int j) {
   void *temp;
@@ -18,7 +14,8 @@ void swap_strs(char **v, const int i, const int j) {
 }
 
 // myqsort(): quicksort v into increasing order
-void myqsort(char **strings, int left, int right, int (*comp)(void *, void *)) {
+void myqsort(char **strings, int left, int right, input_flags *flags,
+             int (*comp)(void *, void *)) {
   int i, last;
 
   // Quit if empty array
@@ -30,7 +27,9 @@ void myqsort(char **strings, int left, int right, int (*comp)(void *, void *)) {
 
   last = left;
   for (i = left + 1; i <= right; i++) {
-    if ((*comp)(strings[i], strings[left]) < 0) {
+    if ((*comp)(strings[i], strings[left]) < 0 && !(flags->reverse)) {
+      swap_strs(strings, ++last, i);
+    } else if ((*comp)(strings[i], strings[left]) > 0 && flags->reverse) {
       swap_strs(strings, ++last, i);
     }
   }
@@ -38,8 +37,8 @@ void myqsort(char **strings, int left, int right, int (*comp)(void *, void *)) {
   swap_strs(strings, left, last);
 
   // recursively sort subarrays
-  myqsort(strings, left, last - 1, comp);
-  myqsort(strings, last + 1, right, comp);
+  myqsort(strings, left, last - 1, flags, comp);
+  myqsort(strings, last + 1, right, flags, comp);
 }
 
 // numcmp(): compare s1 and s2 numerically

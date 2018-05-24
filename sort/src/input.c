@@ -7,9 +7,10 @@ static char usage[] = "usage: sort -d -f -n -r";
 
 // parse_args(): allowed args are -r, -n, -d, and -f
 int parse_args(const int argc, char** const argv, input_flags* const flags) {
-  for (int i = 0; i < argc; i++) {
+  for (int i = 1; i < argc; i++) {
     const char* const current_arg = argv[i];
     const int arg_len = (int)strlen(current_arg);
+    printf("Evaluating arg: %s\n", current_arg);
 
     if (current_arg[0] != '-') {
       printf("sort: illegal arg '%s'\n", argv[i]);

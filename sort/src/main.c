@@ -4,6 +4,10 @@
 #include "sort-tests.h"
 #include "sort.h"
 
+/*
+ * See README.md for exercise listing.
+ */
+
 // main(): sort input lines
 int main(int argc, char **argv) {
 #ifdef TEST_MESSAGES
@@ -18,10 +22,9 @@ int main(int argc, char **argv) {
   }
   char *lines[MAXLEN];
   const int nlines = readlines(lines, MAXLEN);
-  int numeric = 0;
 
-  myqsort(lines, 0, nlines - 1,
-          (int (*)(void *, void *))(numeric ? numcmp : strcmp));
+  myqsort(lines, 0, nlines - 1, &flags,
+          (int (*)(void *, void *))(flags.numeric ? numcmp : strcmp));
   writelines(lines, nlines);
   freelines(lines, nlines);
 #endif

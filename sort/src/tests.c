@@ -3,6 +3,7 @@
 #include "sort-tests.h"
 #include "sort.h"
 
+static char bin[] = "bin/sort";
 static char directory[] = "-d";
 static char fold[] = "-f";
 static char numeric[] = "-n";
@@ -26,21 +27,25 @@ static void test_parse_args_helper(int argc, char** argv,
 }
 
 void test_parse_args() {
-  char* argv1[] = {directory, fold, numeric, reverse};
+  char* argv1[] = {bin, directory, fold, numeric, reverse};
   input_flags expected1 = {true, true, true, true};
-  test_parse_args_helper(4, argv1, &expected1, 0, "all flags");
+  test_parse_args_helper(5, argv1, &expected1, 0, "all flags");
 
-  char* argv2[] = {directory, fold};
+  char* argv2[] = {bin, directory, fold};
   input_flags expected2 = {true, true, false, false};
-  test_parse_args_helper(2, argv2, &expected2, 0, "partial flags");
+  test_parse_args_helper(3, argv2, &expected2, 0, "partial flags");
 
-  char* argv3[] = {directory, fold, garbage1, garbage2};
+  char* argv3[] = {bin, directory, fold, garbage1, garbage2};
   input_flags expected3 = {true, true, false, false};
-  test_parse_args_helper(4, argv3, &expected3, -1, "valid + garbage");
+  test_parse_args_helper(5, argv3, &expected3, -1, "valid + garbage");
 
-  char** argv4 = NULL;
+  char* argv4[] = {bin};
   input_flags expected4 = {false, false, false, false};
-  test_parse_args_helper(0, argv4, &expected4, 0, "empty");
+  test_parse_args_helper(1, argv4, &expected4, 0, "no args");
+
+  char** argv5 = NULL;
+  input_flags expected5 = {false, false, false, false};
+  test_parse_args_helper(0, argv5, &expected5, 0, "empty");
 
   printf("Args are tested.\n");
 }

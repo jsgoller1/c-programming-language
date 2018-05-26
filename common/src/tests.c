@@ -95,7 +95,8 @@ void assert_string_eq(const char* const actual, const char* const expected,
 #endif
 #ifdef DEBUG
   printf("Expected: %s\n", expected);
-  printf("Actual: %s\n\n", actual);
+  printf("Actual: %s\n", actual);
+  printf("strcmp(actual, expected) = %d\n\n", strcmp(actual, expected));
 #endif
   assert(strcmp(actual, expected) == 0);
 }
@@ -110,7 +111,8 @@ void assert_string_neq(const char* const actual, const char* const expected,
 #endif
 #ifdef DEBUG
   printf("Expected: %s\n", expected);
-  printf("Actual: %s\n\n", actual);
+  printf("Actual: %s\n", actual);
+  printf("strcmp(actual, expected) = %d\n\n", strcmp(actual, expected));
 #endif
   assert(strcmp(actual, expected) != 0);
 }

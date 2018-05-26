@@ -1,4 +1,6 @@
 #include "sort.h"
+#include <alloca.h>
+#include <string.h>
 
 // myqsort(): quicksort v into increasing order
 void myqsort(char **strings, int left, int right, input_flags *flags,
@@ -12,15 +14,26 @@ void myqsort(char **strings, int left, int right, input_flags *flags,
 
   swap_strs(strings, left, (left + right) / 2);
 
+  char *string_i, *string_left;
   last = left;
   for (i = left + 1; i <= right; i++) {
     if (flags->directory) {
-      // TODO: Conditionally process to dir style here if flags dictate
-    }
+      // If we're doing directory sorting, create temporary stripped
+      // versions of the strings and do the comparisons based on that.
+      int i_len = (int)strlen(strings[i]);
+      string_i = alloca((unsigned int)i_len);
+      dir_strip(string_i, strings[i], i_len);
 
-    if ((*comp)(strings[i], strings[left]) < 0 && !(flags->reverse)) {
+      int left_len = (int)strlen(strings[left]);
+      string_left = alloca((unsigned int)left_len);
+      dir_strip(string_left, strings[left], left_len);
+    } else {
+      string_i = strings[i];
+      string_left = strings[left];
+    }
+    if ((*comp)(string_i, string_left) < 0 && !(flags->reverse)) {
       swap_strs(strings, ++last, i);
-    } else if ((*comp)(strings[i], strings[left]) > 0 && flags->reverse) {
+    } else if ((*comp)(string_i, string_left) > 0 && flags->reverse) {
       swap_strs(strings, ++last, i);
     }
   }

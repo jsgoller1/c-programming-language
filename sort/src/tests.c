@@ -1,5 +1,7 @@
 #include "tests.h"
 #include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
 #include "sort-tests.h"
 #include "sort.h"
 
@@ -63,4 +65,22 @@ void test_foldcmp() {
   test_foldcmp_helper("Angelo", "Anthony", -13, "non-matching");
   test_foldcmp_helper("", "angelo", -97, "one empty");
   test_foldcmp_helper("", "", 0, "both empty");
+}
+
+static void test_dir_strip_helper(const char* const src,
+                                  const char* const expected,
+                                  const char* const message) {
+  int len = (int)strlen(src);
+  char* actual = calloc(1, (size_t)len + 1);
+  dir_strip(actual, src, len);
+  assert_string_eq(actual, expected, "dir_strip", message);
+  free(actual);
+}
+
+void test_dir_strip() {
+  test_dir_strip_helper("/this/string/is/shit_and_shit",
+                        "thisstringisshitandshit", "normal input");
+  test_dir_strip_helper("nothingtodohere", "nothingtodohere",
+                        "already stripped");
+  test_dir_strip_helper("", "", "null input");
 }

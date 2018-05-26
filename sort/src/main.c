@@ -13,7 +13,8 @@
 int main() {
   printf("Launching tests...\n");
   // test_parse_args();
-  test_foldcmp();
+  // test_foldcmp();
+  test_dir_strip();
   printf("5.14 - 5.17: PASS!\n");
   return 0;
 }

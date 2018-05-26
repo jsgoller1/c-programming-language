@@ -2,7 +2,7 @@ SHELL:=/bin/bash
 CC:=clang
 CFLAGS :=-std=c11 -g -Weverything -Werror -lm
 #DEBUG:=-D DEBUG
-#TEST_MESSAGES:=-D TEST_MESSAGES
+TEST_MESSAGES:=-D TEST_MESSAGES
 OUTPUT_LEVEL:=$(DEBUG) $(TEST_MESSAGES) $(TEST)
 COMMON := -I common/include common/src/*.c
 

@@ -28,6 +28,7 @@ void myqsort(char **strings, int left, int right, input_flags *flags,
       string_left = alloca((unsigned int)left_len);
       dir_strip(string_left, strings[left], left_len);
     } else {
+      // Otherwise, do string comparisons as-is.
       string_i = strings[i];
       string_left = strings[left];
     }

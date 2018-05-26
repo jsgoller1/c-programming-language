@@ -5,14 +5,6 @@
 #include "sort-tests.h"
 #include "sort.h"
 
-static char bin[] = "bin/sort";
-static char directory[] = "-d";
-static char fold[] = "-f";
-static char numeric[] = "-n";
-static char reverse[] = "-r";
-static char garbage1[] = "-z";
-static char garbage2[] = "crap";
-
 static void test_parse_args_helper(int argc, char** argv,
                                    input_flags* expected_flags,
                                    int expected_result, char* message) {
@@ -29,6 +21,14 @@ static void test_parse_args_helper(int argc, char** argv,
 }
 
 void test_parse_args() {
+  char bin[] = "bin/sort";
+  char directory[] = "-d";
+  char fold[] = "-f";
+  char numeric[] = "-n";
+  char reverse[] = "-r";
+  char garbage1[] = "-z";
+  char garbage2[] = "crap";
+
   char* argv1[] = {bin, directory, fold, numeric, reverse};
   input_flags expected1 = {true, true, true, true};
   test_parse_args_helper(5, argv1, &expected1, 0, "all flags");
@@ -48,8 +48,6 @@ void test_parse_args() {
   char** argv5 = NULL;
   input_flags expected5 = {false, false, false, false};
   test_parse_args_helper(0, argv5, &expected5, 0, "empty");
-
-  printf("Args are tested.\n");
 }
 
 static void test_foldcmp_helper(const char* const s1, const char* const s2,

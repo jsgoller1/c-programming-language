@@ -1,83 +1,72 @@
 # TODO
 ---
-- [ ] Ch. 1
-  - [ ] All exercises have passing unit tests
-  - [ ] Static functions / no headers for non-common code.
-- [ ] Ch. 2
-  - [ ] All exercises have passing unit tests
-  - [ ] Static functions / no headers for non-common code.  
-- [ ] Ch. 3
-  - [x] Reading
-  - [ ] Exercises
-    - [ ] 3-3: make this [better](https://gist.github.com/robot-dreams/34d10248bc474f5a4312fa72e325656a)
-    - [ ] All exercises have passing unit tests 
-    - [ ] Static functions / no headers for non-common code. 
-  - [ ] C11 / `-Werror -Wall` compliance
-- [ ] Ch. 4 / RPN
-  - [x] Reading
-  - [ ] Exercises
-    - [ ] 4-9: Ensure that my comment is actually correct
-  - [ ] C11 / `-Werror -Wall` compliance
-  - [ ] All exercises have passing unit tests
-  - [ ] Static functions / no headers for non-common code. 
-- [ ] Ch. 5
-  - [x] Reading
-  - [ ] Exercises
-    - [ ] 5-11
-    - [ ] 5-12
-    - [ ] 5-14
-    - [ ] 5-15
-    - [ ] 5-16
-    - [ ] 5-17
-    - [ ] 5-18
-    - [ ] 5-19
-    - [ ] 5-20
-  - [ ] C11 / `-Werror -Wall` compliance
-  - [ ] All exercises have passing unit tests
-  - [ ] Static functions / no headers for non-common code. 
-- [ ] Ch. 6
-  - [X] Reading
-  - [ ] Exercises
-    - [ ] 6-1
-    - [ ] 6-2
-    - [ ] 6-3
-    - [ ] 6-4
-    - [ ] 6-5
-    - [ ] 6-6
-  - [ ] C11 / `-Werror -Wall` compliance
-  - [ ] All exercises have passing unit tests
-  - [ ] Static functions / no headers for non-common code. 
-- [ ] Ch. 7
-  - [X] Reading
-  - [ ] Exercises
-    - [ ] 7-1
-    - [ ] 7-2
-    - [ ] 7-3
-    - [ ] 7-4
-    - [ ] 7-5
-    - [ ] 7-6
-    - [ ] 7-7
-    - [ ] 7-8
-  - [ ] C11 / `-Werror -Wall` compliance
-  - [ ] All exercises have passing unit tests
-  - [ ] Static functions / no headers for non-common code. 
-- [ ] Ch. 8
-  - [ ] Reading
-  - [ ] Exercises
-    - [ ] 8-1
-    - [ ] 8-2
-    - [ ] 8-3
-    - [ ] 8-4
-    - [ ] 8-5
-    - [ ] 8-6
-    - [ ] 8-7
-    - [ ] 8-8
-  - [ ] C11 / `-Werror -Wall` compliance
-  - [ ] All exercises have passing unit tests
-  - [ ] Static functions / no headers for non-common code. 
-- [ ] Appendix A
-  - [ ] Reading
-- [ ] Appendix B
-  - [ ] Reading
-- [ ] Appendix C
-  - [ ] Reading
+- Ch. 1
+  - All exercises have passing unit tests
+- Ch. 2
+  - All exercises have passing unit tests
+- Ch. 3
+  - Exercises
+    - 3-3: make this [better](https://gist.github.com/robot-dreams/34d10248bc474f5a4312fa72e325656a)
+  - All exercises have passing unit tests 
+  - C11 `-Werror -Wall` compliance
+  - Valgrind reports no errors.
+- Ch. 4 / RPN
+  - Exercises
+    - 4-9: Ensure that my comment is actually correct
+  - All exercises have passing unit tests
+  - C11 `-Werror -Wall` compliance
+  - Valgrind reports no errors.
+- Ch. 5
+  - Exercises
+    - 5-11
+    - 5-12
+    - 5-17
+    - 5-18
+    - 5-19
+    - 5-20
+  - All exercises have passing unit tests
+  - C11 `-Werror -Wall` compliance
+  - Valgrind reports no errors.
+- Ch. 6
+  - Exercises
+    - 6-1
+    - 6-2
+    - 6-3
+    - 6-4
+    - 6-5
+    - 6-6
+  - All exercises have passing unit tests
+  - C11 `-Werror -Wall` compliance
+  - Valgrind reports no errors.
+- Ch. 7
+  - Exercises
+    - 7-1
+    - 7-2
+    - 7-3
+    - 7-4
+    - 7-5
+    - 7-6
+    - 7-7
+    - 7-8
+  - All exercises have passing unit tests
+  - C11 `-Werror -Wall` compliance
+  - Valgrind reports no errors.
+- Ch. 8
+  - Exercises
+    - 8-1
+    - 8-2
+    - 8-3
+    - 8-4
+    - 8-5
+    - 8-6
+    - 8-7
+    - 8-8
+  - All exercises have passing unit tests
+  - C11 `-Werror -Wall` compliance
+  - Valgrind reports no errors.
+- Appendix A
+  - Reading
+- Appendix B
+  - Reading
+- Appendix C
+  - Reading

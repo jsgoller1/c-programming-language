@@ -17,5 +17,5 @@
   },
   "files.insertFinalNewline": true,
   "editor.tabSize": 2,
-  "C_Cpp.intelliSenseEngine": "Tag Parser"
+  "C_Cpp.intelliSenseEngine": "Default"
 }

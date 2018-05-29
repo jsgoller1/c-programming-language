@@ -7,12 +7,12 @@ int gettoken(void) {
   char c;
   char *p = token;
 
-  while ((c = getch()) == ' ' || c == '\t') {
+  while ((c = (char)getch()) == ' ' || c == '\t') {
     // NOOP, skip tabs and spaces
   }
 
   if (c == '(') {
-    if ((c = getch()) == ')') {
+    if ((c = (char)getch()) == ')') {
       strcpy(token, "()");
       return tokentype = PARENS;
     } else {
@@ -20,13 +20,13 @@ int gettoken(void) {
       return tokentype = '(';
     }
   } else if (c == '[') {
-    for (*p++ = c; (*p++ = getch()) != ']';) {
+    for (*p++ = c; (*p++ = (char)getch()) != ']';) {
       // NOOP, skip til braces
     }
     *p = '\0';
     return tokentype = BRACKETS;
   } else if (isalpha(c)) {
-    for (*p++ = c; isalnum(c = getch());) {
+    for (*p++ = c; isalnum(c = (char)getch());) {
       *p++ = c;
     }
     *p = '\0';

@@ -39,6 +39,7 @@ ch-8: 8.1 8.2 8.3 8.4 8.5 8.6 8.8 8.8
 # decl is exercises 5.18 through 5.20
 decl:
 	$(CC) $(CFLAGS) $(OUTPUT_LEVEL) -I decl/include/ $(INCLUDES) $(LIBS) decl/src/*.c -o bin/$@
+	bin/$@
 
 # the reverse polish calc is exercises 4.3 through 4.10.
 rpc:

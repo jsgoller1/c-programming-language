@@ -1,28 +1,35 @@
 # The C Programming Language (K&R)
 Exercises from "The C Programming Language" by Kernighan / Ritchie.
 
+## Important Note
+This was the first book I read that qualifies as "one of those CS books everyone should read," and also
+the first time I read a textbook with the goal of doing all the exercises. It has taken quite some time to complete (as of writing this, I'm only a little more than halfway done with ~150 hours), but a lot of that is because I learned more than just C from it, specifically 1) how to write code productively, and 2) how to read a CS textbook. As such, code from earlier chapters is worse than code from later chapters, and I'm OK with that.
+
 ## Goals
-Other than learning C, my aim with this text was for it to be an exercise in `fanatical conscientiousness`, so my goals are:
+Other than learning C and "doing all the exercises," my goals for this textbook changed a good bit as I read it. I settled on the following definition for "complete": 
 - [ ] All pages read
-- [ ] All exercises solved correctly
+- [ ] All exercises solved, with maximum const correctness
 - [ ] All solutions compile against C11 with `-Werror -Wall`
 - [ ] All solutions report no memeory leaks in Valgrind
-- [ ] Aggressive adherence to conventions.
-- [ ] Lots of unit testing (even if it's overkill). 
 
-Admittedly, I have cheated some in my solutions - this was not my experience with C, so I jumped around while reading and thus used concepts that may not have been introduced yet in the
-text. The overall strategy with the solutions was `write the best C I possibly can`, not `hold to the text as closely as possible`.
+Beyond these, I have tried to adhere aggressively to the conventions defined in `conventions.c` and write lots of unit tests, but I make no promises about either. Also, I have _not_ tried to hold to the text as closely as possible at the cost of writing straightforward code; e.g. I may use structs in my solutions in chapter 5 despite them not being introduced til chapter 6.
 
 ## Running
-Each exercise has its own target (e.g. `make 5.4` will make exercise 4 in chapter 5). `make all` compiles all exercises and runs unit tests (assuming any exist).
+Each exercise has its own target (e.g. `make 5.4` will make exercise 4 in chapter 5). `make all` compiles all exercises and runs unit tests (assuming any exist). Some exercises are refactored into their own shared subprograms when warranted; e.g. 5.14 - 5.17 are all about the `sort` program, so they exist in `sort/`. Makefile targets exist for these solutions independently. 
+
+## Highlights
+* `common/` - a "standard library" of various types of functions most exercises consume.
+* `tests/` - a testing library, as described above.
+* `rpc/` - the [Reverse Polish Notation]() calculator.
+* `sort/` - the UNIX `sort` program
+* `decl/` - the UNIX `decl` program (similar to `cdecl`).
+* `tail/` - the UNIX `tail` program
 
 ## Tests
-I wrote my own simple testing library for the exercises, found in `tests/`; it wraps around the `assert(3)` macro and can do basic comparison for strings, ints, bools, and structs. Each exercise has a static `test()` function called by `main()` that consumes the testing library and may call other unit test functions in the file. `test()` relies on two preprocessor macros which can be set in the Makefile:
-* `TEST_MESSAGES` - causes each individual test to be shown (if any exist) when testing.
+I wrote my own simple testing library for the exercises, found in `tests/`; it wraps around the `assert(3)` macro and can do basic comparison for strings, ints, and bools; compilation will immediately halt and fail
+if any tests fail. Test execution relies on two preprocessor macros which can be set in the Makefile:
+* `TESTS` - causes each individual test to be shown (if any exist) when testing.
 * `DEBUG` - dumps information about the exercise test results.
-
-Because all tests are based on `assert(3)`, compilation will immediately halt and fail
-if any tests fail.
 
 ## Conventions
 See `conventions.c` for an example file and listing of conventions.
@@ -32,7 +39,7 @@ See `TODO.md` for the remaining work to be done.
 * General:
   * For programs reading from stdin, it is expected behavior that you will need to hit CTRL-D twice to exit if the last character entered was not a newline - this behavior is defined by the POSIX standard (see this [Stack Overflow question](https://stackoverflow.com/questions/21260674/why-do-i-need-to-type-ctrl-d-twice-to-mark-end-of-file?utm_medium=organic&utm_source=google_rich_qa&utm_campaign=google_rich_qa)).
 * Ch. 1:
-  * 1.1 and 1.2 did not have any demo-able code; the instructins were just `experiment with hello world`.
+  * 1.1 and 1.2 did not have any demo-able code; the instructions were just `experiment with hello world`.
   * 1.3 and 1.4 were both implemented in 1.4.c
 * Ch. 4:
   * Any exercise not listed in chapter 4 was moved to the `reverse-polish-notation` directory; I re-architected the program to be more robust and implemented several of the solutions to exercises as part of the entire program.

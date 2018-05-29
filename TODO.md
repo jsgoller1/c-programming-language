@@ -2,8 +2,10 @@
 ---
 - Ch. 1
   - All exercises have passing unit tests
+  - Valgrind reports no errors.
 - Ch. 2
   - All exercises have passing unit tests
+  - Valgrind reports no errors.
 - Ch. 3
   - Exercises
     - 3-3: make this [better](https://gist.github.com/robot-dreams/34d10248bc474f5a4312fa72e325656a)

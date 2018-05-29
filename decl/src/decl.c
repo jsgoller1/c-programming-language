@@ -2,11 +2,17 @@
 #include <stdio.h>
 #include <string.h>
 
+<<<<<<< HEAD
 int tokentype;
 char token[MAXTOKEN];
 char name[MAXTOKEN];
 char datatype[MAXTOKEN];
 char description[1000];
+=======
+// decl(): parse a declarator; for each *, add "pointer to" to description
+void decl() {
+  int ns;
+>>>>>>> fixups to decl
 
 // decl - converts complicated syntax declarations to English
 int main() {
@@ -16,9 +22,32 @@ int main() {
     description[0] = '\0';
     // printf("initial datatype: %s.\n", datatype);
 
+<<<<<<< HEAD
     decl();  // parse rest of the line
     if (tokentype != '\n') {
       printf("syntax error.\n");
+=======
+// dirdcl(): parse a direct declarator
+void dirdecl() {
+  int type;
+  if (tokentype == '(') {  // decl
+    decl();
+    if (tokentype != ')') {
+      printf("error: missing ')'\n");
+    }
+  } else if (tokentype == NAME) {  // variable name
+    strcpy(name, token);
+  } else {
+    printf("error: expected name or (decl)\n");
+  }
+  while ((type = gettoken()) == PARENS || type == BRACKETS) {
+    if (type == PARENS) {
+      strcat(out, "function returning ");
+    } else {
+      strcat(out, "array ");
+      strcat(out, token);
+      strcat(out, "of ");
+>>>>>>> fixups to decl
     }
     // printf("name: %s\n", name);
     // printf("description: %s\n", description);

@@ -2,31 +2,30 @@
 Exercises from "The C Programming Language" by Kernighan / Ritchie.
 
 ## Important Note
-This was the first book I read that qualifies as "one of those CS books everyone should read," and also
-the first time I read a textbook with the goal of doing all the exercises. It has taken quite some time to complete (as of writing this, I'm only a little more than halfway done with ~150 hours), but a lot of that is because I learned more than just C from it, specifically 1) how to write code productively, and 2) how to read a CS textbook. As such, code from earlier chapters is worse than code from later chapters, and I'm OK with that.
+This was the first book I read that qualifies as "one of those CS books everyone should read," and also the first time I tried doing every exercise in a textbook. As such, it's taken a long time to complete (as of writing this, I'm only a little more than halfway done with ~150 hours), but a lot of that is because in addition to learning C I also learned how to write code productively and how to read a CS textbook productively. As such, code from earlier chapters is generally worse than code from later chapters, and I'm OK with that.
 
 ## Goals
-Other than learning C and "doing all the exercises," my goals for this textbook changed a good bit as I read it. I settled on the following definition for "complete": 
-- [ ] All pages read
-- [ ] All exercises solved, with maximum const correctness
-- [ ] All solutions compile against C11 with `-Werror -Wall`
-- [ ] All solutions report no memeory leaks in Valgrind
+Other than learning C and "doing all the exercises," my goals for this textbook changed as I read it. I settled on the following definition for "complete":
+- All pages read
+- All exercises solved, with maximum const correctness
+- All solutions compile against C11 with `-Werror -Wall`
+- All solutions report no memory leaks in Valgrind
 
 Beyond these, I have tried to adhere aggressively to the conventions defined in `conventions.c` and write lots of unit tests, but I make no promises about either. Also, I have _not_ tried to hold to the text as closely as possible at the cost of writing straightforward code; e.g. I may use structs in my solutions in chapter 5 despite them not being introduced til chapter 6.
 
 ## Running
-Each exercise has its own target (e.g. `make 5.4` will make exercise 4 in chapter 5). `make all` compiles all exercises and runs unit tests (assuming any exist). Some exercises are refactored into their own shared subprograms when warranted; e.g. 5.14 - 5.17 are all about the `sort` program, so they exist in `sort/`. Makefile targets exist for these solutions independently. 
+Each exercise has its own target (e.g. `make 5.4` will make exercise 4 in chapter 5). `make all` compiles all exercises and runs unit tests (assuming any exist). Some exercises are refactored into their own shared subprograms when warranted; e.g. 5.14 - 5.17 are all about the `sort` program, so they exist in `sort/`. Makefile targets exist for these solutions independently.
 
 ## Highlights
 * `common/` - a "standard library" of various types of functions most exercises consume.
 * `tests/` - a testing library, as described above.
-* `rpc/` - the [Reverse Polish Notation]() calculator.
+* `rpc/` - the [Reverse Polish Notation](https://en.wikipedia.org/wiki/Reverse_Polish_notation) calculator.
 * `sort/` - the UNIX `sort` program
 * `decl/` - the UNIX `decl` program (similar to `cdecl`).
 * `tail/` - the UNIX `tail` program
 
 ## Tests
-I wrote my own simple testing library for the exercises, found in `tests/`; it wraps around the `assert(3)` macro and can do basic comparison for strings, ints, and bools; compilation will immediately halt and fail
+I wrote my own simple testing library for the exercises, found in `tests/`; it wraps around the `assert(3)` macro and can do basic comparison for strings, ints, and bools. Execution will immediately halt and fail
 if any tests fail. Test execution relies on two preprocessor macros which can be set in the Makefile:
 * `TESTS` - causes each individual test to be shown (if any exist) when testing.
 * `DEBUG` - dumps information about the exercise test results.

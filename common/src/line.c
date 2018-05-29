@@ -38,10 +38,10 @@ int readlines(char **lineptr, const int maxlines) {
   line_count = 0;
   for (int i = 0; line_count <= maxlines; i++) {
     if ((len = mygetline(temp_line, MAXLEN)) > 1) {
-      p = malloc((unsigned long)len);
-      strcpy(p, temp_line);
+      p = malloc((unsigned long)len + 1);
+      strncpy(p, temp_line, (unsigned long)len);
+      p[len] = '\0';
       lineptr[line_count++] = p;
-      // printf("read: %s\n", p);
     } else {
       break;
     }

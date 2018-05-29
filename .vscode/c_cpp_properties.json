@@ -8,6 +8,9 @@
                 "/Library/Developer/CommandLineTools/usr/lib/clang/9.0.0/include",
                 "/Library/Developer/CommandLineTools/usr/include",
                 "/usr/include",
+                "${workspaceRoot}",
+                "${workspaceRoot}/common/include",
+                "${workspaceRoot}/tests/include",
                 "${workspaceRoot}/ch-1/include",
                 "${workspaceRoot}/ch-2/include",
                 "${workspaceRoot}/ch-3/include",
@@ -15,7 +18,11 @@
                 "${workspaceRoot}/ch-5/include",
                 "${workspaceRoot}/ch-6/include",
                 "${workspaceRoot}/ch-7/include",
-                "${workspaceRoot}/ch-8/include"
+                "${workspaceRoot}/ch-8/include",
+                "${workspaceRoot}/decl/include",
+                "${workspaceRoot}/tail/include",
+                "${workspaceRoot}/rpc/include",
+                "${workspaceRoot}/sort/include"
             ],
             "defines": [],
             "intelliSenseMode": "clang-x64",
@@ -47,6 +54,7 @@
                 "/usr/include/x86_64-linux-gnu",
                 "/usr/include/clang/4.0.1/include",
                 "${workspaceRoot}",
+                "${workspaceRoot}/common/include",
                 "${workspaceRoot}/tests/include",
                 "${workspaceRoot}/ch-1/include",
                 "${workspaceRoot}/ch-2/include",
@@ -59,8 +67,7 @@
                 "${workspaceRoot}/decl/include",
                 "${workspaceRoot}/tail/include",
                 "${workspaceRoot}/rpc/include",
-                "${workspaceRoot}/sort/include",
-                "${workspaceRoot}/common/include"
+                "${workspaceRoot}/sort/include"
             ],
             "defines": [],
             "intelliSenseMode": "clang-x64",

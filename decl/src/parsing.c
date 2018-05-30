@@ -1,7 +1,7 @@
-#include "decl.h"
 #include <ctype.h>
 #include <stdio.h>
 #include <string.h>
+#include "decl.h"
 
 // decl(): parse a declarator
 void decl() {
@@ -28,7 +28,8 @@ void dirdecl() {
   } else if (tokentype == NAME) {  // variable name
     strcpy(name, token);
   } else {
-    printf("error: expected name or (decl)");
+    printf("error: expected name or (decl).\n");
+    return;
   }
 
   while ((type = gettoken()) == PARENS || type == BRACKETS) {

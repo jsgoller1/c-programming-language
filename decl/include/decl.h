@@ -11,6 +11,6 @@ extern char name[];
 extern char datatype[];
 extern char description[];
 
-void decl(void);
-void dirdecl(void);
+int decl(void);
+int dirdecl(void);
 int gettoken(void);

@@ -4,32 +4,36 @@
 #include "decl.h"
 
 // decl(): parse a declarator
-void decl() {
+int decl() {
   int ns;
 
   for (ns = 0; gettoken() == '*';) {  // count '*'
     ns++;
   }
-  dirdecl();
+  if (dirdecl() == -1) {
+    return -1;
+  }
 
   while (ns-- > 0) {
     strcat(description, "pointer to ");
   }
+  return 0;
 }
 
 // dirdcl(): parse a direct declarator
-void dirdecl() {
+int dirdecl() {
   int type;
   if (tokentype == '(') {  // decl
     decl();
     if (tokentype != ')') {
       printf("error: missing ')'\n");
+      return -1;
     }
   } else if (tokentype == NAME) {  // variable name
     strcpy(name, token);
   } else {
     printf("error: expected name or (decl).\n");
-    return;
+    return -1;
   }
 
   while ((type = gettoken()) == PARENS || type == BRACKETS) {
@@ -42,4 +46,5 @@ void dirdecl() {
       strcat(description, "of ");
     }
   }
+  return 0;
 }

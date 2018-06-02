@@ -9,7 +9,7 @@
 - Ch. 3
   - Exercises
     - 3-3: make this [better](https://gist.github.com/robot-dreams/34d10248bc474f5a4312fa72e325656a)
-  - All exercises have passing unit tests 
+  - All exercises have passing unit tests
   - C11 `-Werror -Wall` compliance
   - Valgrind reports no errors.
 - Ch. 4 / RPN
@@ -23,7 +23,6 @@
     - 5-11
     - 5-12
     - 5-17
-    - 5-18
     - 5-19
     - 5-20
   - All exercises have passing unit tests

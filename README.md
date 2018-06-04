@@ -17,12 +17,13 @@ Beyond these, I have tried to adhere aggressively to the conventions defined in 
 Each exercise has its own target (e.g. `make 5.4` will make exercise 4 in chapter 5). `make all` compiles all exercises and runs unit tests (assuming any exist). Some exercises are refactored into their own shared subprograms when warranted; e.g. 5.14 - 5.17 are all about the `sort` program, so they exist in `sort/`. Makefile targets exist for these solutions independently.
 
 ## Highlights
-* `common/` - a "standard library" of various types of functions most exercises consume.
-* `tests/` - a testing library, as described above.
-* `rpc/` - the [Reverse Polish Notation](https://en.wikipedia.org/wiki/Reverse_Polish_notation) calculator.
+* `common/` - a "standard library" of various types of functions most exercises consume
+* `decl/` - the UNIX `decl` program (similar to `cdecl`)
+* `malloc_j/` - a storage allocator / the final boss of K&R
+* `rpc/` - the [Reverse Polish Notation](https://en.wikipedia.org/wiki/Reverse_Polish_notation) calculator
 * `sort/` - the UNIX `sort` program
-* `decl/` - the UNIX `decl` program (similar to `cdecl`).
 * `tail/` - the UNIX `tail` program
+* `tests/` - a testing library, as described below
 
 ## Tests
 I wrote my own simple testing library for the exercises, found in `tests/`; it wraps around the `assert(3)` macro and can do basic comparison for strings, ints, and bools. Execution will immediately halt and fail

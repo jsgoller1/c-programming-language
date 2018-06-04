@@ -67,6 +67,7 @@
                 "${workspaceRoot}/decl/include",
                 "${workspaceRoot}/tail/include",
                 "${workspaceRoot}/rpc/include",
+                "${workspaceRoot}/malloc_j/include",
                 "${workspaceRoot}/sort/include"
             ],
             "defines": [],

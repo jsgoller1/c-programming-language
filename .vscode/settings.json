@@ -13,7 +13,11 @@
     "cmocka.h": "c",
     "stdarg.h": "c",
     "1.14.h": "c",
-    "1.15.h": "c"
+    "1.15.h": "c",
+    "initializer_list": "c",
+    "string_view": "c",
+    "utility": "c",
+    "malloc_j.h": "c"
   },
   "files.insertFinalNewline": true,
   "editor.tabSize": 2,

@@ -34,17 +34,19 @@ ch-8: 8.1 8.2 8.3 8.4 8.5 8.6 8.8 8.8
 	@valgrind -q --leak-check=full --error-exitcode=5 ./bin/$@
 
 
-.PHONY: rpc sort tail decl
+.PHONY: rpc sort tail decl malloc_j
 
-# decl/undecl is exercises 5.18 through 5.20
-decl undecl:
-	$(CC) $(CFLAGS) $(OUTPUT_LEVEL) -I decl/include/ $(INCLUDES) $(LIBS) decl/src/{$@,gettoken,parsing}.c -o bin/$@
-	bin/$@
-
+## Chapter 4
 # the reverse polish calc is exercises 4.3 through 4.10.
 rpc:
 	$(CC) $(CFLAGS) $(OUTPUT_LEVEL) -I rpc/include/ $(INCLUDES) $(LIBS) rpc/src/$@.c -o bin/$@
 	bin/$@
+
+## Chapter 5
+# tail is exercise 5.13; I decided external tests were better than unit tests.
+tail:
+	$(CC) $(CFLAGS) $(OUTPUT_LEVEL) -I tail/include/ $(INCLUDES) $(LIBS) tail/src/5.13.c -o bin/tail
+	./tail/tail_test.sh
 
 # sort is exercises 5.14 through 5.17
 sort:
@@ -54,8 +56,13 @@ sort:
 		else bin/$@; \
 	fi
 
-# tail is exercise 5.13; I decided external tests were better than unit tests.
-tail:
-	$(CC) $(CFLAGS) $(OUTPUT_LEVEL) -I tail/include/ $(INCLUDES) $(LIBS) tail/src/5.13.c -o bin/tail
-	./tail/tail_test.sh
+# decl/undecl is exercises 5.18 through 5.20
+decl undecl:
+	$(CC) $(CFLAGS) $(OUTPUT_LEVEL) -I decl/include/ $(INCLUDES) $(LIBS) decl/src/{$@,gettoken,parsing}.c -o bin/$@
+	bin/$@
 
+## Chapter 8
+# malloc is 8.6 through 8.8
+malloc_j:
+	$(CC) $(CFLAGS) $(OUTPUT_LEVEL) -I $@/include/ $(INCLUDES) $(LIBS) $@/src/*.c -o bin/$@
+	bin/$@

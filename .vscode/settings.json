@@ -17,9 +17,10 @@
     "initializer_list": "c",
     "string_view": "c",
     "utility": "c",
-    "malloc_j.h": "c"
+    "malloc_j.h": "c",
+    "mman.h": "c"
   },
   "files.insertFinalNewline": true,
   "editor.tabSize": 2,
-  "C_Cpp.intelliSenseEngine": "Default"
+  "C_Cpp.intelliSenseEngine": "Tag Parser"
 }

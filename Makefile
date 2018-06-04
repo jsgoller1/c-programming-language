@@ -3,7 +3,7 @@ CC:=clang
 DEBUG:=-D DEBUG
 TESTS:=-D TESTS
 EXTRA_FLAGS:=$(DEBUG) $(TESTS)
-CFLAGS :=-std=c11 -g -Weverything -Werror -lm $(EXTRA_FLAGS)
+CFLAGS :=-std=gnu11 -g -Weverything -Werror -lm $(EXTRA_FLAGS)
 INCLUDES := -I common/include -I tests/include
 LIBS := common/src/*.c tests/src/tests.c
 

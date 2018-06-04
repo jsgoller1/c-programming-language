@@ -3,6 +3,12 @@
 
 #define MAXLEN 1000  // max len of any input line
 
+#ifdef DEBUG
+#define LOG(msg) printf("Log: %s\n", msg);
+#else
+#define LOG(msg) printf("");
+#endif
+
 // Bitwise functions
 int create_mask(const int n, const int position, int *const mask,
                 const bool inverted);

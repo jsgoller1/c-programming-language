@@ -1,10 +1,11 @@
 SHELL:=/bin/bash
 CC:=clang
-CFLAGS :=-std=c11 -g -Weverything -Werror -lm
+DEBUG:=-D DEBUG
+TESTS:=-D TESTS
+EXTRA_FLAGS:=$(DEBUG) $(TESTS)
+CFLAGS :=-std=c11 -g -Weverything -Werror -lm $(EXTRA_FLAGS)
 INCLUDES := -I common/include -I tests/include
 LIBS := common/src/*.c tests/src/tests.c
-#DEBUG:=-D DEBUG
-#TESTS:=-D TESTS
 
 chapters=$(shell for i in `seq 1 8`; do echo ch-$$i; done; )
 

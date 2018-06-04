@@ -1,26 +1,25 @@
 #include <stdio.h>
-
-#ifdef DEBUG
-#define DPRINT(msg) printf("%s", msg);
-#else
-#define DPRINT(msg) printf("");
-#endif
-
-typedef unsigned Align;  // align blocks to long boundary
+#include <unistd.h>
+#include "common.h"
 
 union header {  // block header
   struct {
-    Align x;            // force alignment of blocks
-    unsigned size;      // size of that block
-    union header* ptr;  // next block if on free list
+    unsigned long size;  // size of that long (8 bytes)
+    union header* ptr;   // next block if on free list (8 bytes)
   } s;
 };
 
 typedef union header Header;
 
-static Header base;           // empty list to get started
-static Header* freep = NULL;  // start of free list
+static Header base = {{0, 0}};  // empty list to get started
+static Header* freep = NULL;    // start of free list
+
+#define MiB (1 << 20);
+#define init_page_size 500 * MiB  // size of init_page;
+static void* init_base = NULL;    // base of allocated initial page used
+static void* init_ptr = NULL;     // current offset in init_page
 
 void* malloc_j(unsigned nbytes);
 void free_j(void* ap);
 Header* morecore(unsigned nu);
+void init(void);

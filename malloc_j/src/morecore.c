@@ -1,15 +1,27 @@
+#include <unistd.h>
 #include "malloc_j.h"
-#include "unistd.h"
 
 #define NALLOC 1024
 
-// morecore(): ask OS for more memory
-static Header* morecore(unsigned nu) {
-  char* cp;
+// jbrk(): similar to sbrk()/brk(), but modifies
+// init_page instead of the program break. Only morecore()
+// should call jbrk(), hence static.
+static void* jbrk(unsigned int nu) {
+  (void)nu;
+  return NULL;
+}
+
+// morecore(): obtain more memory for malloc_j
+Header* morecore(unsigned int nu) {
+  void* cp;
   Header* up;
 
-  cp = sbrk(nu * sizeof(Header));
-  if (cp == (char*)-1) {  // no space
+  if (nu < NALLOC) {
+    nu = NALLOC;
+  }
+
+  cp = jbrk(nu * sizeof(Header));
+  if (cp == (void*)-1) {  // no space
     return NULL;
   }
   up = (Header*)cp;

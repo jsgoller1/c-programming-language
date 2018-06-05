@@ -39,6 +39,7 @@ void* malloc_j(unsigned int nbytes);
 
 // free_j.c
 void free_j(void* ap);
+void bfree(void* p, int n);
 
 // calloc_j.c
 void* calloc_j(const unsigned int size, const unsigned int count);

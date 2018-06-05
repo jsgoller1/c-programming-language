@@ -36,3 +36,8 @@ void free_j(void *ap) {
   }
   freep = p;
 }
+
+void bfree(void *p, int n) {
+  (void)p;
+  (void)n;
+}

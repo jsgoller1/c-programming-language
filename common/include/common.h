@@ -6,7 +6,7 @@
 #ifdef DEBUG
 #define LOG(msg) printf("Log: %s\n", msg);
 #else
-#define LOG(msg) printf("");
+#define LOG(msg) ;
 #endif
 
 // Bitwise functions

@@ -1,6 +1,6 @@
 SHELL:=/bin/bash
 CC:=clang
-DEBUG:=-D DEBUG
+#DEBUG:=-D DEBUG
 TESTS:=-D TESTS
 EXTRA_FLAGS:=$(DEBUG) $(TESTS)
 CFLAGS :=-std=gnu11 -g -Weverything -Werror -lm $(EXTRA_FLAGS)

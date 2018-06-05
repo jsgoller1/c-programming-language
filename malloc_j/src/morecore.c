@@ -7,8 +7,14 @@
 // init_page instead of the program break. Only morecore()
 // should call jbrk(), hence static.
 static void* jbrk(unsigned int nu) {
-  (void)nu;
-  return NULL;
+  void* start = init_ptr;
+  void* end = init_ptr + nu;
+  if (end <= init_end) {
+    init_ptr = end;
+    return start;
+  } else {
+    return NULL;
+  };
 }
 
 // morecore(): obtain more memory for malloc_j

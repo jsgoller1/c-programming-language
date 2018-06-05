@@ -8,8 +8,8 @@
 // init(): create initial large block of memory
 // to avoid repeated calls to resize list.
 void init(void) {
-  if (mmap(init_base, INIT_PAGE_SIZE, PROT_READ | PROT_WRITE,
-           MAP_SHARED | MAP_ANONYMOUS, -1, 0) == MAP_FAILED) {
+  if ((init_base = mmap(NULL, INIT_PAGE_SIZE, PROT_READ | PROT_WRITE,
+                        MAP_SHARED | MAP_ANONYMOUS, -1, 0)) == MAP_FAILED) {
     char* err_desc = strerror(errno);
     printf("Couldn't allocate initial page: %s.\n", err_desc);
   }
@@ -18,5 +18,5 @@ void init(void) {
              INIT_PAGE_SIZE;  // this relies on the assumption that the address
                               // range of the page returned by mmap() starts at
                               // a lower address and ends at a higher one
-  printf("init_page initialized.\n");
+  printf("init_page initialized: %p\n", init_base);
 }

@@ -27,6 +27,7 @@ void init(void) {
              INIT_PAGE_SIZE;  // this relies on the assumption that the address
                               // range of the page returned by mmap() starts at
                               // a lower address and ends at a higher one
+  /*
   printf(
       "init() | init_page initialized:\n"
       "* init_base: %p\n"
@@ -34,6 +35,7 @@ void init(void) {
       "* init_end: %p\n"
       "* size (B): %lu\n",
       init_base, init_ptr, init_end, size);
+  */
 }
 
 void cleanup(void) {
@@ -46,5 +48,5 @@ void cleanup(void) {
   init_end = NULL;
   init_ptr = NULL;
   freep = NULL;
-  printf("cleanup() | Unmapped initial page.\n");
+  // printf("cleanup() | Unmapped initial page.\n");
 }

@@ -9,17 +9,17 @@ static unsigned int block_count = 0;
 static void* jbrk(unsigned int nu) {
   char* start = (char*)init_ptr;
   char* end = (char*)init_ptr + nu;
-  printf("jbrk() | Current init_ptr: %p\n", init_ptr);
-  printf("jbrk() | End of init page: %p\n", init_end);
-  printf("jbrk() | End of requested block: %p\n", (void*)end);
-  printf("jbrk() | Requested block too big? %d\n", (end > (char*)init_end));
+  // printf("jbrk() | Current init_ptr: %p\n", init_ptr);
+  // printf("jbrk() | End of init page: %p\n", init_end);
+  // printf("jbrk() | End of requested block: %p\n", (void*)end);
+  // printf("jbrk() | Requested block too big? %d\n", (end > (char*)init_end));
 
   if (end <= (char*)init_end) {
-    printf("jbrk() | Obtaining more of init_page.\n");
+    // printf("jbrk() | Obtaining more of init_page.\n");
     init_ptr = (void*)end;
     return (void*)start;
   } else {
-    printf("jbrk() | Can't get anymore of the page.\n");
+    // printf("jbrk() | Can't get anymore of the page.\n");
     return NULL;
   };
 }
@@ -33,8 +33,8 @@ Header* morecore(unsigned int nu) {
     nu = MIN_ALLOC;
   }
 
-  printf("morecore() | Attempting to obtain %lu bytes of the init_page.\n",
-         nu * sizeof(Header));
+  // printf("morecore() | Attempting to obtain %lu bytes of the init_page.\n",
+  //       nu * sizeof(Header));
 
   cp = jbrk(nu * sizeof(Header));
   if (cp == (void*)-1) {  // no space

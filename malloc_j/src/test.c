@@ -10,7 +10,7 @@ int main() {
   char* bar = malloc_j(200 * MiB);
   strcpy(bar, "KLMNOPQRST");
   bar[10] = '\0';
-  char* baz = malloc_j(99 * MiB);
+  char* baz = calloc_j(1 * MiB, 99);
   strcpy(baz, "UVWXYZ");
   baz[10] = '\0';
   printf("%s%s%s\n", foo, bar, baz);

@@ -1,7 +1,7 @@
 #include <unistd.h>
 #include "malloc_j.h"
 
-#define NALLOC 1024
+static unsigned int block_count = 0;
 
 // jbrk(): similar to sbrk()/brk(), but modifies
 // init_page instead of the program break. Only morecore()
@@ -29,9 +29,12 @@ Header* morecore(unsigned int nu) {
   void* cp;
   Header* up;
 
-  if (nu < NALLOC) {
-    nu = NALLOC;
+  if (nu < MIN_ALLOC) {
+    nu = MIN_ALLOC;
   }
+
+  printf("morecore() | Attempting to obtain %lu bytes of the init_page.\n",
+         nu * sizeof(Header));
 
   cp = jbrk(nu * sizeof(Header));
   if (cp == (void*)-1) {  // no space
@@ -39,6 +42,7 @@ Header* morecore(unsigned int nu) {
   }
   up = (Header*)cp;
   up->s.size = nu;
+  up->s.block_id = ++block_count;
   free_j((void*)(up + 1));
   return freep;
 }

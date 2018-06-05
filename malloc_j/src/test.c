@@ -4,10 +4,16 @@
 
 int main() {
   init();
-  char* foo = malloc_j(11);
-  strcpy(foo, "0123456789");
+  char* foo = malloc_j(200 * MiB);
+  strcpy(foo, "ABCDEFGHIJ");
   foo[10] = '\0';
-  printf("%s\n", foo);
+  char* bar = malloc_j(200 * MiB);
+  strcpy(bar, "KLMNOPQRST");
+  bar[10] = '\0';
+  char* baz = malloc_j(99 * MiB);
+  strcpy(baz, "UVWXYZ");
+  baz[10] = '\0';
+  printf("%s%s%s\n", foo, bar, baz);
   cleanup();
   return 0;
 }

@@ -37,6 +37,28 @@ void free_j(void *ap) {
   freep = p;
 }
 
+/*
+bfree(): adds an arbitrary block of memory to the list.
+
+If implemented correctly, I should be able to use an array allocated
+by stdlib/malloc() or an array on the stack in main and bfree() it successfully.
+
+1) We must add the entire block at p to the list.
+  * We cannot use part of it for the header.
+2) We cannot make any assumptions about the bytes before or after the block, so
+we cannot modify them.
+  * We cannot create the header in the first sizeof(Header) bytes before p.
+3) Pointers to the original data must still be able to successfully dereference
+it.
+  * We cannot memcpy() n bytes from p into a block obtained by malloc_j()
+
+---
+Instead, do not force the headers to be contiguous to the memory they represent;
+add a "void* data" pointer to the header that points to the chunk obtained from
+jbrk(). This way, we can just have data point to the arbitrary memory.
+
+Joining contiguous blocks can be done by comparing to bp->s.data instead of bp.
+*/
 void bfree(void *p, int n) {
   (void)p;
   (void)n;

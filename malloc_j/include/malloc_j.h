@@ -11,16 +11,17 @@ union header {  // block header
 
 typedef union header Header;
 
-static Header base = {{0, 0}};  // empty list to get started
-static Header* freep = NULL;    // start of free list
+extern Header base;    // empty list to get started
+extern Header* freep;  // start of free list
 
 #define MiB (1 << 20)
 #define INIT_PAGE_SIZE (500 * MiB)  // size of init_page;
-static void* init_base = NULL;      // base of allocated initial page used
-static void* init_end = NULL;       // last address in the init_page
-static void* init_ptr = NULL;       // current offset in init_page
+extern void* init_base;             // base of allocated initial page used
+extern void* init_end;              // last address in the init_page
+extern void* init_ptr;              // current offset in init_page
 
 void* malloc_j(unsigned int nbytes);
 void free_j(void* ap);
 Header* morecore(unsigned int nu);
 void init(void);
+void cleanup(void);

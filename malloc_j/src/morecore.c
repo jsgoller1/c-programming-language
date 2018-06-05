@@ -7,16 +7,19 @@
 // init_page instead of the program break. Only morecore()
 // should call jbrk(), hence static.
 static void* jbrk(unsigned int nu) {
-  printf("Current init_ptr: %p\n", init_ptr);
   char* start = (char*)init_ptr;
   char* end = (char*)init_ptr + nu;
-  printf("End of init page: %p\n", init_end);
-  printf("End of requested block: %p\n", (void*)end);
+  printf("jbrk() | Current init_ptr: %p\n", init_ptr);
+  printf("jbrk() | End of init page: %p\n", init_end);
+  printf("jbrk() | End of requested block: %p\n", (void*)end);
+  printf("jbrk() | Requested block too big? %d\n", (end > (char*)init_end));
 
   if (end <= (char*)init_end) {
+    printf("jbrk() | Obtaining more of init_page.\n");
     init_ptr = (void*)end;
     return (void*)start;
   } else {
+    printf("jbrk() | Can't get anymore of the page.\n");
     return NULL;
   };
 }

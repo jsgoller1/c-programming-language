@@ -5,7 +5,7 @@
 void *malloc_j(unsigned int nbytes) {
   Header *p, *prevp;
   unsigned nunits;
-  printf("malloc_j: allocating %d\n", nbytes);
+  printf("malloc_j() | allocating %d bytes.\n", nbytes);
 
   nunits = (nbytes + sizeof(Header) - 1) / sizeof(Header) + 1;
   if ((prevp = freep) == NULL) {  // no free list yet

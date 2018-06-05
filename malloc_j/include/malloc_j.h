@@ -7,12 +7,13 @@
 
 union header {  // block header
   struct {
-    unsigned int
-        block_id;  // useful value for debugging; not required for program (4
-                   // bytes)
-    unsigned int size;  // size of block (4 bytes)
-    union header* ptr;  // next block if on free list (8 bytes)
+    unsigned int block_id;  // useful value for debugging; not required for
+                            // program (4 bytes)
+    unsigned int size;      // size of block (4 bytes)
+    void* data;             // the actual block of data (8 bytes)
+    union header* next;     // next block if on free list (8 bytes)
   } s;
+  unsigned long align;  // 8 byte padding
 };
 
 typedef union header Header;

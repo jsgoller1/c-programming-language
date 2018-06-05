@@ -21,15 +21,15 @@ void *malloc_j(unsigned int nbytes) {
   // printf("malloc_j() | %d nunits required.\n", nunits);
 
   if ((prevp = freep) == NULL) {  // no free list yet
-    base.s.ptr = freep = prevp = &base;
+    base.s.next = freep = prevp = &base;
     base.s.size = 0;
   }
-  for (p = prevp->s.ptr;; prevp = p, p = p->s.ptr) {
+  for (p = prevp->s.next;; prevp = p, p = p->s.next) {
     // printf("malloc_j() | examining block of size: %d\n", nunits);
     if (p->s.size >= nunits) {  // big enough
       // printf("malloc_j() | found block of size: %d\n", nunits);
       if (p->s.size == nunits) {  // exact
-        prevp->s.ptr = p->s.ptr;
+        prevp->s.next = p->s.next;
       } else {  // allocate tail end
         p->s.size -= nunits;
         p += p->s.size;

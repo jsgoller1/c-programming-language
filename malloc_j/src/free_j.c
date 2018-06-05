@@ -6,6 +6,11 @@ void free_j(void *ap) {
 
   bp = (Header *)ap - 1;  // point to block header
 
+  if (bp->s.size <= 1) {
+    printf("free_j() | warning: cannot add block with size < 1 to list.\n");
+    return;
+  }
+
   // find insertion point (?)
   // start at list head, move through list while bp isn't in the list
   for (p = freep; !(bp > p && bp < p->s.ptr); p = p->s.ptr) {

@@ -5,6 +5,15 @@
 void *malloc_j(unsigned int nbytes) {
   Header *p, *prevp;
   unsigned nunits;
+  if (nbytes == 0) {
+    printf("malloc_j() | warning: 0 bytes requested.");
+    return NULL;
+  }
+
+  if (nbytes > INIT_PAGE_SIZE) {
+    printf("malloc_j() | warning: %d bytes exceeds max size.\n", nbytes);
+    return NULL;
+  }
   // printf("malloc_j() | %d bytes requested.\n", nbytes);
 
   // ensure we align on word boundaries; sizeof(Header) is 16
@@ -33,6 +42,7 @@ void *malloc_j(unsigned int nbytes) {
     }
     if (p == freep) {  // wrapped around free list
       if ((p = morecore(nunits)) == NULL) {
+        printf("malloc_j() | warning: space exhausted.\n");
         return NULL;  // none left
       }
     }

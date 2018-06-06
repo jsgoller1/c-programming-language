@@ -5,28 +5,20 @@
 #include "common.h"
 #include "malloc_j.h"
 
-Header base = {{0, 0, 0, 0}};  // empty list to get started
-Header* freep = NULL;          // start of free list
+// see malloc_j.h for comments
+// header base = {0, 0, 0};
+header* free_list = NULL;
+void* init_page = NULL;
 
-void* init_base = NULL;  // base of allocated initial page used
-void* init_end = NULL;   // last address in the init_page
-void* init_ptr = NULL;   // current offset in init_page
-
-// init(): create initial large block of memory
-// to avoid repeated calls to resize list.
+// init(): Get initial memory from OS, and set up free list
 void init(void) {
-  size_t size = (INIT_PAGE_SIZE < MIN_ALLOC) ? MIN_ALLOC : INIT_PAGE_SIZE;
-
-  if ((init_base = mmap(NULL, size, PROT_READ | PROT_WRITE,
-                        MAP_SHARED | MAP_ANONYMOUS, -1, 0)) == MAP_FAILED) {
+  size_t init_page_size = (MAX_MEM < MIN_ALLOC) ? MIN_ALLOC : MAX_MEM;
+  init_page = mmap(NULL, init_page_size, PROT_READ | PROT_WRITE,
+                   MAP_SHARED | MAP_ANONYMOUS, -1, 0);
+  if (init_page == MAP_FAILED) {
     char* err_desc = strerror(errno);
-    printf("Couldn't allocate initial page: %s.\n", err_desc);
+    printf("Couldn't allocate init page: %s.\n", err_desc);
   }
-  init_ptr = init_base;
-  init_end = (char*)init_base +
-             INIT_PAGE_SIZE;  // this relies on the assumption that the address
-                              // range of the page returned by mmap() starts at
-                              // a lower address and ends at a higher one
 
   printf(
       "init() | init_page initialized:\n"

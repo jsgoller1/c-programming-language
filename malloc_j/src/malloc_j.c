@@ -36,12 +36,12 @@ void *malloc_j(unsigned int nbytes) {
         p->s.size = nunits;
       }
       freep = prevp;
-      // printf("malloc_j() | actual returned block size (id: %d): %d units\n",
-      //       p->s.block_id, p->s.size);
-      return (void *)(p + 1);
+      printf("malloc_j() | actual returned block size (id: %d): %d units\n",
+             p->s.block_id, p->s.size);
+      return p->s.data;
     }
     if (p == freep) {  // wrapped around free list
-      if ((p = morecore(nunits)) == NULL) {
+      if ((p = morecore(nunits + 1)) == NULL) {
         printf("malloc_j() | warning: space exhausted.\n");
         return NULL;  // none left
       }

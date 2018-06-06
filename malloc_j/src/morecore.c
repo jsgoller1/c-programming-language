@@ -33,8 +33,8 @@ Header* morecore(unsigned int nu) {
     nu = MIN_ALLOC;
   }
 
-  // printf("morecore() | Attempting to obtain %lu bytes of the init_page.\n",
-  //       nu * sizeof(Header));
+  printf("morecore() | Attempting to obtain %lu bytes of the init_page.\n",
+         nu * sizeof(Header));
 
   cp = jbrk(nu * sizeof(Header));
   if (cp == (void*)-1) {  // no space
@@ -42,7 +42,8 @@ Header* morecore(unsigned int nu) {
   }
   up = (Header*)cp;
   up->s.size = nu;
+  up->s.data = up + 1;
   up->s.block_id = ++block_count;
-  free_j((void*)(up + 1));
+  free_j((void*)up);
   return freep;
 }

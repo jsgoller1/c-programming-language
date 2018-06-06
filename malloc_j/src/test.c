@@ -5,6 +5,7 @@
 int main() {
   init();
   char* foo = malloc_j(200 * MiB);
+  printf("Writing first string.\n");
   strcpy(foo, "ABCDEFGHIJ");
   foo[10] = '\0';
   char* bar = malloc_j(200 * MiB);

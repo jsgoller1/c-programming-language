@@ -5,19 +5,27 @@
 // Misc
 #define MiB (1 << 20)
 
-typedef struct header {
-  unsigned int size;    // size of block
-  struct header* next;  // next block if on free list
-  void* data;           // the actual block of data
-} header;
+union header {  // block header
+  struct {
+    unsigned int block_id;  // useful value for debugging; not required for
+                            // program (4 bytes)
+    unsigned int size;      // size of block (4 bytes)
+    void* data;             // the actual block of data (8 bytes)
+    union header* next;     // next block if on free list (8 bytes)
+  } s;
+  unsigned long align;  // 8 byte padding
+};
+
+typedef union header Header;
 
 // init.c
-#define MAX_MEM (500 * MiB)  // size of init_page;
+#define INIT_PAGE_SIZE (500 * MiB)  // size of init_page;
 
-// extern header base;
-extern header* freep;
-extern void* header_page;
-extern void* init_page;
+extern Header base;      // empty list to get started
+extern Header* freep;    // start of free list
+extern void* init_base;  // base of allocated initial page used
+extern void* init_end;   // last address in the init_page
+extern void* init_ptr;   // current offset in init_page
 
 void init(void);
 void cleanup(void);

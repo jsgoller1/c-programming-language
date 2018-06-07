@@ -4,7 +4,7 @@
 
 // malloc_j(): a general purpose storage allocator; returns
 // a pointer to a chunk of bytes usable for any purpose.
-void *malloc_j(size_t bytes) {
+void *malloc_j(const size_t bytes) {
   if (bytes == 0) {
     printf("malloc_j() | warning: must allocate at least 1B (0 requested).\n");
     return NULL;

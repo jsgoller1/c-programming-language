@@ -20,12 +20,12 @@ int init(void);
 int cleanup(void);
 
 // malloc_j.c
-void* malloc_j(size_t nbytes);
+void* malloc_j(const size_t nbytes);
 void* calloc_j(const size_t size, const size_t count);
 
 // free_j.c
-int free_j(void* ap);
-int bfree(void* p, size_t n);
+int free_j(void* const chunk);
+int bfree(void* const p, const size_t n);
 
 // stats.c
 extern size_t total_mem;

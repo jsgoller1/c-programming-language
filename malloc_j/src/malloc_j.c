@@ -2,8 +2,8 @@
 #include <stdio.h>
 
 // malloc_j(): a general purpose storage allocator
-void *malloc_j(unsigned int nbytes) {
-  Header *p, *prevp;
+void *malloc_j(size_t nbytes) {
+  header *p, *prevp;
   unsigned nunits;
   if (nbytes == 0) {
     printf("malloc_j() | warning: 0 bytes requested.");
@@ -16,8 +16,8 @@ void *malloc_j(unsigned int nbytes) {
   }
   // printf("malloc_j() | %d bytes requested.\n", nbytes);
 
-  // ensure we align on word boundaries; sizeof(Header) is 16
-  nunits = (nbytes + sizeof(Header) - 1) / sizeof(Header) + 1;
+  // ensure we align on word boundaries; sizeof(header) is 16
+  nunits = (nbytes + sizeof(header) - 1) / sizeof(header) + 1;
   // printf("malloc_j() | %d nunits required.\n", nunits);
 
   if ((prevp = freep) == NULL) {  // no free list yet
@@ -41,10 +41,8 @@ void *malloc_j(unsigned int nbytes) {
       return (void *)(p + 1);
     }
     if (p == freep) {  // wrapped around free list
-      if ((p = morecore(nunits)) == NULL) {
-        printf("malloc_j() | warning: space exhausted.\n");
-        return NULL;  // none left
-      }
+      printf("malloc_j() | warning: space exhausted.\n");
+      return NULL;  // none left
     }
   }
 }

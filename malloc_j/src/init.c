@@ -5,37 +5,29 @@
 #include "common.h"
 #include "malloc_j.h"
 
-Header base = {{0, 0, 0}};  // empty list to get started
-Header* freep = NULL;       // start of free list
+// header base = {0, 0};      // empty list to get started
+header* free_list = NULL;  // start of free list
 
-void* init_base = NULL;  // base of allocated initial page used
-void* init_end = NULL;   // last address in the init_page
-void* init_ptr = NULL;   // current offset in init_page
+// void* init_base = NULL;  // base of allocated initial page used
+// void* init_end = NULL;   // last address in the init_page
+// void* init_ptr = NULL;   // current offset in init_page
 
-// init(): create initial large block of memory
-// to avoid repeated calls to resize list.
+// init(): create first item in the free list by getting a massive page from
+// mmap()
 void init(void) {
   size_t size = (INIT_PAGE_SIZE < MIN_ALLOC) ? MIN_ALLOC : INIT_PAGE_SIZE;
+  void* init_page;
 
-  if ((init_base = mmap(NULL, size, PROT_READ | PROT_WRITE,
+  if ((init_page = mmap(NULL, size, PROT_READ | PROT_WRITE,
                         MAP_SHARED | MAP_ANONYMOUS, -1, 0)) == MAP_FAILED) {
     char* err_desc = strerror(errno);
     printf("Couldn't allocate initial page: %s.\n", err_desc);
   }
-  init_ptr = init_base;
-  init_end = (char*)init_base +
-             INIT_PAGE_SIZE;  // this relies on the assumption that the address
-                              // range of the page returned by mmap() starts at
-                              // a lower address and ends at a higher one
-  /*
-  printf(
-      "init() | init_page initialized:\n"
-      "* init_base: %p\n"
-      "* init_ptr: %p\n"
-      "* init_end: %p\n"
-      "* size (B): %lu\n",
-      init_base, init_ptr, init_end, size);
-  */
+
+  free_j(init_page + sizeof(header));
+
+  printf("init() | init_page initialized:\n");
+  display_metrics();
 }
 
 void cleanup(void) {

@@ -2,9 +2,9 @@
 
 // free_j(): put block ap in free list
 void free_j(void *ap) {
-  Header *bp, *p;
+  header *bp, *p;
 
-  bp = (Header *)ap - 1;  // point to block header
+  bp = (header *)ap - 1;  // point to block header
 
   if (bp->s.size <= 1) {
     printf("free_j() | warning: cannot add block with size < 1 to list.\n");

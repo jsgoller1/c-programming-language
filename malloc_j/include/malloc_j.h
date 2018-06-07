@@ -38,6 +38,6 @@ extern size_t free_chunks;
 extern size_t allocated_chunks;
 extern size_t bfree_chunks;
 
-void* display_metrics(void);
-void* display_mem(void);
-void* display_chunks(void);
+void display_metrics(void);
+void display_mem(void);
+void display_chunks(void);

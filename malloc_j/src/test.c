@@ -3,7 +3,9 @@
 #include "malloc_j.h"
 
 int main() {
-  init();
+  if (init() == -1) {
+    return -1;
+  }
   char* foo = malloc_j(200 * MiB);
   strcpy(foo, "ABCDEFGHIJ");
   foo[10] = '\0';

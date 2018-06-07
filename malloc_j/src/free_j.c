@@ -13,10 +13,13 @@ static void merge_chunks(header *first, header *second,
 int free_j(void *chunk) {
   header *ll_node, *p;
 
-  ll_node = (header *)chunk - 1;  // point to block header
+  ll_node = (header *)chunk - sizeof(header);  // point to block header
 
   if (ll_node->size <= 1) {
-    printf("free_j() | warning: cannot add block with size < 1 to list.\n");
+    printf(
+        "free_j() | warning: cannot add block with size < 1 to list (attempted "
+        "%lu).\n",
+        ll_node->size);
     return -1;
   }
 

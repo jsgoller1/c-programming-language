@@ -1,5 +1,6 @@
 #include "malloc_j.h"
 #include <stdio.h>
+#include <string.h>
 
 // malloc_j(): a general purpose storage allocator; returns
 // a pointer to a chunk of bytes usable for any purpose.
@@ -10,8 +11,9 @@ void *malloc_j(size_t bytes) {
   }
 
   if (bytes > INIT_PAGE_SIZE - sizeof(header)) {
-    printf("malloc_j() | warning: %d bytes exceeds max size allowed (%lu B).\n",
-           bytes, INIT_PAGE_SIZE - sizeof(header));
+    printf(
+        "malloc_j() | warning: %lu bytes exceeds max size allowed (%lu B).\n",
+        bytes, INIT_PAGE_SIZE - sizeof(header));
     return NULL;
   }
   // printf("malloc_j() | %d bytes requested.\n", nbytes);
@@ -25,7 +27,7 @@ void *malloc_j(size_t bytes) {
   // block
   header *p, *prev_node;
   for (prev_node = free_list, p = free_list->next; units > p->size;
-       prevp = p, p = p->next) {
+       prev_node = p, p = p->next) {
     if (p == free_list && p < prev_node) {
       printf("malloc_j() | error: no suitable blocks in free list.\n");
       return NULL;
@@ -36,7 +38,7 @@ void *malloc_j(size_t bytes) {
   // of p and return that
   if (p->size > units) {
     // allocate the tail end
-    p->size = nunits;
+    p->size = units;
     p += p->size;
     p->size = units;
   }

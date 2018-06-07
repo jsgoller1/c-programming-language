@@ -43,7 +43,7 @@ int free_j(void *chunk) {
   p = free_list;
   while ((p < ll_node) && (p < p->next)) {
     if (p == ll_node) {
-      printf("free_j() | warning: double free.\n")
+      printf("free_j() | warning: double free.\n");
     }
     if (ll_node < p->next) {
       // ll_node falls between p and p->next
@@ -83,7 +83,7 @@ int bfree(void *p, size_t n) {
         n, sizeof(header) + 1);
     return -1;
   }
-  if (free(p + sizeof(header)) == -1) {
+  if (free_j(p + sizeof(header)) == -1) {
     return -1;
   }
   // TODO: metrics here

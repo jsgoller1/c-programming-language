@@ -7,7 +7,7 @@
 
 typedef struct header {  // block header
   size_t size;           // size of block (4 bytes)
-  header* next;          // next block if on free list (8 bytes)
+  struct header* next;   // next block if on free list (8 bytes)
 } header;
 
 // init.c
@@ -38,6 +38,6 @@ extern size_t free_chunks;
 extern size_t allocated_chunks;
 extern size_t bfree_chunks;
 
-extern size_t void* display_metrics(void);
-extern size_t void* display_mem(void);
-extern size_t void* display_chunks(void);
+void* display_metrics(void);
+void* display_mem(void);
+void* display_chunks(void);

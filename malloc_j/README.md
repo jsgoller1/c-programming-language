@@ -1,5 +1,6 @@
 malloc_j
 ---
+`malloc()` as implemented by Joshua.
 
 ## Notes
 Because the original K&R implementation uses `sbrk()` (which is considered obsolete), I have opted for a slightly different but common approach using `mmap()` instead, wherein I allocate a single large page at the beginning of program execution and pull from that via a custom `jbrk()` instead.

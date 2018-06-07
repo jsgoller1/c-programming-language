@@ -27,7 +27,7 @@ int init(void) {
   header* init_block = (header*)init_page;
   size_t usable_bytes = size - sizeof(header) - (size % sizeof(header));
   init_block->size = usable_bytes / sizeof(header);
-  free_j(init_page + sizeof(header));
+  free_j((header*)init_page + sizeof(header));
 
   printf("init() | init_page initialized:\n");
   display_metrics();

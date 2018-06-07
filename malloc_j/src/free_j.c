@@ -30,13 +30,13 @@ int free_j(void *chunk) {
   */
 
   // handle case 1, merging if necessary
-  if (chunk < free_list) {
-    if (chunk + chunk->size == free_list) {
-      merge_chunks(chunk, free_list, false);
+  if (ll_node < free_list) {
+    if (ll_node + ll_node->size == free_list) {
+      merge_chunks(ll_node, free_list, false);
     } else {
-      chunk->next = free_list;
+      ll_node->next = free_list;
     }
-    free_list = chunk;
+    free_list = ll_node;
   }
 
   // handle cases 2 and 3
@@ -83,7 +83,7 @@ int bfree(void *p, size_t n) {
         n, sizeof(header) + 1);
     return -1;
   }
-  if (free_j(p + sizeof(header)) == -1) {
+  if (free_j((header *)p + sizeof(header)) == -1) {
     return -1;
   }
   // TODO: metrics here

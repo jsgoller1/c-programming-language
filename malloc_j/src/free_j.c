@@ -79,14 +79,18 @@ int free_j(void *chunk) {
 // store metadata in each block and do not store empty blocks, n must be at
 // least sizeof(header) + 1.
 int bfree(void *p, size_t n) {
-  if (n < sizeof(header) + 1) {
+  if (n < sizeof(header) * 2) {
     printf(
         "bfree() | warning: tried bfree() for %lu bytes, cannot add block with "
         "size < %lu bytes to list.\n",
-        n, sizeof(header) + 1);
+        n, sizeof(header) * 2);
     return -1;
   }
-  if (free_j((header *)p + sizeof(header)) == -1) {
+  header *chunk = (header *)p;
+  size_t usable_bytes = n - sizeof(header) - (n % sizeof(header));
+  chunk->size = usable_bytes / sizeof(header);
+
+  if (free_j(chunk + sizeof(header)) == -1) {
     return -1;
   }
   // TODO: metrics here

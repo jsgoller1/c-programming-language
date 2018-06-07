@@ -11,7 +11,7 @@ typedef struct header {  // block header
 } header;
 
 // init.c
-#define INIT_PAGE_SIZE (500 * MiB)  // size of init_page;
+#define INIT_PAGE_SIZE 0  //(500 * MiB)  // size of init_page;
 
 extern header* free_list;  // start of free list
 extern void* init_page;    // base of allocated initial page used

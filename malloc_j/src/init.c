@@ -20,6 +20,9 @@ int init(void) {
     return -1;
   }
 
+  // (nbytes + sizeof(header) - 1) / sizeof(header) + 1;
+  header* init_block = (header*)init_page;
+  init_block->size = size + sizeof(header) - 1 / sizeof(header) + 1;
   free_j(init_page + sizeof(header));
 
   printf("init() | init_page initialized:\n");

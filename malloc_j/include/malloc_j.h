@@ -10,6 +10,8 @@ typedef struct header {  // block header
   union header* next;    // next block if on free list (8 bytes)
 } header;
 
+#define UNITS(n) n + sizeof(header) - 1 / sizeof(header) + 1
+
 // init.c
 #define INIT_PAGE_SIZE (500 * MiB)  // size of init_page;
 

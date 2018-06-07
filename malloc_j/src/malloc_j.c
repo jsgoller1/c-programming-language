@@ -19,7 +19,7 @@ void *malloc_j(size_t bytes) {
   // determine how large an acceptable free chunk must be, in multiples of
   // sizeof(header); if we find one that's too big, we will need to split
   // it into two chunks, which must both be at least sizeof(header)+1 in size.
-  size_t units = (bytes + sizeof(header) - 1) / sizeof(header) + 1;
+  size_t units = ((bytes + sizeof(header) - 1) / sizeof(header)) + 1;
 
   // walk the list until either we come back to the start or we find a suitable
   // block

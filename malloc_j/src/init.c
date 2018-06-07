@@ -11,8 +11,8 @@ void* init_page = NULL;
 // init(): create first item in the free list by getting a massive page from
 // mmap()
 int init(void) {
-  size_t size = (INIT_PAGE_SIZE < sizeof(header) + 1) ? sizeof(header) + 1
-                                                      : INIT_PAGE_SIZE;
+  size_t size = (INIT_PAGE_SIZE < (sizeof(header) * 2)) ? (sizeof(header) * 2)
+                                                        : INIT_PAGE_SIZE;
 
   if ((init_page = mmap(NULL, size, PROT_READ | PROT_WRITE,
                         MAP_SHARED | MAP_ANONYMOUS, -1, 0)) == MAP_FAILED) {

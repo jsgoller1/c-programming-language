@@ -13,14 +13,11 @@ typedef struct header {  // block header
 // init.c
 #define INIT_PAGE_SIZE (500 * MiB)  // size of init_page;
 
-// extern header base;        // empty list to get started
 extern header* free_list;  // start of free list
-// extern void* init_base;  // base of allocated initial page used
-// extern void* init_end;   // last address in the init_page
-// extern void* init_ptr;   // current offset in init_page
+extern void* init_page;    // base of allocated initial page used
 
-void init(void);
-void cleanup(void);
+int init(void);
+int cleanup(void);
 
 // malloc_j.c
 #define MIN_ALLOC 1024  // always get at least 1024 bytes

@@ -5,8 +5,8 @@
 #include "common.h"
 #include "malloc_j.h"
 
-Header base = {{0, 0, 0, 0}};  // empty list to get started
-Header* freep = NULL;          // start of free list
+Header base = {{0, 0, 0}};  // empty list to get started
+Header* freep = NULL;       // start of free list
 
 void* init_base = NULL;  // base of allocated initial page used
 void* init_end = NULL;   // last address in the init_page

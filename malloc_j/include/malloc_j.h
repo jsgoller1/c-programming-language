@@ -7,7 +7,7 @@
 
 typedef struct header {  // block header
   size_t size;           // size of block (4 bytes)
-  union header* ptr;     // next block if on free list (8 bytes)
+  union header* next;    // next block if on free list (8 bytes)
 } header;
 
 // init.c
@@ -27,12 +27,12 @@ void cleanup(void);
 
 void* malloc_j(size_t nbytes);
 
-// free_j.c
-void free_j(void* ap);
-void bfree(void* p, int n);
-
 // calloc_j.c
 void* calloc_j(const size_t size, const size_t count);
+
+// free_j.c
+int free_j(void* ap);
+int bfree(void* p, size_t n);
 
 // stats.c
 extern size_t total_mem;

@@ -1,7 +1,8 @@
 #include "malloc_j.h"
 #include <stdio.h>
 
-// malloc_j(): a general purpose storage allocator
+// malloc_j(): a general purpose storage allocator; returns
+// a pointer to a chunk of bytes usable for any purpose.
 void *malloc_j(size_t nbytes) {
   header *p, *prevp;
   unsigned nunits;
@@ -21,15 +22,15 @@ void *malloc_j(size_t nbytes) {
   // printf("malloc_j() | %d nunits required.\n", nunits);
 
   if ((prevp = freep) == NULL) {  // no free list yet
-    base.s.ptr = freep = prevp = &base;
+    base.s.next = freep = prevp = &base;
     base.s.size = 0;
   }
-  for (p = prevp->s.ptr;; prevp = p, p = p->s.ptr) {
+  for (p = prevp->s.next;; prevp = p, p = p->s.next) {
     // printf("malloc_j() | examining block of size: %d\n", nunits);
     if (p->s.size >= nunits) {  // big enough
       // printf("malloc_j() | found block of size: %d\n", nunits);
       if (p->s.size == nunits) {  // exact
-        prevp->s.ptr = p->s.ptr;
+        prevp->s.next = p->s.next;
       } else {  // allocate tail end
         p->s.size -= nunits;
         p += p->s.size;
@@ -45,4 +46,13 @@ void *malloc_j(size_t nbytes) {
       return NULL;  // none left
     }
   }
+}
+
+// calloc_j(): same as malloc, but creates an array of count * size length and
+// all bytes to zero
+void *calloc_j(const size_t size, const size_t count) {
+  size_t total_bytes = size * count;
+  void *space = malloc_j(total_bytes);
+  memset(space, 0, total_bytes);
+  return space;
 }

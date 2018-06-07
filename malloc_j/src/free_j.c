@@ -3,7 +3,7 @@
 
 static void merge_chunks(header *first, header *second,
                          bool preserve_first_next) {
-  first->size += second->size + sizeof(header);
+  first->size += second->size + unit_size;
   if (!(preserve_first_next)) {
     first->next = second->next;
   }
@@ -12,8 +12,7 @@ static void merge_chunks(header *first, header *second,
 // free_j(): insert a chunk into the free list
 int free_j(void *const chunk) {
   header *p;
-  header *const ll_node =
-      (header *)chunk - sizeof(header);  // point to block header
+  header *const ll_node = (header *)chunk - unit_size;  // point to block header
 
   if (ll_node->size <= 1) {
     printf(
@@ -77,20 +76,17 @@ int free_j(void *const chunk) {
 
 // bfree(): add n bytes starting at p to the free list. Because we
 // store metadata in each block and do not store empty blocks, n must be at
-// least sizeof(header) + 1.
+// least two units.
 int bfree(void *const p, const size_t n) {
-  if (n < sizeof(header) * 2) {
+  if (n < unit_size * 2) {
     printf(
         "bfree() | warning: tried bfree() for %lu bytes, cannot add block with "
         "size < %lu bytes to list.\n",
-        n, sizeof(header) * 2);
+        n, unit_size * 2);
     return -1;
   }
-  header *chunk = (header *)p;
-  size_t usable_bytes = n - sizeof(header) - (n % sizeof(header));
-  chunk->size = usable_bytes / sizeof(header);
-
-  if (free_j(chunk + sizeof(header)) == -1) {
+  header *chunk = initialize_new_chunk(p, n);
+  if (free_j(chunk + unit_size) == -1) {
     return -1;
   }
   // TODO: metrics here

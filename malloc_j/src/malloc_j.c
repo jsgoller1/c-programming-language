@@ -10,18 +10,18 @@ void *malloc_j(const size_t bytes) {
     return NULL;
   }
 
-  if (bytes > INIT_PAGE_SIZE - sizeof(header)) {
+  if (bytes > INIT_PAGE_SIZE - unit_size) {
     printf(
         "malloc_j() | warning: %lu bytes exceeds max size allowed (%lu B).\n",
-        bytes, INIT_PAGE_SIZE - sizeof(header));
+        bytes, INIT_PAGE_SIZE - unit_size);
     return NULL;
   }
   // printf("malloc_j() | %d bytes requested.\n", nbytes);
 
   // determine how large an acceptable free chunk must be, in multiples of
-  // sizeof(header); if we find one that's too big, we will need to split
-  // it into two chunks, which must both be at least sizeof(header)+1 in size.
-  size_t units = ((bytes + sizeof(header) - 1) / sizeof(header)) + 1;
+  // unit_size; if we find one that's too big, we will need to split
+  // it into two chunks, which must both be at least unit_size+1 in size.
+  size_t units = ((bytes + unit_size - 1) / unit_size) + 1;
 
   // walk the list until either we come back to the start or we find a suitable
   // block
@@ -47,7 +47,7 @@ void *malloc_j(const size_t bytes) {
     prev_node->next = p->next;
   }
 
-  return p + sizeof(header);
+  return p + unit_size;
 }
 
 // calloc_j(): same as malloc, but creates an array of count * size length and

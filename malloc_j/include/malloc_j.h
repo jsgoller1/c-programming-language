@@ -7,10 +7,8 @@
 
 typedef struct header {  // block header
   size_t size;           // size of block (4 bytes)
-  union header* next;    // next block if on free list (8 bytes)
+  header* next;          // next block if on free list (8 bytes)
 } header;
-
-#define UNITS(n) n + sizeof(header) - 1 / sizeof(header) + 1
 
 // init.c
 #define INIT_PAGE_SIZE (500 * MiB)  // size of init_page;
@@ -22,11 +20,7 @@ int init(void);
 int cleanup(void);
 
 // malloc_j.c
-#define MIN_ALLOC 1024  // always get at least 1024 bytes
-
 void* malloc_j(size_t nbytes);
-
-// calloc_j.c
 void* calloc_j(const size_t size, const size_t count);
 
 // free_j.c

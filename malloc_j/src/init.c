@@ -7,8 +7,8 @@
 
 header* free_list = NULL;  // start of free list
 void* init_page = NULL;
-size_t total_units = 0;
 static size_t actual_page_size = 0;
+size_t total_units = 0;
 
 // init(): create first item in the free list by getting a massive page from
 // mmap()

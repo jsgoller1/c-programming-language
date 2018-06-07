@@ -12,4 +12,4 @@ Because the original K&R implementation uses `sbrk()` (which is considered obsol
 **Exercise 8-8**. Write a routine bfree(p,n) that will free an arbitrary block p of n characters into the free list maintained by malloc and free. By using b free, a user can add a static or external array to the free list at any time.
 
 ## Special thanks 
-* [Elliott Jin (@robot-dreams)](https://github.com/robot-dreams) for some guidance on `sbrk()` use.
+* [Elliott Jin (@robot-dreams)](https://github.com/robot-dreams) for some guidance on `sbrk()` use and strategy feedback.

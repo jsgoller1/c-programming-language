@@ -15,9 +15,11 @@ typedef struct header {  // block header
 
 extern header* free_list;  // start of free list
 extern void* init_page;    // base of allocated initial page used
+static const size_t unit_size = sizeof(header);
 
 int init(void);
 int cleanup(void);
+header* initialize_new_chunk(void* const p, const size_t size);
 
 // malloc_j.c
 void* malloc_j(const size_t nbytes);

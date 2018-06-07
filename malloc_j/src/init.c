@@ -12,9 +12,8 @@ static size_t actual_page_size = 0;
 // init(): create first item in the free list by getting a massive page from
 // mmap()
 int init(void) {
-  actual_page_size = (INIT_PAGE_SIZE < (sizeof(header) * 2))
-                         ? (sizeof(header) * 2)
-                         : INIT_PAGE_SIZE;
+  actual_page_size =
+      (INIT_PAGE_SIZE < (unit_size * 2)) ? (unit_size * 2) : INIT_PAGE_SIZE;
 
   if ((init_page = mmap(NULL, actual_page_size, PROT_READ | PROT_WRITE,
                         MAP_SHARED | MAP_ANONYMOUS, -1, 0)) == MAP_FAILED) {
@@ -26,12 +25,7 @@ int init(void) {
   // Round the size of the initial chunk down to the nearest unit, remove one
   // unit for the header, and set the size in terms of units. Remainder bytes
   // are lost.
-  header* init_block = (header*)init_page;
-  size_t usable_bytes =
-      actual_page_size - sizeof(header) - (actual_page_size % sizeof(header));
-  init_block->size = usable_bytes / sizeof(header);
-  init_block->next = init_block;
-  free_list = init_block;
+  free_list = initialize_new_chunk(init_page, actual_page_size);
   printf("init() | init_page initialized.\n");
   // display_metrics();
   return 0;
@@ -45,4 +39,19 @@ int cleanup(void) {
   }
   printf("cleanup() | Unmapped initial page.\n");
   return 0;
+}
+
+// initialize_new_chunk(): Set up an arbitrary blob of data for use in the free
+// list:
+// * Set the size to n, but:
+//  * Remove one unit from size for the header.
+//  * Round down to the nearest unit, discarding the
+//    remainder.
+// * Initialize header's next pointer to itself.
+header* initialize_new_chunk(void* const p, const size_t size) {
+  header* new_chunk = (header*)p;
+  size_t usable_bytes = size - unit_size - (size % unit_size);
+  new_chunk->size = usable_bytes / unit_size;
+  new_chunk->next = new_chunk;
+  return new_chunk;
 }

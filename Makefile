@@ -26,7 +26,7 @@ ch-5: 5.1 5.2 5.3 5.4 5.5 5.6 5.7 5.8-9 5.14-17 5.10 5.11
 ch-5: 5.12 tail sort decl
 ch-6: 6.1 6.2 6.3 6.4 6.5 6.6
 ch-7: 7.1 7.2 7.3 7.4 7.5 7.6 7.7 7.8
-ch-8: 8.1 8.2 8.3 8.4 8.5 8.6 8.8 8.8
+ch-8: 8.1 8.2 8.3 8.4 8.5 malloc_j
 
 1.% 2.% 3.% 4.% 5.% 6.% 7.% 8.%:
 	@# When making "3.4", get "3" as chapter value
@@ -40,18 +40,18 @@ ch-8: 8.1 8.2 8.3 8.4 8.5 8.6 8.8 8.8
 ## Chapter 4
 # the reverse polish calc is exercises 4.3 through 4.10.
 rpc:
-	$(CC) $(CFLAGS) $(OUTPUT_LEVEL) -I rpc/include/ $(INCLUDES) $(LIBS) rpc/src/$@.c -o bin/$@
+	$(CC) $(CFLAGS) $(OUTPUT_LEVEL) -I ch-4/rpc/include/ $(INCLUDES) $(LIBS) ch-4/rpc/src/$@.c -o bin/$@
 	bin/$@
 
 ## Chapter 5
 # tail is exercise 5.13; I decided external tests were better than unit tests.
 tail:
-	$(CC) $(CFLAGS) $(OUTPUT_LEVEL) -I tail/include/ $(INCLUDES) $(LIBS) tail/src/5.13.c -o bin/tail
+	$(CC) $(CFLAGS) $(OUTPUT_LEVEL) -I ch-5/tail/include/ $(INCLUDES) $(LIBS) ch-5/tail/src/5.13.c -o bin/tail
 	./tail/tail_test.sh
 
 # sort is exercises 5.14 through 5.17
 sort:
-	$(CC) $(CFLAGS) $(OUTPUT_LEVEL) -I $@/include/ $(INCLUDES) $(LIBS) $@/src/*.c -o bin/$@
+	$(CC) $(CFLAGS) $(OUTPUT_LEVEL) -I ch-5/sort/include/ $(INCLUDES) $(LIBS) ch-5/sort/src/*.c -o bin/$@
 	@if [[ -z "$(TESTS)" ]]; then \
 		cat sort/sort-test.txt | valgrind -q --leak-check=full --error-exitcode=5 ./bin/$@; \
 		else bin/$@; \
@@ -59,11 +59,11 @@ sort:
 
 # decl/undecl is exercises 5.18 through 5.20
 decl undecl:
-	$(CC) $(CFLAGS) $(OUTPUT_LEVEL) -I decl/include/ $(INCLUDES) $(LIBS) decl/src/{$@,gettoken,parsing}.c -o bin/$@
+	$(CC) $(CFLAGS) $(OUTPUT_LEVEL) -I ch-5/decl/include/ $(INCLUDES) $(LIBS) ch-5/decl/src/{$@,gettoken,parsing}.c -o bin/$@
 	bin/$@
 
 ## Chapter 8
 # malloc is 8.6 through 8.8
 malloc_j:
-	$(CC) $(CFLAGS) $(OUTPUT_LEVEL) -I $@/include/ $(INCLUDES) $(LIBS) $@/src/*.c -o bin/$@
+	$(CC) $(CFLAGS) $(OUTPUT_LEVEL) -I ch-8/malloc_j/include/ $(INCLUDES) $(LIBS) ch-8/malloc_j/src/*.c -o bin/$@
 	@valgrind -q --leak-check=full --error-exitcode=5 ./bin/$@

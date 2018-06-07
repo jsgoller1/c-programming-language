@@ -18,7 +18,11 @@
     "string_view": "c",
     "utility": "c",
     "malloc_j.h": "c",
-    "mman.h": "c"
+    "mman.h": "c",
+    "cerrno": "c",
+    "*.tcc": "c",
+    "limits": "c",
+    "string.h": "c"
   },
   "files.insertFinalNewline": true,
   "editor.tabSize": 2,

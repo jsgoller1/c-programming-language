@@ -30,7 +30,6 @@
   - Valgrind reports no errors.
 - Ch. 6
   - Exercises
-    - 6-1
     - 6-2
     - 6-3
     - 6-4
@@ -49,6 +48,7 @@
     - 7-6
     - 7-7
     - 7-8
+    - 7-9
   - All exercises have passing unit tests
   - C11 `-Werror -Wall` compliance
   - Valgrind reports no errors.
@@ -59,8 +59,6 @@
     - 8-3
     - 8-4
     - 8-5
-    - 8-7
-    - 8-8
   - All exercises have passing unit tests
   - C11 `-Werror -Wall` compliance
   - Valgrind reports no errors.

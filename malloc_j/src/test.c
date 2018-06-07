@@ -4,7 +4,7 @@
 #include "malloc_j.h"
 
 int main() {
-  if (init() == -1) {
+  if (init(500 * MiB) == -1) {
     return -1;
   }
   printf("bfree() test\n");

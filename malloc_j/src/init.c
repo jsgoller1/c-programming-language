@@ -7,13 +7,14 @@
 
 header* free_list = NULL;  // start of free list
 void* init_page = NULL;
+size_t total_units = 0;
 static size_t actual_page_size = 0;
 
 // init(): create first item in the free list by getting a massive page from
 // mmap()
-int init(void) {
-  actual_page_size =
-      (INIT_PAGE_SIZE < (unit_size * 2)) ? (unit_size * 2) : INIT_PAGE_SIZE;
+int init(const size_t desired_page_size) {
+  actual_page_size = (desired_page_size < (unit_size * 2)) ? (unit_size * 2)
+                                                           : desired_page_size;
 
   if ((init_page = mmap(NULL, actual_page_size, PROT_READ | PROT_WRITE,
                         MAP_SHARED | MAP_ANONYMOUS, -1, 0)) == MAP_FAILED) {
@@ -26,8 +27,8 @@ int init(void) {
   // unit for the header, and set the size in terms of units. Remainder bytes
   // are lost.
   free_list = initialize_new_chunk(init_page, actual_page_size);
+  total_units = (actual_page_size / unit_size) - 1;
   printf("init() | init_page initialized.\n");
-  // display_metrics();
   return 0;
 }
 

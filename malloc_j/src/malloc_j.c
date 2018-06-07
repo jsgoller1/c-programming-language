@@ -10,13 +10,12 @@ void *malloc_j(const size_t bytes) {
     return NULL;
   }
 
-  if (bytes > INIT_PAGE_SIZE - unit_size) {
+  if (bytes > total_units) {
     printf(
         "malloc_j() | warning: %lu bytes exceeds max size allowed (%lu B).\n",
-        bytes, INIT_PAGE_SIZE - unit_size);
+        bytes, total_units * unit_size);
     return NULL;
   }
-  // printf("malloc_j() | %d bytes requested.\n", nbytes);
 
   // determine how large an acceptable free chunk must be, in multiples of
   // unit_size; if we find one that's too big, we will need to split

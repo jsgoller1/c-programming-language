@@ -70,7 +70,6 @@ int free_j(void *const chunk) {
     ll_node->next = p->next;
     p->next = ll_node;
   }
-  // TODO: metrics here
   return 0;
 }
 
@@ -89,6 +88,5 @@ int bfree(void *const p, const size_t n) {
   if (free_j(chunk + unit_size) == -1) {
     return -1;
   }
-  // TODO: metrics here
   return 0;
 }

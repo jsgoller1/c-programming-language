@@ -1,38 +1,38 @@
 #include "malloc_j.h"
 
 // free_j(): put block ap in free list
-void free_j(void *ap) {
-  header *bp, *p;
+void free_j(void *chunk) {
+  header *ll_node, *p;
 
-  bp = (header *)ap - 1;  // point to block header
+  ll_node = (header *)chunk - 1;  // point to block header
 
-  if (bp->s.size <= 1) {
+  if (ll_node->size <= 1) {
     printf("free_j() | warning: cannot add block with size < 1 to list.\n");
     return;
   }
 
   // find insertion point (?)
-  // start at list head, move through list while bp isn't in the list
-  for (p = freep; !(bp > p && bp < p->s.ptr); p = p->s.ptr) {
-    if (p >= p->s.ptr && (bp > p || bp < p->s.ptr)) {
+  // start at list head, move through list while ll_node isn't in the list
+  for (p = freep; !(ll_node > p && ll_node < p->ptr); p = p->ptr) {
+    if (p >= p->ptr && (ll_node > p || ll_node < p->ptr)) {
       break;  // freed block at start or end of area
     }
   }
 
-  // if contiguous as [ bp | p ], join as one block preserving bp
-  if (bp + bp->s.size == p->s.ptr) {
-    bp->s.size += p->s.ptr->s.size;  // add next block's size
-    bp->s.ptr = p->s.ptr->s.ptr;     // make bp's next the next's next.
+  // if contiguous as [ ll_node | p ], join as one block preserving ll_node
+  if (ll_node + ll_node->size == p->ptr) {
+    ll_node->size += p->ptr->size;  // add next block's size
+    ll_node->ptr = p->ptr->ptr;     // make ll_node's next the next's next.
   } else {
-    bp->s.ptr = p->s.ptr;  // append instead of joining
+    ll_node->ptr = p->ptr;  // append instead of joining
   }
 
-  // if contiguous as [ p | bp ], join as one block preserving p
-  if (p + p->s.size == bp) {
-    p->s.size += bp->s.size;
-    p->s.ptr = bp->s.ptr;
+  // if contiguous as [ p | ll_node ], join as one block preserving p
+  if (p + p->size == ll_node) {
+    p->size += ll_node->size;
+    p->ptr = ll_node->ptr;
   } else {
-    p->s.ptr = bp;
+    p->ptr = ll_node;
   }
   freep = p;
 }

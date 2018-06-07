@@ -32,7 +32,7 @@ void* display_mem(void) {
 // display_chunks(): shows useful runtime information about
 // chunks in the free list
 void* display_chunks(void) {
-  printf("Chunk stats (B):\n");
+  printf("Chunk stats:\n");
       "* total_chunks: %lu\n"
       "* free_chunks: %lu\n"
       "* allocated_chunks: %lu\n"

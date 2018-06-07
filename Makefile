@@ -66,4 +66,4 @@ decl undecl:
 # malloc is 8.6 through 8.8
 malloc_j:
 	$(CC) $(CFLAGS) $(OUTPUT_LEVEL) -I $@/include/ $(INCLUDES) $(LIBS) $@/src/*.c -o bin/$@
-	bin/$@
+	@valgrind -q --leak-check=full --error-exitcode=5 ./bin/$@

@@ -31,5 +31,6 @@ int main() {
   free_j(foo);
 
   cleanup();
+  free(baz);
   return 0;
 }

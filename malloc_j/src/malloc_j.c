@@ -28,7 +28,7 @@ void *malloc_j(size_t bytes) {
   header *p, *prev_node;
   for (prev_node = free_list, p = free_list->next; units > p->size;
        prev_node = p, p = p->next) {
-    if (p == free_list && p < prev_node) {
+    if (p == free_list && p <= prev_node) {  // <= catches 1-node list
       printf("malloc_j() | error: no suitable blocks in free list.\n");
       return NULL;
     }
@@ -55,6 +55,8 @@ void *malloc_j(size_t bytes) {
 void *calloc_j(const size_t size, const size_t count) {
   size_t total_bytes = size * count;
   void *space = malloc_j(total_bytes);
-  memset(space, 0, total_bytes);
+  if (space != NULL) {
+    memset(space, 0, total_bytes);
+  }
   return space;
 }

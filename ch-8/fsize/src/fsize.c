@@ -6,7 +6,7 @@
 #include "fsize.h"
 
 // fsize(): print size of file "name"
-void fsize(char *name) {
+void fsize(const char* const name) {
   struct stat stbuf;
 
   if (stat(name, &stbuf) == -1) {
@@ -16,5 +16,5 @@ void fsize(char *name) {
   if ((stbuf.st_mode & S_IFMT) == S_IFDIR) {
     dirwalk(name, fsize);
   }
-  printf("%8ld %s \n", stbuf.st_size, name);
+  printf("%8ld %4o %s\n", stbuf.st_size, stbuf.st_mode & 0x0fff, name);
 }

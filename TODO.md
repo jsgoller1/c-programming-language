@@ -58,7 +58,6 @@
     - 8-2
     - 8-3
     - 8-4
-    - 8-5
   - All exercises have passing unit tests
   - C11 `-Werror -Wall` compliance
   - Valgrind reports no errors.

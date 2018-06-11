@@ -63,8 +63,7 @@ decl undecl:
 	bin/$@
 
 ## Chapter 8
-# fsize is 8.5
 # malloc is 8.6 through 8.8
-fsize malloc_j:
+malloc_j:
 	$(CC) $(CFLAGS) $(OUTPUT_LEVEL) -I ch-8/$@/include/ $(INCLUDES) $(LIBS) ch-8/$@/src/*.c -o bin/$@
 	@valgrind -q --leak-check=full --error-exitcode=5 ./bin/$@

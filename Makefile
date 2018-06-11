@@ -26,7 +26,7 @@ ch-5: 5.1 5.2 5.3 5.4 5.5 5.6 5.7 5.8-9 5.14-17 5.10 5.11
 ch-5: 5.12 tail sort decl
 ch-6: 6.1 6.2 6.3 6.4 6.5 6.6
 ch-7: 7.1 7.2 7.3 7.4 7.5 7.6 7.7 7.8
-ch-8: 8.1 8.2 8.3 8.4 8.5 malloc_j
+ch-8: cat 8.2 8.3 8.4 8.5 malloc_j
 
 1.% 2.% 3.% 4.% 5.% 6.% 7.% 8.%:
 	@# When making "3.4", get "3" as chapter value
@@ -63,6 +63,13 @@ decl undecl:
 	bin/$@
 
 ## Chapter 8
+# cat is 8.1
+cat:
+	@echo "foo" > foo.test; echo "bar" > bar.test; echo "baz" > baz.test
+	$(CC) $(CFLAGS) $(OUTPUT_LEVEL) -I ch-8include/ $(INCLUDES) $(LIBS) ch-8/src/8.1.c -o bin/cat
+	@valgrind -q --leak-check=full --error-exitcode=5 ./bin/$@ {foo,bar,baz}.test
+	@rm *.test
+
 # malloc is 8.6 through 8.8
 malloc_j:
 	$(CC) $(CFLAGS) $(OUTPUT_LEVEL) -I ch-8/$@/include/ $(INCLUDES) $(LIBS) ch-8/$@/src/*.c -o bin/$@

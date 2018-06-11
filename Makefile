@@ -66,8 +66,8 @@ decl undecl:
 # cat is 8.1
 cat:
 	@echo "foo" > foo.test; echo "bar" > bar.test; echo "baz" > baz.test
-	$(CC) $(CFLAGS) $(OUTPUT_LEVEL) -I ch-8include/ $(INCLUDES) $(LIBS) ch-8/src/8.1.c -o bin/cat
-	@valgrind -q --leak-check=full --error-exitcode=5 ./bin/$@ {foo,bar,baz}.test
+	$(CC) $(CFLAGS) $(OUTPUT_LEVEL) -I ch-8/include/ $(INCLUDES) $(LIBS) ch-8/src/8.1.c -o bin/cat
+	@valgrind -q --leak-check=full --error-exitcode=5 ./bin/cat {foo,bar,baz}.test
 	@rm *.test
 
 # malloc is 8.6 through 8.8

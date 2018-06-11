@@ -14,13 +14,13 @@
  */
 
 int main(int argc, char** argv) {
-  if (argc < 1) {
-    printf("usage: cat <filename> ...");
+  if (argc < 2) {
+    printf("usage: cat <filename> ...\n");
   }
 
   int fd = 0;
-  char temp[MAXLEN];
-  for (int i = 0; i < argc; i++) {
+  char temp[MAXLEN] = {0};
+  for (int i = 1; i < argc; i++) {
     char* filename = argv[i];
 
     fd = open(filename, O_RDONLY);

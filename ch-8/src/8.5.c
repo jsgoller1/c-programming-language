@@ -8,7 +8,7 @@
 
 #include "8.5.h"
 
-// print file sizes
+// main(): recurses through current directory tree calling fsize
 int main(int argc, char **argv) {
   if (argc == 1) {
     fsize(".");
@@ -20,7 +20,8 @@ int main(int argc, char **argv) {
   return 0;
 }
 
-// fsize(): print size of file "name"
+// fsize(): print size and permission bits of all files in dir, recurse into
+// subdirs
 void fsize(const char *const name) {
   struct stat stbuf;
 
@@ -34,7 +35,7 @@ void fsize(const char *const name) {
   printf("%8ld %4o %s\n", stbuf.st_size, stbuf.st_mode & 0x0fff, name);
 }
 
-// dirwalk: apply fcn to all files in dir
+// dirwalk: recursively apply fcn to all files in dir
 void dirwalk(const char *const dir, void (*fcn)(const char *const)) {
   char name[MAX_PATH];
   struct dirent *dp;

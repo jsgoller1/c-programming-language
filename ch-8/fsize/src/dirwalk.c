@@ -1,3 +1,6 @@
+#include <stdio.h>
+#include <string.h>
+
 #include "fsize.h"
 
 // dirwalk: apply fcn to all files in dir
@@ -11,7 +14,7 @@ void dirwalk(char *dir, void (*fcn)(char *)) {
     return;
   }
   while ((dp = readdir(dfd)) != NULL) {
-    if (strcmp(dp->name, ".") == 0 || strcmp(dp->name) == 0) {
+    if (strcmp(dp->name, ".") == 0 || strcmp(dp->name, "..") == 0) {
       continue;  // skip self and parent
     }
     if (strlen(dir) + strlen(dp->name) + 2 > sizeof(name)) {

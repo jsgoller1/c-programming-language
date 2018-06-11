@@ -1,28 +1,39 @@
-#define NAME_MAX 14  // longest filename component, system dependent
+#include <stddef.h>
+#include <sys/types.h>
+
+#define MAX_PATH 255
+
+#ifndef NAME_MAX
+#define NAME_MAX 16  // longest filename component, system dependent
+#endif
 
 #ifndef DIRSIZ
-#define DIRSIZ 14
+#define DIRSIZ 16
 #endif
 
 // portable directory entry
-typedef struct {
-  size_t inode;             // inode number
-  char name[NAME_MAX + 1];  // name + \0
+typedef struct Dirent {
+  size_t inode;   // inode number
+  char name[16];  // 15 char name + \0
 } Dirent;
 
-typedef struct {  // Minimal DIR, no buffering, etc.
-  int fd;         // file descriptor for directory
-  Dirent d;       // directory entry
+// defined in dirent.h, but cannot access __dirstream
+typedef struct DIR {  // Minimal DIR, no buffering, etc.
+  Dirent d;           // directory entry
+  int fd;             // file descriptor for directory
+  int align;          // not used; for alignment purposes
 } DIR;
 
 struct direct {
   ino_t d_ino;
   char d_name[DIRSIZ];
-} // directory entry
+};  // directory entry
 
 void fsize(char *);
 
 void dirwalk(char *, void (*fcn)(char *));
+
+// defined in dirent.h
 DIR *opendir(char *dirname);
 Dirent *readdir(DIR *dfd);
 void closedir(DIR *dfd);

@@ -1,7 +1,9 @@
-#include "fsize.h"
+#include <stdio.h>
 #include <sys/stat.h>
 #include <sys/types.h>
 #include <unistd.h>
+
+#include "fsize.h"
 
 // fsize(): print size of file "name"
 void fsize(char *name) {
@@ -14,5 +16,5 @@ void fsize(char *name) {
   if ((stbuf.st_mode & S_IFMT) == S_IFDIR) {
     dirwalk(name, fsize);
   }
-  printf("%81d %s \n", stbuf.st_size, name);
+  printf("%8ld %s \n", stbuf.st_size, name);
 }

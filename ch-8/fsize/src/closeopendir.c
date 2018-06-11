@@ -1,3 +1,8 @@
+#include <fcntl.h>
+#include <stdlib.h>
+#include <sys/stat.h>
+#include <unistd.h>
+
 #include "fsize.h"
 
 // opendir(): open a directory for readdir calls

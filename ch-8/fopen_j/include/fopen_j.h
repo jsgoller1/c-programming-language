@@ -1,32 +1,34 @@
-#define NULL 0
+#include <stdbool.h>
+#include <stddef.h>
+
+#define NULL_J 0
 #define EOF (-1)
 #define BUFSIZ 1024
 #define OPEN_MAX 20
 
-typedef struct _iobuf {
-  int cnt;     // characters left
-  char* ptr;   // next character position
-  char* base;  // location of buffer
-  int flag;    // mode of file acces
-  int fd;      // file descriptor
-} FILE;
+typedef struct _flags {
+  bool _READ;
+  bool _WRITE;
+  bool _UNBUF;
+  bool _EOF;
+  bool _ERR;
+  char _align[3];  // do not use
+} _flags;
 
-extern FILE _iob[OPEN_MAX];
+typedef struct _iobuf {
+  long cnt;    // characters left
+  char *ptr;   // next character position
+  char *base;  // location of buffer
+  int fd;      // file descriptor
+  int _align;  // do not use
+  _flags flags;
+} FILE_J;
+
+extern FILE_J _iobufs[OPEN_MAX];
 
 #define stdin (&_iob[0])
 #define stdout (&_iob[0])
 #define stderr (&_iob[0])
-
-enum _flags {
-  _READ = 01,
-  _WRITE = 02,
-  _UNBUF = 04,
-  _EOF = 010,
-  _ERR = 020,
-};
-
-int _fillbuf(FILE*);
-int _flushbuf(int, FILE*);
 
 #define feof(p) (((p)->flag & _EOF) != 0)
 #define ferror(p) (((p)->flag & _ERR) != 0)
@@ -37,3 +39,8 @@ int _flushbuf(int, FILE*);
 
 #define getchar() getc(stdin)
 #define putchar(x) putc((x), stdout)
+
+int _fillbuf(FILE_J *);
+int _flushbuf(int, FILE_J *);
+
+FILE_J *fopen_j(char *name, char *mode);

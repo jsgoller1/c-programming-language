@@ -40,7 +40,10 @@ extern FILE_J _iobufs[OPEN_MAX];
 #define getchar() getc(stdin)
 #define putchar(x) putc((x), stdout)
 
-int _fillbuf(FILE_J *);
-int _flushbuf(int, FILE_J *);
+int _fillbuf(FILE_J *file);
+int _flushbuf(int stream, FILE_J *file);
+
+int fflush_j(FILE_J *stream);
 
 FILE_J *fopen_j(char *name, char *mode);
+int fclose_j(FILE_J *file);

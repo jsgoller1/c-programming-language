@@ -17,5 +17,7 @@ int main() {
   char contents[] = "boop doop floop\n";
   char mode = 'a';
   FILE_J* file = fopen_j(filename, &mode);
-  write(file->fd, contents, strlen(contents));
+  for (int i = 0; i < (int)strlen(contents); i++) {
+    putc(contents[i], file);
+  }
 }

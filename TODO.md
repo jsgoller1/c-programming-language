@@ -1,5 +1,7 @@
 # TODO
 ---
+ ## 76 of 97 completed (21 remaining)
+
 - Ch. 1
   - All exercises have passing unit tests
   - Valgrind reports no errors.
@@ -54,7 +56,6 @@
   - Valgrind reports no errors.
 - Ch. 8
   - Exercises
-    - 8-2
     - 8-3
     - 8-4
   - All exercises have passing unit tests

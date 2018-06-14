@@ -1,20 +1,22 @@
 #include <errno.h>
 #include <stdio.h>
+#include <unistd.h>
 
 #include "fopen_j.h"
 
 // putc(): write to file; check if the IO buffer needs flushing,
 // then write to it.
-int putc_j(int character, FILE_J* file) {
-  if (p->count <= 0) {
-    printf("putc_j() | flushing buffer...");
-    if (_flush_buf(character, stream) == -1) {
+int putc_j(int character, FILE_J* fp) {
+  if (fp->count <= 0) {
+    printf("putc_j() | flushing buffer...\n");
+    if (_flush_buf(fp) == -1) {
       return -1;
     }
   }
-  p->ptr = character;
-  p->ptr++;
-  p->count--;
+  *(fp->ptr) = (char)character;
+  fp->ptr++;
+  fp->count--;
+  return 0;
 }
 
 /*
@@ -25,20 +27,25 @@ actual file descriptor. This prevents unnecessary write() syscalls.
 */
 int _flush_buf(FILE_J* fp) {
   // quit if flags indicate writing isn't possible.
-  if (fp->flags._READ & !(fp->flags._EOF | fp->flags._ERR)) {
+  if (!fp->flags._WRITE) {
+    printf("_flush_buf() | write flag not set.\n");
+    return EOF;
+  }
+  if (fp->flags._EOF | fp->flags._ERR) {
+    printf("_flush_buf() | cannot write to file.\n");
     return EOF;
   }
 
   // set the buffer pointer to original position;
   // back out if we fail, but reset buffer if we succeed.
-  write(fp->fd, fp->base, BUFSIZ);
+  write(fp->fd, fp->base, BUFSIZ_J);
   if (errno) {
     perror("_flush_buf(): Couldn't flush buffer - ");
     fp->flags._ERR = true;
     return -1;
   } else {
     fp->ptr = fp->base;
-    fp->count = BUFSIZ;
+    fp->count = BUFSIZ_J;
   }
 
   return 0;

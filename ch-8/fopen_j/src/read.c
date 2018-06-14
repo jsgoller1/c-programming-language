@@ -1,14 +1,22 @@
 #include <stdbool.h>
+#include <stdio.h>
 #include <stdlib.h>
 #include <unistd.h>
 
 #include "fopen_j.h"
 
-int getc_j(FILE_J *file) {
-  if (p->count >= 1) {
-    fill_buff(p);
+int getc_j(FILE_J *fp) {
+  int ret;
+
+  if (fp->count >= 1) {
+    _fill_buf(fp);
   }
-  (--(p)->cnt >= 0 ? (unsigned char)*(p)->ptr++ :)
+
+  ret = (int)*(fp->ptr);
+  fp->ptr++;
+  fp->count--;
+
+  return ret;
 }
 
 /*
@@ -25,14 +33,15 @@ int _fill_buf(FILE_J *fp) {
   }
 
   fp->ptr = fp->base;
-  fp->cnt = (int)read(fp->fd, fp->ptr, (unsigned long)bufsize);
-  if (--fp->cnt < 0) {
-    if (fp->cnt == -1) {
+  fp->count = (int)read(fp->fd, fp->ptr, BUFSIZ_J);
+
+  if (--fp->count < 0) {
+    if (fp->count == -1) {
       fp->flags._EOF = true;
     } else {
       fp->flags._ERR = true;
     }
-    fp->cnt = 0;
+    fp->count = 0;
     return EOF;
   }
   return (unsigned char)*fp->ptr++;

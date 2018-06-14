@@ -1,4 +1,8 @@
 #include <errno.h>
+#include <stdio.h>
+#include <stdlib.h>
+#include <unistd.h>
+
 #include "fopen_j.h"
 
 // fclose_j(): clean up and close a FILE_J

@@ -3,7 +3,7 @@
 
 #define NULL_J 0
 #define EOF (-1)
-#define BUFSIZ 1024
+#define BUFSIZ 10
 #define OPEN_MAX 20
 
 typedef struct _flags {
@@ -37,7 +37,7 @@ extern FILE_J _iobufs[OPEN_MAX];
 #define getchar() getc(stdin)
 #define putchar(x) putc((x), stdout)
 
-FILE_J *fopen_j(char *name, char *mode);
+FILE_J *fopen_j(const char *const name, const char *const mode);
 int fclose_j(FILE_J *file);
 
 int getc(FILE_J *file);

@@ -8,7 +8,7 @@
 #define PERMS 0666  // rw for owner, group, others
 
 // fopen_j(): open file, return file ptr
-FILE_J *fopen_j(char *name, char *mode) {
+FILE_J *fopen_j(const char *const name, const char *const mode) {
   int fd;
   FILE_J *fp;
 
@@ -40,6 +40,14 @@ FILE_J *fopen_j(char *name, char *mode) {
   }
   if (fd == -1) {
     return NULL_J;
+  }
+
+  // set up buffering
+  const int bufsize = (fp->flags._UNBUF) ? 1 : BUFSIZ;
+  if (fp->base == NULL_J) {  // no buffer yet
+    if ((fp->base = (char *)malloc((unsigned long)bufsize)) == NULL) {
+      return EOF;
+    }
   }
 
   // set up FILE fields

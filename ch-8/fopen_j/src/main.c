@@ -1,4 +1,7 @@
+#include <errno.h>
+#include <fcntl.h>
 #include <stdbool.h>
+#include <stdio.h>
 #include <string.h>
 #include <unistd.h>
 
@@ -13,11 +16,26 @@ FILE_J _iobufs[OPEN_MAX];
 */
 
 int main() {
+  char string1[] = "abcdefghijklmnopqrstuvwxyz";
+  char string2[] = "124567890";
+  char result[100];
+
   char filename[] = "test.txt";
-  char contents[] = "boop doop floop\n";
   char mode = 'a';
   FILE_J* file = fopen_j(filename, &mode);
-  for (int i = 0; i < (int)strlen(contents); i++) {
-    putc(contents[i], file);
+
+  for (int i = 0; i < (int)strlen(string1); i++) {
+    putc_j(string1[i], file);
   }
+
+  // TODO: replace this with lseek()
+  fclose_j(file);
+  file = fopen_j(filename, &mode);
+
+  for (int i = 0; i < (int)strlen(string1); i++) {
+    result[i] = getc_j(string1[i], file);
+  }
+
+  getc_j(contents1, 1, 10, file);
+  fclose_j(file);
 }

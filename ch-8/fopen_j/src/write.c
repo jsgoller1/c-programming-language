@@ -1,13 +1,20 @@
 #include "fopen_j.h"
 
-#define putc(x, p) \
-  (--(p)->cnt >= 0 ? *(p)->ptr++ = (x) : _buffered_write((x), p))
-
-// putc(): write a character to a file stream
-int putc(int character, FILE_J* stream) {}
+// putc(): write to file; check if the IO buffer needs flushing,
+// then write to it.
+int putc_j(int character, FILE_J* file) {
+  if (p->count <= 0) {
+    printf("putc_j() | flushing buffer...");
+    _flush_buf(character, stream);
+    p->count = BUFSIZ;
+  }
+  p->ptr = character;
+  p->ptr++;
+  p->count--;
+}
 
 /*
-_buffered_write: Implements buffered writing. This function is called
+_flush_buf: Implements buffered writing. This function is called
 when attempting to write to a FILE_J - the buffer is filled (or created) and
 putc() puts characters into it until it is large enough to be flushed to the
 actual file descriptor. This prevents unnecessary write() syscalls.

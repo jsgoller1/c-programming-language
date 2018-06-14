@@ -4,9 +4,9 @@
 
 #include "fopen_j.h"
 
-int getc(FILE_J *p) {
+int getc_j(FILE_J *file) {
   if (p->count >= 1) {
-    _buffered_read(p);
+    fill_buff(p);
   }
   (--(p)->cnt >= 0 ? (unsigned char)*(p)->ptr++ :)
 }
@@ -19,19 +19,9 @@ until it is empty - this prevents unnecessary syscalls.
 */
 
 int _fill_buf(FILE_J *fp) {
-  int bufsize;
-
   // quit if flags indicate reading isn't possible.
   if (fp->flags._READ & !(fp->flags._EOF | fp->flags._ERR)) {
     return EOF;
-  }
-
-  // set up buffer if necessary
-  bufsize = (fp->flags._UNBUF) ? 1 : BUFSIZ;
-  if (fp->base == NULL_J) {  // no buffer yet
-    if ((fp->base = (char *)malloc((unsigned long)bufsize)) == NULL) {
-      return EOF;
-    }
   }
 
   fp->ptr = fp->base;

@@ -43,5 +43,5 @@ int fclose_j(FILE_J *file);
 int getc(FILE_J *file);
 int _fill_buf(FILE_J *file);
 int putc(int character, FILE_J *stream);
-int _flush_buf(int character, FILE_J *file);
+int _flush_buf(FILE_J *file);
 int fflush_j(FILE_J *stream);

@@ -27,9 +27,9 @@ int main() {
   for (int i = 0; i < (int)strlen(string1); i++) {
     putc_j(string1[i], file);
   }
-
-  // TODO: replace this with lseek()
   fclose_j(file);
+
+  /*
   file = fopen_j(filename, &mode);
 
   for (int i = 0; i < (int)strlen(string1); i++) {
@@ -38,4 +38,5 @@ int main() {
 
   getc_j(contents1, 1, 10, file);
   fclose_j(file);
+*/
 }

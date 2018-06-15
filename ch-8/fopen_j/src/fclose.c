@@ -16,7 +16,7 @@ int fclose_j(FILE_J* file) {
     return -1;
   }
 
-  free(file->base);
+  free(file->buff);
   free(file);
   return 0;
 }

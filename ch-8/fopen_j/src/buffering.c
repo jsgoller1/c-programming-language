@@ -1,3 +1,4 @@
+#include <errno.h>
 #include <stdbool.h>
 #include <stdio.h>
 #include <stdlib.h>
@@ -22,24 +23,27 @@ reading from the actual file descriptor, and get(c) gets characters from it
 until it is empty - this prevents unnecessary syscalls.
 */
 int _fill_buff(FILE_J* fp) {
+  int count;
+
   // quit if flags indicate reading isn't possible.
   if (fp->flags._READ & !(fp->flags._EOF | fp->flags._ERR)) {
     return EOF;
   }
 
-  fp->ptr = fp->base;
-  fp->count = (int)read(fp->fd, fp->ptr, BUFSIZ_J);
+  fp->ptr = fp->buff;
+  count = (int)read(fp->fd, fp->ptr, BUFF_SIZE);
 
-  if (--fp->count < 0) {
-    if (fp->count == -1) {
+  if (count < 0) {
+    if (count == -1) {
       fp->flags._EOF = true;
     } else {
       fp->flags._ERR = true;
     }
-    fp->count = 0;
     return EOF;
   }
-  return (unsigned char)*fp->ptr++;
+
+  fp->dirty = 0;
+  return 0;
 }
 
 // _flush_buff: Dump fp's buffer to the file descriptor, fill it with
@@ -59,7 +63,7 @@ int _flush_buff(FILE_J* fp) {
   //}
 
   // write the data buffer to the file
-  write(fp->fd, fp->buff, writesize);
+  write(fp->fd, fp->buff, BUFF_SIZE);
   if (errno) {
     perror("_flush_buf(): Couldn't flush buffer - ");
     fp->flags._ERR = true;

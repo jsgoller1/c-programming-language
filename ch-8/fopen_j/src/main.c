@@ -9,8 +9,6 @@
 #include "fopen_j.h"
 
 int main() {
-  _iobufs = calloc(OPEN_MAX, sizeof(FILE_J));
-
   char string1[] = "abcdefghijklmnopqrstuvwxyz";
   // char string2[] = "124567890";
   // char result[100];
@@ -25,10 +23,9 @@ int main() {
 
   for (int i = 0; i < (int)strlen(string1); i++) {
     printf("writing %c\n", string1[i]);
-    putc_j(string1[i], file);
+    putc_j(file, string1[i]);
   }
   fclose_j(file);
-  free(_iobufs);
 
   /*
   file = fopen_j(filename, &mode);

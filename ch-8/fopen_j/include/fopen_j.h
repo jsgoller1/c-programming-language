@@ -1,7 +1,7 @@
 #include <stdbool.h>
 #include <stddef.h>
 
-#define BUF_SIZE 10
+#define BUFF_SIZE 10
 
 typedef struct _flags {
   bool _READ;
@@ -27,12 +27,21 @@ typedef struct _iobuf {
 #define getchar() getc(stdin)
 #define putchar(x) putc((x), stdout)
 
+// fopen.c
 FILE_J *fopen_j(const char *const name, const char *const mode);
+
+// fclose.c
 int fclose_j(FILE_J *file);
 
-int getc_j(FILE_J *file);
-int _fill_buff(FILE_J *file);
-int putc_j(int character, FILE_J *stream);
-int _flush_buff(FILE_J *file);
-int fflush_j(FILE_J *stream);
-int fseek_j(FILE_J *fp, long offset, int origin);
+// fseek.c
+int fseek_j(FILE_J *const fp, const long offset, const int whence);
+
+// buffering.c
+int recycle_buffer(FILE_J *fp);
+int fflush_j(FILE_J *fp);
+int _fill_buff(FILE_J *fp);
+int _flush_buff(FILE_J *fp);
+
+// io.c
+int getc_j(FILE_J *fp);
+int putc_j(FILE_J *fp, int character);

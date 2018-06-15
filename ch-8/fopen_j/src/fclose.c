@@ -7,6 +7,7 @@
 
 // fclose_j(): clean up and close a FILE_J
 int fclose_j(FILE_J* file) {
+  printf("fclose_j() | closing the file...\n");
   fflush_j(file);
   free(file->base);
   close(file->fd);

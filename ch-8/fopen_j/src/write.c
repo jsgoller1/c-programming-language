@@ -38,7 +38,8 @@ int _flush_buf(FILE_J* fp) {
 
   // set the buffer pointer to original position;
   // back out if we fail, but reset buffer if we succeed.
-  write(fp->fd, fp->base, BUFSIZ_J);
+  size_t writesize = (size_t)(BUFSIZ_J - fp->count);
+  write(fp->fd, fp->base, writesize);
   if (errno) {
     perror("_flush_buf(): Couldn't flush buffer - ");
     fp->flags._ERR = true;
@@ -47,6 +48,6 @@ int _flush_buf(FILE_J* fp) {
     fp->ptr = fp->base;
     fp->count = BUFSIZ_J;
   }
-
+  printf("_flush_buf() | buffer is flushed.\n");
   return 0;
 }

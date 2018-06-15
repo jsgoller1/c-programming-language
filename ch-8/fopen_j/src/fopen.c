@@ -41,9 +41,8 @@ static int setup_buffering(FILE_J *fp) {
   return 0;
 }
 
-static void open_file_desc(char *path, FILE_J *fp, char *mode) {
-  int fd = 0;
-  int staterr = 0;
+static void open_file_desc(const char *const path, FILE_J *fp,
+                           const char *const mode) {
   int flags = 0;
   struct stat statbuf;
 
@@ -78,12 +77,11 @@ static void open_file_desc(char *path, FILE_J *fp, char *mode) {
     return;
   }
 
-  fp->fd = open(path, flags);
+  fp->fd = open(path, flags, PERMS);
 }
 
 // fopen_j(): open file, return file ptr
 FILE_J *fopen_j(const char *const path, const char *const mode) {
-  int fd;
   FILE_J *fp;
 
   // ensure file can be read/wrote based on modes
@@ -94,13 +92,14 @@ FILE_J *fopen_j(const char *const path, const char *const mode) {
   fp = get_iobuf_slot();
   open_file_desc(path, fp, mode);
   if (!(fp->fd)) {
-    return NULL;
-  }
-  if (!(setup_buffering(fp))) {
+    printf("fopen_j() | couldn't open fd.\n");
     return NULL;
   }
 
-  // set up FILE fields
-  fp->fd = fd;
+  if (setup_buffering(fp)) {
+    printf("fopen_j() | couldn't set up buffering.\n");
+    return NULL;
+  }
+
   return fp;
 }

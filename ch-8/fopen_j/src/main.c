@@ -26,6 +26,10 @@ int main() {
   char filename[] = "test.txt";
   char mode = 'a';
   FILE_J* file = fopen_j(filename, &mode);
+  if (!(file)) {
+    printf("main() | File couldn't be opened.\n");
+    return -1;
+  }
 
   for (int i = 0; i < (int)strlen(string1); i++) {
     printf("writing %c\n", string1[i]);

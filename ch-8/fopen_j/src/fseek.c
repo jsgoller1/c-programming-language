@@ -2,22 +2,33 @@
 
 // fseek(): on a seekable file, change the file offset.
 int fseek_j(const FILE_J *const fp, const long offset, const int whence) {
-  // Ensure valid whence
-  switch (whence) {
-    case SEEK_SET:
-    case SEEK_CUR:
-    case SEEK_END:
-    case SEEK_HOLE:
-    case SEEK_DATA:
-      break;
-    default:
-      printf("fseek() | invalid whence.\n");
-      return -1;
+  int position;
+
+  // validate whence, set up position
+  if (whence == SEEK_SET) {
+    position = fp->buff + offset;
+  } else if (whence == SEEK_CUR) {
+    position = fp->ptr + offset;
+  } else {
+    printf(
+        "fseek() | invalid whence (only SEEK_SET and SEEK_CUR currently "
+        "implemented).\n");
+    return -1;
   }
 
-  lseek(fp->fd, offset, whence);
+  // if the seek occurs within the buffer, just change the pointer and return.
+  if ((fp->buff <= position) && (position < fp->buff + BUF_SIZE)) {
+    fp->ptr = position;
+    return 0;
+  }
 
-  // determine if buffer should be flushed or not based on seek.
+  // if the seek goes outside the buffer, first flush, then seek the
+  // fd to the correct location, fill the buffer, and seek back for
+  // shadowing.
+  _flush_buff(fp);
+  lseek(fp->fd, position, SEEK_SET);
+  _fill_buff(fp);
+  lseek(fp->fd, position, SEEK_SET);
 
   return 0;
 }

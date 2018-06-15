@@ -1,11 +1,5 @@
 #include "fopen_j.h"
 
-/*
-If a file is open for reading and writing, a seek within the buffer is allowed
-without any buffer management. Going outside the buffer mandates flushing.
-
-*/
-
 // fseek(): on a seekable file, change the file offset.
 int fseek_j(const FILE_J *const fp, const long offset, const int whence) {
   // Ensure valid whence

@@ -10,37 +10,8 @@
 
 #define PERMS 0666  // rw for owner, group, others
 
-static FILE_J *get_iobuf_slot(void) {
-  FILE_J *fp;
-
-  // find available slot for an _iobuf, or quit if we can't;
-  // since no file is ever open for "neither reading or writing",
-  // check flags to see if the bits are set.
-  for (fp = _iobufs; fp < _iobufs + OPEN_MAX; fp++) {
-    if ((fp->flags._READ | fp->flags._WRITE) == 0) {
-      break;
-    }
-  }
-  if (fp >= _iobufs + OPEN_MAX) {
-    return NULL;
-  }
-
-  return fp;
-}
-
-static int setup_buffering(FILE_J *fp) {
-  // set up buffering
-  const int bufsize = (fp->flags._UNBUF) ? 1 : BUFSIZ_J;
-  if (fp->base == NULL) {  // no buffer yet
-    if ((fp->base = (char *)malloc((unsigned long)bufsize)) == NULL) {
-      return -1;
-    }
-    fp->ptr = fp->base;
-    fp->count = BUFSIZ_J;
-  }
-  return 0;
-}
-
+// open_file_desc(): private function for handling flags
+// and opening the file descriptor
 static void open_file_desc(const char *const path, FILE_J *fp,
                            const char *const mode) {
   int flags = 0;
@@ -80,24 +51,39 @@ static void open_file_desc(const char *const path, FILE_J *fp,
   fp->fd = open(path, flags, PERMS);
 }
 
+// setup_buffering(): private function for intializing the I/O buffer.
+static int setup_buffering(FILE_J *fp) {
+  // set up buffering
+  if ((fp->base = (char *)malloc((unsigned long)bufsize)) == NULL) {
+    return -1;
+  }
+  fp->ptr = fp->base;
+  fp->count = BUFSIZ_J;
+  fp->dirty = 0;
+
+  return 0;
+}
+
 // fopen_j(): open file, return file ptr
 FILE_J *fopen_j(const char *const path, const char *const mode) {
   FILE_J *fp;
 
-  // ensure file can be read/wrote based on modes
+  // ensure file can be read/written based on modes
   if (*mode != 'r' && *mode != 'w' && *mode != 'a') {
     return NULL;
   }
 
-  fp = get_iobuf_slot();
+  fp = malloc(sizeof(FILE_J));
   open_file_desc(path, fp, mode);
   if (!(fp->fd)) {
     printf("fopen_j() | couldn't open fd.\n");
+    free(fp);
     return NULL;
   }
 
   if (setup_buffering(fp)) {
     printf("fopen_j() | couldn't set up buffering.\n");
+    free(fp);
     return NULL;
   }
 

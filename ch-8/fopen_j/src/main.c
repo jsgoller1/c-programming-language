@@ -8,14 +8,6 @@
 
 #include "fopen_j.h"
 
-FILE_J* _iobufs;
-/*
-  // initialize with stdin/out/err
-  {0, NULL, NULL, 0},
-  {0, NULL, NULL, 1},
-  {0, NULL, NULL, 2},
-*/
-
 int main() {
   _iobufs = calloc(OPEN_MAX, sizeof(FILE_J));
 

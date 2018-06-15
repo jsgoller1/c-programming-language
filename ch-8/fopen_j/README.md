@@ -2,6 +2,19 @@ fopen_j
 ---
 `fopen()` (and related functions) as written by Joshua.
 
+## Design
+`FILE_J` mimics a `FILE` enough to pass the exercises listed below. A `FILE_J` consists of:
+- a file descriptor
+- a buffer for buffered I/O
+- metadata
+  - a pointer to an address within the buffer.
+  - a dirty bit
+- flags
+
+The buffer acts as a "shadow" of the file descriptor. Reads, writes, and seeks occur to it until one would cause the pointer to move outside the buffer. When
+this happens, if the dirty bit on the buffer is set, it is flushed back to the file.
+Then, the buffer is refilled with data from the file, and the `FILE_J` pointer is reset to the first address of the buffer. The `FILE_J` manages the file descriptor's pointer and will seek as necessary.
+
 ## Directions
 **Exercise 8-2**. Rewrite `fopen()` and `_fillbuf()` with fields instead of explicit bit
 operations. Compare code size and execution speed.

@@ -9,11 +9,14 @@
 int fclose_j(FILE_J* file) {
   printf("fclose_j() | closing the file...\n");
   fflush_j(file);
-  free(file->base);
+
   close(file->fd);
   if (errno) {
     perror("Couldn't close file: ");
     return -1;
   }
+
+  free(file->base);
+  free(file);
   return 0;
 }

@@ -26,7 +26,7 @@ int getc_j(FILE_J* fp) {
 int putc_j(FILE_J* fp, int character) {
   // same flushing behavior as getc_j()
   if (fp->ptr == fp->buff + BUFF_SIZE) {
-    printf("putc_j() | recycling buffer...\n");
+    printf("putc_j() | flushing the buffer and getting new data...\n");
     _flush_buff(fp);
     _fill_buff(fp);
     lseek(fp->fd, -BUFF_SIZE, SEEK_CUR);

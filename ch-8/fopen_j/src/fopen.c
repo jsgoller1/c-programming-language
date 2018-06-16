@@ -1,3 +1,4 @@
+#include <errno.h>
 #include <fcntl.h>
 #include <stdbool.h>
 #include <stdio.h>
@@ -20,8 +21,8 @@ static void open_file_desc(const char *const path, FILE_J *fp,
   // set flags for writing
   if (*mode == 'w') {
     if (stat(path, &statbuf)) {
-      printf("fopen_j() | file doesn't exist; creating...\n");
-      flags |= O_CREAT;
+      printf("fopen_j() | file doesn't exist; creating (mode: w)...\n");
+      flags |= (O_CREAT | O_TRUNC);
     }
     fp->flags._WRITE = true;
     flags |= O_WRONLY;
@@ -37,8 +38,8 @@ static void open_file_desc(const char *const path, FILE_J *fp,
   }  // set flags for both
   else if (*mode == 'a') {
     if (stat(path, &statbuf)) {
-      printf("fopen_j() | file doesn't exist; creating...\n");
-      flags |= O_CREAT;
+      printf("fopen_j() | file doesn't exist; creating (mode: a)...\n");
+      flags |= (O_CREAT | O_TRUNC);
     }
     fp->flags._WRITE = true;
     fp->flags._READ = true;
@@ -50,7 +51,11 @@ static void open_file_desc(const char *const path, FILE_J *fp,
     return;
   }
 
+  printf("fopen_j() | flags: %x\n", flags);
   fp->fd = open(path, flags, PERMS);
+  if (fp->fd == -1) {
+    perror("fopen_j() | file failed to open: ");
+  }
 }
 
 // setup_buffering(): private function for intializing the I/O buffer.

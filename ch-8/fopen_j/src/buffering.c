@@ -2,6 +2,7 @@
 #include <stdbool.h>
 #include <stdio.h>
 #include <stdlib.h>
+#include <string.h>
 #include <unistd.h>
 
 #include "fopen_j.h"
@@ -34,9 +35,10 @@ int _fill_buff(FILE_J* fp) {
   //}
 
   count = (int)read(fp->fd, fp->buff, BUFF_SIZE);
+  printf("_fill_buff() | count: %d.\n", count);
 
-  if (count < 0) {
-    if (count == -1) {
+  if (count <= 0) {
+    if (count == 0) {
       fp->flags._EOF = true;
     } else {
       fp->flags._ERR = true;
@@ -73,6 +75,9 @@ int _flush_buff(FILE_J* fp) {
     fp->flags._ERR = true;
     return -1;
   }
+
+  // Clear all data in the buffer; we might not actually want to do this.
+  // memset(fp->buff, '\0', BUFF_SIZE);
   fp->dirty = 0;
 
   printf("_flush_buf() | buffer is flushed.\n");

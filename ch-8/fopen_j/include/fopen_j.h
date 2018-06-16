@@ -20,12 +20,13 @@ typedef struct _iobuf {
   _flags flags;  // (8B)
 } FILE_J;
 
+/*
 #define feof(p) (((p)->flag & _EOF) != 0)
 #define ferror(p) (((p)->flag & _ERR) != 0)
 #define fileno(p) ((p)->fd)
-
 #define getchar() getc(stdin)
 #define putchar(x) putc((x), stdout)
+*/
 
 // fopen.c
 FILE_J *fopen_j(const char *const name, const char *const mode);

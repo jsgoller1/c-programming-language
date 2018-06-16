@@ -10,8 +10,9 @@ int fclose_j(FILE_J* file) {
   printf("fclose_j() | closing the file...\n");
   _flush_buff(file);
 
-  close(file->fd);
-  if (errno) {
+  int closed;
+  closed = close(file->fd);
+  if (closed == -1) {
     perror("Couldn't close file: ");
     return -1;
   }

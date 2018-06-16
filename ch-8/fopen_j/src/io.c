@@ -12,8 +12,9 @@ int getc_j(FILE_J* fp) {
   if (fp->ptr == fp->buff + BUFF_SIZE) {
     printf("getc_j() | flushing the buffer and getting new data...\n");
     _flush_buff(fp);
-    _fill_buff(fp);
-    lseek(fp->fd, -BUFF_SIZE, SEEK_CUR);
+    if (_fill_buff(fp) == EOF) {
+      lseek(fp->fd, -BUFF_SIZE, SEEK_CUR);
+    }
     fp->ptr = fp->buff;
   }
 
@@ -28,8 +29,9 @@ int putc_j(FILE_J* fp, int character) {
   if (fp->ptr == fp->buff + BUFF_SIZE) {
     printf("putc_j() | flushing the buffer and getting new data...\n");
     _flush_buff(fp);
-    _fill_buff(fp);
-    lseek(fp->fd, -BUFF_SIZE, SEEK_CUR);
+    if (_fill_buff(fp) == EOF) {
+      lseek(fp->fd, -BUFF_SIZE, SEEK_CUR);
+    }
     fp->ptr = fp->buff;
   }
   *(fp->ptr) = (char)character;

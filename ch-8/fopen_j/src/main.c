@@ -9,7 +9,7 @@
 #include "fopen_j.h"
 
 int main() {
-  char string1[] = "abcdefghijklmnopqrstuvwxyz";
+  char string1[] = "abcdefghijklmnopqrstuvwxyz\0";
   // char string2[] = "124567890";
   // char result[100];
 
@@ -25,7 +25,7 @@ int main() {
     printf("writing %c\n", string1[i]);
     putc_j(file, string1[i]);
   }
-  print_buffer(file);
+  // print_buffer(file);
   fclose_j(file);
 
   /*

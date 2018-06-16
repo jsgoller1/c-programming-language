@@ -20,6 +20,7 @@ static void open_file_desc(const char *const path, FILE_J *fp,
   // set flags for writing
   if (*mode == 'w') {
     if (stat(path, &statbuf)) {
+      printf("fopen_j() | file doesn't exist; creating...\n");
       flags |= O_CREAT;
     }
     fp->flags._WRITE = true;
@@ -36,6 +37,7 @@ static void open_file_desc(const char *const path, FILE_J *fp,
   }  // set flags for both
   else if (*mode == 'a') {
     if (stat(path, &statbuf)) {
+      printf("fopen_j() | file doesn't exist; creating...\n");
       flags |= O_CREAT;
     }
     fp->flags._WRITE = true;
@@ -86,5 +88,7 @@ FILE_J *fopen_j(const char *const path, const char *const mode) {
     return NULL;
   }
 
+  fp->flags._ERR = 0;
+  fp->flags._EOF = 0;
   return fp;
 }

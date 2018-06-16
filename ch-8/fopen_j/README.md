@@ -11,9 +11,12 @@ fopen_j
   - a dirty bit
 - flags
 
-The buffer acts as a "shadow" of the file descriptor. Reads, writes, and seeks occur to it until one would cause the pointer to move outside the buffer. When
-this happens, if the dirty bit on the buffer is set, it is flushed back to the file.
-Then, the buffer is refilled with data from the file, and the `FILE_J` pointer is reset to the first address of the buffer. The `FILE_J` manages the file descriptor's pointer and will seek as necessary.
+The buffer acts as a "shadow" of the data in the file. Writes cause a dirty bit to be set. If a reads, write, or seek would cause the file position to move to an unshadowed area, the buffer is flushed and then refilled starting at the unshadowed address.
+
+Flushing and refilling the buffer does NOT seek back the file position - both advance it by BUFF_SIZE bytes; do not call _flush_buff() twice without seeking. To flush the buffer arbitrarily many times non-destructively, use fflush_j();
+
+
+The `FILE_J` manages the file descriptor's pointer and will seek as necessary.
 
 ## Directions
 **Exercise 8-2**. Rewrite `fopen()` and `_fillbuf()` with fields instead of explicit bit

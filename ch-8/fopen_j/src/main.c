@@ -16,7 +16,7 @@ int main() {
   char filename[] = "test.txt";
   char mode = 'a';
   FILE_J* file = fopen_j(filename, &mode);
-  if (!(file)) {
+  if (file == NULL) {
     printf("main() | File couldn't be opened.\n");
     return -1;
   }
@@ -25,6 +25,7 @@ int main() {
     printf("writing %c\n", string1[i]);
     putc_j(file, string1[i]);
   }
+  print_buffer(file);
   fclose_j(file);
 
   /*

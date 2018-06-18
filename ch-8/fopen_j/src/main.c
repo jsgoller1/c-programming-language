@@ -44,12 +44,14 @@ int main() {
   debug_write(file, strings[0]);
   fseek_j(file, 0, SEEK_SET);
   debug_read(file, result, 26);
-  printf("wrote %s to file.\n Read %s\n", strings[0], result);
+  printf("main() | wrote %s to file.\nmain() | Read %s\n\n", strings[0],
+         result);
   fseek_j(file, 0, SEEK_SET);
   debug_write(file, strings[1]);
   fseek_j(file, 0, SEEK_SET);
   debug_read(file, result, 26);
-  printf("wrote %s to file.\n Read %s\n", strings[1], result);
+  printf("main() | wrote %s to file.\nmain() | Read %s\n\n", strings[1],
+         result);
 
   fclose_j(file);
 }

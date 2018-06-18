@@ -51,7 +51,7 @@ static void open_file_desc(const char *const path, FILE_J *fp,
     return;
   }
 
-  printf("fopen_j() | flags: %x\n", flags);
+  // printf("fopen_j() | flags: %x\n", flags);
   fp->fd = open(path, flags, PERMS);
   if (fp->fd == -1) {
     perror("fopen_j() | file failed to open: ");

@@ -5,14 +5,11 @@
 
 #include "fopen_j.h"
 
-// fclose_j(): clean up and close a FILE_J
+// fclose_j(): close fd, and clean up associated memory for FILE_J
 int fclose_j(FILE_J* file) {
-  // printf("fclose_j() | closing the file...\n");
   _flushbuff(file);
 
-  int closed;
-  closed = close(file->fd);
-  if (closed == -1) {
+  if (close(file->fd) == -1) {
     perror("Couldn't close file: ");
     return -1;
   }

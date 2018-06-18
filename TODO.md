@@ -1,6 +1,6 @@
 # TODO
 ---
- ## 77 of 97 completed (20 remaining)
+ ## 78 of 97 completed (19 remaining)
 
 - Ch. 1
   - Valgrind reports no errors.

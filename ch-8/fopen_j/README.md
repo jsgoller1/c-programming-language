@@ -7,14 +7,12 @@ before I was able to catch all edge cases. Any function or struct whose name wou
 ### FILE_J structure
 - a `FILE_J` is my version of `FILE`; it contains
   - `int fd` - the underlying file descriptor
-  - `int count` - the number of characters that will be written to the file on flush,
-    at most `BUFF_SIZE`
-    - alternatively, we can use the difference between `buff` and `ptr`.
   - `char* buff` - a pointer to the buffered data
     - `buff` is always `BUFF_SIZE` size
   - `char* ptr` - a pointer to the current position in `buff`
   - `FLAGS flags` - a struct containing flag data about the file
     - read, write, EOF, error
+### Notes
 - a `FILE_J` is initialized with whatever data is at file position 0.
 - reads and writes occur to buffer; syscalls are only made when the buffer is flushed or seeking occurs
 - when buffer is full, it is written to the file.
@@ -51,7 +49,7 @@ before I was able to catch all edge cases. Any function or struct whose name wou
     file descriptor back to the original position so that subsequent
     `_flushbuff()` calls write to the correct place.
 - `_flushbuff()`
-  - Writes out `FILE_J->count` to the file
+  - Writes to the file however many bytes exist between `FILE_J->buff` and `FILE_J->ptr`.
   - Returns 0 on success, -1 on failure
 
 ### Edge cases and expected behavior
@@ -82,21 +80,3 @@ operations. Compare code size and execution speed.
 **Exercise 8-3**. Design and write _flushbuf, fflush, and fclose.
 
 **Exercise 8-4**. The standard library function `int fseek(FILE *fp, long offset, int origin)` is identical to lseek except that fp is a file pointer instead of a file descriptor and the return value is an int status, not a position. Write `fseek()`. Make sure that your `fseek()` coordinates properly with the buffering done for the other functions of the library.
-
-## Notes
-* The modern signature for `fseek()` is: `fseek(FILE *stream, long offset, int whence);`
-## Design
-`FILE_J` mimics a `FILE` enough to pass the exercises listed below. A `FILE_J` consists of:
-- a file descriptor
-- a buffer for buffered I/O
-- metadata
-  - a pointer to an address within the buffer.
-  - a dirty bit
-- flags
-
-The buffer acts as a "shadow" of the data in the file. Writes cause a dirty bit to be set. If a reads, write, or seek would cause the file position to move to an unshadowed area, the buffer is flushed and then refilled starting at the unshadowed address.
-
-Flushing and refilling the buffer does NOT seek back the file position - both advance it by BUFF_SIZE bytes; do not call _flush_buff() twice without seeking. To flush the buffer arbitrarily many times non-destructively, use fflush_j();
-
-
-The `FILE_J` manages the file descriptor's pointer and will seek as necessary.

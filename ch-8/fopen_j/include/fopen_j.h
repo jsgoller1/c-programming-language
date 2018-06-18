@@ -13,8 +13,8 @@ typedef struct _flags {
 } _flags;
 
 typedef struct _iobuf {
+  int _align;    // (4B) do not use
   int fd;        // (4B) file descriptor
-  int dirty;     // (4B) set if the buffer has been written to.
   char *buff;    // (8B) pointer to I/O buffer
   char *ptr;     // (8B) next character position within I/O buffer
   _flags flags;  // (8B)

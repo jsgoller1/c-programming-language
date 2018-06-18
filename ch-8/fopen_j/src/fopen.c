@@ -21,7 +21,6 @@ static void open_file_desc(const char *const path, FILE_J *fp,
   // set flags for writing
   if (*mode == 'w') {
     if (stat(path, &statbuf)) {
-      // printf("fopen_j() | file doesn't exist; creating (mode: w)...\n");
       flags |= (O_CREAT | O_TRUNC);
     }
     fp->flags._WRITE = true;
@@ -29,7 +28,6 @@ static void open_file_desc(const char *const path, FILE_J *fp,
   }  // set flags for reading
   else if (*mode == 'r') {
     if (stat(path, &statbuf)) {
-      // printf("fopen_j() | %s - doesn't exist.\n", path);
       fp->fd = -1;
       return;
     }
@@ -38,7 +36,6 @@ static void open_file_desc(const char *const path, FILE_J *fp,
   }  // set flags for both
   else if (*mode == 'a') {
     if (stat(path, &statbuf)) {
-      // printf("fopen_j() | file doesn't exist; creating (mode: a)...\n");
       flags |= (O_CREAT | O_TRUNC);
     }
     fp->flags._WRITE = true;
@@ -46,12 +43,10 @@ static void open_file_desc(const char *const path, FILE_J *fp,
     flags |= O_RDWR;
   }  // handle invalid flags
   else {
-    // printf("fopen_j() | %s - illegal mode.\n", mode);
     fp->fd = -1;
     return;
   }
 
-  // printf("fopen_j() | flags: %x\n", flags);
   fp->fd = open(path, flags, PERMS);
   if (fp->fd == -1) {
     perror("fopen_j() | file failed to open: ");
@@ -65,7 +60,6 @@ static int setup_buffering(FILE_J *fp) {
     return -1;
   }
   fp->ptr = fp->buff;
-  fp->dirty = 0;
 
   return 0;
 }
@@ -79,7 +73,13 @@ FILE_J *fopen_j(const char *const path, const char *const mode) {
     return NULL;
   }
 
+  // space for file
   fp = malloc(sizeof(FILE_J));
+  if (fp == NULL) {
+    printf("fopen_j() | couldn't create file.\n");
+    return NULL;
+  }
+
   open_file_desc(path, fp, mode);
   if (!(fp->fd)) {
     printf("fopen_j() | couldn't open fd.\n");

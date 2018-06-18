@@ -29,31 +29,40 @@ static void debug_write(FILE_J* file, char* string) {
 }
 
 int main() {
-  char result[100] = {0};
-
-  char filename[] = "test.txt";
-  char mode = 'a';
   char* strings[] = {"abcdefghijklmnopqrstuvwxyz\0",
                      "AAAAAAAAAAAAAAAAAAAAAAAAAA\0",
                      "BBBBBBBBBBBBBBBBBBBBBBBBBB\0"};
+  char result[100] = {0};
+
+  // open the file
+  char filename[] = "test.txt";
+  char mode = 'a';
   FILE_J* file = fopen_j(filename, &mode);
   if (file == NULL) {
     printf("main() | File couldn't be opened.\n");
     return -1;
   }
+
+  // write first string, seek back, read, print
   debug_write(file, strings[0]);
   fseek_j(file, 0, SEEK_SET);
   debug_read(file, result, 26);
-  printf("main() | wrote %s to file.\nmain() | Read %s\n\n", strings[0],
-         result);
-  fseek_j(file, 0, SEEK_SET);
-  debug_write(file, strings[1]);
+  printf("main() | Wrote %s to file.\nmain() | Read  %s from file.\n\n",
+         strings[0], result);
+
+  // write second string at start, seek back to start,
+  // and read it out again. Call flush frequently to
+  // ensure it has no impact on normal program execution.
   fseek_j(file, 0, SEEK_SET);
   fflush_j(file);
+  debug_write(file, strings[1]);
+  fflush_j(file);
+  fseek_j(file, 0, SEEK_SET);
   fflush_j(file);
   debug_read(file, result, 26);
-  printf("main() | wrote %s to file.\nmain() | Read %s\n\n", strings[1],
-         result);
+  fflush_j(file);
+  printf("main() | Wrote %s to file.\nmain() | Read  %s from file.\n\n",
+         strings[1], result);
 
   fclose_j(file);
 }

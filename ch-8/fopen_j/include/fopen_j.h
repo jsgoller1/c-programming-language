@@ -40,8 +40,8 @@ int fseek_j(FILE_J *const fp, const long offset, const int whence);
 // buffering.c
 void print_buffer(FILE_J *fp);
 int fflush_j(FILE_J *fp);
-int _fill_buff(FILE_J *fp);
-int _flush_buff(FILE_J *fp);
+int _fillbuff(FILE_J *fp);
+int _flushbuff(FILE_J *fp);
 
 // io.c
 int getc_j(FILE_J *fp);

@@ -37,7 +37,7 @@ int main() {
 
   fseek_j(file, 0, SEEK_SET);
 
-  // breakwrite(file, strings[1]);
+  breakwrite(file, strings[1]);
 
   // fseek_j(file, 27, SEEK_SET);
   // breakwrite(file, strings[2]);

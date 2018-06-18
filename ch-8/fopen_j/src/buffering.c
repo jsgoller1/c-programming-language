@@ -35,25 +35,14 @@ int _fillbuff(FILE_J* fp) {
     printf("_fillbuff() | count: %d.\n", count);
   }
 
-  status = lseek(fp->fd, count, SEEK_CUR);
+  status = lseek(fp->fd, -count, SEEK_CUR);
   if (status == -1) {
     perror("_fillbuff: ");
     fp->flags._ERR = true;
     return -1;
   }
 
-  /*
-    if (count <= 0) {
-      if (count == 0) {
-        fp->flags._EOF = true;
-      } else {
-        fp->flags._ERR = true;
-        return -1;
-      }
-    }
-  */
-
-  printf("_flushbuff() | buffer is filled and fd is corrected.\n");
+  printf("_fillbuff() | buffer is filled and fd is corrected.\n");
   return 0;
 }
 

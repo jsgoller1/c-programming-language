@@ -67,7 +67,7 @@ int _flushbuff(FILE_J* fp) {
 
   // write the data buffer to the file
   long written;
-  written = write(fp->fd, fp->buff, BUFF_SIZE);
+  written = write(fp->fd, fp->buff, (size_t)(fp->ptr - fp->buff));
   if (written == -1) {
     perror("_flushbuff(): Couldn't flush buffer. ");
     fp->flags._ERR = true;

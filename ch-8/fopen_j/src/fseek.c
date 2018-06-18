@@ -9,8 +9,8 @@ int fseek_j(FILE_J *const fp, const long offset, const int whence) {
   _flushbuff(fp);
   lseek(fp->fd, offset, whence);
   _fillbuff(fp);
-  printf("fseek_j() | seeked to %llu\n", lseek(fp->fd, 0, SEEK_CUR));
   fp->ptr = fp->buff;
 
+  printf("fseek_j() | seeked to %llu\n", lseek(fp->fd, 0, SEEK_CUR));
   return 0;
 }

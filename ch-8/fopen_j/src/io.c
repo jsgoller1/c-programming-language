@@ -13,6 +13,7 @@ int getc_j(FILE_J* fp) {
     printf("getc_j() | handling buffer.\n");
     _flushbuff(fp);
     _fillbuff(fp);
+    fp->ptr = fp->buff;
   }
 
   // Increment fp after read, then return
@@ -28,6 +29,7 @@ int putc_j(FILE_J* fp, int character) {
     printf("putc_j() | handling buffer.\n");
     _flushbuff(fp);
     _fillbuff(fp);
+    fp->ptr = fp->buff;
   }
 
   // Increment fp after write, then return

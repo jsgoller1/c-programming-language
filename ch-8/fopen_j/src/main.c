@@ -49,6 +49,8 @@ int main() {
   fseek_j(file, 0, SEEK_SET);
   debug_write(file, strings[1]);
   fseek_j(file, 0, SEEK_SET);
+  fflush_j(file);
+  fflush_j(file);
   debug_read(file, result, 26);
   printf("main() | wrote %s to file.\nmain() | Read %s\n\n", strings[1],
          result);

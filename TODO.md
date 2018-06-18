@@ -3,21 +3,17 @@
  ## 77 of 97 completed (20 remaining)
 
 - Ch. 1
-  - All exercises have passing unit tests
   - Valgrind reports no errors.
 - Ch. 2
-  - All exercises have passing unit tests
   - Valgrind reports no errors.
 - Ch. 3
   - Exercises
     - 3-3: make this [better](https://gist.github.com/robot-dreams/34d10248bc474f5a4312fa72e325656a)
-  - All exercises have passing unit tests
   - C11 `-Werror -Wall` compliance
   - Valgrind reports no errors.
 - Ch. 4 / RPN
   - Exercises
     - 4-9: Ensure that my comment is actually correct
-  - All exercises have passing unit tests
   - C11 `-Werror -Wall` compliance
   - Valgrind reports no errors.
 - Ch. 5
@@ -27,7 +23,6 @@
     - 5-17
     - 5-19
     - 5-20
-  - All exercises have passing unit tests
   - C11 `-Werror -Wall` compliance
   - Valgrind reports no errors.
 - Ch. 6
@@ -37,7 +32,6 @@
     - 6-4
     - 6-5
     - 6-6
-  - All exercises have passing unit tests
   - C11 `-Werror -Wall` compliance
   - Valgrind reports no errors.
 - Ch. 7
@@ -51,13 +45,6 @@
     - 7-7
     - 7-8
     - 7-9
-  - All exercises have passing unit tests
-  - C11 `-Werror -Wall` compliance
-  - Valgrind reports no errors.
-- Ch. 8
-  - Exercises
-    - 8-4
-  - All exercises have passing unit tests
   - C11 `-Werror -Wall` compliance
   - Valgrind reports no errors.
 - Appendix A

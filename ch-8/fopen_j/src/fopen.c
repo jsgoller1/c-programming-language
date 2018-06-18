@@ -21,7 +21,7 @@ static void open_file_desc(const char *const path, FILE_J *fp,
   // set flags for writing
   if (*mode == 'w') {
     if (stat(path, &statbuf)) {
-      printf("fopen_j() | file doesn't exist; creating (mode: w)...\n");
+      // printf("fopen_j() | file doesn't exist; creating (mode: w)...\n");
       flags |= (O_CREAT | O_TRUNC);
     }
     fp->flags._WRITE = true;
@@ -29,7 +29,7 @@ static void open_file_desc(const char *const path, FILE_J *fp,
   }  // set flags for reading
   else if (*mode == 'r') {
     if (stat(path, &statbuf)) {
-      printf("fopen_j() | %s - doesn't exist.\n", path);
+      // printf("fopen_j() | %s - doesn't exist.\n", path);
       fp->fd = -1;
       return;
     }
@@ -38,7 +38,7 @@ static void open_file_desc(const char *const path, FILE_J *fp,
   }  // set flags for both
   else if (*mode == 'a') {
     if (stat(path, &statbuf)) {
-      printf("fopen_j() | file doesn't exist; creating (mode: a)...\n");
+      // printf("fopen_j() | file doesn't exist; creating (mode: a)...\n");
       flags |= (O_CREAT | O_TRUNC);
     }
     fp->flags._WRITE = true;
@@ -46,7 +46,7 @@ static void open_file_desc(const char *const path, FILE_J *fp,
     flags |= O_RDWR;
   }  // handle invalid flags
   else {
-    printf("fopen_j() | %s - illegal mode.\n", mode);
+    // printf("fopen_j() | %s - illegal mode.\n", mode);
     fp->fd = -1;
     return;
   }

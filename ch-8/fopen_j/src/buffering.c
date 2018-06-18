@@ -32,7 +32,7 @@ int _fillbuff(FILE_J* fp) {
     fp->flags._ERR = true;
     return -1;
   } else {
-    printf("_fillbuff() | count: %d.\n", count);
+    // printf("_fillbuff() | count: %d.\n", count);
   }
 
   status = lseek(fp->fd, -count, SEEK_CUR);
@@ -42,7 +42,7 @@ int _fillbuff(FILE_J* fp) {
     return -1;
   }
 
-  printf("_fillbuff() | buffer is filled and fd is corrected.\n");
+  // printf("_fillbuff() | buffer is filled and fd is corrected.\n");
   return 0;
 }
 
@@ -63,6 +63,6 @@ int _flushbuff(FILE_J* fp) {
     return -1;
   }
 
-  printf("_flushbuff() | buffer is flushed.\n");
+  // printf("_flushbuff() | buffer is flushed.\n");
   return 0;
 }

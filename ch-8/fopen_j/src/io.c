@@ -10,8 +10,10 @@ int getc_j(FILE_J* fp) {
   // if read would go outside of the buffer, flush it,
   // and fill with the next region
   if (fp->ptr == fp->buff + BUFF_SIZE) {
-    _flushbuff(fp);
-    _fillbuff(fp);
+    if (fflush_j(fp) == -1) {
+      fp->flags._ERR = true;
+      return EOF;
+    }
     fp->ptr = fp->buff;
   }
 
@@ -25,8 +27,10 @@ int getc_j(FILE_J* fp) {
 int putc_j(FILE_J* fp, int character) {
   // same flushing behavior as getc_j()
   if (fp->ptr == fp->buff + BUFF_SIZE) {
-    _flushbuff(fp);
-    _fillbuff(fp);
+    if (fflush_j(fp) == -1) {
+      fp->flags._ERR = true;
+      return EOF;
+    }
     fp->ptr = fp->buff;
   }
 

@@ -6,11 +6,19 @@
 // fseek(): flush the buffer contents, seek to the correct place,
 // refill the buffer, and correct the file position after the read.
 int fseek_j(FILE_J *const fp, const long offset, const int whence) {
-  off_t pos;
+  if (_flushbuff(fp) == -1) {
+    fp->flags._ERR = true;
+    return -1;
+  }
+  if (lseek(fp->fd, offset, whence) == -1) {
+    fp->flags._ERR = true;
+    return -1;
+  }
 
-  _flushbuff(fp);
-  pos = lseek(fp->fd, offset, whence);
-  _fillbuff(fp);
+  if (_fillbuff(fp) == -1) {
+    fp->flags._ERR = true;
+    return -1;
+  }
 
   fp->ptr = fp->buff;
   return 0;

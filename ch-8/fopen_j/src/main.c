@@ -8,23 +8,29 @@
 
 #include "fopen_j.h"
 
+// debug_read(); reads len characters from file to str,
+// with useful segment for interrupting on a regular interval
 static void debug_read(FILE_J* file, char* string, int len) {
   for (int i = 0; i < len; i++) {
-    // printf("debug_read() | reading %c to file\n", string[i]);
     string[i] = (char)getc_j(file);
     // if (!(i % 5)) {
-    // printf("Halting til input.\n");
-    // getchar();
+    //  printf("Halting til input at %lu.\n", lseek(file->fd, 0, SEEK_CUR));
+    //  print_buffer(file);
+    //  getchar();
+    //}
   }
 }
 
+// debug_write(); writes string to file with useful
+// segment for interrupting on a regular interval
 static void debug_write(FILE_J* file, char* string) {
   for (int i = 0; i < (int)strlen(string); i++) {
-    // printf("debug_write() | writing %c\n", string[i]);
     putc_j(file, string[i]);
-    // if (!(i % 5)) {
-    // printf("Halting til input.\n");
-    // getchar();
+    //    if (!(i % 5)) {
+    //      printf("Halting til input at %lu.\n", lseek(file->fd, 0, SEEK_CUR));
+    //      print_buffer(file);
+    //      getchar();
+    //  }
   }
 }
 

@@ -18,7 +18,12 @@ void print_buffer(FILE_J* fp) {
 
 // fflush_j(): empty a FILE_J's buffer to its file descriptor, and correct
 // the position. Can be called at will / arbitrarily many times.
-int fflush_j(FILE_J* fp) { return _flushbuff(fp) && _fillbuff(fp); }
+int fflush_j(FILE_J* fp) {
+  int flush, fill;
+  flush = _flushbuff(fp);
+  fill = _fillbuff(fp);
+  return flush && fill;
+}
 
 //_fillbuff(): refill the I/O buffer with characters from the file
 int _fillbuff(FILE_J* fp) {

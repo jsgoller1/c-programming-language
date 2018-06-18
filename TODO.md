@@ -7,9 +7,6 @@
 - Ch. 2
   - Valgrind reports no errors.
 - Ch. 3
-  - Exercises
-    - 3-3: make this [better](https://gist.github.com/robot-dreams/34d10248bc474f5a4312fa72e325656a)
-  - C11 `-Werror -Wall` compliance
   - Valgrind reports no errors.
 - Ch. 4 / RPN
   - Exercises

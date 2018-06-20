@@ -11,22 +11,25 @@
  * If there's only 2 args (i.e. piped), get input from stdin
  */
 
-static char* resize_string() {}
+// static char* resize_string() {}
 
 static char* parse_string() {
-  // TODO: implement dynamic string resizing later; for now,
-  // assume this will never be necessary.
-  in_string = (char*)malloc(100);
-      while ((c = getchar() != EOF){
-    write_to_string(c, in_string);
-      }
+  int i = 0;
+  int c = 0;
+  char* string = (char*)calloc(1, 100);  // TODO: resize if too small
+  while ((c = getchar()) != EOF) {
+    string[i++] = (char)c;
+  }
+  return string;
 }
 
 int main(int argc, char** argv) {
-  printf("argc: %d\n", argc);
-  for (int i = 0; i < argc; i++) {
-    printf("arg %d: %s\n", i, argv[i]);
-  }
+  /*
+    printf("argc: %d\n", argc);
+    for (int i = 0; i < argc; i++) {
+      printf("arg %d: %s\n", i, argv[i]);
+    }
+  */
 
   char* case_flag;
   char* in_string;
@@ -36,10 +39,11 @@ int main(int argc, char** argv) {
     case 2:
       alloc = true;
       in_string = parse_string();
+      case_flag = argv[1];
       break;
     case 3:
-      char* case_flag = argv[1];
-      char* in_string = argv[2];
+      case_flag = argv[1];
+      in_string = argv[2];
       break;
     default:
       printf("usage: caser -[ul] <string>\n");

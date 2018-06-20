@@ -11,34 +11,31 @@
  * If there's only 2 args (i.e. piped), get input from stdin
  */
 
-// static char* resize_string() {}
-
-static char* parse_string() {
+// read_stdin(): helper function if program
+// is called with piped input. Will not
+// work if input is too large.
+static char* read_stdin() {
   int i = 0;
   int c = 0;
-  char* string = (char*)calloc(1, 100);  // TODO: resize if too small
+  char* string = (char*)calloc(1, 1000);
   while ((c = getchar()) != EOF) {
     string[i++] = (char)c;
   }
   return string;
 }
 
+// main(): solves exercise
 int main(int argc, char** argv) {
-  /*
-    printf("argc: %d\n", argc);
-    for (int i = 0; i < argc; i++) {
-      printf("arg %d: %s\n", i, argv[i]);
-    }
-  */
-
   char* case_flag;
   char* in_string;
   bool alloc = false;
 
+  // set vars based on cli args;
+  // read from stdin if we are piping
   switch (argc) {
     case 2:
       alloc = true;
-      in_string = parse_string();
+      in_string = read_stdin();
       case_flag = argv[1];
       break;
     case 3:
@@ -50,6 +47,7 @@ int main(int argc, char** argv) {
       return -1;
   }
 
+  // Transform string based on args
   if (strcmp("-u", case_flag) == 0) {
     for (size_t i = 0; i < strlen(in_string); i++) {
       putchar(toupper(in_string[i]));

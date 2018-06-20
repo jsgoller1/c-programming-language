@@ -1,6 +1,6 @@
 # TODO
 ---
- ## 79 of 97 completed (18 remaining)
+ ## 80 of 97 completed (17 remaining)
 
 - Ch. 1
   - Valgrind reports no errors.
@@ -33,7 +33,6 @@
   - Valgrind reports no errors.
 - Ch. 7
   - Exercises
-    - 7-2
     - 7-3
     - 7-4
     - 7-5

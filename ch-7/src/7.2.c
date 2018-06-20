@@ -1,3 +1,4 @@
+#include <ctype.h>
 #include <stdio.h>
 
 /*
@@ -5,33 +6,30 @@
  * minimum, it should print non-graphic characters in octal or hexadecimal
  * according to local custom, and break long text lines.
  * ---
- * Given that this is in a section about format strings, I _think_ they're
- * trying to get at an answer using format strings, but the "sensible" thing
- * to me here is to just pipe to stdout, break up long lines, and convert
- * illegal characters to a legal character signaling the char isn't printable.
- *
- * Not entirely sure what "according to local custom" should mean, but we can
- * filter characters outside of the accepted range.
- */
-
-static int validate_character(const int c) {
-  // ignore characters not in the ASCII range
-  if (c < 32 || 126 < c) {
-    return '\0';
-  } else {
-    return c;
-  }
-}
+ * I was not sure what this question was asking, but after checking out two
+ * solutions, I think the question is "print non-graphical characters in hex or
+ * octal, and print everything else not-insanely". Nongraphical characters can
+ * be found using iscntrl() in ctype.h, which will also catch blanks, the delete
+ * character, and any chars less than octal 040.
+ * */
 
 int main() {
   int i = 1;
   int c = 0;
   while ((c = getchar()) != EOF) {
-    putchar(validate_character(c));
-    if (i % 80 == 0) {
-      putchar('\n');
+    if (iscntrl(c) && c != ' ' && c != '\n') {
+      printf("Ox%x ", c);
+      i += 7;  // advance to compensate for "0xFFFF " at most.
+    } else {
+      printf("%c", c);
+      i++;
     }
-    i++;
+
+    // break if line is larger than 80 chars
+    if (i > 80) {
+      putchar('\n');
+      i = 0;
+    }
   }
   return 0;
 }

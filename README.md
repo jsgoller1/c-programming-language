@@ -48,6 +48,8 @@ See `TODO.md` for the remaining work to be done.
 * Ch. 4:
   * I skipped 4.10, because I re-architected the RPN calculator to loosely couple and more robustly handle parsing, lexing, and token handling; a solution involving parsing the entire string either would require 1) tightly-recoupling these  things so that in one loop you can handle the entire string, determining symbols and pushing it to the stack, or 2) having an intermediary data structure similar to the ungetch() buffer.
   * K&R claim that in 4.9 `getch()` / `ungetch()` don't handle `EOF` correctly, but the expected behavior occurs both in my implementation and theirs so I'm not quite sure what this question is asking. `EOF` does cause the program to exit correctly, although the `EOF` character gets pushed back into the array by `ungets()`.
+* Ch. 7:
+  * 7.3 _technically_ is done since all I did was make it possible to print hex / octal values, but I'd like to return to it and see if I can get min / max width working too.
 
 ## Source text
 You can find the full 2nd edition text with examples [here](http://cs.indstate.edu/~cbasavaraj/cs559/the_c_programming_language_2.pdf).

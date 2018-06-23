@@ -1,6 +1,8 @@
 #include <ctype.h>
+#include <stdbool.h>
 #include <stdio.h>
 #include <stdlib.h>
+
 /*
  * Ex. 7.5: Rewrite the postfix calculator of Chapter 4 to use scanf and/or
  * sscanf to do the input and number conversion.
@@ -32,6 +34,7 @@ static int pop() {
   return ret;
 }
 
+/*
 static int is_number(char* num_string, int* val) {
   for (int i = 0; num_string[i] != '\0'; i++) {
     if (!(isdigit(num_string[i]))) {
@@ -41,17 +44,20 @@ static int is_number(char* num_string, int* val) {
   *val = atoi(num_string);
   return 1;
 }
+*/
 
-int main(int argc, char* argv[]) {
-  int op1, op2;
-  for (int i = 1; i < argc; i++) {
-    char* current_arg = argv[i];
-    int arg_val;
+int main() {
+  int op1 = 0;
+  int op2 = 0;
+  int scanned_int = 0;
+  char scanned_char = '\0';
+  bool scanning = true;
 
-    if (is_number(current_arg, &arg_val)) {
-      push(arg_val);
-    } else {
-      switch (*(current_arg)) {
+  while (scanning) {
+    if (scanf("%d", &scanned_int) == 1) {
+      push(scanned_int);
+    } else if (scanf("%c", &scanned_char) == 1) {
+      switch (scanned_char) {
         case '+':
           op1 = pop();
           op2 = pop();
@@ -77,10 +83,12 @@ int main(int argc, char* argv[]) {
           push(op1 * op2);
           break;
         default:
-          printf("Error: invalid input: %s\n", argv[argc]);
+          printf("Error: invalid character: %c\n", scanned_char);
           printf("Usage: expr <rpn expression using +,*,-,/.\n");
           return -1;
       }
+    } else {
+      scanning = false;
     }
   }
   if (top != 0) {

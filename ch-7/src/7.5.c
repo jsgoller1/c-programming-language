@@ -17,7 +17,7 @@
 static int top = -1;
 static int stack[MAX_SIZE];
 
-static void push(int val) {
+static void push(const int val) {
   if (top >= MAX_SIZE - 1) {
     printf("Error: stack full, cannot push more values.\n");
   }
@@ -33,18 +33,6 @@ static int pop() {
   ret = stack[top--];
   return ret;
 }
-
-/*
-static int is_number(char* num_string, int* val) {
-  for (int i = 0; num_string[i] != '\0'; i++) {
-    if (!(isdigit(num_string[i]))) {
-      return 0;
-    }
-  }
-  *val = atoi(num_string);
-  return 1;
-}
-*/
 
 int main() {
   int op1 = 0;

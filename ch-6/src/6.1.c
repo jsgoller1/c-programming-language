@@ -22,7 +22,6 @@
 
 #define MAXWORD 100
 #define KW_COUNT (sizeof(keywords) / sizeof(keyword))
-#define TIMER_MAX 15  // prevents runaway terminal output
 
 // states for parser FSM
 typedef struct ps {
@@ -56,19 +55,15 @@ static keyword keywords[] = {
 static void check_keyword(const char* const word) {
   for (unsigned long i = 0; i < KW_COUNT; i++) {
     long result = strcmp(word, keywords[i].word);
-    printf("%s == %s: %ld\n", keywords[i].word, word, result);
     if (result == 0) {
-      printf("check_keyword() | adding %s\n", word);
       keywords[i].count++;
       return;
     }
   }
-  printf("check_keyword() | no match for %s\n", word);
 }
 
 // display_keywords(): Print all keywords and their counts
 static void display_keywords(void) {
-  printf("display_keywords() | displaying: \n");
   for (unsigned long i = 0; i < KW_COUNT; i++) {
     if (keywords[i].count) {
       printf("%s: %ld\n", keywords[i].word, keywords[i].count);
@@ -81,9 +76,7 @@ static void display_keywords(void) {
 static void getword(int c, char* word) {
   int i;
   for (i = 0; i < MAXWORD - 1; c = (char)getchar(), i++) {
-    printf("getword() | got %c\n", c);
     if (isalnum(c) || c == '#') {
-      printf("getword() | adding %c\n", c);
       word[i] = (char)c;
     } else {
       word[i] = '\0';
@@ -144,23 +137,15 @@ static void parsing_test(const int c1, parsing_state* ps) {
 int main() {
   int c;
   char word[MAXWORD];
-  int timer = 0;  // prevents runaway terminal outoput
   parsing_state ps = {0, 0, 0, 0, 0};
 
-  printf("main() | beginning parsing.\n");
-
-  while ((c = getchar()) != EOF && timer < TIMER_MAX) {
-    printf("main() | got %c\n", c);
-
+  while ((c = getchar()) != EOF) {
     parsing_test(c, &ps);
     if (ps.should_parse) {
-      printf("main() | parsing at %c\n", c);
       getword(c, word);
       check_keyword(word);
     } else {
-      printf("main() | not parsing %c\n", c);
     }
-    // timer++;
   }
 
   display_keywords();

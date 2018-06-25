@@ -1,5 +1,7 @@
 #include <alloca.h>
 #include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
 
 /*
  * Exercise 6-3. Write a cross-referencer that prints a list of all words in a
@@ -16,22 +18,135 @@
  */
 
 #define MAXWORD 100
+#define INIT_LINES 25
 
 typedef struct word_node {
-  struct word_node* left;
-  struct word_node* right;
+  char* word;
   int* lines;
   int lines_n;
   int lines_max;
+  struct word_node* left;
+  struct word_node* right;
 } word_node;
 
-static word_node* tree_insert(const char* const word) {}
-static word_node* tree_search(const char* const word) {}
-static void tree_walk(word_node* head) {}
-static void tree_cleanup(word_node* head) {}
+static word_node* create_node(const char* const word) {
+  word_node* new_node = malloc(sizeof(word_node));
 
-static int add_line(word_node* node) {}
-static int resize_line_arr(word_node* node) {}
+  // set up string
+  int word_len = strlen(word);
+  new_node->string = malloc(word_len + 1);
+  if (new_node->string == NULL) {
+    free(new_node);
+    return NULL;
+  }
+  strcpy(new_node->string, word);
+  new_node->string[word_len] = '\0';
+
+  // set up lines array
+  new_node->lines = malloc(INIT_LINES);
+  if (new_node->lines == NULL) {
+    free(new_node->string);
+    free(new_node);
+    return NULL;
+  }
+  new_node->lines_n = 0;
+  new_node->lines_max = INIT_LINES;
+
+  // assign other values
+  new_node->left = NULL;
+  new_node->right = NULL;
+
+  return new_node;
+}
+
+static word_node* tree_insert(const char* const word,
+                              const word_node* const node) {
+  int result = strcmp(node->word, word);
+  // Word is already present in tree
+  if (result == 0) {
+    return head;
+  } else if (result < 0) {
+    if (node->left == NULL) {
+      node->left = create_node(word);
+      return node->left;
+    } else {
+      tree_insert(word, node->left);
+    }
+  } else if (result > 0) {
+    if (node->right == NULL) {
+      node->right = create_node(word);
+      return node->right;
+    } else {
+      tree_insert(word, node->right);
+    }
+  }
+}
+
+static word_node* tree_search(const char* const word,
+                              const word_node* const node) {
+  // if the node isn't present in the tree
+  if (node == NULL) {
+    return NULL;
+  }
+
+  // walk tree based on comparison to word
+  int result = strcmp(node->word, word);
+  if (result == 0) {
+    return head;
+  } else if (result < 0) {
+    tree_search(word, node->left);
+  } else if (result > 0) {
+    tree_search(word, node->right);
+  }
+}
+
+static void tree_walk(word_node* head) {
+  tree_walk(head->left);
+  printf("%s\n", head->string);
+  tree_walk(head->right);
+}
+
+static void tree_cleanup(word_node* head) {
+  if (head->left != NULL) {
+    tree_cleanup(head->left);
+  } else if (head->right != NULL) {
+    tree_cleanup(head->right);
+  } else {
+    free(head->string);
+    free(head->lines);
+    free(head);
+  }
+}
+
+static int resize_line_arr(word_node* node) {
+  // copy old chars to temp array
+  int* temp = alloca(node->lines_max);
+  for (int i = 0; i < node->lines_n; i++) {
+    temp[i] = node->lines[i];
+  }
+
+  // resize old array to 2x
+  node->lines_max *= 2;
+  free(node->lines);
+  node->lines = malloc(node->lines_max * 2);
+
+  // copy old chars to new array
+  for (int i = 0; i < node->lines_n; i++) {
+    node->lines[i] = temp[i];
+  }
+
+  return 0;
+}
+
+static int add_line(word_node* node, int line) {
+  if (!(word_node->lines_n < word_node->lines_max)) {
+    if (resize_line_arr(node) == -1) {
+      return -1;
+    }
+  }
+  word_node[lines_n++] = line;
+  return 0;
+}
 
 int main() {
   char word[MAX_WORD];

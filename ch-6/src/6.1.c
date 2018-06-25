@@ -54,8 +54,7 @@ static keyword keywords[] = {
 // check_keyword(): given a word, check if it's a keyword and increment if so.
 static void check_keyword(const char* const word) {
   for (unsigned long i = 0; i < KW_COUNT; i++) {
-    long result = strcmp(word, keywords[i].word);
-    if (result == 0) {
+    if (strcmp(word, keywords[i].word) == 0) {
       keywords[i].count++;
       return;
     }
@@ -144,7 +143,6 @@ int main() {
     if (ps.should_parse) {
       getword(c, word);
       check_keyword(word);
-    } else {
     }
   }
 

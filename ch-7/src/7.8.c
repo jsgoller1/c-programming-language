@@ -10,7 +10,7 @@
 #define PAGE_LEN 40
 #define READ_SIZE 100
 
-static int paged_print(char* path) {
+static int paged_print(const char* const path) {
   FILE* file;
   if ((file = fopen(path, "r")) == NULL) {
     printf("Cannot open %s.\n", path);

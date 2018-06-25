@@ -1,150 +1,168 @@
-#include "6.1.h"
 #include <ctype.h>
 #include <stdbool.h>
 #include <stdio.h>
 #include <string.h>
-#include "common.h"
 
 /*
-  The listed version of getword() doesn't handle:
-  underscores - _int
-  comments - // int
-  preprocessor directives - # if
-  string constants - char foo[] = {"int if"}
-
-  Write a better version that handles these correctly.
-  ---
-  Note - both K&R and The C Answer book don't specify
-  whether we are supposed to treat all input as one line or not,
-  so I'm assuming we will.
-*/
+ * Ex. 6.1 - The listed version of getword() doesn't handle:
+ * underscores - _int
+ * comments - // int
+ * preprocessor control lines - #if, #elif, #else,
+ * string constants - char foo[] = {"int if"}
+ *
+ * Write a better version that handles these correctly.
+ * ---
+ * The original statement of this problem was for a program that would count all
+ * keywords in a C program. As such, this program will answer that question and
+ * ensure that underscores, comments, constants, and preprocessor directives are
+ * handled correctly. A similar problem was answered in 1.24, so I reused some
+ * code with slight modification. See the comment above main() at the bottom for
+ * the solution strategy.
+ */
 
 #define MAXWORD 100
-#define NKEYS (sizeof keytab / sizeof(struct key))
+#define KW_COUNT (sizeof(keywords) / sizeof(keyword))
+#define TIMER_MAX 15  // prevents runaway terminal output
 
-struct key {
-  char *word;
-  int count;
-};
+// states for parser FSM
+typedef struct ps {
+  int in_single_comment;  // are we in a // comment?
+  int in_multi_comment;   // are we in a /* comment?
+  int in_single_quote;    // are we in a 'single quote'?
+  int in_double_quote;    // are we in "double quotes"?
+  int should_parse;       // should we start looking for keywords?
+} parsing_state;
 
-char getword(char *, int);
-int mybinsearch(char *word, struct key *tab, int n);
+typedef struct keyword {
+  char* word;
+  long count;
+} keyword;
 
-static struct key keytab[] = {
-    {"auto", 0},   {"break", 0},    {"case", 0},     {"char", 0},
-    {"const", 0},  {"continue", 0}, {"default", 0},  {"do", 0},
-    {"double", 0}, {"else", 0},     {"enum", 0},     {"extern", 0},
-    {"float", 0},  {"for", 0},      {"goto", 0},     {"if", 0},
-    {"inline", 0}, {"int", 0},      {"long", 0},     {"register", 0},
-    {"return", 0}, {"short", 0},    {"signed", 0},   {"sizeof", 0},
-    {"static", 0}, {"struct", 0},   {"switch", 0},   {"typedef", 0},
-    {"union", 0},  {"void", 0},     {"volatile", 0}, {"while", 0}};
+// C keywords as (mostly) listed here: https://en.cppreference.com/w/c/keyword
+static keyword keywords[] = {
+    {"auto", 0},     {"break", 0},    {"case", 0},     {"char", 0},
+    {"const", 0},    {"continue", 0}, {"default", 0},  {"do", 0},
+    {"double", 0},   {"else", 0},     {"enum", 0},     {"extern", 0},
+    {"float", 0},    {"for", 0},      {"goto", 0},     {"if", 0},
+    {"inline", 0},   {"int", 0},      {"long", 0},     {"register", 0},
+    {"return", 0},   {"short", 0},    {"signed", 0},   {"sizeof", 0},
+    {"static", 0},   {"struct", 0},   {"switch", 0},   {"typedef", 0},
+    {"union", 0},    {"void", 0},     {"volatile", 0}, {"while", 0},
+    {"#if", 0},      {"#elif", 0},    {"#else", 0},    {"#defined", 0},
+    {"#ifdef", 0},   {"#ifndef", 0},  {"#define", 0},  {"#undef", 0},
+    {"#include", 0}, {"#line", 0},    {"#error", 0},   {"#pragma", 0}};
 
-// mybinsearch: find word in tab[0]...tab[n-1]
-int mybinsearch(char *word, struct key tab[], int n) {
-  int cond;
-  int low, high, mid;
+// check_keyword(): given a word, check if it's a keyword and increment if so.
+static void check_keyword(const char* const word) {
+  for (unsigned long i = 0; i < KW_COUNT; i++) {
+    long result = strcmp(word, keywords[i].word);
+    printf("%s == %s: %ld\n", keywords[i].word, word, result);
+    if (result == 0) {
+      printf("check_keyword() | adding %s\n", word);
+      keywords[i].count++;
+      return;
+    }
+  }
+  printf("check_keyword() | no match for %s\n", word);
+}
 
-  low = 0;
-  high = n - 1;
-  while (low <= high) {
-    mid = (low + high) / 2;
-    if ((cond = strcmp(word, tab[mid].word)) < 0) {
-      high = mid - 1;
-    } else if (cond > 0) {
-      low = mid + 1;
+// display_keywords(): Print all keywords and their counts
+static void display_keywords(void) {
+  printf("display_keywords() | displaying: \n");
+  for (unsigned long i = 0; i < KW_COUNT; i++) {
+    if (keywords[i].count) {
+      printf("%s: %ld\n", keywords[i].word, keywords[i].count);
+    }
+  }
+}
+
+// get_word(): assuming the stream is in a valid region of code, get the next
+// word. Will break if the word is longer than MAXWORD.
+static void getword(int c, char* word) {
+  int i;
+  for (i = 0; i < MAXWORD - 1; c = (char)getchar(), i++) {
+    printf("getword() | got %c\n", c);
+    if (isalnum(c) || c == '#') {
+      printf("getword() | adding %c\n", c);
+      word[i] = (char)c;
     } else {
-      return mid;
+      word[i] = '\0';
+      return;
     }
   }
-
-  return -1;
 }
 
-// getword(): get next word or character from input
-char getword(char *word, int lim) {
-  char c;
-  char *w = word;
+// parsing_test(): A nasty function with a lot of nested
+// logic to determine if we are in a valid region of code for keyword parsing;
+// note that we ignore C preprocessor directives - we explicitly parse for
+// preprocessor control statements as we would any other keyword, and
+// consider any keywords in #define statements as valid.
+static void parsing_test(const int c1, parsing_state* ps) {
+  int c2 = 0;
 
-  // noop, skip whitespace
-  while (isspace(c = getch())) {
-  }
-
-  if (c != EOF) {
-    *w = c;
-    w++;
-  }
-
-  if (!isalpha(c)) {
-    *w = '\0';
-    return c;
-  }
-
-  for (; --lim > 0; w++) {
-    if (!isalnum(*w = getch())) {
-      ungetch(*w);
-      break;
+  // Test for beginning of single or multi comment
+  if (c1 == '/' && !(ps->in_single_quote || ps->in_double_quote)) {
+    c2 = getchar();
+    if (c2 == '*' && ps->in_multi_comment == 0) {
+      ps->in_multi_comment = 1;
+    } else if (c2 == '/' && ps->in_multi_comment == 0) {
+      ps->in_single_comment = 1;
+    } else {
+      ungetc(c2, stdin);
     }
+  }  // test for ending of a multi comment
+  else if (c1 == '*' && ps->in_multi_comment == 1) {
+    c2 = getchar();
+    if (c2 == '/') {
+      ps->in_multi_comment = 0;
+    } else {
+      ungetc(c2, stdin);
+    }
+  }  // exit a single line comment
+  else if (c1 == '\n') {
+    ps->in_single_comment = 0;
+  }  // enter or exit a single-tick quote
+  else if (c1 == '\'' && !(ps->in_single_comment || ps->in_multi_comment ||
+                           ps->in_double_quote)) {
+    ps->in_single_quote = ~(ps->in_single_quote);
+  }  // enter or exit a double-tick quote
+  else if (c1 == '\"' && !(ps->in_single_comment || ps->in_multi_comment ||
+                           ps->in_single_quote)) {
+    ps->in_double_quote = ~(ps->in_double_quote);
   }
-  *w = '\0';
-  // printf("Returning %s\n", word);
-  return word[0];
+
+  // combine all flags to determine if parsing should occur
+  ps->should_parse = !(ps->in_single_comment || ps->in_multi_comment ||
+                       ps->in_single_quote || ps->in_multi_comment);
 }
 
+/* main(): read characters from stdin, using a global FSM to keep track of
+ * state based on whether we are in a string constant, comment, or
+ * preprocessor directive; in each valid line of code, check each word to see
+ * if it is a keyword, and increment the keyword count if so.
+ */
 int main() {
-  int n;
+  int c;
   char word[MAXWORD];
-  char firstchar;
-  int slashmarks = 0;
+  int timer = 0;  // prevents runaway terminal outoput
+  parsing_state ps = {0, 0, 0, 0, 0};
 
-  // states
-  bool ignore_line = false;  // we are in a comment or preprocessor directive
-  bool in_string = false;  // we are in a string and waiting for a closing quote
-  bool got_underscore = false;  // we just got an underscore, don't count the
-                                // next word as a keyword
+  printf("main() | beginning parsing.\n");
 
-  // get the first character of every "word" from stdin;
-  // keep track of state and do the syntatically correct
-  // thing depending on what state we are in
-  while ((firstchar = getword(word, MAXWORD)) != EOF && !(ignore_line)) {
-    if (isalpha(firstchar) && firstchar != '_' && !(in_string)) {
-      if ((n = mybinsearch(word, keytab, NKEYS)) >= 0) {
-        keytab[n].count++;
-      }
+  while ((c = getchar()) != EOF && timer < TIMER_MAX) {
+    printf("main() | got %c\n", c);
+
+    parsing_test(c, &ps);
+    if (ps.should_parse) {
+      printf("main() | parsing at %c\n", c);
+      getword(c, word);
+      check_keyword(word);
     } else {
-      printf("Switching on: %c\n", firstchar);
-      switch (firstchar) {
-        case '/':
-          slashmarks++;
-          if (slashmarks == 2) {
-            printf("Now in a comment; ignoring newlines.\n");
-            ignore_line = true;
-          }
-          break;
-        case '#':
-          printf("Now in a preprocessor directive; ignoring newlines.\n");
-          ignore_line = true;
-          break;
-        case '_':
-          printf("Got an underrscore, skipping next word.\n");
-          got_underscore = true;
-          break;
-        case '"':
-          break;
-        case '\n':
-          printf("Got a newline, can now count lines again.\n");
-          ignore_line = false;
-          break;
-        default:
-          break;
-      }
+      printf("main() | not parsing %c\n", c);
     }
+    // timer++;
   }
 
-  for (n = 0; n < (int)NKEYS; n++) {
-    if (keytab[n].count > 0) {
-      printf("%4d %s\n", keytab[n].count, keytab[n].word);
-    }
-  }
+  display_keywords();
   return 0;
 }

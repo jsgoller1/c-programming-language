@@ -35,7 +35,6 @@
   - Exercises
     - 7-4
     - 7-7
-    - 7-9
   - C11 `-Werror -Wall` compliance
   - Valgrind reports no errors.
 - Appendix A

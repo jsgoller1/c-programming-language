@@ -75,7 +75,7 @@ static void display_keywords(void) {
 static void getword(int c, char* word) {
   int i;
   for (i = 0; i < MAXWORD - 1; c = (char)getchar(), i++) {
-    if (isalnum(c) || c == '#') {
+    if (isalnum(c) || c == '#' || c == '_') {
       word[i] = (char)c;
     } else {
       word[i] = '\0';
@@ -86,9 +86,7 @@ static void getword(int c, char* word) {
 
 // parsing_test(): A nasty function with a lot of nested
 // logic to determine if we are in a valid region of code for keyword parsing;
-// note that we ignore C preprocessor directives - we explicitly parse for
-// preprocessor control statements as we would any other keyword, and
-// consider any keywords in #define statements as valid.
+// Regions we do not care about keywords in are comments and string literals
 static void parsing_test(const int c1, parsing_state* ps) {
   int c2 = 0;
 

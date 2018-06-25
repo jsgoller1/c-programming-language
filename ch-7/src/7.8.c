@@ -38,10 +38,6 @@ static int paged_print(char* path) {
 }
 
 int main(int argc, char** argv) {
-  if (argc < 1) {
-    printf("usage: ./7.8 <file1> <file2> ...");
-  }
-
   for (int i = 1; i < argc; i++) {
     if (paged_print(argv[i]) == -1) {
       return -1;

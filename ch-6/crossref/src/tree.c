@@ -89,13 +89,13 @@ void tree_walk(word_node* head) {
     return;
   }
 
-  tree_walk(head->left);
+  tree_walk(head->right);
   printf("%s: ", head->word);
   for (int i = 0; i < head->lines_n; i++) {
     printf("%d ", head->lines[i]);
   }
   printf("\n");
-  tree_walk(head->right);
+  tree_walk(head->left);
 }
 
 void tree_cleanup(word_node* head) {

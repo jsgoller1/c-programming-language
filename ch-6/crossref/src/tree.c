@@ -1,3 +1,4 @@
+#include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
 
@@ -38,29 +39,29 @@ word_node* tree_insert(char* word, word_node* node) {
     return NULL;
   }
 
+  word_node* ret_node = NULL;
   int result = strcmp(node->word, word);
   // Word is already present in tree
   if (result == 0) {
-    return node;
+    ret_node = node;
   }  // left subtree
   else if (result < 0) {
     if (node->left == NULL) {
       node->left = create_node(word);
-      return node->left;
+      ret_node = node->left;
     } else {
-      tree_insert(word, node->left);
+      ret_node = tree_insert(word, node->left);
     }
   }  // right subtree
   else {
     if (node->right == NULL) {
       node->right = create_node(word);
-      return node->right;
+      ret_node = node->right;
     } else {
-      tree_insert(word, node->right);
+      ret_node = tree_insert(word, node->right);
     }
   }
-  // Should never reach here; silence compiler error
-  return NULL;
+  return ret_node;
 }
 
 word_node* tree_search(char* word, word_node* node) {
@@ -89,7 +90,11 @@ void tree_walk(word_node* head) {
   }
 
   tree_walk(head->left);
-  printf("%s\n", head->word);
+  printf("%s: ", head->word);
+  for (int i = 0; i < head->lines_n; i++) {
+    printf("%d ", head->lines[i]);
+  }
+  printf("\n");
   tree_walk(head->right);
 }
 

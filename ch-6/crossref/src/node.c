@@ -1,4 +1,5 @@
 #include <alloca.h>
+#include <stdio.h>
 #include <stdlib.h>
 
 #include "crossref.h"
@@ -24,6 +25,10 @@ int resize_line_arr(word_node* node) {
 }
 
 int add_line(word_node* node, int line_no) {
+  if (node == NULL) {
+    return -1;
+  }
+
   // check to see if the word is already on the line
   for (int i = 0; i < node->lines_n; i++) {
     if (node->lines[i] == line_no) {

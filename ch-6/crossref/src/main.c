@@ -35,7 +35,9 @@ int main() {
   }
 
   // display tree contents, then cleanup and exit
-  tree_walk(head);
-  tree_cleanup(head);
+  if (head != NULL) {
+    tree_walk(head);
+    tree_cleanup(head);
+  }
   return 0;
 }

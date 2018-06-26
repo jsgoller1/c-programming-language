@@ -13,7 +13,8 @@ static int is_noise_word( char*  word, word_node* noise_words) {
 }
 */
 
-// getword(): get the next word from input;
+// getword(): get the next word from input. Returns the last
+// char read, or EOF
 int getword(char* word) {
   int i = 0;
   int c = 0;

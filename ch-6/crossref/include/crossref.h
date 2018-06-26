@@ -1,5 +1,5 @@
 #define MAX_WORD 100
-#define INIT_LINES 25
+#define INIT_LINES 5
 
 typedef struct word_node {
   char* word;
@@ -16,6 +16,7 @@ int getword(char* word);
 // node.c
 int resize_line_arr(word_node* node);
 int add_line(word_node* node, int line_no);
+void display_lines(word_node* node);
 
 // tree.c
 word_node* create_node(char* word);

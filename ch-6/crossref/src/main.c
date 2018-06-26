@@ -14,20 +14,20 @@ int main() {
   word_node* current = NULL;
 
   while ((c = getword(word)) != EOF) {
-    if (head == NULL) {
-      head = create_node(word);
-    }
+    if (strlen(word) > 0) {
+      if (head == NULL) {
+        head = create_node(word);
+      }
+      // see if we've encountered the word before
+      if ((current = tree_search(word, head)) == NULL) {
+        current = tree_insert(word, head);
+      }
 
-    // see if we've encountered the word before
-    if ((current = tree_search(word, head)) == NULL) {
-      current = tree_insert(word, head);
+      // add this line to the word's list of lines
+      if (add_line(current, line_count) == -1) {
+        return -1;
+      }
     }
-
-    // add this line to the word's list of lines
-    if (add_line(current, line_count) == -1) {
-      return -1;
-    }
-
     // bump line count if we are going to the next line
     if (c == '\n') {
       line_count++;

@@ -65,7 +65,7 @@ decl undecl:
 ## Chapter 6
 # crossref is 6.3
 crossref:
-	$(CC) $(CFLAGS) $(OUTPUT_LEVEL) -I ch-6/$@/include/ $(INCLUDES) $(LIBS) ch-5/$@/src/*.c -o bin/$@
+	$(CC) $(CFLAGS) $(OUTPUT_LEVEL) -I ch-6/$@/include/ $(INCLUDES) $(LIBS) ch-6/$@/src/*.c -o bin/$@
 	# cat ch-6/$@/crossref-test.txt | @valgrind -q --leak-check=full --error-exitcode=5 ./bin/$@
 	cat ch-6/$@/crossref-test.txt | ./bin/$@
 

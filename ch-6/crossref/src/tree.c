@@ -4,36 +4,7 @@
 
 #include "crossref.h"
 
-word_node* create_node(char* word) {
-  word_node* new_node = malloc(sizeof(word_node));
-
-  // set up string
-  int word_len = (int)strlen(word);
-  new_node->word = malloc((unsigned long)(word_len + 1));
-  if (new_node->word == NULL) {
-    free(new_node);
-    return NULL;
-  }
-  strcpy(new_node->word, word);
-  new_node->word[word_len] = '\0';
-
-  // set up lines array
-  new_node->lines = malloc(INIT_LINES);
-  if (new_node->lines == NULL) {
-    free(new_node->word);
-    free(new_node);
-    return NULL;
-  }
-  new_node->lines_n = 0;
-  new_node->lines_max = INIT_LINES;
-
-  // assign other values
-  new_node->left = NULL;
-  new_node->right = NULL;
-
-  return new_node;
-}
-
+// tree_insert(): insert word in tree
 word_node* tree_insert(char* word, word_node* node) {
   if (node == NULL) {
     return NULL;
@@ -64,8 +35,8 @@ word_node* tree_insert(char* word, word_node* node) {
   return ret_node;
 }
 
+// tree_search(): return node in tree storing word, or NULL
 word_node* tree_search(char* word, word_node* node) {
-  // if the node isn't present in the tree
   if (node == NULL) {
     return NULL;
   }
@@ -84,20 +55,17 @@ word_node* tree_search(char* word, word_node* node) {
   return NULL;
 }
 
+// tree_walk(): post-order walk the tree, printing strings and line buffers
 void tree_walk(word_node* head) {
   if (head == NULL) {
     return;
   }
-
   tree_walk(head->right);
-  printf("%s: ", head->word);
-  for (int i = 0; i < head->lines_n; i++) {
-    printf("%d ", head->lines[i]);
-  }
-  printf("\n");
+  display_lines(head);
   tree_walk(head->left);
 }
 
+// tree_cleanup(): recursively free each node in the tree
 void tree_cleanup(word_node* head) {
   if (head->left != NULL) {
     tree_cleanup(head->left);

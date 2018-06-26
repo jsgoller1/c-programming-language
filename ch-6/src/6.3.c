@@ -1,4 +1,5 @@
 #include <alloca.h>
+#include <ctype.h>
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
@@ -13,9 +14,8 @@
  * these arrays as needed. We will read line by line from stdin, incrementing a
  * linecount each time we see a \n. At the end, we will walk the tree and print
  * the words and their counts.
- *
- * I will abuse alloca() to make this easier on myself.
  */
+
 #define MAX_WORD 100
 #define INIT_LINES 25
 
@@ -147,12 +147,12 @@ static int resize_line_arr(word_node* node) {
 }
 
 static int add_line(word_node* node, int line) {
-  if (!((word_node->lines_n) < (word_node->lines_max))) {
+  if (!(node->lines_n < node->lines_max)) {
     if (resize_line_arr(node) == -1) {
       return -1;
     }
   }
-  word_node[lines_n++] = line;
+  node->lines[node->lines_n++] = line;
   return 0;
 }
 
@@ -166,27 +166,39 @@ static int is_noise_word( char*  word, word_node* noise_words) {
 }
 */
 
+// getword(): get the next word from input;
+static int getword(char* word) {
+  int i = 0;
+  int c = 0;
+  c = getchar();
+  while (i < MAX_WORD - 1 && isalnum(c) && c != EOF) {
+    word[i] = (char)c;
+    i++;
+    c = getchar();
+  }
+  word[i] = '\0';
+  return c;
+}
+
 int main() {
+  int c = 0;
+  int line_count = 1;
   char word[MAX_WORD];
-  word_node* noise_words = NULL;
   word_node* head = NULL;
   word_node* current = NULL;
 
-  while (getword(word) != EOF) {
-    /*
-    // ignore noise words
-    if (is_noise_word(word, noise_words)) {
-      continue;
+  while ((c = getword(word)) != EOF) {
+    if (c == '\n') {
+      line_count++;
     }
-    */
 
     // see if we've encountered the word before
-    if ((current = tree_search(word)) == NULL) {
-      current = tree_insert(word);
+    if ((current = tree_search(word, head)) == NULL) {
+      current = tree_insert(word, head);
     }
 
     // add this line to the word's list of lines
-    add_line(current);
+    add_line(current, line_count);
   }
 
   // display tree contents, then cleanup and exit

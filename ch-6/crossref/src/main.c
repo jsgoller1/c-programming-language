@@ -15,6 +15,7 @@ int main() {
 
   while ((c = getword(word)) != EOF) {
     if (strlen(word) > 0) {
+      // printf("main() | inserting %s\n", word);
       if (head == NULL) {
         head = create_node(word);
       }
@@ -27,6 +28,7 @@ int main() {
       if (add_line(current, line_count) == -1) {
         return -1;
       }
+      display_lines(current, current->lines);
     }
     // bump line count if we are going to the next line
     if (c == '\n') {

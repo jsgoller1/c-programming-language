@@ -16,7 +16,7 @@ int getword(char* word);
 // node.c
 int resize_line_arr(word_node* node);
 int add_line(word_node* node, int line_no);
-void display_lines(word_node* node);
+void display_lines(word_node* node, int* arr);
 
 // tree.c
 word_node* create_node(char* word);

@@ -38,17 +38,26 @@ word_node* create_node(char* word) {
 
 // resize_line_arr(): dynamically resize node's line array
 int resize_line_arr(word_node* node) {
+  // printf("resize_line_arr() | resizing %s\n", node->word);
   // copy old chars to temp array
   int* temp = alloca(node->lines_max);
-  for (int i = 0; i < node->lines_n; i++) {
+  display_lines(node, node->lines);
+  for (int i = 0; i < node->lines_max; i++) {
+    // printf("copying lines[%d] (%d)\n", i, node->lines[i]);
     temp[i] = node->lines[i];
   }
 
+  display_lines(node, temp);
+
   // resize old array to 2x
   node->lines_max *= 2;
-  printf("resize_line_arr() | resizing to %d\n", node->lines_max);
   free(node->lines);
   node->lines = malloc((unsigned long)(node->lines_max * 2));
+  if (node->lines == NULL) {
+    printf("resize_line_arr() | cannot resize line arr for %s, quitting.\n",
+           node->word);
+    return -1;
+  }
 
   // copy old chars to new array
   for (int i = 0; i < node->lines_n; i++) {
@@ -72,6 +81,7 @@ int add_line(word_node* node, int line_no) {
   }
 
   // resize lines arr if necessary
+  // (if lines_max is 5, last usable one is lines[4])
   if (node->lines_n == node->lines_max - 1) {
     if (resize_line_arr(node) == -1) {
       return -1;
@@ -84,10 +94,10 @@ int add_line(word_node* node, int line_no) {
 }
 
 // display_line(): display all lines in line buffer
-void display_lines(word_node* node) {
-  printf("%s: ", node->word);
+void display_lines(word_node* node, int* arr) {
+  printf("%s (n: %d, max: %d): ", node->word, node->lines_n, node->lines_max);
   for (int i = 0; i < node->lines_n; i++) {
-    printf("%d ", node->lines[i]);
+    printf("%d ", arr[i]);
   }
   printf("\n");
 }

@@ -11,6 +11,7 @@ word_node* tree_insert(char* word, word_node* node) {
   }
 
   word_node* ret_node = NULL;
+  // printf("tree_insert() | strcmp %s and %s\n", node->word, word);
   int result = strcmp(node->word, word);
   // Word is already present in tree
   if (result == 0) {
@@ -32,6 +33,7 @@ word_node* tree_insert(char* word, word_node* node) {
       ret_node = tree_insert(word, node->right);
     }
   }
+  // printf("tree_insert() | inserted %s\n", word);
   return ret_node;
 }
 
@@ -42,6 +44,7 @@ word_node* tree_search(char* word, word_node* node) {
   }
 
   // walk tree based on comparison to word
+  // printf("tree_search() | strcmp %s and %s\n", node->word, word);
   int result = strcmp(node->word, word);
   if (result == 0) {
     return node;
@@ -61,7 +64,7 @@ void tree_walk(word_node* head) {
     return;
   }
   tree_walk(head->right);
-  display_lines(head);
+  display_lines(head, head->lines);
   tree_walk(head->left);
 }
 

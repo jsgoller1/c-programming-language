@@ -59,6 +59,10 @@ static word_node* create_node(char* word) {
 }
 
 static word_node* tree_insert(char* word, word_node* node) {
+  if (node == NULL) {
+    return NULL;
+  }
+
   int result = strcmp(node->word, word);
   // Word is already present in tree
   if (result == 0) {
@@ -146,13 +150,23 @@ static int resize_line_arr(word_node* node) {
   return 0;
 }
 
-static int add_line(word_node* node, int line) {
+static int add_line(word_node* node, int line_no) {
+  // check to see if the word is already on the line
+  for (int i = 0; i < node->lines_n; i++) {
+    if (node->lines[i] == line_no) {
+      return 0;
+    }
+  }
+
+  // resize lines arr if necessary
   if (!(node->lines_n < node->lines_max)) {
     if (resize_line_arr(node) == -1) {
       return -1;
     }
   }
-  node->lines[node->lines_n++] = line;
+
+  // add line to lines arr
+  node->lines[node->lines_n++] = line_no;
   return 0;
 }
 
@@ -188,8 +202,9 @@ int main() {
   word_node* current = NULL;
 
   while ((c = getword(word)) != EOF) {
-    if (c == '\n') {
-      line_count++;
+    printf("main() | got word: %s\n", word);
+    if (head == NULL) {
+      head = create_node(word);
     }
 
     // see if we've encountered the word before
@@ -199,6 +214,11 @@ int main() {
 
     // add this line to the word's list of lines
     add_line(current, line_count);
+
+    // bump line count if we are going to the next line
+    if (c == '\n') {
+      line_count++;
+    }
   }
 
   // display tree contents, then cleanup and exit

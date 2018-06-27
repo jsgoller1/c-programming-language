@@ -14,7 +14,6 @@ typedef struct word_node {
 int getword(char* word);
 
 // node.c
-int resize_line_arr(word_node* node);
 int add_line(word_node* node, size_t line_no);
 void display_lines(word_node* node, size_t* arr);
 

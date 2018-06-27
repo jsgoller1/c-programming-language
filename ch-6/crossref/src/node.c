@@ -36,31 +36,6 @@ word_node* create_node(char* word) {
   return new_node;
 }
 
-// resize_line_arr(): dynamically resize node's line array; I later
-// discovered realloc(), but I spent two days debugging the fact
-// that I initially didn't use "* sizeof(size_t)" in the malloc, so
-// I'm keeping this function :P
-int resize_line_arr(word_node* node) {
-  // create larger buffer
-  size_t old_max = node->lines_max;
-  node->lines_max *= 2;
-  size_t* new_lines = malloc(node->lines_max);
-  if (new_lines == NULL) {
-    printf("resize_line_arr() | cannot resize line arr for %s, quitting.\n",
-           node->word);
-    return -1;
-  }
-
-  // copy chars in old buffer to new buffer
-  memcpy(new_lines, node->lines, old_max * sizeof(size_t));
-
-  // free old buffer and assign new one
-
-  free(node->lines);
-  node->lines = new_lines;
-  return 0;
-}
-
 // add_line(): add a line number to a node's list of lines
 int add_line(word_node* node, size_t line_no) {
   if (node == NULL) {
@@ -77,7 +52,9 @@ int add_line(word_node* node, size_t line_no) {
   // resize lines arr if necessary
   // (if lines_max is 5, last usable one is lines[4])
   if (node->lines_n == node->lines_max - 1) {
-    if (resize_line_arr(node) == -1) {
+    node->lines_max *= 2;
+    if (realloc(node->lines, node->lines_max * sizeof(size_t)) == NULL) {
+      printf("add_line() | couldn't resize buffer, quitting.\n");
       return -1;
     }
   }

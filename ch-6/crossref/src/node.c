@@ -43,8 +43,6 @@ word_node* create_node(char* word) {
   // assign other values
   new_node->left = NULL;
   new_node->right = NULL;
-
-  printf("create_node() | created node for %s.\n", new_node->word);
   return new_node;
 }
 
@@ -64,22 +62,15 @@ int add_line(word_node* node, size_t line_no) {
   // resize lines arr if necessary
   // (if lines_max is 5, last usable one is lines[4])
   if (node->lines_n == node->lines_max - 1) {
-    printf("add_lines() | resizing %s\n", node->word);
-    display_lines(node);
     node->lines_max *= 2;
     node->lines = realloc(node->lines, node->lines_max * sizeof(size_t));
     if (node->lines == NULL) {
       printf("add_line() | couldn't resize buffer, quitting.\n");
       return -1;
-    } else {
-      printf("add_lines() | resized.\n");
-      display_lines(node);
-      printf("\n");
     }
   }
+
   // add line to lines arr
-  printf("add_lines() | writing %lu to %s->lines[%lu]\n", line_no, node->word,
-         node->lines_n);
   node->lines[node->lines_n++] = line_no;
   return 0;
 }

@@ -27,8 +27,8 @@ int main() {
       if (add_line(current, line_count) == -1) {
         return -1;
       }
-      display_lines(current);
     }
+
     // bump line count if we are going to the next line
     if (c == '\n') {
       line_count++;

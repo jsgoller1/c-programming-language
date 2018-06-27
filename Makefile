@@ -66,8 +66,7 @@ decl undecl:
 # crossref is 6.3
 crossref:
 	$(CC) $(CFLAGS) $(OUTPUT_LEVEL) -I ch-6/$@/include/ $(INCLUDES) $(LIBS) ch-6/$@/src/*.c -o bin/$@
-	# cat ch-6/$@/crossref-test.txt | @valgrind -q --leak-check=full --error-exitcode=5 ./bin/$@
-	cat ch-6/$@/crossref-test.txt | ./bin/$@
+	cat ch-6/$@/crossref-test.txt | valgrind -q --leak-check=full --error-exitcode=5 ./bin/$@
 
 ## Chapter 8
 # cat is 8.1
@@ -83,7 +82,7 @@ fopen_j malloc_j:
 	$(CC) $(CFLAGS) $(OUTPUT_LEVEL) -I ch-8/$@/include/ $(INCLUDES) $(LIBS) ch-8/$@/src/*.c -o bin/$@
 	valgrind -q --leak-check=full --error-exitcode=5 ./bin/$@
 
-### Docker linux workspace
+### Dockerized Linux workspace; setting up Valgrind on OSX is annoying.
 docker:
 	docker pull ubuntu
 	docker run \

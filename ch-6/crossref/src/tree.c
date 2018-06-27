@@ -11,7 +11,6 @@ word_node* tree_insert(char* word, word_node* node) {
   }
 
   word_node* ret_node = NULL;
-  // printf("tree_insert() | strcmp %s and %s\n", node->word, word);
   int result = strcmp(node->word, word);
   // Word is already present in tree
   if (result == 0) {
@@ -69,9 +68,9 @@ void tree_cleanup(word_node* node) {
     tree_cleanup(node->left);
   } else if (node->right != NULL) {
     tree_cleanup(node->right);
-  } else {
-    free(node->word);
-    free(node->lines);
-    free(node);
   }
+  printf("tree_cleanup() | cleaning up %s\n", node->word);
+  free(node->word);
+  free(node->lines);
+  free(node);
 }

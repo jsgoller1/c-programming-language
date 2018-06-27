@@ -7,21 +7,32 @@
 
 // create_node(): allocate a new node
 word_node* create_node(char* word) {
+  if (word == NULL) {
+    printf("create_node() | cannot create node for null string.\n");
+    return NULL;
+  }
+
   word_node* new_node = malloc(sizeof(word_node));
+  if (new_node == NULL) {
+    printf("create_node() | couldn't allocate node.\n");
+    return NULL;
+  }
 
   // set up string
   size_t word_len = strlen(word);
   new_node->word = malloc(word_len + 1);
   if (new_node->word == NULL) {
+    printf("create_node() | couldn't allocate word buffer.\n");
     free(new_node);
     return NULL;
   }
-  strcpy(new_node->word, word);
+  strncpy(new_node->word, word, word_len);
   new_node->word[word_len] = '\0';
 
   // set up lines array
-  new_node->lines = malloc(INIT_LINES);
+  new_node->lines = malloc(INIT_LINES * sizeof(size_t));
   if (new_node->lines == NULL) {
+    printf("create_node() | couldn't allocate lines buffer.\n");
     free(new_node->word);
     free(new_node);
     return NULL;
@@ -33,6 +44,7 @@ word_node* create_node(char* word) {
   new_node->left = NULL;
   new_node->right = NULL;
 
+  printf("create_node() | created node for %s.\n", new_node->word);
   return new_node;
 }
 
@@ -65,10 +77,10 @@ int add_line(word_node* node, size_t line_no) {
 }
 
 // display_line(): display all lines in line buffer
-void display_lines(word_node* node, size_t* arr) {
+void display_lines(word_node* node) {
   printf("%s (n: %lu, max: %lu): ", node->word, node->lines_n, node->lines_max);
   for (size_t i = 0; i < node->lines_n; i++) {
-    printf("%lu ", arr[i]);
+    printf("%lu ", node->lines[i]);
   }
   printf("\n");
 }

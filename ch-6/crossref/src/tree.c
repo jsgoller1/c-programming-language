@@ -33,7 +33,6 @@ word_node* tree_insert(char* word, word_node* node) {
       ret_node = tree_insert(word, node->right);
     }
   }
-  // printf("tree_insert() | inserted %s\n", word);
   return ret_node;
 }
 
@@ -44,18 +43,14 @@ word_node* tree_search(char* word, word_node* node) {
   }
 
   // walk tree based on comparison to word
-  // printf("tree_search() | strcmp %s and %s\n", node->word, word);
   int result = strcmp(node->word, word);
   if (result == 0) {
     return node;
   } else if (result < 0) {
-    tree_search(word, node->left);
-  } else if (result > 0) {
-    tree_search(word, node->right);
+    return tree_search(word, node->left);
+  } else {
+    return tree_search(word, node->right);
   }
-
-  // Node not present in tree
-  return NULL;
 }
 
 // tree_walk(): post-order walk the tree, printing strings and line buffers
@@ -64,19 +59,19 @@ void tree_walk(word_node* head) {
     return;
   }
   tree_walk(head->right);
-  display_lines(head, head->lines);
+  display_lines(head);
   tree_walk(head->left);
 }
 
 // tree_cleanup(): recursively free each node in the tree
-void tree_cleanup(word_node* head) {
-  if (head->left != NULL) {
-    tree_cleanup(head->left);
-  } else if (head->right != NULL) {
-    tree_cleanup(head->right);
+void tree_cleanup(word_node* node) {
+  if (node->left != NULL) {
+    tree_cleanup(node->left);
+  } else if (node->right != NULL) {
+    tree_cleanup(node->right);
   } else {
-    free(head->word);
-    free(head->lines);
-    free(head);
+    free(node->word);
+    free(node->lines);
+    free(node);
   }
 }

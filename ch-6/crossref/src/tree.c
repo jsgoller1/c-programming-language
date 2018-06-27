@@ -69,7 +69,6 @@ void tree_cleanup(word_node* node) {
   } else if (node->right != NULL) {
     tree_cleanup(node->right);
   }
-  printf("tree_cleanup() | cleaning up %s\n", node->word);
   free(node->word);
   free(node->lines);
   free(node);

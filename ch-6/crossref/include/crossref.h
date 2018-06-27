@@ -3,9 +3,9 @@
 
 typedef struct word_node {
   char* word;
-  int* lines;
-  int lines_n;
-  int lines_max;
+  size_t* lines;
+  size_t lines_n;
+  size_t lines_max;
   struct word_node* left;
   struct word_node* right;
 } word_node;
@@ -15,8 +15,8 @@ int getword(char* word);
 
 // node.c
 int resize_line_arr(word_node* node);
-int add_line(word_node* node, int line_no);
-void display_lines(word_node* node, int* arr);
+int add_line(word_node* node, size_t line_no);
+void display_lines(word_node* node, size_t* arr);
 
 // tree.c
 word_node* create_node(char* word);

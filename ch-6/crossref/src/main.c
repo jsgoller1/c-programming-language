@@ -8,14 +8,13 @@
 
 int main() {
   int c = 0;
-  int line_count = 1;
+  size_t line_count = 1;
   char word[MAX_WORD];
   word_node* head = NULL;
   word_node* current = NULL;
 
   while ((c = getword(word)) != EOF) {
     if (strlen(word) > 0) {
-      // printf("main() | inserting %s\n", word);
       if (head == NULL) {
         head = create_node(word);
       }

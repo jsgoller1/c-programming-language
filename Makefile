@@ -82,3 +82,17 @@ cat:
 fopen_j malloc_j:
 	$(CC) $(CFLAGS) $(OUTPUT_LEVEL) -I ch-8/$@/include/ $(INCLUDES) $(LIBS) ch-8/$@/src/*.c -o bin/$@
 	valgrind -q --leak-check=full --error-exitcode=5 ./bin/$@
+
+### Docker linux workspace
+docker:
+	docker pull ubuntu
+	docker run \
+	-dt \
+	--name ubuntu \
+	-v `pwd`:/workspace \
+	ubuntu
+	docker exec ubuntu apt-get update
+	docker exec ubuntu apt-get install -y make valgrind clang
+
+shell:
+	docker exec -it ubuntu /bin/bash

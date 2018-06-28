@@ -49,7 +49,9 @@ See `TODO.md` for the remaining work to be done.
   * I skipped 4.10, because I re-architected the RPN calculator to loosely couple and more robustly handle parsing, lexing, and token handling; a solution involving parsing the entire string either would require 1) tightly-recoupling these  things so that in one loop you can handle the entire string, determining symbols and pushing it to the stack, or 2) having an intermediary data structure similar to the ungetch() buffer.
   * K&R claim that in 4.9 `getch()` / `ungetch()` don't handle `EOF` correctly, but the expected behavior occurs both in my implementation and theirs so I'm not quite sure what this question is asking. `EOF` does cause the program to exit correctly, although the `EOF` character gets pushed back into the array by `ungets()`.
 * Ch. 6:
-  * 6.3: I spent a few days chasing memory-related bugs in this program, so I didn't bother trying to filter out `noise words` from the final output.
+  * 6.3 (`crossref`):
+    * I spent a few days chasing memory-related bugs in this program, so I didn't bother trying to filter out `noise words` from the final output.
+    * I copied and modified the tree code in `crossref` into `common/` to be usable as a generic tree library for 6.4 and other exercises, but I didn't bother making 6.3 use it; I can and probably should refactor 6.3 if I ever get around to it.
 * Ch. 7:
   * 7.3: _technically_ is done since all I did was make it possible to print hex / octal values, but I'd like to return to it and see if I can get min / max width working too.
 

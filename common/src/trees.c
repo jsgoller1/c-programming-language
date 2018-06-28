@@ -15,8 +15,9 @@
  */
 
 // tree_insert(): insert word in tree
-tnode* tree_insert(tnode* node, void* value, size_t size,
-                   int (*compare)(void*, void*)) {
+tnode* tree_insert(tnode* const node, const void* const value,
+                   const size_t size,
+                   int (*compare)(const void* const, const void* const)) {
   if (node == NULL) {
     return NULL;
   }

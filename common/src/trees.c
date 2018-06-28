@@ -14,20 +14,20 @@
  */
 
 // tree_insert(): insert word in tree
-tnode* tree_insert(tnode* node, void* value, size_t size;
-                   size_t(*compare)(void*, void*)) {
+tnode* tree_insert(tnode* node, void* value, size_t size,
+                   int (*compare)(void*, void*)) {
   if (node == NULL) {
-    return -1;
+    return NULL;
   }
 
-  size_t result = compare(node->data, value);
+  int result = compare(node->data, value);
   // Left subtree
   if (result <= 0) {
     if (node->left == NULL) {
       node->left = tnode_alloc(value, size);
       return node->left;
     } else {
-      return tree_insert(node->left, new, size, compare);
+      return tree_insert(node->left, value, size, compare);
     }
   }  // Right subtree
   else {
@@ -35,19 +35,19 @@ tnode* tree_insert(tnode* node, void* value, size_t size;
       node->right = tnode_alloc(value, size);
       return node->right;
     } else {
-      return tree_insert(node->right, new, size, compare);
+      return tree_insert(node->right, value, size, compare);
     }
   }
 }
 
 // tree_search(): return node in tree storing word, or NULL
-tnode* tree_search(tnode* node, void* value, size_t (*compare)(void*, void*)) {
+tnode* tree_search(tnode* node, void* value, int (*compare)(void*, void*)) {
   if (node == NULL) {
     return NULL;
   }
 
   // walk tree based on comparison to word
-  size_t result = compare(node->value, value);
+  int result = compare(node->data, value);
   if (result == 0) {
     return node;
   } else if (result < 0) {
@@ -99,30 +99,30 @@ void tree_cleanup(tnode* node) {
  * https://en.wikipedia.org/wiki/Tree_traversal#Depth-first_search
  * for details
  */
-void tree_walk_postorder(void* node, void (*display)(void*)) {
+void tree_walk_postorder(tnode* node, void (*display)(tnode*)) {
   if (node == NULL) {
     return;
   }
-  tree_walk(node->right);
+  tree_walk_postorder(node->right, display);
   display(node);
-  tree_walk(node->left);
+  tree_walk_postorder(node->left, display);
 }
 
-void tree_walk_preorder(void* node, void (*display)(void*)) {
+void tree_walk_preorder(tnode* node, void (*display)(tnode*)) {
   if (node == NULL) {
     return;
   }
   display(node);
-  tree_walk(node->right);
-  tree_walk(node->left);
+  tree_walk_preorder(node->right, display);
+  tree_walk_preorder(node->left, display);
 }
 
-void tree_walk_inorder(void* node, void (*display)(void*)) {
+void tree_walk_inorder(tnode* node, void (*display)(tnode*)) {
   if (node == NULL) {
     return;
   }
 
-  tree_walk(node->left);
+  tree_walk_inorder(node->left, display);
   display(node);
-  tree_walk(node->right);
+  tree_walk_inorder(node->right, display);
 }

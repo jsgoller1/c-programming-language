@@ -13,33 +13,6 @@
  * child is <= the parent, and a right node is > the parent.
  */
 
-// tnode_alloc(): function for creating nodes to insert into tree.
-tnode* tnode_alloc(void* data, size_t size) {
-  tnode* node = malloc(sizeof(tnode));
-  if (node == NULL) {
-    return NULL;
-  }
-
-  node->data = malloc(size);
-  if (node->data == NULL) {
-    return NULL;
-  }
-
-  // NOTE: memcpy() should return node->data
-  memcpy(node->data, data, size);
-  return node;
-}
-
-// tnode_free(): de-allocates a tnode; does NOT handle BST deletion, just memory
-// management
-void tnode_free(tnode* node) {
-  if (node == NULL) {
-    return;
-  }
-  free(node->data);
-  free(node);
-}
-
 // tree_insert(): insert word in tree
 tnode* tree_insert(tnode* node, void* value, size_t size;
                    size_t(*compare)(void*, void*)) {
@@ -82,6 +55,33 @@ tnode* tree_search(tnode* node, void* value, size_t (*compare)(void*, void*)) {
   } else {
     return tree_search(node->right, value, compare);
   }
+}
+
+// tnode_alloc(): function for creating nodes to insert into tree.
+tnode* tnode_alloc(void* data, size_t size) {
+  tnode* node = malloc(sizeof(tnode));
+  if (node == NULL) {
+    return NULL;
+  }
+
+  node->data = malloc(size);
+  if (node->data == NULL) {
+    return NULL;
+  }
+
+  // NOTE: memcpy() should return node->data
+  memcpy(node->data, data, size);
+  return node;
+}
+
+// tnode_free(): de-allocates a tnode; does NOT handle BST deletion, just memory
+// management
+void tnode_free(tnode* node) {
+  if (node == NULL) {
+    return;
+  }
+  free(node->data);
+  free(node);
 }
 
 // tree_cleanup(): recursively free each node in the tree

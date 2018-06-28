@@ -15,6 +15,9 @@ void tnode_free(tnode* node);
 void tree_cleanup(tnode* node);
 
 // traversal
-void tree_walk_postorder(tnode* node, void (*display)(tnode*));
-void tree_walk_preorder(tnode* node, void (*display)(tnode*));
-void tree_walk_inorder(tnode* node, void (*display)(tnode*));
+void tree_walk_postorder(const tnode* const node,
+                         void (*display)(const tnode* const));
+void tree_walk_preorder(const tnode* const node,
+                        void (*display)(const tnode* const));
+void tree_walk_inorder(const tnode* const node,
+                       void (*display)(const tnode* const));

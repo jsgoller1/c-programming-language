@@ -99,7 +99,8 @@ void tree_cleanup(tnode* node) {
  * https://en.wikipedia.org/wiki/Tree_traversal#Depth-first_search
  * for details
  */
-void tree_walk_postorder(tnode* node, void (*display)(tnode*)) {
+void tree_walk_postorder(const tnode* const node,
+                         void (*display)(const tnode* const)) {
   if (node == NULL) {
     return;
   }
@@ -108,7 +109,8 @@ void tree_walk_postorder(tnode* node, void (*display)(tnode*)) {
   tree_walk_postorder(node->left, display);
 }
 
-void tree_walk_preorder(tnode* node, void (*display)(tnode*)) {
+void tree_walk_preorder(const tnode* const node,
+                        void (*display)(const tnode* const)) {
   if (node == NULL) {
     return;
   }
@@ -117,7 +119,8 @@ void tree_walk_preorder(tnode* node, void (*display)(tnode*)) {
   tree_walk_preorder(node->left, display);
 }
 
-void tree_walk_inorder(tnode* node, void (*display)(tnode*)) {
+void tree_walk_inorder(const tnode* const node,
+                       void (*display)(const tnode* const)) {
   if (node == NULL) {
     return;
   }

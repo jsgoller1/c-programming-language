@@ -23,6 +23,7 @@ int mygetline(char* const line, const int maxline);
 int readlines(char** lineptr, const int maxlines);
 void writelines(char** lineptr, const int nlines);
 void freelines(char** lineptr, const int nlines);
+int getword(char* word, int len);
 
 // Memory
 char* myalloc(int n);

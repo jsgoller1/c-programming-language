@@ -1,6 +1,8 @@
+#include <ctype.h>
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
+
 #include "common.h"
 
 /*
@@ -65,4 +67,18 @@ void freelines(char **lineptr, const int nlines) {
   for (int i = 0; i < nlines; i++) {
     free(lineptr[i]);
   }
+}
+
+// getword(): reads alphanumeric characters and returns the final character read
+int getword(char *word, int len) {
+  int i = 0;
+  int c = 0;
+  c = getchar();
+  while (i < len - 1 && isalnum(c) && c != EOF) {
+    word[i] = (char)c;
+    i++;
+    c = getchar();
+  }
+  word[i] = '\0';
+  return c;
 }

@@ -70,7 +70,11 @@ void freelines(char **lineptr, const int nlines) {
 }
 
 // getword(): reads alphanumeric characters and returns the final character read
-int getword(char *word, int len) {
+int getword(char *word, const int len) {
+  if (word == NULL || len < 1) {
+    return -1;
+  }
+
   int i = 0;
   int c = 0;
   c = getchar();
@@ -80,5 +84,5 @@ int getword(char *word, int len) {
     c = getchar();
   }
   word[i] = '\0';
-  return c;
+  return i;
 }

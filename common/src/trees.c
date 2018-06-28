@@ -19,7 +19,7 @@ tnode* tree_insert(tnode* const node, const void* const value,
                    const size_t size,
                    int (*compare)(const void* const, const void* const)) {
   if (node == NULL) {
-    return NULL;
+    return tnode_alloc(value, size);
   }
 
   int result = compare(node->data, value);
@@ -103,8 +103,8 @@ void tree_cleanup(tnode* node) {
  * https://en.wikipedia.org/wiki/Tree_traversal#Depth-first_search
  * for details
  */
-void tree_walk_postorder(const tnode* const node,
-                         void (*display)(const tnode* const)) {
+void trav_postorder(const tnode* const node,
+                    void (*display)(const tnode* const)) {
   if (node == NULL) {
     return;
   }
@@ -113,8 +113,8 @@ void tree_walk_postorder(const tnode* const node,
   tree_walk_postorder(node->left, display);
 }
 
-void tree_walk_preorder(const tnode* const node,
-                        void (*display)(const tnode* const)) {
+void trav_preorder(const tnode* const node,
+                   void (*display)(const tnode* const)) {
   if (node == NULL) {
     return;
   }
@@ -123,8 +123,8 @@ void tree_walk_preorder(const tnode* const node,
   tree_walk_preorder(node->left, display);
 }
 
-void tree_walk_inorder(const tnode* const node,
-                       void (*display)(const tnode* const)) {
+void trav_inorder(const tnode* const node,
+                  void (*display)(const tnode* const)) {
   if (node == NULL) {
     return;
   }

@@ -58,7 +58,7 @@ tnode* tree_search(tnode* node, void* value, int (*compare)(void*, void*)) {
 }
 
 // tnode_alloc(): function for creating nodes to insert into tree.
-tnode* tnode_alloc(void* data, size_t size) {
+tnode* tnode_alloc(const void* const data, const size_t size) {
   tnode* node = malloc(sizeof(tnode));
   if (node == NULL) {
     return NULL;

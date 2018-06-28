@@ -10,7 +10,7 @@ tnode* tree_insert(tnode* node, void* value, size_t size,
 tnode* tree_search(tnode* node, void* value, int (*compare)(void*, void*));
 
 // memory management
-tnode* tnode_alloc(void* data, size_t size);
+tnode* tnode_alloc(const void* const data, const size_t size);
 void tnode_free(tnode* node);
 void tree_cleanup(tnode* node);
 

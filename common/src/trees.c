@@ -14,40 +14,57 @@
  */
 
 // tnode_alloc(): function for creating nodes to insert into tree.
-tnode* tnode_alloc(void* data, size_t size) {}
+tnode* tnode_alloc(void* data, size_t size) {
+  tnode* node = malloc(sizeof(tnode));
+  if (node == NULL) {
+    return NULL;
+  }
+
+  node->data = malloc(size);
+  if (node->data == NULL) {
+    return NULL;
+  }
+
+  // NOTE: memcpy() should return node->data
+  memcpy(node->data, data, size);
+  return node;
+}
 
 // tnode_free(): de-allocates a tnode; does NOT handle BST deletion, just memory
 // management
-void tnode_free(tnode* node) {}
+void tnode_free(tnode* node) {
+  if (node == NULL) {
+    return;
+  }
+  free(node->data);
+  free(node);
+}
 
 // tree_insert(): insert word in tree
-tnode* tree_insert(tnode* current, void* value, size_t size;
+tnode* tree_insert(tnode* node, void* value, size_t size;
                    size_t(*compare)(void*, void*)) {
   if (node == NULL) {
     return -1;
   }
 
-  size_t result = compare(current->data, value);
-  // Word is already present in tree
+  size_t result = compare(node->data, value);
+  // Left subtree
   if (result <= 0) {
-    if (current->left == NULL) {
-      current->left = tnode_alloc(value, size);
-      return current->left;
+    if (node->left == NULL) {
+      node->left = tnode_alloc(value, size);
+      return node->left;
     } else {
-      return tree_insert(current->left, new, size, compare);
+      return tree_insert(node->left, new, size, compare);
     }
-  }  // right subtree
+  }  // Right subtree
   else {
-    if (current->right == NULL) {
-      current->right = tnode_alloc(value, size);
-      return current->right;
+    if (node->right == NULL) {
+      node->right = tnode_alloc(value, size);
+      return node->right;
     } else {
-      return tree_insert(current->right, new, size, compare);
+      return tree_insert(node->right, new, size, compare);
     }
   }
-
-  // Something is probably wrong with compare()
-  return -1;
 }
 
 // tree_search(): return node in tree storing word, or NULL
@@ -61,20 +78,20 @@ tnode* tree_search(tnode* node, void* value, size_t (*compare)(void*, void*)) {
   if (result == 0) {
     return node;
   } else if (result < 0) {
-    return tree_search(word, node->left);
+    return tree_search(node->left, value, compare);
   } else {
-    return tree_search(word, node->right);
+    return tree_search(node->right, value, compare);
   }
 }
 
 // tree_cleanup(): recursively free each node in the tree
-void tree_cleanup(void* node, void (*cleanup)(void*)) {
+void tree_cleanup(tnode* node) {
   if (node->left != NULL) {
     tree_cleanup(node->left);
   } else if (node->right != NULL) {
     tree_cleanup(node->right);
   }
-  cleanup(node);
+  tnode_free(node);
 }
 
 /*

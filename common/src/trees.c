@@ -1,3 +1,4 @@
+#pragma clang diagnostic ignored "-Wcast-qual"
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
@@ -41,7 +42,8 @@ tnode* tree_insert(tnode* node, void* value, size_t size,
 }
 
 // tree_search(): return node in tree storing word, or NULL
-tnode* tree_search(tnode* node, void* value, int (*compare)(void*, void*)) {
+tnode* tree_search(const tnode* const node, const void* const value,
+                   int (*compare)(const void* const, const void* const)) {
   if (node == NULL) {
     return NULL;
   }
@@ -49,7 +51,8 @@ tnode* tree_search(tnode* node, void* value, int (*compare)(void*, void*)) {
   // walk tree based on comparison to word
   int result = compare(node->data, value);
   if (result == 0) {
-    return node;
+    // explicit cast to non-const; pragma at top is for -Weverything
+    return (tnode*)node;
   } else if (result < 0) {
     return tree_search(node->left, value, compare);
   } else {

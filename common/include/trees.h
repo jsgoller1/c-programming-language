@@ -7,7 +7,8 @@ typedef struct tnode {
 // basic tree methods
 tnode* tree_insert(tnode* node, void* value, size_t size,
                    int (*compare)(void*, void*));
-tnode* tree_search(tnode* node, void* value, int (*compare)(void*, void*));
+tnode* tree_search(const tnode* const node, const void* const value,
+                   int (*compare)(const void* const, const void* const));
 
 // memory management
 tnode* tnode_alloc(const void* const data, const size_t size);

@@ -6,7 +6,7 @@ word_count* create_count_tree(const tnode* const word_tree) {
   return count_tree;
 }
 
-void create_tree(tnode* tree) {
+word_count* create_tree(tnode* tree) {
   int i;
   char word[MAXLEN] = {0};
   tnode* current = NULL;

@@ -1,15 +1,18 @@
-#include <stdint.h>
+#include <stdio.h>
 #include <string.h>
 
 #include "wordcount.h"
 
-ssize_t count_cmp(const void* const node1, const void* const node2) {
-  // TODO: NULL checks
-  // cast inputs to usable types
-  const tnode* const n1 = (const tnode*)node1;
-  const tnode* const n2 = (const tnode*)node2;
-  word_count* wc1 = (word_count*)(n1->data);
-  word_count* wc2 = (word_count*)(n2->data);
+int count_cmp(const void* const word_count1, const void* const word_count2) {
+  if (word_count1 == NULL) {
+    printf("word_cmp() | error - word_count1 is NULL.\n");
+    return -1;
+  } else if (word_count2 == NULL) {
+    printf("word_cmp() | error - word_count2 is NULL.\n");
+    return -1;
+  }
+  const word_count* const wc1 = (const word_count*)(word_count1);
+  const word_count* const wc2 = (const word_count*)(word_count2);
 
   if (wc1->count == wc2->count) {
     return 0;
@@ -20,13 +23,24 @@ ssize_t count_cmp(const void* const node1, const void* const node2) {
   }
 }
 
-ssize_t word_cmp(const void* const node1, const void* const node2) {
-  // TODO: NULL checks
-  // cast inputs to usable types
-  const tnode* const n1 = (const tnode*)node1;
-  const tnode* const n2 = (const tnode*)node2;
-  word_count* wc1 = (word_count*)(n1->data);
-  word_count* wc2 = (word_count*)(n2->data);
+int word_cmp(const void* const word_count1, const void* const word_count2) {
+  if (word_count1 == NULL) {
+    printf("word_cmp() | error - word_count1 is NULL.\n");
+    return -1;
+  } else if (word_count2 == NULL) {
+    printf("word_cmp() | error - word_count2 is NULL.\n");
+    return -1;
+  }
+  const word_count* const wc1 = (const word_count*)(word_count1);
+  const word_count* const wc2 = (const word_count*)(word_count2);
+
+  if (wc1->word == NULL) {
+    printf("word_cmp() | error - node1->word_count->word is NULL.\n");
+    return -1;
+  } else if (wc2->word == NULL) {
+    printf("word_cmp() | error - node1->word_count->word is NULL.\n");
+    return -1;
+  }
 
   return strcmp(wc1->word, wc2->word);
 }

@@ -20,6 +20,7 @@ word_count* word_count_alloc(const char* const word) {
   }
 
   strcpy(wc->word, word);
+  wc->count = 1;
   return wc;
 }
 

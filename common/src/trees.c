@@ -61,6 +61,10 @@ tnode* tree_search(const tnode* const node, const void* const data,
   if (node == NULL) {
     return NULL;
   }
+  if (node->data == NULL) {
+    printf("tree_search(): node is invalid.\n");
+    return NULL;
+  }
 
   // walk tree based on comparison to word
   int result = compare(node->data, data);
@@ -68,10 +72,8 @@ tnode* tree_search(const tnode* const node, const void* const data,
     // explicit cast to non-const; pragma at top is for this given -Weverything
     return (tnode*)node;
   } else if (result < 0) {
-    printf("tree_search() | traversing left.\n");
     return tree_search(node->left, data, compare);
   } else {
-    printf("tree_search() | traversing right.\n");
     return tree_search(node->right, data, compare);
   }
 }
@@ -89,7 +91,7 @@ tnode* tnode_alloc(const void* const data, const size_t size) {
   }
 
   // NOTE: memcpy() should return node->data
-  memcpy(node->data, data, size);
+  node->data = memcpy(node->data, data, size);
   node->left = NULL;
   node->right = NULL;
   return node;

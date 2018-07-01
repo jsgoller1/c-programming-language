@@ -1,21 +1,32 @@
+#include <stdint.h>
 #include <string.h>
 
 #include "wordcount.h"
 
-int count_cmp(const tnode* const node1, const tnode* const node2) {
-  int count1 = node1->data->count;
-  int count2 = node2->data->count;
-  if (count1 == count2) {
+ssize_t count_cmp(const void* const node1, const void* const node2) {
+  // TODO: NULL checks
+  // cast inputs to usable types
+  const tnode* const n1 = (const tnode*)node1;
+  const tnode* const n2 = (const tnode*)node2;
+  word_count* wc1 = (word_count*)(n1->data);
+  word_count* wc2 = (word_count*)(n2->data);
+
+  if (wc1->count == wc2->count) {
     return 0;
-  } else if (count1 < count2) {
+  } else if (wc1->count < wc2->count) {
     return -1;
   } else {
     return 1;
   }
 }
 
-int word_cmp(const tnode* const node1, const tnode* const node2) {
-  char* word1 = node1->data->word;
-  char* word2 = node2->data->word;
-  return strcmp(word1, word2);
+ssize_t word_cmp(const void* const node1, const void* const node2) {
+  // TODO: NULL checks
+  // cast inputs to usable types
+  const tnode* const n1 = (const tnode*)node1;
+  const tnode* const n2 = (const tnode*)node2;
+  word_count* wc1 = (word_count*)(n1->data);
+  word_count* wc2 = (word_count*)(n2->data);
+
+  return strcmp(wc1->word, wc2->word);
 }

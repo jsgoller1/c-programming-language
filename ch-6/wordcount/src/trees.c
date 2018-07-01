@@ -1,12 +1,14 @@
+#include <stdio.h>
+
 #include "wordcount.h"
 
-word_count* create_count_tree(const tnode* const word_tree) {
+tnode* create_count_tree(const tnode* const word_tree) {
   tnode* count_tree = NULL;
   trav_inorder(word_tree, word_count_extractor);
   return count_tree;
 }
 
-word_count* create_tree(tnode* tree) {
+tnode* create_word_tree(tnode* tree) {
   int i;
   char word[MAXLEN] = {0};
   tnode* current = NULL;

@@ -1,6 +1,10 @@
+#include <stdint.h>
+
+#include "trees.h"
+
 typedef struct word_count {
   char* word;
-  int count;
+  size_t count;
 } word_count;
 
 extern tnode* word_tree;
@@ -8,15 +12,15 @@ extern tnode* count_tree;
 
 // mem.c
 word_count* word_count_alloc(const char* const word);
-void word_count_free(const word_count* const wc);
+void word_count_free(word_count* wc);
 
 // compare.c
-int count_cmp(const tnode* const node1, const tnode* const node2);
-int word_cmp(const tnode* const node1, const tnode* const node2);
+ssize_t count_cmp(const void* const node1, const void* const node2);
+ssize_t word_cmp(const void* const node1, const void* const node2);
 
 // trees.c
-word_count* create_count_tree(const tnode* const word_tree);
-word_count* create_tree(tnode* tree);
+tnode* create_count_tree(const tnode* const word_tree);
+tnode* create_word_tree(tnode* const tree);
 
 // display.c
 void word_count_extractor(const tnode* const node);

@@ -1,3 +1,6 @@
+#pragma once
+#include <stdint.h>
+
 typedef struct tnode {
   struct tnode* left;
   struct tnode* right;
@@ -7,9 +10,9 @@ typedef struct tnode {
 // basic tree methods
 tnode* tree_insert(tnode* const node, const void* const value,
                    const size_t size,
-                   int (*compare)(const void* const, const void* const));
+                   ssize_t (*compare)(const void* const, const void* const));
 tnode* tree_search(const tnode* const node, const void* const value,
-                   int (*compare)(const void* const, const void* const));
+                   ssize_t (*compare)(const void* const, const void* const));
 
 // memory management
 tnode* tnode_alloc(const void* const data, const size_t size);

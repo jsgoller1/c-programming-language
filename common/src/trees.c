@@ -1,4 +1,5 @@
 #pragma clang diagnostic ignored "-Wcast-qual"
+#include <stdint.h>
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
@@ -17,12 +18,12 @@
 // tree_insert(): insert word in tree
 tnode* tree_insert(tnode* const node, const void* const value,
                    const size_t size,
-                   int (*compare)(const void* const, const void* const)) {
+                   ssize_t (*compare)(const void* const, const void* const)) {
   if (node == NULL) {
     return tnode_alloc(value, size);
   }
 
-  int result = compare(node->data, value);
+  ssize_t result = compare(node->data, value);
   // Left subtree
   if (result <= 0) {
     if (node->left == NULL) {
@@ -44,13 +45,13 @@ tnode* tree_insert(tnode* const node, const void* const value,
 
 // tree_search(): return node in tree storing word, or NULL
 tnode* tree_search(const tnode* const node, const void* const value,
-                   int (*compare)(const void* const, const void* const)) {
+                   ssize_t (*compare)(const void* const, const void* const)) {
   if (node == NULL) {
     return NULL;
   }
 
   // walk tree based on comparison to word
-  int result = compare(node->data, value);
+  ssize_t result = compare(node->data, value);
   if (result == 0) {
     // explicit cast to non-const; pragma at top is for -Weverything
     return (tnode*)node;
@@ -108,9 +109,9 @@ void trav_postorder(const tnode* const node,
   if (node == NULL) {
     return;
   }
-  tree_walk_postorder(node->right, display);
+  trav_postorder(node->right, display);
   display(node);
-  tree_walk_postorder(node->left, display);
+  trav_postorder(node->left, display);
 }
 
 void trav_preorder(const tnode* const node,
@@ -119,8 +120,8 @@ void trav_preorder(const tnode* const node,
     return;
   }
   display(node);
-  tree_walk_preorder(node->right, display);
-  tree_walk_preorder(node->left, display);
+  trav_preorder(node->right, display);
+  trav_preorder(node->left, display);
 }
 
 void trav_inorder(const tnode* const node,
@@ -129,7 +130,7 @@ void trav_inorder(const tnode* const node,
     return;
   }
 
-  tree_walk_inorder(node->left, display);
+  trav_inorder(node->left, display);
   display(node);
-  tree_walk_inorder(node->right, display);
+  trav_inorder(node->right, display);
 }

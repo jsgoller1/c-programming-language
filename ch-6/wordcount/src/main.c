@@ -9,8 +9,8 @@ tnode* word_tree = NULL;
 tnode* count_tree = NULL;
 
 int main() {
-  word_tree = create_word_tree();
-  trav_preorder(word_tree);
+  word_tree = create_word_tree(word_tree);
+  trav_preorder(word_tree, result_print);
 
   // create_count_tree(word_tree);
   // trav_preorder(count_tree, result_print);

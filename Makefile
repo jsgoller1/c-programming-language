@@ -64,9 +64,10 @@ decl undecl:
 
 ## Chapter 6
 # crossref is 6.3
-crossref:
+crossref wordcount:
 	$(CC) $(CFLAGS) $(OUTPUT_LEVEL) -I ch-6/$@/include/ $(INCLUDES) $(LIBS) ch-6/$@/src/*.c -o bin/$@
-	cat ch-6/$@/crossref-test.txt | valgrind -q --leak-check=full --error-exitcode=5 ./bin/$@
+	cat ch-6/$@/$@-test.txt | valgrind -q --leak-check=full --error-exitcode=5 ./bin/$@
+
 
 ## Chapter 8
 # cat is 8.1

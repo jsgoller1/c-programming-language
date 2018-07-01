@@ -5,8 +5,7 @@
 
 word_count* word_count_alloc(const char* const word) {
   word_count* wc = NULL;
-  char* string = NULL;
-  int len = strlen(word);
+  size_t len = strlen(word);
 
   wc = malloc(sizeof(word_count));
   if (wc == NULL) {
@@ -23,7 +22,7 @@ word_count* word_count_alloc(const char* const word) {
   return wc;
 }
 
-void word_count_free(const word_count* const wc) {
+void word_count_free(word_count* wc) {
   if (wc == NULL) {
     return;
   }

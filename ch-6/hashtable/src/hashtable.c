@@ -3,17 +3,6 @@
 #include <stdlib.h>
 #include <string.h>
 
-#define HASHSIZE 101
-
-// table entry
-typedef struct kv {
-  struct kv* next;  // next entry in chain
-  char* name;       // defined name
-  char* defn;       // replacement text
-} kv;
-
-static kv* hashtab[HASHSIZE];
-
 // hash(): form hash value for string s
 static unsigned hash(const char* const str) {
   const char* s = str;
@@ -56,13 +45,4 @@ static kv* install(char* name, char* defn) {
     return NULL;
   }
   return np;
-}
-
-int main() {
-  kv* test;
-  install("name", "joshua");
-  test = lookup("name");
-  printf("name is %s\n", test->defn);
-
-  return 0;
 }

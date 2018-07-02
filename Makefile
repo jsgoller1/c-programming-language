@@ -32,7 +32,7 @@ ch-8: cat 8.2 8.3 8.4 8.5 malloc_j
 	@# When making "3.4", get "3" as chapter value
 	@$(eval CH := $(shell echo $@ | grep -o "[1-8]\." | sed 's/\.//' ))
 	@$(CC) $(CFLAGS) -I ch-$(CH)/include/ $(INCLUDES) $(LIBS) ch-$(CH)/src/$@.c -o bin/$@
-	@valgrind -q --leak-check=full --error-exitcode=5 ./bin/$@
+	#@valgrind -q --leak-check=full --error-exitcode=5 ./bin/$@
 	./bin/$@
 
 .PHONY: rpc sort tail decl malloc_j
@@ -64,10 +64,11 @@ decl undecl:
 
 ## Chapter 6
 # crossref is 6.3
-crossref wordcount:
+# wordcount is 6.4
+# hashtable is 6.5 and 6.6
+crossref wordcount hashtable:
 	$(CC) $(CFLAGS) $(OUTPUT_LEVEL) -I ch-6/$@/include/ $(INCLUDES) $(LIBS) ch-6/$@/src/*.c -o bin/$@
 	cat ch-6/$@/$@-test.txt | valgrind -q --leak-check=full --error-exitcode=5 ./bin/$@
-
 
 ## Chapter 8
 # cat is 8.1

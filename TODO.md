@@ -1,6 +1,6 @@
 # TODO
 ---
- ## 86 of 97 completed (11 remaining)
+ ## 87 of 97 completed (10 remaining)
 
 - Ch. 1
   - Valgrind reports no errors.
@@ -15,25 +15,24 @@
   - Valgrind reports no errors.
 - Ch. 5
   - Exercises
-    - 5-11
-    - 5-12
-    - 5-17
-    - 5-19
-    - 5-20
+    - 5-11 (entab - easy, just effortful)
+    - 5-12 (entab - easy, just effortful)
+    - 5-17 (do sorting based on subfields of strings)
+    - 5-19 (decl)
+    - 5-20 (decl)
   - C11 `-Werror -Wall` compliance
   - Valgrind reports no errors.
 - Ch. 6
   - Exercises
-    - 6-2
-    - 6-4
+    - 6-2 (variable printing)
     - 6-5
-    - 6-6
+    - 6-6 (#define processor - just read in word by word, hash for lookups and replace if necessary, then write out to stdout)
   - C11 `-Werror -Wall` compliance
   - Valgrind reports no errors.
 - Ch. 7
   - Exercises
-    - 7-4
-    - 7-7
+    - 7-4 (private version of scanf)
+    - 7-7 (modify chapter 5 pattern matcher to take input from files)
   - C11 `-Werror -Wall` compliance
   - Valgrind reports no errors.
 - Appendix A

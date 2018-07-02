@@ -12,6 +12,8 @@ int main() {
   word_tree = create_word_tree(word_tree);
   create_count_tree(word_tree);
   trav_inorder(count_tree, result_print);
+  tree_cleanup(word_tree, word_count_free);
+  tree_cleanup(count_tree, word_count_free);
 
   return 0;
 }

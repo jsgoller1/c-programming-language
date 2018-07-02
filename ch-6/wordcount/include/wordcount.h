@@ -10,7 +10,7 @@ extern tnode* count_tree;
 
 // mem.c
 word_count* word_count_alloc(const char* const word);
-void word_count_free(word_count* wc);
+void word_count_free(void* wc);
 
 // compare.c
 int count_cmp(const void* const node1, const void* const node2);

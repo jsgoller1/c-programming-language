@@ -13,7 +13,7 @@ word_count* word_count_alloc(const char* const word) {
     return NULL;
   }
 
-  wc->word = malloc(len * sizeof(char));
+  wc->word = malloc(len * sizeof(char) + 1);
   if (wc->word == NULL) {
     free(wc);
     return NULL;
@@ -24,11 +24,18 @@ word_count* word_count_alloc(const char* const word) {
   return wc;
 }
 
-void word_count_free(word_count* wc) {
+void word_count_free(void* wc) {
   if (wc == NULL) {
+    printf("word_count_free() | wc is null - nothing to free.\n");
     return;
   }
 
-  free(wc->word);
-  free(wc);
+  word_count* word_c = (word_count*)wc;
+  if (word_c->word == NULL) {
+    printf("word_count_free() | error - no word to free.\n");
+    return;
+  }
+  // printf("word_count_free() | freeing %s\n", word_c->word);
+  free(word_c->word);
+  free(word_c);
 }

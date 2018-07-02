@@ -30,7 +30,6 @@ tnode* create_word_tree(tnode* tree) {
     } else {
       wdc = word_count_alloc(word);
       tree_insert(tree, wdc, sizeof(word_count), word_cmp);
-      // printf("create_word_tree() | inserted %s\n", wdc->word);
     }
   }
 

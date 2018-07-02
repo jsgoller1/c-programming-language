@@ -15,8 +15,8 @@ tnode* tree_search(const tnode* const node, const void* const value,
                    int (*compare)(const void* const, const void* const));
 
 // memory management
-tnode* tnode_alloc(const void* const data, const size_t size);
-void tnode_free(tnode* node);
+tnode* tnode_alloc(const void* const data);
+void tnode_free(tnode* node, void (*cleanup)(void*));
 void tree_cleanup(tnode* node, void (*cleanup)(void*));
 
 // traversal

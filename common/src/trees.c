@@ -29,7 +29,7 @@
 tnode* tree_insert(tnode* const node, const void* const data, const size_t size,
                    int (*compare)(const void* const, const void* const)) {
   if (node == NULL) {
-    return tnode_alloc(data, size);
+    return tnode_alloc(data);
   }
 
   int result = compare(node->data, data);
@@ -37,7 +37,7 @@ tnode* tree_insert(tnode* const node, const void* const data, const size_t size,
   if (result <= 0) {
     if (node->left == NULL) {  // is this if block actually necessary given the
                                // base case caught above? Can it be compressed?
-      node->left = tnode_alloc(data, size);
+      node->left = tnode_alloc(data);
       return node->left;
     } else {
       return tree_insert(node->left, data, size, compare);
@@ -45,7 +45,7 @@ tnode* tree_insert(tnode* const node, const void* const data, const size_t size,
   }  // Right subtree
   else {
     if (node->right == NULL) {
-      node->right = tnode_alloc(data, size);
+      node->right = tnode_alloc(data);
       return node->right;
     } else {
       return tree_insert(node->right, data, size, compare);
@@ -79,31 +79,29 @@ tnode* tree_search(const tnode* const node, const void* const data,
 }
 
 // tnode_alloc(): function for creating nodes to insert into tree.
-tnode* tnode_alloc(const void* const data, const size_t size) {
+tnode* tnode_alloc(const void* const data) {
   tnode* node = malloc(sizeof(tnode));
   if (node == NULL) {
     return NULL;
   }
 
-  node->data = malloc(size);
-  if (node->data == NULL) {
-    return NULL;
-  }
-
-  // NOTE: memcpy() should return node->data
-  node->data = memcpy(node->data, data, size);
+  node->data = (void*)data;
   node->left = NULL;
   node->right = NULL;
   return node;
 }
 
 // tnode_free(): de-allocates a tnode; does NOT handle BST deletion, just memory
-// management
-void tnode_free(tnode* node) {
+// management.
+void tnode_free(tnode* node, void (*cleanup)(void*)) {
   if (node == NULL) {
     return;
   }
-  free(node->data);
+
+  if (cleanup != NULL) {
+    cleanup(node->data);
+  }
+
   free(node);
 }
 
@@ -113,14 +111,16 @@ void tree_cleanup(tnode* node, void (*cleanup)(void*)) {
     return;
   }
   if (node->left != NULL) {
+    // printf("tree_cleanup() | traversing left.\n");
     tree_cleanup(node->left, cleanup);
-  } else if (node->right != NULL) {
+  }
+
+  if (node->right != NULL) {
+    // printf("tree_cleanup() | traversing right.\n");
     tree_cleanup(node->right, cleanup);
   }
-  if (cleanup != NULL) {
-    cleanup(node->data);
-  }
-  tnode_free(node);
+  // printf("tree_cleanup() | freeing node.\n");
+  tnode_free(node, cleanup);
 }
 
 /*

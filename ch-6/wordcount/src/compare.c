@@ -42,5 +42,11 @@ int word_cmp(const void* const word_count1, const void* const word_count2) {
     return -1;
   }
 
-  return strcmp(wc1->word, wc2->word);
+  // In our BST, we treat "coming after" alphabetically as "greater than";
+  // if we insert "cat", "bat", and "hat", the result should be that "cat" is
+  // the root, "bat" is its left child, and "hat" is its right child. However,
+  // strcmp("cat", "hat") will return a negative because "hat" comes after
+  // "cat", and this will cause the tree to make "hat" the left child of "bat"
+  // instead, so we need to multiply the result by -1.
+  return strcmp(wc1->word, wc2->word) * -1;
 }

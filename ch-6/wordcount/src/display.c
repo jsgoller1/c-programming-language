@@ -3,11 +3,17 @@
 #include "wordcount.h"
 
 void word_count_extractor(const tnode* const node) {
+  // deep copy node data
+  char* word = ((word_count*)(node->data))->word;
+  size_t count = ((word_count*)(node->data))->count;
+  word_count* wc = word_count_alloc(word);
+  wc->count = count;
+
+  // insert node data
   if (count_tree == NULL) {
-    count_tree =
-        tree_insert(count_tree, node->data, sizeof(word_count), count_cmp);
+    count_tree = tree_insert(count_tree, wc, sizeof(word_count), count_cmp);
   } else {
-    tree_insert(count_tree, node->data, sizeof(word_count), count_cmp);
+    tree_insert(count_tree, wc, sizeof(word_count), count_cmp);
   }
 }
 

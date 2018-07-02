@@ -3,10 +3,8 @@
 #include "common.h"
 #include "wordcount.h"
 
-tnode* create_count_tree(const tnode* const word_tree_head) {
-  tnode* count_tree_head = NULL;
+void create_count_tree(const tnode* const word_tree_head) {
   trav_inorder(word_tree_head, word_count_extractor);
-  return count_tree_head;
 }
 
 tnode* create_word_tree(tnode* tree) {

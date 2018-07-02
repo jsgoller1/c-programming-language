@@ -17,7 +17,7 @@ int count_cmp(const void* const node1, const void* const node2);
 int word_cmp(const void* const node1, const void* const node2);
 
 // trees.c
-tnode* create_count_tree(const tnode* const word_tree_head);
+void create_count_tree(const tnode* const word_tree_head);
 tnode* create_word_tree(tnode* tree);
 
 // display.c

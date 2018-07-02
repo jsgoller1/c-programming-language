@@ -8,6 +8,7 @@
 
 /*
  * A small BST library I wrote, mostly for chapter 6. Some assumptions:
+ *
  * - The user will provide compare(void*, void*) callback for traversing the
  * tree. The arguments are the data portion of the node, and data passed to the
  * search function.
@@ -15,21 +16,24 @@
  *    negative, and right if positive.
  *  - On search, the tree returns the node if compare is 0, left if negative,
  *    right if positive
+ *
  * - The user will also provide an optional cleanup(void*) callback for how to
  * deal with freeing data stored in the tree; this can be NULL, which will cause
  * no additional behavior.
+ *
  * - The tree functions themselves have no idea how to handle the data stored in
  * the tree, and delegate this knowledge to compare() and cleanup().
+ *
  * - The user does not need to create or free nodes - the tree handles this.
  * The user only needs to supply the necessary callbacks and supply the tree
  * functions with data.
+ *
  * - It's OK for trees to have two nodes with the same key; the key of a left
  * child is <= the parent, and a right node is > the parent.
  */
 
-// tree_insert(): insert data in tree. tree_insert() has no idea what data is,
-// and relies on compare to deal with it. Returns the node created, or NULL on
-// error.
+// tree_insert(): insert data in tree. Returns a pointer to the node created, or
+// NULL on error.
 tnode* tree_insert(tnode* const node, const void* const data, const size_t size,
                    int (*compare)(const void* const, const void* const)) {
   if (node == NULL) {
@@ -39,20 +43,20 @@ tnode* tree_insert(tnode* const node, const void* const data, const size_t size,
   int result = compare(node->data, data);
   // Left subtree
   if (result <= 0) {
-    if (node->left == NULL) {  // is this if block actually necessary given the
-                               // base case caught above? Can it be compressed?
+    if (node->left != NULL) {
+      return tree_insert(node->left, data, size, compare);
+    } else {
       node->left = tnode_alloc(data);
       return node->left;
-    } else {
-      return tree_insert(node->left, data, size, compare);
     }
-  }  // Right subtree
+  }
+  // Right subtree
   else {
-    if (node->right == NULL) {
+    if (node->right != NULL) {
+      return tree_insert(node->right, data, size, compare);
+    } else {
       node->right = tnode_alloc(data);
       return node->right;
-    } else {
-      return tree_insert(node->right, data, size, compare);
     }
   }
 }
@@ -73,8 +77,7 @@ tnode* tree_search(const tnode* const node, const void* const data,
   // walk tree based on comparison to word
   int result = compare(node->data, data);
   if (result == 0) {
-    // explicit cast to non-const; pragma at top is for this given -Weverything
-    return (tnode*)node;
+    return (tnode*)node;  // explicitly cast away const
   } else if (result < 0) {
     return tree_search(node->left, data, compare);
   } else {
@@ -95,8 +98,8 @@ tnode* tnode_alloc(const void* const data) {
   return node;
 }
 
-// tnode_free(): de-allocates a tnode; does NOT handle BST deletion, just memory
-// management.
+// tnode_free(): de-allocates a tnode; does NOT handle BST deletion, just
+// memory management.
 void tnode_free(tnode* node, void (*cleanup)(void*)) {
   if (node == NULL) {
     return;

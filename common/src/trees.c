@@ -9,8 +9,12 @@
 /*
  * A small BST library I wrote, mostly for chapter 6. Some assumptions:
  * - The user will provide compare(void*, void*) callback for traversing the
- * tree - the arguments are the data portion of the node, and data passed to the
+ * tree. The arguments are the data portion of the node, and data passed to the
  * search function.
+ *  - On insertion, the tree traverses left if compare() returns zero or
+ *    negative, and right if positive.
+ *  - On search, the tree returns the node if compare is 0, left if negative,
+ *    right if positive
  * - The user will also provide an optional cleanup(void*) callback for how to
  * deal with freeing data stored in the tree; this can be NULL, which will cause
  * no additional behavior.

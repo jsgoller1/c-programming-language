@@ -1,38 +1,28 @@
 #include <stdio.h>
+#include <string.h>
 
 #include "common.h"
+#include "hashtable.h"
 
-static kv* hashtab[HASHSIZE];
+kv* hashtab[HASHSIZE];
 
 int main() {
-  char c1, c2, c3;
-  char word[MAXWORD];
-  char key[MAXWORD];
-  char value[MAXWORD];
-  while ((c = getword(word)) != EOF) {
+  int c = 0;
+  char word[MAXLEN] = {0};
+  while ((c = getword(word, MAXLEN)) > 0) {
     if (strcmp(word, "#define") == 0) {
-      c2 = getword(key);
-      c3 = getword(value);
-      if (c2 != EOF || c3 != EOF) {
-        define(key, value);
-      }
+      define(word);
     } else if (strcmp(word, "#undef") == 0) {
-      c2 = getword(key);
-      if (c2 != EOF) {
-        undefine(key);
-      }
+      undef(word);
     } else {
       // lookup and print val or word
       kv* entry;
       if ((entry = lookup(word)) != NULL) {
-        printf(kv->defn);
+        printf("%s", entry->value);
       } else {
-        printf(word);
+        printf("%s", word);
       }
     }
-
-    // print non-alphanum character, as it's part of the program.
-    printf("%c", c);
   }
   return 0;
 }

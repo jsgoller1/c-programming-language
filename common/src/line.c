@@ -69,20 +69,38 @@ void freelines(char **lineptr, const int nlines) {
   }
 }
 
-// getword(): reads alphanumeric characters and returns the final character read
+// getword(): reads characters into word, and returns the len.
+// getword() always reads at least one valid character or EOF character, but
+// will stop parsing when it reads the first non-alphanum character.
 int getword(char *word, const int len) {
-  if (word == NULL || len < 1) {
+  if (word == NULL || len < 2) {
     return -1;
   }
 
-  int i = 0;
   int c = 0;
+  int i = 0;
+
   c = getchar();
-  while (i < len - 1 && isalnum(c) && c != EOF) {
-    word[i] = (char)c;
-    i++;
-    c = getchar();
+  // do nothing for EOF
+  if (c == EOF) {
+    return i;
+  }  // return a single char string for space characters
+  else if (isspace(c)) {
+    word[i++] = (char)c;
+    word[i] = '\0';
+    return i;
+  }  // return a full word
+  else {
+    word[i++] = (char)c;
+    while (((c = getchar()) != EOF) && (i < len - 1)) {
+      if (!(isspace(c))) {
+        word[i++] = (char)c;
+      } else {
+        ungetc(c, stdin);
+        break;
+      }
+    }
+    word[i] = '\0';
+    return i;
   }
-  word[i] = '\0';
-  return i;
 }

@@ -1,6 +1,6 @@
 # TODO
 ---
- ## 87 of 97 completed (10 remaining)
+ ## 88 of 97 completed (9 remaining)
 
 - Ch. 1
   - Valgrind reports no errors.
@@ -26,7 +26,7 @@
   - Exercises
     - 6-2 (variable printing)
     - 6-5
-    - 6-6 (#define processor - just read in word by word, hash for lookups and replace if necessary, then write out to stdout)
+ and replace if necessary, then write out to stdout)
   - C11 `-Werror -Wall` compliance
   - Valgrind reports no errors.
 - Ch. 7

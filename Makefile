@@ -68,7 +68,7 @@ decl undecl:
 # hashtable is 6.5 and 6.6
 crossref wordcount hashtable:
 	$(CC) $(CFLAGS) $(OUTPUT_LEVEL) -I ch-6/$@/include/ $(INCLUDES) $(LIBS) ch-6/$@/src/*.c -o bin/$@
-	cat ch-6/$@/$@-test.txt | valgrind -q --leak-check=full --error-exitcode=5 ./bin/$@
+	cat ch-6/$@/$@-test.* | valgrind -q --leak-check=full --error-exitcode=5 ./bin/$@
 
 ## Chapter 8
 # cat is 8.1

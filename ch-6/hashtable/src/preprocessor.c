@@ -33,7 +33,7 @@ int undef(const char* const word) {
   char key[MAXLEN] = {0};
 
   printf("%s", word);
-  getchar();  // skip whitespace between "#undef" and key
+  printf("%c", getchar());  // skip whitespace between "#undef" and key
   c = getword(key, MAXLEN);
   printf("%s", key);
 

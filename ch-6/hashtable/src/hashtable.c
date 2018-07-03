@@ -17,6 +17,15 @@ size_t hash(const char* const key) {
   return hashval % HASHSIZE;
 }
 
+// free_entry(): handles de-allocation for a hashtable entry.
+// Returns a pointer to the next entry in the linked list, or null if there
+// isn't one.
+kv* free_entry(kv* entry) {
+  if (entry == NULL) {
+    return NULL;
+  }
+}
+
 kv* lookup(const char* const key) {
   kv* entry;
   for (entry = hashtab[hash(key)]; entry != NULL; entry = entry->next) {
@@ -50,4 +59,10 @@ kv* install(const char* const key, const char* const value) {
   return entry;
 }
 
-void uninstall(const char* const key) { printf("uninstall() | %s\n", key); }
+void uninstall(const char* const key) {
+  kv* entry;
+  if ((entry = lookup(key)) != NULL) {
+    if (strcmp(key, entry->key) == 0) {
+    }
+  }
+}

@@ -23,12 +23,16 @@ int main() {
       }
     } else {
       // lookup and print val or word
-      printf(word);
+      kv* entry;
+      if ((entry = lookup(word)) != NULL) {
+        printf(kv->defn);
+      } else {
+        printf(word);
+      }
     }
-    install("name", "joshua");
-    test = lookup("name");
-    printf("name is %s\n", test->defn);
 
-    return 0;
+    // print non-alphanum character, as it's part of the program.
+    printf("%c", c);
   }
+  return 0;
 }

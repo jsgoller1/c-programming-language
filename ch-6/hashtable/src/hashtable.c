@@ -4,45 +4,46 @@
 #include <string.h>
 
 // hash(): form hash value for string s
-static unsigned hash(const char* const str) {
+size_t hash(const char* const str) {
   const char* s = str;
-  unsigned hashval;
+  size_t hashval;
 
   for (hashval = 0; *s != '\0'; s++) {
-    hashval += (unsigned)(*s) + 31 * hashval;
+    hashval += (size_t)(*s) + 31 * hashval;
   }
 
   // printf("hash() | hashed %s to %d\n", str, hashval % HASHSIZE);
   return hashval % HASHSIZE;
 }
 
-static kv* lookup(char* s) {
-  kv* np;
-  for (np = hashtab[hash(s)]; np != NULL; np = np->next) {
-    if (strcmp(s, np->name) == 0) {
-      return np;  // found
+kv* lookup(const char* const str) {
+  kv* entry;
+  for (entry = hashtab[hash(s)]; entry != NULL; entry = entry->next) {
+    if (strcmp(s, entry->name) == 0) {
+      return entry;  // found
     }
   }
   return NULL;  // not found
 }
 
-static kv* install(char* name, char* defn) {
-  kv* np;
-  unsigned hashval;
+kv* install(const char* const name, const char* const defn) {
+  kv* entry;
+  size_t hashval;
 
-  if ((np = lookup(name)) == NULL) {
-    np = (kv*)malloc(sizeof(*np));
-    if (np == NULL || (np->name = strdup(name)) == NULL) {
+  if ((entry = lookup(name)) == NULL) {
+    // new entry
+    entry = (kv*)malloc(sizeof(kv));
+    if (entry == NULL || (entry->name = strdup(name)) == NULL) {
       return NULL;
     }
     hashval = hash(name);
-    np->next = hashtab[hashval];
-    hashtab[hashval] = np;
-  } else {  // already there
-    free((void*)np->defn);
+    entry->next = hashtab[hashval];
+    hashtab[hashval] = entry;
+  } else {
+    // already there
+    free((void*)entry->defn);
+    if ((np->defn = strdup(defn)) == NULL) {
+      return NULL;
+    }
+    return np;
   }
-  if ((np->defn = strdup(defn)) == NULL) {
-    return NULL;
-  }
-  return np;
-}

@@ -33,21 +33,22 @@ kv* install(const char* const key, const char* const value) {
 
   if ((entry = lookup(key)) == NULL) {
     // new entry
-    entry = (kv*)malloc(sizeof(kv));
-    if (entry == NULL || (entry->key = strdup(key)) == NULL) {
+    if ((entry = alloc_entry(key, value)) != NULL) {
+      hashval = hash(key);
+      entry->next = hashtab[hashval];
+      hashtab[hashval] = entry;
+    } else {
+      // couldn't allocate
       return NULL;
     }
-    hashval = hash(key);
-    entry->next = hashtab[hashval];
-    hashtab[hashval] = entry;
   } else {
     // already there
     free((void*)entry->value);
+    if ((entry->value = strdup(value)) == NULL) {
+      return NULL;
+    }
+    return entry;
   }
-  if ((entry->value = strdup(value)) == NULL) {
-    return NULL;
-  }
-  return entry;
 }
 
 void uninstall(const char* const key) {

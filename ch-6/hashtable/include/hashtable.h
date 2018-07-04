@@ -21,4 +21,4 @@ int undef(const char* const word);
 
 // mem
 kv* free_entry(kv* entry);
-kv* alloc_entry()
+kv* alloc_entry(const char* const key, const char* const value);

@@ -16,4 +16,23 @@ kv* free_entry(kv* entry) {
   return next;
 }
 
-kv* alloc_entry(const char* const key, const char* const value) {}
+kv* alloc_entry(const char* const key, const char* const value) {
+  kv* entry;
+
+  if ((entry = (kv*)malloc(sizeof(kv))) == NULL) {
+    return NULL;
+  }
+
+  if ((entry->key = strdup(key)) == NULL) {
+    free(entry);
+    return NULL;
+  }
+
+  if ((entry->value = strdup(value)) == NULL) {
+    free(entry->key);
+    free(entry);
+    return NULL;
+  }
+
+  return entry;
+}

@@ -18,3 +18,7 @@ void uninstall(const char* const key);
 // preprocessor
 int define(const char* const word);
 int undef(const char* const word);
+
+// mem
+kv* free_entry(kv* entry);
+kv* alloc_entry()

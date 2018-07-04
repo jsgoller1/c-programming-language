@@ -28,6 +28,9 @@ However, types can occur in places that do _not_ count as variable declarations:
   * `typedef struct foo bar;`
 * Preprocessor macros
   * `#define integer int`
+* Legitimate declarations using two type or more names:
+  * `unsigned int x`
+  * `signed long long x`
 
 Additionally, preprocessor macros present a particularly tricky case:
 ```

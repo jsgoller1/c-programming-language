@@ -47,8 +47,8 @@ kv* install(const char* const key, const char* const value) {
     if ((entry->value = strdup(value)) == NULL) {
       return NULL;
     }
-    return entry;
   }
+  return entry;
 }
 
 void uninstall(const char* const key) {

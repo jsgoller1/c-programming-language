@@ -1,10 +1,24 @@
 #include <stdlib.h>
+#include <string.h>
 
 #include "hashtable.h"
 
 // free_entry(): handles de-allocation for a hashtable entry.
 // Returns a pointer to the next entry in the linked list, or null if there
 // isn't one.
+
+void free_hashtable() {
+  kv* entry;
+
+  for (int i = 0; i < HASHSIZE; i++) {
+    while (hashtab[i] != NULL) {
+      entry = hashtab[i];
+      hashtab[i] = entry->next;
+      free_entry(entry);
+    }
+  }
+}
+
 kv* free_entry(kv* entry) {
   if (entry == NULL) {
     return NULL;
@@ -34,5 +48,6 @@ kv* alloc_entry(const char* const key, const char* const value) {
     return NULL;
   }
 
+  entry->next = NULL;
   return entry;
 }

@@ -24,5 +24,7 @@ int main() {
       }
     }
   }
+
+  free_hashtable();
   return 0;
 }

@@ -67,7 +67,7 @@ decl undecl:
 # crossref is 6.3
 # wordcount is 6.4
 # hashtable is 6.5 and 6.6
-crossref wordcount hashtable:
+crossref wordcount hashtable charmatch:
 	$(CC) $(CFLAGS) $(OUTPUT_LEVEL) -I ch-6/$@/include/ $(INCLUDES) $(LIBS) ch-6/$@/src/*.c -o bin/$@
 	cat ch-6/$@/$@-test.* | $(VALGRIND) ./bin/$@
 

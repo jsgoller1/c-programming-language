@@ -1,6 +1,6 @@
 # TODO
 ---
- ## 88 of 97 completed (9 remaining)
+ ## 89 of 97 completed (8 remaining)
 
 - Ch. 1
   - Valgrind reports no errors.
@@ -25,8 +25,6 @@
 - Ch. 6
   - Exercises
     - 6-2 (variable printing)
-    - 6-5
- and replace if necessary, then write out to stdout)
   - C11 `-Werror -Wall` compliance
   - Valgrind reports no errors.
 - Ch. 7

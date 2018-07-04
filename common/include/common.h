@@ -24,6 +24,7 @@ int readlines(char** lineptr, const int maxlines);
 void writelines(char** lineptr, const int nlines);
 void freelines(char** lineptr, const int nlines);
 int getword(char* word, int len);
+int gettoken(char* word, const int len);
 
 // Memory
 char* myalloc(int n);

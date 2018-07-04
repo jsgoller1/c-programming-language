@@ -1,4 +1,5 @@
 #include <stdio.h>
+#include <string.h>
 
 #include "charmatch.h"
 #include "common.h"
@@ -9,9 +10,10 @@ int main(int argc, char** argv) {
 
   int i = 0;
   char word[MAXLEN] = {0};
-  while ((i = getword(word, MAXLEN)) > 0) {
+  while ((i = gettoken(word, MAXLEN)) > 0) {
     if (should_evaluate(word)) {
       if (istypename(word)) {
+        // printf("main() | storing word after %s\n", word);
         store_varname();
       } else if (strcmp(word, "#define") == 0) {
         handle_define();
@@ -22,6 +24,7 @@ int main(int argc, char** argv) {
   }
 
   display_varnames();
-  cleanup();
+  cleanup_varnames();
+  cleanup_typenames();
   return 0;
 }

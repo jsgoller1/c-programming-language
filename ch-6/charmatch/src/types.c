@@ -1,4 +1,6 @@
 #include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
 
 #include "charmatch.h"
 #include "common.h"
@@ -13,7 +15,43 @@ static char* special_c_types[] = {"long", "signed", "unsigned"};
 
 static type_name* defined_types = NULL;
 
-static int add_type() {}
+static int add_type(const char* const newtype) {
+  type_name* new;
+
+  if ((new = malloc(sizeof(type_name))) == NULL) {
+    return -1;
+  }
+  if ((new->chars = strdup(newtype)) == NULL) {
+    return -1;
+  }
+
+  new->next = defined_types;
+  defined_types = new;
+
+  return 0;
+}
+
+static void free_type_name() {}
+
+// handle_define(): handle further parsing if "#define" is parsed.
+// Ex. "#define foobar int"
+void handle_define(void) {
+  char space[MAXLEN];
+  char defn[MAXLEN];
+  char value[MAXLEN];
+
+  getword(space, MAXLEN);
+  getword(defn, MAXLEN);
+  getword(space, MAXLEN);
+  getword(value, MAXLEN);
+
+  if (istypename(value)) {
+    add_type(defn);
+  }
+}
+
+// handle_typedef(): handle further parsing if "typedef" is parsed
+void handle_typedef(void) {}
 
 // istypename(): given our lists above, determine if a parsed word is a type
 // name
@@ -38,22 +76,4 @@ int istypename(const char* const word) {
   return 0;
 }
 
-// handle_define(): handle further parsing if "#define" is parsed.
-// Ex. "#define foobar int"
-void handle_define(void) {
-  char space[MAXLEN];
-  char defn[MAXLEN];
-  char value[MAXLEN];
-
-  getword(space);
-  getword(defn);
-  getword(space);
-  getword(value);
-
-  if (istypename(value)) {
-    add_type(defn);
-  }
-}
-
-// handle_typedef(): handle further parsing if "typedef" is parsed
-void handle_typedef(void) {}
+void cleanup_typenames() { free_type_name(); }

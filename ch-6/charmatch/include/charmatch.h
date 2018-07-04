@@ -12,7 +12,7 @@ typedef string var_name;
 int should_evaluate(const char* const word);
 
 // vars
-void store_varname(void);
+void parse_varname(void);
 void display_varnames(void);
 void cleanup_varnames(void);
 

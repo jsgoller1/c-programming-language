@@ -31,6 +31,7 @@ Each exercise has its own target (e.g. `make 5.4` will make exercise 4 in chapte
   * `common/` - a "standard library" of various types of functions most exercises consume
   * `common/trees/` - a generic binary search tree library I wrote to handle exercises in Chapter 6
   * `common/tests/` - a simple unit testing library, as described below.
+  * [C FAQ](https://github.com/jsgoller1/c-faq) - this is a separate repo I started to help work through questions I had about C as I read K&R.
 
 ## Tests
 I wrote my own simple testing library for the exercises, found in `common/`; it wraps around the `assert(3)` macro and can do basic comparison for strings, ints, and bools. Execution will immediately halt and fail

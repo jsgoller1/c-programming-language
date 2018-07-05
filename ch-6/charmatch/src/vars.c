@@ -5,15 +5,18 @@
 #include "charmatch.h"
 #include "common.h"
 
-/*
-parse_varname(): given that we know that the stream is in a valid region of
-code, we look for four possible variable declarations:
-int x;
-int x, y;
+static var_name* defined_vars = NULL;
 
-Start with parsing two tokens. If we encounter
-
-*/
+void store_varname(const char* const varname) {
+  string* current = defined_vars;
+  // See if we find a group match
+  while (current != NULL) {
+    if (strncmp(varname, current->chars, (unsigned long)MATCH_LENGTH)) {
+      // Find insertion point in group, or quit if
+      // we have already stored this var name
+    }
+  }
+}
 
 void parse_varname() {
   char varname[MAXLEN];

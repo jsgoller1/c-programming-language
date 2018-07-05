@@ -4,9 +4,12 @@
 #include "charmatch.h"
 #include "common.h"
 
+int MATCH_LENGTH;
+
 int main(int argc, char** argv) {
-  (void)argc;
-  (void)argv;
+  if ((MATCH_LENGTH = parse_input(argc, argv)) < 1) {
+    return -1;
+  }
 
   int i = 0;
   char word[MAXLEN] = {0};

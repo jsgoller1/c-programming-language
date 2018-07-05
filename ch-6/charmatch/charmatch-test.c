@@ -3,9 +3,9 @@
 #define def_x int
 #define z_string "int z0 is not a variable; this is a string"
 
-// int z1 is not a variable, this is a CPP comment
+// int z1; is not a variable, this is a CPP comment
 
-/* int z2 is not a variable, this is a C comment */
+/* int z2; is not a variable, this is a C comment */
 
 typedef td_y int;
 

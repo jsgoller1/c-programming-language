@@ -104,30 +104,3 @@ int getword(char *word, const int len) {
     return i;
   }
 }
-
-// gettoken(): similar to getword(), except that gettoken() looks for characters
-// that are syntactically relevant to a C program instead of just alphanumeric
-// words and ignores whitespace. Always reads at least one valid character or
-// EOF character, but will stop parsing when it reads the first non-alphanum
-// character. Returns number of chars read.
-int gettoken(char *word, const int len) {
-  int c = 0;
-  int i = 0;
-
-  while (((c = getchar()) != EOF) && i < len) {
-    if (!isalnum(c) && c != '_') {
-      if (i == 0) {
-        word[i++] = (char)c;  // always read at least one char
-        break;
-      } else {
-        ungetc(c, stdin);
-        break;
-      }
-    } else {
-      word[i++] = (char)c;
-    }
-  }
-  word[i] = '\0';
-  printf("gettoken() | got %s\n", word);
-  return i;
-}

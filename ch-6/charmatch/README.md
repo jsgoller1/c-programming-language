@@ -45,7 +45,6 @@ We will read in each non-whitespace token of the input program with `getword()` 
 **Step 2 - Determine if the parsed token is a type name**
 We will keep two tables of type names - one for default C types (`int`, `char`, `short`, etc), and one for new names defined with `typedef` or `#define` - the second array can be resized with `realloc`. Once we determine that a token should be checked, we will compare the token to C type names, storing the following variable name if a match occurs.
 
-
 **Step 3 - Store variable that match together**
 Once we are certain the token is a variable, we will store it in a table of vars. The table will store string structs with pointers to the var name, and to other entries that share the same n characters. When parsing is complete, we will print each linked list of var names separately.
 
@@ -54,3 +53,6 @@ Once we are certain the token is a variable, we will store it in a table of vars
 * Cases I have ignored:
   * Same-line declaration / definition with complex C expressions:
     * `int c = 1 + 2 + result_of_foo();`
+  * `struct` variables.
+  * Variables with compound type names, e.g. `unsigned int` or `signed char`.
+  * Function parameters are treated as variables.

@@ -19,7 +19,10 @@ extern bool IN_C_COMMENT;
 extern bool IN_STRING;
 extern bool IN_FUNCTION_PARAMS;
 
-bool should_evaluate(const char* const token);
+#define SHOULD_STORE \
+  !(IN_CPP_COMMENT | IN_C_COMMENT | IN_STRING | IN_FUNCTION_PARAMS)
+
+void update_fsm(const char* const token);
 
 // vars
 void parse_varname(void);
@@ -36,6 +39,7 @@ void cleanup_typenames(void);
 // misc
 void skip_whitespace(void);
 int parse_input(const int argc, char** const argv);
+int gettoken(char* word, const int len);
 
 // strings
 string* alloc_string(const char* const characters);

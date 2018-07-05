@@ -35,10 +35,12 @@ void handle_typedef(void);
 void cleanup_typenames(void);
 
 // misc
-string* alloc_string(const char* const characters);
-void free_string(string* str);
 void skip_whitespace(void);
 int parse_input(const int argc, char** const argv);
+
+// strings
+string* alloc_string(const char* const characters);
+void free_string(string* str);
 string* walk_strings_ll(const string* const head, const char* const str);
 string* walk_groups_ll(const string* const head, const char* const str,
                        const int n);

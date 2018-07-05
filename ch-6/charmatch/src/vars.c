@@ -50,10 +50,10 @@ void parse_varname() {
     skip_whitespace();
     gettoken(next_char, MAXLEN);  // following char
     if (next_char[0] == ',') {
-      printf("store_varname() | storing %s\n", varname);
+      store_varname(varname);
       continue;
     } else if (next_char[0] == ';' || next_char[0] == '=') {
-      printf("store_varname() | storing %s\n", varname);
+      store_varname(varname);
       break;
     } else if (next_char[0] == '(') {
       IN_FUNCTION_PARAMS = true;
@@ -64,6 +64,29 @@ void parse_varname() {
   }
 }
 
-void display_varnames() {}
+void display_varnames() {
+  string* current_group = defined_vars;
+  while (current_group != NULL) {
+    string* current_string = current_group;
+    while (current_string != NULL) {
+      printf("%s | ", current_string->chars);
+      current_string = current_string->next_string;
+    }
+    current_group = current_group->next_group;
+    printf("\n");
+  }
+}
 
-void cleanup_varnames() {}
+void cleanup_varnames() {
+  string* current_group = defined_vars;
+  while (current_group != NULL) {
+    string* current_string = current_group;
+    string* next_group = current_group->next_group;
+    while (current_string != NULL) {
+      string* next = current_string->next_string;
+      free_string(current_string);
+      current_string = next;
+    }
+    current_group = next_group;
+  }
+}

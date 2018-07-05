@@ -64,12 +64,17 @@ decl undecl:
 	$(VALGRIND) bin/$@
 
 ## Chapter 6
+# charmatch is 6.2
 # crossref is 6.3
 # wordcount is 6.4
 # hashtable is 6.5 and 6.6
-crossref wordcount hashtable charmatch:
+crossref wordcount hashtable:
 	$(CC) $(CFLAGS) $(OUTPUT_LEVEL) -I ch-6/$@/include/ $(INCLUDES) $(LIBS) ch-6/$@/src/*.c -o bin/$@
 	cat ch-6/$@/$@-test.* | $(VALGRIND) ./bin/$@
+
+charmatch:
+	$(CC) $(CFLAGS) $(OUTPUT_LEVEL) -I ch-6/$@/include/ $(INCLUDES) $(LIBS) ch-6/$@/src/*.c -o bin/$@
+	cat ch-6/$@/$@-test.* | $(VALGRIND) ./bin/$@ 1
 
 ## Chapter 8
 # cat is 8.1

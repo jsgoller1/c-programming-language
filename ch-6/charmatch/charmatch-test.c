@@ -1,8 +1,10 @@
 #include <stdio.h>
 
+int foobar(float float_a, float floatb) { printf("%f\n", a + b); }
+
 int main() {
-  int a;
-  int b;
+  int a_thing;
+  int b_thing;
   int c, d;
   int e = 0;
   int f = 0;

@@ -1,4 +1,3 @@
-#include <ctype.h>
 #include <stdbool.h>
 #include <stdio.h>
 #include <string.h>
@@ -16,28 +15,23 @@ Start with parsing two tokens. If we encounter
 
 */
 
-static void skip_whitespace() {
-  int c;
-  while (isspace(c = getchar())) {
-  }
-  ungetc(c, stdin);
-}
-
 void parse_varname() {
   char varname[MAXLEN];
-  char temp[MAXLEN];
+  char next_char[MAXLEN];
 
   while (true) {
     skip_whitespace();
     gettoken(varname, MAXLEN);
     skip_whitespace();
-    gettoken(temp, MAXLEN);  // following char
-    // printf("parse_varname() | %s %s\n", varname, temp);
-    if (temp[0] == ',') {  // not a function
+    gettoken(next_char, MAXLEN);  // following char
+    if (next_char[0] == ',') {
       printf("store_varname() | storing %s\n", varname);
       continue;
-    } else if (temp[0] == ';' || temp[0] == '=') {
+    } else if (next_char[0] == ';' || next_char[0] == '=') {
       printf("store_varname() | storing %s\n", varname);
+      break;
+    } else if (next_char[0] == '(') {
+      IN_FUNCTION_PARAMS = true;
       break;
     } else {
       break;

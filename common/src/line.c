@@ -115,7 +115,7 @@ int gettoken(char *word, const int len) {
   int i = 0;
 
   while (((c = getchar()) != EOF) && i < len) {
-    if (!isalnum(c)) {
+    if (!isalnum(c) && c != '_') {
       if (i == 0) {
         word[i++] = (char)c;  // always read at least one char
         break;

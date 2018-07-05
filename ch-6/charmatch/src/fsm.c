@@ -1,4 +1,5 @@
 #include <stdbool.h>
+#include <stdio.h>
 #include <string.h>
 
 #include "charmatch.h"
@@ -11,13 +12,14 @@ bool IN_FUNCTION_PARAMS = false;
 #define SHOULD_EVALUATE \
   !(IN_CPP_COMMENT | IN_C_COMMENT | IN_STRING | IN_FUNCTION_PARAMS)
 
-void update_fsm(const char* const token) {
+bool should_evaluate(const char* const token) {
   if ((strcmp(token, ")") == 0) && IN_FUNCTION_PARAMS) {
     IN_FUNCTION_PARAMS = false;
   }
-}
 
-bool should_evaluate(const char* const token) {
-  update_fsm(token);
+  if (strcmp(token, "\"") == 0) {
+    IN_STRING = !IN_STRING;
+  }
+
   return SHOULD_EVALUATE;
 }

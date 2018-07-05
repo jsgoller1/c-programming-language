@@ -52,7 +52,8 @@ void parse_varname() {
     if (next_char[0] == ',') {
       store_varname(varname);
       continue;
-    } else if (next_char[0] == ';' || next_char[0] == '=') {
+    } else if (next_char[0] == ';' || next_char[0] == '=' ||
+               next_char[0] == '[') {
       store_varname(varname);
       break;
     } else if (next_char[0] == '(') {

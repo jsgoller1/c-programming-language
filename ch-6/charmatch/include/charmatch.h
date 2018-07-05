@@ -20,7 +20,6 @@ extern bool IN_STRING;
 extern bool IN_FUNCTION_PARAMS;
 
 bool should_evaluate(const char* const token);
-void update_fsm(const char* const token);
 
 // vars
 void parse_varname(void);

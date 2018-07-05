@@ -128,40 +128,6 @@ int gettoken(char *word, const int len) {
     }
   }
   word[i] = '\0';
+  printf("gettoken() | got %s\n", word);
   return i;
 }
-
-/*
-int gettoken(char *word, const int len) {
-  if (word == NULL || len < 2) {
-    return -1;
-  }
-
-  int c = 0;
-  int i = 0;
-
-  c = getchar();
-  // do nothing for EOF
-  if (c == EOF) {
-    return i;
-  }  // return a single char string for syntactic characters
-  else if (!(isalnum(c))) {
-    word[i++] = (char)c;
-    word[i] = '\0';
-    return i;
-  }  // return a full word
-  else {
-    word[i++] = (char)c;
-    while (((c = getchar()) != EOF) && (i < len - 1)) {
-      if (isalnum(c)) {
-        word[i++] = (char)c;
-      } else {
-        ungetc(c, stdin);
-        break;
-      }
-    }
-    word[i] = '\0';
-    return i;
-  }
-}
-*/

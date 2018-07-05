@@ -21,5 +21,12 @@ bool should_evaluate(const char* const token) {
     IN_STRING = !IN_STRING;
   }
 
+  if (strcmp(token, "/") == 0) {
+  }
+
+  if (strcmp(token, "\n") == 0) {
+    IN_CPP_COMMENT = false;
+  }
+
   return SHOULD_EVALUATE;
 }

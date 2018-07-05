@@ -10,6 +10,8 @@ static var_name* defined_vars = NULL;
 int store_varname(const char* const varname) {
   string* group = NULL;
   string* var = NULL;
+
+  printf("store_varname() | storing %s\n", varname);
   // Find a group match
   if ((group = walk_groups_ll(defined_vars, varname, MATCH_LENGTH)) != NULL) {
     // found correct group, now check if string is present
@@ -49,6 +51,8 @@ void parse_varname() {
     gettoken(varname, MAXLEN);
     skip_whitespace();
     gettoken(next_char, MAXLEN);  // following char
+    printf("parse_varname() | varname: %s, next_char: %s\n", varname,
+           next_char);
     if (next_char[0] == ',') {
       store_varname(varname);
       continue;
@@ -57,6 +61,7 @@ void parse_varname() {
       store_varname(varname);
       break;
     } else if (next_char[0] == '(') {
+      printf("parse_varname() | now inside function params\n");
       IN_FUNCTION_PARAMS = true;
       break;
     } else {

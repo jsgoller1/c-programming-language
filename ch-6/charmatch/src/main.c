@@ -11,7 +11,7 @@ int main(int argc, char** argv) {
   int i = 0;
   char word[MAXLEN] = {0};
   while ((i = gettoken(word, MAXLEN)) > 0) {
-    printf("main() | got token: %s\n", word);
+    // printf("main() | got token: %s\n", word);
     if (should_evaluate(word)) {
       if (istypename(word)) {
         // printf("main() | storing word after %s\n", word);

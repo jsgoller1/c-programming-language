@@ -3,7 +3,8 @@
 #include <stdbool.h>
 
 typedef struct string {
-  struct string* next;
+  struct string* next_group;
+  struct string* next_string;
   char* chars;
 } string;
 
@@ -38,3 +39,4 @@ string* alloc_string(const char* const characters);
 void free_string(string* str);
 void skip_whitespace(void);
 int parse_input(const int argc, char** const argv);
+string* walk_ll(const string* const head, const char* const str);

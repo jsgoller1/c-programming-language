@@ -1,5 +1,9 @@
 #include <stdio.h>
 
+#define def_x int
+
+typedef td_y in;
+
 int foobar(float float_a, float floatb) { printf("%f\n", a + b); }
 
 int main() {

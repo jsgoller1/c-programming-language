@@ -10,12 +10,23 @@ static var_name* defined_vars = NULL;
 void store_varname(const char* const varname) {
   string* current = defined_vars;
   // See if we find a group match
-  while (current != NULL) {
+  while (current->next_group != NULL) {
     if (strncmp(varname, current->chars, (unsigned long)MATCH_LENGTH)) {
-      // Find insertion point in group, or quit if
-      // we have already stored this var name
+      // matched group, now find insertion point
+      while (current->next != NULL) {
+        // found existing, now quit.
+        if (strcmp(current->chars, varname) == 0) {
+          return;
+        } else {
+          current = current->next;
+        }
+      }
+    } else {
+      current = current->next_group;
     }
   }
+  // didn't find a group, so create one.
+  current->next_group = alloc_string(varname);
 }
 
 void parse_varname() {

@@ -43,7 +43,8 @@ string* alloc_string(const char* const characters) {
     return NULL;
   }
 
-  str->next = NULL;
+  str->next_group = NULL;
+  str->next_string = NULL;
   return str;
 }
 
@@ -51,3 +52,5 @@ void free_string(string* str) {
   free(str->chars);
   free(str);
 }
+
+string* walk_ll(const string* const head, const char* const str) {}

@@ -26,11 +26,11 @@ void update_fsm(const char* const token);
 void parse_varname(void);
 void display_varnames(void);
 void cleanup_varnames(void);
-void store_varname(const char* const varname);
+int store_varname(const char* const varname);
 
 // types
 int istypename(const char* const word);
-void handle_define(void);
+int handle_define(void);
 void handle_typedef(void);
 void cleanup_typenames(void);
 
@@ -39,4 +39,6 @@ string* alloc_string(const char* const characters);
 void free_string(string* str);
 void skip_whitespace(void);
 int parse_input(const int argc, char** const argv);
-string* walk_ll(const string* const head, const char* const str);
+string* walk_strings_ll(const string* const head, const char* const str);
+string* walk_groups_ll(const string* const head, const char* const str,
+                       const int n);

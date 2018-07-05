@@ -7,26 +7,37 @@
 
 static var_name* defined_vars = NULL;
 
-void store_varname(const char* const varname) {
-  string* current = defined_vars;
-  // See if we find a group match
-  while (current->next_group != NULL) {
-    if (strncmp(varname, current->chars, (unsigned long)MATCH_LENGTH)) {
-      // matched group, now find insertion point
-      while (current->next != NULL) {
-        // found existing, now quit.
-        if (strcmp(current->chars, varname) == 0) {
-          return;
-        } else {
-          current = current->next;
-        }
-      }
+int store_varname(const char* const varname) {
+  string* group = NULL;
+  string* var = NULL;
+  // Find a group match
+  if ((group = walk_groups_ll(defined_vars, varname, MATCH_LENGTH)) != NULL) {
+    // found correct group, now check if string is present
+    if ((var = walk_strings_ll(group, varname)) != NULL) {
+      // var is present, do nothing.
+      return 0;
     } else {
-      current = current->next_group;
+      // var wasn't present, add it
+      if ((var = alloc_string(varname)) != NULL) {
+        var->next_string = group->next_string;
+        group->next_string = var;
+      } else {
+        printf("store_varname() | couldn't allocate a new string for var.\n");
+        return -1;
+      }
+    }
+  } else {
+    // couldn't match to a group, create a new one.
+    if ((group = alloc_string(varname)) != NULL) {
+      group->next_group = defined_vars;
+      defined_vars = group;
+    } else {
+      printf(
+          "store_varname() | couldn't allocate a new string for new group.\n");
+      return -1;
     }
   }
-  // didn't find a group, so create one.
-  current->next_group = alloc_string(varname);
+  return 0;
 }
 
 void parse_varname() {

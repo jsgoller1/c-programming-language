@@ -1,3 +1,5 @@
+#pragma clang diagnostic ignored "-Wcast-qual"
+
 #include <ctype.h>
 #include <stdio.h>
 #include <stdlib.h>
@@ -53,4 +55,30 @@ void free_string(string* str) {
   free(str);
 }
 
-string* walk_ll(const string* const head, const char* const str) {}
+string* walk_groups_ll(const string* const head, const char* const str,
+                       const int n) {
+  const string* current = head;
+  while (current != NULL) {
+    if (strncmp(current->chars, str, (unsigned long)n) == 0) {
+      break;
+    } else {
+      current = current->next_group;
+    }
+  }
+  return (string*)current;
+}
+
+// implementing two different ll-walking functions given the need to use
+// strcmp() for strings and strncmp() for groups felt easier than writing
+// a single one with a more complicated interface.
+string* walk_strings_ll(const string* const head, const char* const str) {
+  const string* current = head;
+  while (current != NULL) {
+    if (strcmp(current->chars, str) == 0) {
+      break;
+    } else {
+      current = current->next_string;
+    }
+  }
+  return (string*)current;
+}

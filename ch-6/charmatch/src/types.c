@@ -15,27 +15,21 @@ static char* special_c_types[] = {"long", "signed", "unsigned"};
 
 static type_name* defined_types = NULL;
 
-static int add_type(const char* const newtype) {
-  type_name* new;
-
-  if ((new = malloc(sizeof(type_name))) == NULL) {
+static int add_type(const char* const typename) {
+  string* new_type = NULL;
+  if ((new_type = alloc_string(typename)) != NULL) {
+    new_type->next_string = defined_types;
+    defined_types = new_type;
+  } else {
+    printf("add_type() | couldn't allocate a new type.\n");
     return -1;
   }
-  if ((new->chars = strdup(newtype)) == NULL) {
-    return -1;
-  }
-
-  new->next = defined_types;
-  defined_types = new;
-
   return 0;
 }
 
-static void free_type_name() {}
-
 // handle_define(): handle further parsing if "#define" is parsed.
 // Ex. "#define foobar int"
-void handle_define(void) {
+int handle_define(void) {
   char space[MAXLEN];
   char defn[MAXLEN];
   char value[MAXLEN];
@@ -46,7 +40,9 @@ void handle_define(void) {
   getword(value, MAXLEN);
 
   if (istypename(value)) {
-    add_type(defn);
+    return add_type(defn);
+  } else {
+    return 0;
   }
 }
 
@@ -71,9 +67,9 @@ int istypename(const char* const word) {
     if (strcmp(current->chars, word) == 0) {
       return 1;
     }
-    current = current->next;
+    current = current->next_string;
   }
   return 0;
 }
 
-void cleanup_typenames() { free_type_name(); }
+void cleanup_typenames() {}

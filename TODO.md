@@ -23,6 +23,7 @@
   - C11 `-Werror -Wall` compliance
   - Valgrind reports no errors.
 - Ch. 6
+  - Handle typedef / define in charmatch
   - C11 `-Werror -Wall` compliance
   - Valgrind reports no errors.
 - Ch. 7

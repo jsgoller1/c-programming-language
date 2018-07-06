@@ -7,15 +7,18 @@
 #define MAXLINE 1000
 
 static char* get_pattern_file(const char* const path) {
-  FILE* file;
-  char* pattern;
-  int len;
+  FILE* file = NULL;
+  char* pattern = NULL;
+  unsigned long len = 0;
 
   if ((file = fopen(path, "r")) == NULL) {
+    printf("find: error - couldn't open file at %s\n", path);
     return NULL;
   }
 
-  if ((len = fseek(file, 0, SEEK_END)) < 1) {
+  fseek(file, 0L, SEEK_END);
+  if ((len = (unsigned long)ftell(file)) < 1) {
+    printf("find: error - couldn't get size of file at %s (%ld)\n", path, len);
     fclose(file);
     return NULL;
   } else {
@@ -23,13 +26,18 @@ static char* get_pattern_file(const char* const path) {
   }
 
   // sizeof not neccessary but good practice
-  unsigned long size = (unsigned long)len * sizeof(char) + 1;
-  if ((pattern = malloc(size)) == NULL) {
+  if ((pattern = malloc(len * sizeof(char) + 1)) == NULL) {
+    printf("find: error - couldn't create buffer for pattern\n");
     fclose(file);
     return NULL;
   }
 
-  if (fread(pattern, (unsigned long)len, 1, file) != (unsigned long)len) {
+  unsigned long read;
+  if ((read = fread(pattern, len, 1, file)) != 1) {
+    printf(
+        "find: error - couldn't read file contents of %s (len: %ld, read: "
+        "%ld)\n",
+        path, len, read);
     free(pattern);
     fclose(file);
     return NULL;

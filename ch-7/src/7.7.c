@@ -34,10 +34,7 @@ static char* get_pattern_file(const char* const path) {
 
   unsigned long read;
   if ((read = fread(pattern, len, 1, file)) != 1) {
-    printf(
-        "find: error - couldn't read file contents of %s (len: %ld, read: "
-        "%ld)\n",
-        path, len, read);
+    printf("find: error - couldn't read file contents of %s\n", path);
     free(pattern);
     fclose(file);
     return NULL;

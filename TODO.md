@@ -1,6 +1,6 @@
 # TODO
 
-**91 of 97 completed (6 remaining)**
+**92 of 97 completed (5 remaining)**
 
 - Ch. 1
   - Valgrind reports no errors.
@@ -24,11 +24,6 @@
   - Valgrind reports no errors.
 - Ch. 6
   - Handle typedef / define in charmatch
-  - C11 `-Werror -Wall` compliance
-  - Valgrind reports no errors.
-- Ch. 7
-  - Exercises
-    - 7-7 (modify chapter 5 pattern matcher to take input from files)
   - C11 `-Werror -Wall` compliance
   - Valgrind reports no errors.
 - Appendix A

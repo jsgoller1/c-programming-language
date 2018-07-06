@@ -1,6 +1,6 @@
 # TODO
 
-**90 of 97 completed (7 remaining)**
+**91 of 97 completed (6 remaining)**
 
 - Ch. 1
   - Valgrind reports no errors.
@@ -28,7 +28,6 @@
   - Valgrind reports no errors.
 - Ch. 7
   - Exercises
-    - 7-4 (private version of scanf)
     - 7-7 (modify chapter 5 pattern matcher to take input from files)
   - C11 `-Werror -Wall` compliance
   - Valgrind reports no errors.

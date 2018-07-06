@@ -1,55 +1,85 @@
+#include <stdarg.h>
 #include <stdio.h>
 
 /*
-Exercise 7-4: Write a private version of scanf analogous to minprintf from the
-previous section.
---
-sc
+Exercise 7-4: Write a private version of scanf
+analogous to minprintf from the previous section.
+------------------
+1. minscanf() is called with a format string and variable arg list.
+2. Characters are read from the string until the first scanf()-able char is
+read;
+3. va_arg is called to get the pointer to scan it into
+4. scanf is called, and if the result isn't zero, then scanning contiues
+  a. otherwise an error is thrown
 */
 
 // minscanf(): private scanf with variable argument list
-static void minscanf(char* fmt, ...) {
+static int minscanf(char* fmt, ...) {
   // va_list points to each unnamed arg in turn
-  va_list ap;
-  char *p, *sval;
-  int ival;
-  double dval;
+  va_list ptr;
+  int c;
+  char* p;
+  int* ip;
+  double* fp;
+  char* sp;
 
   // make ap point to first unnamed arg
-  va_start(ap, fmt);
+  va_start(ptr, fmt);
   for (p = fmt; *p; p++) {
     if (*p != '%') {
-      putchar(*p);
-      continue;
+      if ((c = getchar()) != *p) {
+        printf("minscanf() | Ordinary character mismatch; quitting.\n");
+        va_end(ptr);
+        return -1;
+      } else {
+        continue;
+      }
     }
     switch (*++p) {
       case 'd':
-        ival = va_arg(ap, int);
-        printf("%d", ival);
-        break;
-      case 'f':
-        dval = va_arg(ap, double);
-        printf("%f", dval);
-        break;
-      case 's':
-        for (sval = va_arg(ap, char*); *sval; sval++) {
-          putchar(*sval);
+        ip = va_arg(ptr, int*);
+        if (scanf("%d", ip) == 0) {
+          printf(
+              "minscanf() | ERROR: incorrect type / format string provided; "
+              "quitting.\n");
+          va_end(ptr);
+          return -1;
         }
         break;
-      case 'o':
-        ival = va_arg(ap, int);
-        printf("%o", ival);
+      case 'f':
+        fp = va_arg(ptr, double*);
+        if (scanf("%lf", fp) == 0) {
+          printf(
+              "minscanf() | ERROR: incorrect type / format string provided; "
+              "quitting.\n");
+          va_end(ptr);
+          return -1;
+        }
         break;
-      case 'x':
-        ival = va_arg(ap, int);
-        printf("%x", ival);
+      case 's':
+        sp = va_arg(ptr, char*);
+        if (scanf("%s", sp) == 0) {
+          printf(
+              "minscanf() | ERROR: incorrect type / format string provided; "
+              "quitting.\n");
+          va_end(ptr);
+          return -1;
+        }
         break;
       default:
-        putchar(*p);
-        break;
+        continue;
     }
   }
-  va_end(ap);  // clean up when done
+  va_end(ptr);  // clean up when done
+  return 0;
 }
 
-int main() { minscanf("%d %f %s %o %x\n", 10, 20.5, "foobarbaz", 999, 255); }
+int main() {
+  int d;
+  double f;
+  char s[100];
+
+  if (minscanf("%d - %f - %s\n", &d, &f, s) == 0) {
+    printf("%d - %f - %s\n", d, f, s);
+  }
+}

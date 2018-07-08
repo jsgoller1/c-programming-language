@@ -13,7 +13,11 @@ void dirdecl(void) {
       printf("error: missing )\n");
     }
   } else if (tokentype == NAME) {
-    strcpy(name, token);
+    if (strcmp(token, "const") == 0) {
+      strcat(out, " const");
+    } else {
+      strcpy(name, token);
+    }
   } else {
     printf("error: expected name or (decl)\n");
   }

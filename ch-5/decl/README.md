@@ -1,51 +1,46 @@
 decl
 ---
 
-## Note
-I found this program _immensely_ confusing at first due to use of globals (I do not know
-a lot about parsing / grammars, but I recall seeing state machines in the early chapters
-of the dragon book so I feel like this might be standard practice). I decided to challenge
-myself by not to re-writing it without globals but instead building on the exiting code.
-
 ## Grammar:
 ```
-       dcl -> (optional *'s) direct-dcl
-direct-dcl -> name
-           -> (dcl)
-           -> direct-dcl()
-           -> direct-dcl[optional size]
+       decl -> (optional *'s) direct-decl
+direct-decl -> name
+            -> (decl)
+            -> direct-decl(typed-expr)
+            -> direct-decl[optional size]
+ typed-expr -> type name
+       name -> (optional const) any string of alphanum chars, not reserved
+       type -> (optional const) (char | short | int | long | float | double ) (optional *)
 ```
 
-## Test cases
-```
-char **argv
-argv: pointer to pointer to char
+## Assumptions
+- we will not handle compound types, e.g. `unsigned long`
+- we will not handle structs
+- function arguments will only be basic types:
+  - allowed: 
+    - `int x(int a, int b)`
+    - `int x(const int a)`
+  - not allowed:
+    - `int x(int (*f)(int, int), int a)`
 
-int (*daytab)[13]
-daytab: pointer to array[13] of int
-
-int *daytab[13]
-daytab: array[13] of pointer to int
-
-void *comp()
-comp: function returning pointer to void
-
-void (*comp)()
-comp: pointer to function returning void
-
-char (*(*x()){})()
-x: function returning pointer to array[] of pointer to function returning char
-
-char (*(*x[3])(»[S]
-x: array[3] of pointer to function returning pointer to array[S] of char
-```
 
 ## Directions
 ```
-Exercise 5-18. Make dcl recover from input errors.
+Exercise 5-18. Make decl recover from input errors.
 
-Exercise 5-19. Modify undcl so that it does not add redundant parentheses to
-declarations.
+Exercise 5-19. Modify undecl so that it does not add redundant parentheses to declarations.
 
-Exercise5-20. Expand dcl to handle declarations with function argument types, qualifiers like const, and so on.
+Exercise5-20. Expand decl to handle declarations with function argument types, qualifiers like const, and so on.
 ```
+
+## Notes
+const int x;
+  decl
+  const direct-decl
+
+
+
+const char* const x;
+x(const int y);
+
+const char* const x(const char* const y);

@@ -15,9 +15,11 @@ int gettoken(void) {
   if (c == '(') {
     if ((c = getchar()) == ')') {
       strcpy(token, "()");
+      printf("gettoken() | got (), tokentype PARENS\n");
       return tokentype = PARENS;
     } else {
       ungetc(c, stdin);
+      printf("gettoken() | got (, tokentype (\n");
       return tokentype = '(';
     }
   } else if (c == '[') {
@@ -25,6 +27,7 @@ int gettoken(void) {
       // skip array size specifier
     }
     *p = '\0';
+    printf("gettoken() | got [], tokentype BRACKETS\n");
     return tokentype = BRACKETS;
   } else if (isalpha(c)) {
     for (*p++ = (char)c; isalnum(c = getchar());) {
@@ -32,8 +35,10 @@ int gettoken(void) {
     }
     *p = '\0';
     ungetc(c, stdin);
+    printf("gettoken() | got %s, tokentype NAME\n", token);
     return tokentype = NAME;
   } else {
+    printf("gettoken() | got %c, tokentype %c\n", c, c);
     return tokentype = c;
   }
 }

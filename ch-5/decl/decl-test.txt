@@ -1,7 +1,1 @@
-char **a
-int (*b)[13]
-int *c[13]
-void *d()
-void (*e)()
-char (*(*f()){})()
-char (*(*g[3])(*[S])
+const int x;

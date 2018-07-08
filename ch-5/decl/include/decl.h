@@ -3,7 +3,7 @@
 #define MAXTOKEN 100
 
 // globals
-enum { NAME, PARENS, BRACKETS };
+enum { NAME, PARENS, BRACKETS, CONST };
 extern int tokentype;
 extern char token[];
 extern char name[];

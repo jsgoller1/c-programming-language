@@ -1,0 +1,16 @@
+=== default test cases ===
+char **a
+int (*b)[13]
+int *c[13]
+void *d()
+void (*e)()
+char (*(*f())[])()
+char (*(*g[3])())[5]
+
+=== 5.20 tests ===
+const int h()
+int i(int a, int b)
+char* const j()
+int k(const int x)
+const char* const l(const int x)
+const char* const l(const char* const x)

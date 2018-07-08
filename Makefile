@@ -46,7 +46,7 @@ ch-6: 6.1 charmatch crossref wordcount hashtable
 ch-7: 7.1 7.2 7.3 7.4 7.5 7.6 7.7 7.8
 ch-8: cat fopen_j 8.5 malloc_j
 
-1.% 2.% 3.% 4.% 5.% 6.% 7.% 8.%:
+1.% 2.% 3.% 4.% 5.% 6.% 7.% 8.%: clean
 	@# When making "3.4", get "3" as chapter value
 	@$(eval CH := $(shell echo $@ | grep -o "[1-8]\." | sed 's/\.//' ))
 	$(COMPILE) -I ch-$(CH)/include/ ch-$(CH)/src/$@.c -o bin/$@
@@ -54,18 +54,18 @@ ch-8: cat fopen_j 8.5 malloc_j
 
 ## Chapter 4
 # the reverse polish calc is exercises 4.3 through 4.10.
-rpc:
+rpc: clean
 	$(COMPILE) -I ch-4/rpc/include/ ch-4/rpc/src/$@.c -o bin/$@
 	$(VALGRIND) ./bin/$@
 
 ## Chapter 5
 # tail is exercise 5.13; I decided external tests were better than unit tests.
-tail:
+tail: clean
 	$(COMPILE) -I ch-5/tail/include/ ch-5/tail/src/5.13.c -o bin/tail
 	./tail/tail_test.sh
 
 # sort is exercises 5.14 through 5.17
-sort:
+sort: clean
 	$(COMPILE) -I ch-5/sort/include/ ch-5/sort/src/*.c -o bin/$@
 	@if [[ -z "$(TESTS)" ]]; then \
 		cat sort/sort-test.txt | $(VALGRIND) ./bin/$@; \
@@ -73,7 +73,7 @@ sort:
 	fi
 
 # decl/undecl is exercises 5.18 through 5.20
-decl undecl:
+decl undecl: clean
 	$(COMPILE) -I ch-5/decl/include/ ch-5/decl/src/*.c -o bin/$@
 	$(VALGRIND) bin/$@
 
@@ -82,13 +82,13 @@ decl undecl:
 # crossref is 6.3
 # wordcount is 6.4
 # hashtable is 6.5 and 6.6
-crossref wordcount hashtable charmatch:
+crossref wordcount hashtable charmatch: clean
 	$(COMPILE) -I ch-6/$@/include/ ch-6/$@/src/*.c -o bin/$@
 	cat ch-6/$@/$@-test.* | $(VALGRIND) ./bin/$@
 
 ## Chapter 8
 # cat is 8.1
-cat:
+cat: clean
 	@echo "foo" > foo.test; echo "bar" > bar.test; echo "baz" > baz.test
 	$(COMPILE) -I ch-8/include/ ch-8/src/8.1.c -o bin/cat
 	@$(VALGRIND) ./bin/cat {foo,bar,baz}.test
@@ -96,7 +96,7 @@ cat:
 
 # fopen (and getc) is 8.2 through 8.4
 # malloc is 8.6 through 8.8
-fopen_j malloc_j:
+fopen_j malloc_j: clean
 	$(COMPILE) -I ch-8/$@/include/ ch-8/$@/src/*.c -o bin/$@
 	$(VALGRIND) ./bin/$@
 

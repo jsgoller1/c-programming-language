@@ -6,16 +6,17 @@ This was the first book I read that qualifies as "one of those CS books everyone
 in some places because I got better at programming as I went along.
 
 ## Goals
-Other than learning C and "doing all the exercises," my goals for this textbook changed as I read it. I settled on the following definition for "complete":
+My goals for this textbook changed as I read it. I settled on the following definition for "complete":
 - All pages read
 - All exercises solved, with maximum const correctness
 - All solutions compile against C11 with `-Werror -Wall`
-- All solutions report no memory leaks in Valgrind
+- All solutions report no issues from Clang's static analyzer (`scan-build`), excluding false positives
+- All solutions report no memory leaks in `valgrind` when run with `--leak-check=full --show-leak-kinds=all`
 
 I have _not_ tried to hold to the text as closely as possible at the cost of writing straightforward code; e.g. I may use structs in my solutions in chapter 5 despite them not being introduced til chapter 6.
 
 ## Running
-Each exercise has its own target (e.g. `make 5.4` will make exercise 4 in chapter 5). `make all` compiles all exercises and runs unit tests (assuming any exist). Some exercises are refactored into their own shared subprograms when warranted; e.g. 5.14 - 5.17 are all about the `sort` program, so they exist in `ch-5/sort/`. Makefile targets exist for these solutions independently.
+Each exercise has its own target (e.g. `make 5.4` will make exercise 4 in chapter 5). `make all` compiles all exercises, and runs some with test input. Some exercises are refactored into their own shared subprograms when warranted; e.g. 5.14 - 5.17 are all about the `sort` program, so they exist in `ch-5/sort/`. Makefile targets exist for these solutions independently.
 
 ## Highlights
 * Ch-4
@@ -30,14 +31,8 @@ Each exercise has its own target (e.g. `make 5.4` will make exercise 4 in chapte
 * Misc.
   * `common/` - a "standard library" of various types of functions most exercises consume
   * `common/trees/` - a generic binary search tree library I wrote to handle exercises in Chapter 6
-  * `common/tests/` - a simple unit testing library, as described below.
+  * `common/tests/` - a simple unit testing library that wraps around the `assert(3)` macro; I wound up not using this too much.
   * [C FAQ](https://github.com/jsgoller1/c-faq) - this is a separate repo I started to help work through questions I had about C as I read K&R.
-
-## Tests
-I wrote my own simple testing library for the exercises, found in `common/`; it wraps around the `assert(3)` macro and can do basic comparison for strings, ints, and bools. Execution will immediately halt and fail
-if any tests fail. Test execution relies on two preprocessor macros which can be set in the Makefile:
-* `TESTS` - causes each individual test to be shown (if any exist) when testing.
-* `DEBUG` - dumps information about the exercise test results.
 
 ## Conventions
 I have my editor set up to run `clang-format -i --style=Google` on save. See `conventions.c` for an example file and listing of conventions.

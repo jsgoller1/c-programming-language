@@ -8,9 +8,20 @@ char (*(*f())[])()
 char (*(*g[3])())[5]
 
 === 5.20 tests ===
-const int h()
-int i(int a, int b)
-char* const j()
-int k(const int x)
-const char* const l(const int x)
-const char* const l(const char* const x)
+> const int x
+x: const int
+
+> int h(int x)
+h: function with args (int x) returning int
+
+> int i(int a, int b)
+i: function with args (int a, int b) returning int
+
+> char* j(const char x)
+j: function with args (const char x) returning pointer to char
+
+> int k(const int x)
+k: function with args (const int x) returning int
+
+>char* const l(const char* const x)
+l: function with args (const char* const x) returning int

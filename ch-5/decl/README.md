@@ -9,8 +9,9 @@ direct-decl -> name
             -> direct-decl(typed-expr)
             -> direct-decl[optional size]
  typed-expr -> type name
-       name -> (optional const) any string of alphanum chars, not reserved
        type -> (optional const) (char | short | int | long | float | double | void) (optional *)
+       name -> (optional const) any string of alphanum chars, not reserved
+
 ```
 
 ## Assumptions

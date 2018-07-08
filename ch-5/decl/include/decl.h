@@ -10,6 +10,9 @@ extern char name[];
 extern char datatype[];
 extern char out[];
 
+#define TYPESCOUNT 7
+extern char* types[];
+
 // decl
 void decl(void);
 
@@ -18,3 +21,4 @@ void dirdecl(void);
 
 // gettoken
 int gettoken(void);
+int istype(void);

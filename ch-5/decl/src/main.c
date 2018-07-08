@@ -8,11 +8,13 @@ char name[MAXTOKEN] = {0};
 char datatype[MAXTOKEN] = {0};
 char out[MAXTOKEN] = {0};
 int tokentype = 0;
+char* types[] = {"char", "short", "int", "long", "float", "double", "void"};
 
 int main() {
-  while (gettoken() != EOF) {
-    // strcpy(datatype, token);
-    // out[0] = '\0';
+  int tk;
+  while ((tk = gettoken()) != EOF && tk != '\n') {
+    strcpy(datatype, token);
+    out[0] = '\0';
     decl();
     // if (tokentype != '\n') {
     //  printf("syntax error.\n");

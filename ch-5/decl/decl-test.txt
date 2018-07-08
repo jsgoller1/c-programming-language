@@ -1,1 +1,1 @@
-const int x;
+int x(const char y)

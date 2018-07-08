@@ -42,3 +42,13 @@ int gettoken(void) {
     return tokentype = c;
   }
 }
+
+int istype(void) {
+  for (int i = 0; i < TYPESCOUNT; i++) {
+    if (strcmp(types[i], token) == 0) {
+      printf("istype() | %s is a type.\n", token);
+      return i;
+    }
+  }
+  return -1;
+}

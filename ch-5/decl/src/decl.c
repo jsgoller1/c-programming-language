@@ -10,8 +10,8 @@ void decl(void) {
   for (ns = 0; gettoken() == '*';) {
     ns++;
   }
-  dirdcl();
+  dirdecl();
   while (ns-- > 0) {
-    strcat(out, "pointer to");
+    strcat(out, " pointer to");
   }
 }

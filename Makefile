@@ -75,7 +75,7 @@ sort: clean
 # decl/undecl is exercises 5.18 through 5.20
 decl undecl: clean
 	$(COMPILE) -I ch-5/decl/include/ ch-5/decl/src/*.c -o bin/$@
-	$(VALGRIND) bin/$@
+	cat ch-5/$@/$@-test.txt | $(VALGRIND) bin/$@
 
 ## Chapter 6
 # charmatch is 6.2

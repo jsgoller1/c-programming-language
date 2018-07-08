@@ -1,4 +1,5 @@
 #include <stdio.h>
+#include <string.h>
 
 #include "decl.h"
 
@@ -6,6 +7,7 @@ char token[MAXTOKEN] = {0};
 char name[MAXTOKEN] = {0};
 char datatype[MAXTOKEN] = {0};
 char out[MAXTOKEN] = {0};
+int tokentype = 0;
 
 int main() {
   while (gettoken() != EOF) {

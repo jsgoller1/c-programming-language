@@ -1,10 +1,11 @@
 #include <stdio.h>
+#include <string.h>
 
 #include "decl.h"
 
 // dirdecl: parse a direct declarator
 void dirdecl(void) {
-  int type;
+  int type = 0;
 
   if (tokentype == '(') {
     decl();
@@ -16,7 +17,7 @@ void dirdecl(void) {
   } else {
     printf("error: expected name or (decl)\n");
   }
-  while ((type == gettoken()) == PARENS || type == BRACKETS) {
+  while ((type = gettoken()) == PARENS || type == BRACKETS) {
     if (type == PARENS) {
       strcat(out, " function returning");
     } else {

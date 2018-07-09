@@ -21,7 +21,7 @@ void dirdecl(void) {
   while ((type = gettoken()) == PARENS || type == '(' || type == BRACKETS) {
     switch (type) {
       case PARENS:
-        strcat(out, " function (no args) returning");
+        strcat(out, " function returning");
         break;
       case BRACKETS:
         strcat(out, " array");

@@ -18,8 +18,8 @@
     - 5-11 (entab - easy, just effortful)
     - 5-12 (entab - easy, just effortful)
     - 5-17 (do sorting based on subfields of strings)
-    - 5-19 (decl)
-    - 5-20 (decl)
+    - 5-18 (decl error handling)
+    - 5-19 (undecl parens)
   - C11 `-Werror -Wall` compliance
   - Valgrind reports no errors.
 - Ch. 6

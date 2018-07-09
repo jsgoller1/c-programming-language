@@ -14,6 +14,6 @@ int main() {
   gettype();
   out[0] = '\0';
   decl();
-  printf("%s: %s %s\n", name, out, datatype);
+  printf("declare %s as %s %s\n", name, out, datatype);
   return 0;
 }

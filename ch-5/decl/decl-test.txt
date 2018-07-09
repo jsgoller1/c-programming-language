@@ -1,10 +1,10 @@
-char* a(int x)
-int b(const char x)
-int c(int x)
-int d(int a, int b)
-char* e(const char x)
-int f(const int x)
-char* g(const char* const x)
+char* a(int)
+int b(const char)
+int c(int)
+int d(int, int)
+char* e(const char)
+int f(const int)
+char* g(const char*)
 const int h
 char **i
 int (*j)[13]

@@ -11,15 +11,9 @@ int tokentype = 0;
 char* types[] = {"char", "short", "int", "long", "float", "double", "void"};
 
 int main() {
-  int tk;
-  while ((tk = gettoken()) != EOF && tk != '\n') {
-    strcpy(datatype, token);
-    out[0] = '\0';
-    decl();
-    // if (tokentype != '\n') {
-    //  printf("syntax error.\n");
-    //}
-    printf("%s: %s %s\n", name, out, datatype);
-  }
+  gettype();
+  out[0] = '\0';
+  decl();
+  printf("%s: %s %s\n", name, out, datatype);
   return 0;
 }

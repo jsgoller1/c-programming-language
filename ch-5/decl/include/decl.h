@@ -21,4 +21,5 @@ void dirdecl(void);
 
 // gettoken
 int gettoken(void);
+void gettype(void);
 int istype(void);

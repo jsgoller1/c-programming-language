@@ -1,1 +1,15 @@
+char* x(int a)
 int x(const char y)
+int h(int x)
+int i(int a, int b)
+char* j(const char x)
+int k(const int x)
+char* l(const char* const x)
+const int m
+char **n
+int (*o)[13]
+int *p[13]
+void *q()
+void (*r)()
+char (*(*s())[])()
+char (*(*t[3])())[5]

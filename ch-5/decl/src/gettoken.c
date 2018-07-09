@@ -15,11 +15,11 @@ int gettoken(void) {
   if (c == '(') {
     if ((c = getchar()) == ')') {
       strcpy(token, "()");
-      printf("gettoken() | got (), tokentype PARENS\n");
+      // printf("gettoken() | got (), tokentype PARENS\n");
       return tokentype = PARENS;
     } else {
       ungetc(c, stdin);
-      printf("gettoken() | got (, tokentype (\n");
+      // printf("gettoken() | got (, tokentype (\n");
       return tokentype = '(';
     }
   } else if (c == '[') {
@@ -27,7 +27,7 @@ int gettoken(void) {
       // skip array size specifier
     }
     *p = '\0';
-    printf("gettoken() | got [], tokentype BRACKETS\n");
+    // printf("gettoken() | got [], tokentype BRACKETS\n");
     return tokentype = BRACKETS;
   } else if (isalpha(c)) {
     for (*p++ = (char)c; isalnum(c = getchar());) {
@@ -35,18 +35,36 @@ int gettoken(void) {
     }
     *p = '\0';
     ungetc(c, stdin);
-    printf("gettoken() | got %s, tokentype NAME\n", token);
+    // printf("gettoken() | got %s, tokentype NAME\n", token);
     return tokentype = NAME;
   } else {
-    printf("gettoken() | got %c, tokentype %c\n", c, c);
+    // printf("gettoken() | got %c, tokentype %c\n", c, c);
     return tokentype = c;
+  }
+}
+
+void gettype(void) {
+  datatype[0] = '\0';
+  gettoken();
+  // printf("gettype() | %s\n", token);
+  if (strcmp(token, "const") == 0) {
+    strcat(datatype, token);
+    strcat(datatype, " ");
+    gettoken();
+    // printf("gettype() | %s\n", token);
+  }
+  if (istype() != -1) {
+    strcat(datatype, token);
+    strcat(datatype, " ");
+  } else {
+    printf("decl: error - %s is not a type, quitting.\n", token);
   }
 }
 
 int istype(void) {
   for (int i = 0; i < TYPESCOUNT; i++) {
     if (strcmp(types[i], token) == 0) {
-      printf("istype() | %s is a type.\n", token);
+      // printf("istype() | %s is a type.\n", token);
       return i;
     }
   }

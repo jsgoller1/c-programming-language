@@ -16,7 +16,7 @@ extern char* types[];
 // decl
 int decl(void);
 
-// dirdcl
+// dirdecl
 int dirdecl(void);
 
 // gettoken

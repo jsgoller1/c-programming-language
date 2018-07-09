@@ -74,8 +74,8 @@ sort: clean
 
 # decl/undecl are exercises 5.18 through 5.20
 decl undecl: clean
-	$(COMPILE) -I ch-5/decl/include/ ch-5/decl/src/{decl,dirdecl,gettoken,$@-main}.c -o bin/$@
-	./ch-5/$@/$@-test.sh
+	$(COMPILE) -I ch-5/decl/include/ ch-5/decl/src/{decl,dirdecl,gettoken,$@-main,vars}.c -o bin/$@
+	./ch-5/decl/$@-test.sh
 
 ## Chapter 6
 # charmatch is 6.2

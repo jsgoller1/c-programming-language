@@ -51,6 +51,7 @@ I have my editor set up to run `clang-format -i --style=Google` on save. See `co
 * Ch. 5:
   * 5.18 (`decl`):
     * I rewrote `decl` such that it does not run in a loop, and only accepts one line of input, so `recovering from errors` isn't really necessary anymore - instead, I added checks to ensure the program terminates immediately if erroneous input is detected.
+    * `scan-build` throws an error about `TYPE` being unused in `dirdecl()`, but this is acceptable given that it is a global variable.
 * Ch. 6:
   * 6.2 (`charmatch`):
     * I wound up narrowing the scope of this problem significantly and ignoring a few legitimate edge cases; I would need to write a complete C parser and preprocessor to catch every possible variable, which is out of scope.

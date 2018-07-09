@@ -18,34 +18,26 @@ void dirdecl(void) {
     printf("error: expected name or (decl)\n");
   }
 
-  type = gettoken();
-  switch (type) {
-    case PARENS:
-      strcat(out, " function with no args returning");
-      break;
-    case BRACKETS:
-      strcat(out, " array");
-      strcat(out, token);
-      strcat(out, " of");
-      break;
-    case '(':
-      strcat(out, " function with args (");
-      char args[] = {" "};
-      while ((args[0] = (char)getchar()) != ')') {
-        strcat(out, args);
-      }
-      type = PARENS;
-      strcpy(token, "()");
-      strcat(out, ") returning");
-      break;
-    case ')':
-    case '\n':
-      break;
-    default:
-      printf(
-          "error: expected (), [], or (function args), but got %s (type %d: "
-          "%c) \n",
-          token, type, type);
-      break;
+  while ((type = gettoken()) == PARENS || type == '(' || type == BRACKETS) {
+    switch (type) {
+      case PARENS:
+        strcat(out, " function (no args) returning");
+        break;
+      case BRACKETS:
+        strcat(out, " array");
+        strcat(out, token);
+        strcat(out, " of");
+        break;
+      case '(':
+        strcat(out, " function with args (");
+        char args[] = {" "};
+        while ((args[0] = (char)getchar()) != ')') {
+          strcat(out, args);
+        }
+        type = PARENS;
+        strcpy(token, "()");
+        strcat(out, ") returning");
+        break;
+    }
   }
 }

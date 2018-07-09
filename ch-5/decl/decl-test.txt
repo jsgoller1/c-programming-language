@@ -1,15 +1,15 @@
-char* x(int a)
-int x(const char y)
-int h(int x)
-int i(int a, int b)
-char* j(const char x)
-int k(const int x)
-char* l(const char* const x)
-const int m
-char **n
-int (*o)[13]
-int *p[13]
-void *q()
-void (*r)()
-char (*(*s())[])()
-char (*(*t[3])())[5]
+char* a(int x)
+int b(const char x)
+int c(int x)
+int d(int a, int b)
+char* e(const char x)
+int f(const int x)
+char* g(const char* const x)
+const int h
+char **i
+int (*j)[13]
+int *k[13]
+void *l()
+void (*m)()
+char (*(*n())[])()
+char (*(*o[3])())[5]

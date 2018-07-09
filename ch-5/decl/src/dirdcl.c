@@ -34,9 +34,11 @@ void dirdecl(void) {
       while ((args[0] = (char)getchar()) != ')') {
         strcat(out, args);
       }
+      type = ')';
       strcpy(token, ")");
       strcat(out, ") returning");
       break;
+    case ')':
     case '\n':
       break;
     default:

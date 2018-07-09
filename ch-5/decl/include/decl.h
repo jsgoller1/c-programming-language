@@ -14,12 +14,12 @@ extern char out[];
 extern char* types[];
 
 // decl
-void decl(void);
+int decl(void);
 
 // dirdcl
-void dirdecl(void);
+int dirdecl(void);
 
 // gettoken
 int gettoken(void);
-void gettype(void);
+int gettype(void);
 int istype(void);

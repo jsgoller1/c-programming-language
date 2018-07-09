@@ -3,19 +3,24 @@
 
 #include "decl.h"
 
-// dirdecl: parse a direct declarator
-void dirdecl(void) {
+// dirdecl: parse a direct declarator via the grammar, possibly recursing into
+// decl if necessary.
+int dirdecl(void) {
   int type = 0;
 
   if (tokentype == '(') {
-    decl();
+    if (decl() == -1) {
+      return -1;
+    }
     if (tokentype != ')') {
       printf("error: missing )\n");
+      return -1;
     }
   } else if (tokentype == NAME) {
     strcpy(name, token);
   } else {
     printf("error: expected name or (decl)\n");
+    return -1;
   }
 
   while ((type = gettoken()) == PARENS || type == '(' || type == BRACKETS) {
@@ -40,4 +45,6 @@ void dirdecl(void) {
         break;
     }
   }
+
+  return 0;
 }

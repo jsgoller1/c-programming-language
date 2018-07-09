@@ -11,9 +11,14 @@ int tokentype = 0;
 char* types[] = {"char", "short", "int", "long", "float", "double", "void"};
 
 int main() {
-  gettype();
+  if (gettype() == -1) {
+    return -1;
+  }
   out[0] = '\0';
-  decl();
-  printf("declare %s as %s %s\n", name, out, datatype);
-  return 0;
+  if (decl() == 0) {
+    printf("declare %s as %s %s\n", name, out, datatype);
+    return 0;
+  } else {
+    return -1;
+  }
 }

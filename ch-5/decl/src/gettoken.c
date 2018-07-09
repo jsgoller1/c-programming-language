@@ -43,22 +43,22 @@ int gettoken(void) {
   }
 }
 
-void gettype(void) {
+int gettype(void) {
   datatype[0] = '\0';
   gettoken();
-  // printf("gettype() | %s\n", token);
   if (strcmp(token, "const") == 0) {
     strcat(datatype, token);
     strcat(datatype, " ");
     gettoken();
-    // printf("gettype() | %s\n", token);
   }
   if (istype() != -1) {
     strcat(datatype, token);
     strcat(datatype, " ");
   } else {
     printf("decl: error - %s is not a type, quitting.\n", token);
+    return -1;
   }
+  return 0;
 }
 
 int istype(void) {

@@ -48,6 +48,9 @@ I have my editor set up to run `clang-format -i --style=Google` on save. See `co
     * K&R claim that `getch()` / `ungetch()` don't handle `EOF` correctly, but the expected behavior occurs both in my implementation and theirs so I'm not quite sure what this question is asking. `EOF` does cause the program to exit correctly, although the `EOF` character gets pushed back into the array by `ungets()`.
   * 4.10:
     * I sort-of skipped this because I re-architected the RPN calculator to loosely couple and more robustly handle parsing, lexing, and token handling; a solution involving parsing the entire string either would require 1) tightly-recoupling these things so that in one loop you can handle the entire string, determining symbols and pushing it to the stack, or 2) having an intermediary data structure similar to the ungetch() buffer.
+* Ch. 5:
+  * 5.18 (`decl`):
+    * I rewrote `decl` such that it does not run in a loop, and only accepts one line of input, so `recovering from errors` isn't really necessary anymore - instead, I added checks to ensure the program terminates immediately if erroneous input is detected.
 * Ch. 6:
   * 6.2 (`charmatch`):
     * I wound up narrowing the scope of this problem significantly and ignoring a few legitimate edge cases; I would need to write a complete C parser and preprocessor to catch every possible variable, which is out of scope.

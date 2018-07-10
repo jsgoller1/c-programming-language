@@ -10,7 +10,7 @@ int main(int argc, char** argv) {
                     const int);  // detab or entab, depending on flags
 
   // handle input
-  if ((input = parse_flags(argc, argv)) == USE_ENTAB) {
+  if ((input = parse_flags(argc, argv, tab_stops)) == USE_ENTAB) {
     behavior = entab;
   } else if (input == USE_DETAB) {
     behavior = detab;
@@ -20,7 +20,7 @@ int main(int argc, char** argv) {
 
   // do the thing
   while ((len = mygetline(line, MAXLINE)) > 0) {
-    processed_line = behavior(line, len, TAB_STOPS);
+    processed_line = behavior(line, len, tab_stops);
     printf("%s\n", processed_line);
     free(processed_line);
   }

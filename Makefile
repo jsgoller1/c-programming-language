@@ -1,6 +1,6 @@
 SHELL:=/bin/bash
 
-ANALYZER:=scan-build
+#ANALYZER:=scan-build
 CC:=clang
 CFLAGS :=-std=gnu11 -g -lm
 WARNINGS :=-Weverything -Werror
@@ -12,6 +12,10 @@ VALGRIND := valgrind -q --leak-check=full --show-leak-kinds=all --error-exitcode
 all: setup ch-1 ch-2 ch-3 ch-4 ch-5 ch-6 ch-7 ch-8
 
 ### Dockerized Linux workspace; setting up Valgrind on OSX is annoying.
+docker-clean:
+	-docker stop ubuntu
+	-docker rm ubuntu
+
 docker:
 	docker pull ubuntu
 	docker run \
@@ -20,10 +24,12 @@ docker:
 	-v `pwd`:/workspace \
 	ubuntu
 	docker exec ubuntu apt-get update
-	docker exec ubuntu apt-get install -y make valgrind clang
+	docker exec ubuntu apt-get install -y make valgrind clang clang-tools cdecl
 
 shell:
 	docker exec -it ubuntu /bin/bash
+
+workspace: docker-clean docker shell
 
 ### Setup commands
 setup:
@@ -60,8 +66,8 @@ rpc: clean
 
 ## Chapter 5
 # entab / detab are exercises 5.11 and 5.12
-entab: clean
-$(COMPILE) -I ch-5/entab/include ch-5/entab/*.c -o bin/$@
+entab detab: clean
+	$(COMPILE) -I ch-5/entab/include ch-5/entab/src/*.c -o bin/$@
 	./ch-5/decl/$@-test.sh
 
 # tail is exercise 5.13; I decided external tests were better than unit tests.

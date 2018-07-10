@@ -1,5 +1,8 @@
 #pragma once
 
+#define USE_ENTAB 42
+#define USE_DETAB 666
+
 typedef struct input_flags {
 } input_flags;
 
@@ -7,8 +10,8 @@ typedef struct input_flags {
 int parse_flags(const int argc, char** const argv);
 
 // entab
+char* entab(const char* const in_line, const int in_len, const int tab_stop);
 int look_ahead(const char* const in_line, const int in_len, int offset,
                const int tab_stop);
-
 // detab
 char* detab(const char* const in_line, const int in_len, const int tab_stop);

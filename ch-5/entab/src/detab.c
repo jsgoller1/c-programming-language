@@ -10,7 +10,7 @@
 // detab(): replace tabs in in_line with with
 // whitespace up to next tab_stop-th column
 char* detab(const char* const in_line, const int in_len,
-            const int* const tab_stop) {
+            const int* const stop_list) {
   char* out_line;
   int i, j;
   char temp[MAXLINE];

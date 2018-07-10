@@ -11,9 +11,9 @@ int parse_flags(const int argc, char** const argv, int* tab_stops);
 
 // entab
 char* entab(const char* const in_line, const int in_len,
-            const int* const tab_stop);
+            const int* const tab_stop, const int stop_list_len);
 int look_ahead(const char* const in_line, const int in_len, int offset,
-               const int tab_stop);
+               const int stop_list);
 // detab
 char* detab(const char* const in_line, const int in_len,
-            const int* const tab_stop);
+            const int* const stop_list);

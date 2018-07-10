@@ -10,7 +10,7 @@
 // entab(): given a string of len, return it with all whitespaces of a given
 // length replaced by tabs (represented by "$" for clarity)
 char* entab(const char* const in_line, const int in_len,
-            const int* const tab_stop) {
+            const int* const stop_list, const int stop_list_len) {
   char* out_line = {""};
   int i = 0, j = 0, next_stop = 0;
   char temp[MAXLINE] = {0};

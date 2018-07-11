@@ -65,10 +65,10 @@ rpc: clean
 	$(VALGRIND) ./bin/$@
 
 ## Chapter 5
-# entab / detab are exercises 5.11 and 5.12
-entab detab: clean
+# tabber covers the entab / detab exercises in 5.11 and 5.12
+tabber: clean
 	$(COMPILE) -I ch-5/entab/include ch-5/entab/src/*.c -o bin/$@
-	./ch-5/decl/$@-test.sh
+	./ch-5/entab/$@-test.sh
 
 # tail is exercise 5.13; I decided external tests were better than unit tests.
 tail: clean

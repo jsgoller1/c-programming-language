@@ -21,7 +21,18 @@ int main(int argc, char** argv) {
     return -1;
   }
 
-  // Decouple input / program execution just during testing.
+  // Testing: input handling
+  (void)len;
+  (void)line;
+  (void)processed_line;
+  printf("behavior %d\ntab_stops: ", behavior);
+  for (int i = 0; i < stop_list_len; i++) {
+    printf("%c ", tab_stops[i]);
+  }
+  printf("\n");
+
+  /*
+  // Testing: detab-ing / entabing
   (void)behavior;
   tab_stops[] = {0, 5, 10, 15, 20, 25, 30, 35};
   stop_list_len = 8;
@@ -33,6 +44,7 @@ int main(int argc, char** argv) {
     printf("%s\n", processed_line);
     free(processed_line);
   }
+  */
 
   return 0;
 }

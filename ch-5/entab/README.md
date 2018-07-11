@@ -5,8 +5,7 @@ entab/detab
 Exercise 5-11: Modify the programs entab and detab (written as exercises in Chapter 1) to
 accept a list of tab stops as arguments. Use the default tab settings if there are no arguments.
 
-Exercise 5-12: Extend entab and detab to accept the shorthand `entab -m +n` to mean tab
-stops every n columns, starting at column m. Choose convenient (for the user) default behavior.
+Exercise 5-12: Extend entab and detab to accept the shorthand `entab -m x+y` to mean tab stops every x columns, starting at column y. Choose convenient (for the user) default behavior.
 
 ### Prompts from original entab / detab
 Ex 1.20: Write a program detab() that replaces tabs in the input with the
@@ -20,3 +19,4 @@ stop, which should be given preference?
 
 ### Assumptions
 * We will not allow for tab stops after 80 characters
+* I have slightly modified the shorthand for `-m` to be more intuitive to the user.

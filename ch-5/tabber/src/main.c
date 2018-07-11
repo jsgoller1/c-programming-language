@@ -16,7 +16,7 @@ int main(int argc, char** argv) {
                     const int);  // detab or entab, depending on flags
 
   // handle input
-  if ((input = parse_flags(argc, argv, tab_stops, &tab_stops_len)) ==
+  if ((input = parse_flags(argc, argv, &tab_stops, &tab_stops_len)) ==
       USE_ENTAB) {
     behavior = entab;
   } else if (input == USE_DETAB) {

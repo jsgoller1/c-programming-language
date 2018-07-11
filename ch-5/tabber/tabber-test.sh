@@ -1,5 +1,7 @@
 #!/bin/bash
 
-./bin/tabber
+#./bin/tabber
 
-./bin/tabber -b
+./bin/tabber -b entab
+
+#./bin/tabber -b detab

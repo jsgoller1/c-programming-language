@@ -67,8 +67,8 @@ rpc: clean
 ## Chapter 5
 # tabber covers the entab / detab exercises in 5.11 and 5.12
 tabber: clean
-	$(COMPILE) -I ch-5/entab/include ch-5/entab/src/*.c -o bin/$@
-	./ch-5/entab/$@-test.sh
+	$(COMPILE) -I ch-5/$@/include ch-5/$@/src/*.c -o bin/$@
+	./ch-5/$@/$@-test.sh
 
 # tail is exercise 5.13; I decided external tests were better than unit tests.
 tail: clean

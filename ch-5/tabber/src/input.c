@@ -16,6 +16,8 @@ static bool seen_m = false;
 
 // parse_b(): handle -b detab|entab
 static int parse_b(int* const i, char** const argv, int* const behavior) {
+  printf("parse_b() | argv[%d] - %s\n", *i, argv[*i]);
+
   if (seen_b) {
     printf("tabber: error - duplicate '-b' args.\n");
     return -1;
@@ -30,8 +32,10 @@ static int parse_b(int* const i, char** const argv, int* const behavior) {
 
   if (strcmp("entab", behavior_str) == 0) {
     *behavior = USE_ENTAB;
+    printf("parse_b() | using entab()\n");
   } else if (strcmp("detab", behavior_str) == 0) {
     *behavior = USE_DETAB;
+    printf("parse_b() | using detab()\n");
   } else {
     printf("tabber: error - invalid behavior (-b %s)\n", argv[*i]);
     return -1;
@@ -43,6 +47,8 @@ static int parse_b(int* const i, char** const argv, int* const behavior) {
 // column y
 static int parse_m(int* const i, char** const argv, int* const start,
                    int* const interval) {
+  printf("parse_m() | argv[%d] - %s\n", *i, argv[*i]);
+
   // Determine if -m flag is valid given the other flags we've seen
   if (seen_m) {
     printf("tabber: error - duplicate '-m' args.\n");
@@ -99,7 +105,9 @@ static int parse_m(int* const i, char** const argv, int* const start,
 
 // parse_l(): handle -l <list of tab stops>
 static int parse_l(int* const i, const int argc, char** const argv,
-                   int* tab_stops, int* const tab_stops_len) {
+                   int** tab_stops, int* const tab_stops_len) {
+  printf("parse_l() | argv[%d] - %s\n", *i, argv[*i]);
+
   // determine if -l flag is valid given other flags we've seen
   if (seen_l) {
     printf("tabber: error - duplicate '-l' args.\n");
@@ -111,15 +119,17 @@ static int parse_l(int* const i, const int argc, char** const argv,
   }
   seen_l = true;
 
+  int* stop_list = NULL;
+  int stop_list_len = 0;
+
   // Allocate buffer for tab stops; we shouldn't have more than 80 tab stops if
   // no tab stops are allowed after 80 chars
-  if ((tab_stops = malloc(sizeof(int) * 80)) == NULL) {
+  if ((stop_list = malloc(sizeof(int) * 80)) == NULL) {
     return -1;
   }
 
   // Read list of tab stop elements; verify that each tabstop is a number,
   // returning when we find the first one that isn't.
-  *tab_stops_len = 0;
   char* current_stop;
   while (*i < argc) {
     current_stop = argv[++(*i)];
@@ -130,13 +140,15 @@ static int parse_l(int* const i, const int argc, char** const argv,
       }
     }
     // copy stop to stop list
-    tab_stops[(*tab_stops_len)++] = atoi(current_stop);
+    stop_list[stop_list_len++] = atoi(current_stop);
   }
 
+  *tab_stops = stop_list;
+  *tab_stops_len = stop_list_len;
   return 0;
 }
 
-int parse_flags(const int argc, char** const argv, int* tab_stops,
+int parse_flags(const int argc, char** const argv, int** tab_stops,
                 int* const tab_stops_len) {
   int start = 0;
   int interval = 0;
@@ -148,8 +160,9 @@ int parse_flags(const int argc, char** const argv, int* tab_stops,
   }
 
   for (int i = 1; i < argc; i++) {
-    char* current_arg = argv[argc];
+    char* current_arg = argv[i];
     char flag = current_arg[1];  // ignore "-"
+    printf("parse_flags() | %s\n", current_arg);
     switch (flag) {
       case 'b':
         if (parse_b(&i, argv, &behavior) == -1) {
@@ -172,6 +185,12 @@ int parse_flags(const int argc, char** const argv, int* tab_stops,
     }
   }
 
+  printf("parse_flags() | parsed all args.\n");
+
+  // if no tabstops are given, default to a stop every 5 chars
+  if (interval == 0) {
+    interval = 5;
+  }
   if (tab_stops == NULL) {
     if (generate_stop_list(start, interval, tab_stops, tab_stops_len) == -1) {
       return -1;

@@ -31,3 +31,27 @@ int generate_stop_list(const int start, const int interval, int** tab_stops,
   *tab_stops_len = stop_list_len;
   return 0;
 }
+
+// next_tab_stop(): given a list of tab stops and a current
+// column, determine what the next tab stop is
+int next_tab_stop(const int* const tab_stops, const int tab_stops_len,
+                  const int column) {
+  if (tab_stops == NULL || tab_stops_len < 1) {
+    return -1;
+  }
+  if (tab_stops_len == 1) {
+    return tab_stops[0];
+  }
+
+  int prev_stop = 0;
+  int next_stop = 0;
+  for (int i = 0; i < tab_stops_len; i++) {
+    next_stop = tab_stops[i];
+    if (prev_stop < column && column < next_stop) {
+      return next_stop;
+    }
+    prev_stop = next_stop;
+  }
+
+  return -1;
+}

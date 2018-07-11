@@ -18,3 +18,5 @@ int look_ahead(const char* const in_line, const int in_len, int offset,
 // misc
 int generate_stop_list(const int start, const int interval, int** tab_stops,
                        int* const tab_stops_len);
+int next_tab_stop(const int* const tab_stops, const int tab_stops_len,
+                  const int column);

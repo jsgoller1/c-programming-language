@@ -7,18 +7,24 @@
 
 #define TAB_CHAR '$'
 
-// entab(): given a string of len, return it with all whitespaces of a given
+// entab(): given a string of len, convert all strings of whitespaces into tabs
+// so that it conforms with tab stops. Example (whitespace represented with
+// '.'):
+//
+
+// return it with all whitespaces of a given
 // length replaced by tabs (represented by "$" for clarity)
 char* entab(const char* const in_line, const int in_len,
-            const int* const stop_list, const int tab_stops_len) {
+            const int* const tab_stops, const int tab_stops_len) {
   char* out_line = {""};
   int i = 0, j = 0, next_stop = 0;
   char temp[MAXLEN] = {0};
 
   // TODO: fix this, added to make the program compile
-  int tab_stop = 0;
-  (void)stop_list;
-  (void)tab_stops_len;
+  int tab_stop = 10;
+
+  printf("entab() | next stop test (col: %d): %d\n", tab_stop,
+         next_tab_stop(tab_stops, tab_stops_len, tab_stop));
 
   // Copy char by char til we get a whitespace; if so,
   // look_ahead() to see if we can entab - do so if possible,

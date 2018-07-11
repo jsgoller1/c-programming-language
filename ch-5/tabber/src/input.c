@@ -191,7 +191,7 @@ int parse_flags(const int argc, char** const argv, int** tab_stops,
   if (interval == 0) {
     interval = 5;
   }
-  if (tab_stops == NULL) {
+  if (*tab_stops == NULL) {
     if (generate_stop_list(start, interval, tab_stops, tab_stops_len) == -1) {
       return -1;
     }

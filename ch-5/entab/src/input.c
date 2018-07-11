@@ -99,7 +99,7 @@ static int parse_m(int* const i, char** const argv, int* const start,
 
 // parse_l(): handle -l <list of tab stops>
 static int parse_l(int* const i, const int argc, char** const argv,
-                   int* tab_stops, int* stop_list_len) {
+                   int* tab_stops, int* const tab_stops_len) {
   // determine if -l flag is valid given other flags we've seen
   if (seen_l) {
     printf("tabber: error - duplicate '-l' args.\n");
@@ -119,7 +119,7 @@ static int parse_l(int* const i, const int argc, char** const argv,
 
   // Read list of tab stop elements; verify that each tabstop is a number,
   // returning when we find the first one that isn't.
-  *stop_list_len = 0;
+  *tab_stops_len = 0;
   char* current_stop;
   while (*i < argc) {
     current_stop = argv[++(*i)];
@@ -130,14 +130,14 @@ static int parse_l(int* const i, const int argc, char** const argv,
       }
     }
     // copy stop to stop list
-    tab_stops[*stop_list_len++] = atoi(current_stop);
+    tab_stops[(*tab_stops_len)++] = atoi(current_stop);
   }
 
   return 0;
 }
 
 int parse_flags(const int argc, char** const argv, int* tab_stops,
-                int* stop_list_len) {
+                int* const tab_stops_len) {
   int start = 0;
   int interval = 0;
   int behavior = 0;
@@ -162,7 +162,7 @@ int parse_flags(const int argc, char** const argv, int* tab_stops,
         }
         break;
       case 'l':
-        if (parse_l(&i, argc, argv, tab_stops, stop_list_len) == -1) {
+        if (parse_l(&i, argc, argv, tab_stops, tab_stops_len) == -1) {
           return -1;
         }
         break;
@@ -172,8 +172,8 @@ int parse_flags(const int argc, char** const argv, int* tab_stops,
     }
   }
 
-  if (tab_stops = NULL) {
-    if (generate_stop_list(start, interval, tab_stop, stop_list_len) == -1) {
+  if (tab_stops == NULL) {
+    if (generate_stop_list(start, interval, tab_stops, tab_stops_len) == -1) {
       return -1;
     }
   }

@@ -10,7 +10,7 @@
 // detab(): replace tabs in in_line with with
 // whitespace up to next tab_stop-th column
 char* detab(const char* const in_line, const int in_len,
-            const int* const stop_list) {
+            const int* const stop_list, const int stop_list_len) {
   char* out_line;
   int i, j;
   char temp[MAXLEN];
@@ -18,6 +18,7 @@ char* detab(const char* const in_line, const int in_len,
   // TODO: fix this, added to make the program compile
   int tab_stop = 0;
   (void)stop_list;
+  (void)stop_list_len;
 
   // go through in_line until a tab is found and convert
   // to appropriate number of whitespace up to tab stop

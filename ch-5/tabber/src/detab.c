@@ -19,13 +19,13 @@ char* detab(const char* const in_line, const int in_len,
   // go through in_line until a tab is found and convert
   // to appropriate number of whitespace up to tab stop
   for (j = i = 0; i < in_len; i++) {
-    tab_stop = next_tab_stop(tab_stops, tab_stops_len, i);
+    tab_stop = next_tab_stop(tab_stops, tab_stops_len, j);
 
     if (in_line[i] != '\t') {
       temp[j] = in_line[i];
       j++;
     } else {
-      while (j % tab_stop) {
+      while (j < tab_stop) {
         temp[j] = WHITESPACE;
         j++;
       }

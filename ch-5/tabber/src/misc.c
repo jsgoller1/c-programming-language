@@ -48,8 +48,8 @@ int next_tab_stop(const int* const tab_stops, const int tab_stops_len,
   for (int i = 0; i < tab_stops_len; i++) {
     next_stop = tab_stops[i];
     if ((prev_stop <= column) && (column < next_stop)) {
-      printf("next_tab_stop() | column: %d, next_stop: %d\n", column,
-             next_stop);
+      // printf("next_tab_stop() | column: %d, next_stop: %d\n", column,
+      // next_stop);
       return next_stop;
     }
     prev_stop = next_stop;

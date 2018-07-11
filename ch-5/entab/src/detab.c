@@ -13,7 +13,11 @@ char* detab(const char* const in_line, const int in_len,
             const int* const stop_list) {
   char* out_line;
   int i, j;
-  char temp[MAXLINE];
+  char temp[MAXLEN];
+
+  // TODO: fix this, added to make the program compile
+  int tab_stop = 0;
+  (void)stop_list;
 
   // go through in_line until a tab is found and convert
   // to appropriate number of whitespace up to tab stop

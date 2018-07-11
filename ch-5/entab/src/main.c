@@ -1,8 +1,11 @@
 #include <stdio.h>
 
+#include "common.h"
+#include "entab.h"
+
 int main(int argc, char** argv) {
   int len = 0;                  // current line length
-  char line[MAXLINE] = {0};     // current input line
+  char line[MAXLEN] = {0};      // current input line
   char* processed_line = NULL;  // line after entabing / detabing
   int* tab_stops = NULL;        // list of tab stops
   int stop_list_len = 0;
@@ -38,7 +41,7 @@ int main(int argc, char** argv) {
   stop_list_len = 8;
 
   // do the thing
-  while ((len = mygetline(line, MAXLINE)) > 0) {
+  while ((len = mygetline(line, MAXLEN)) > 0) {
     // processed_line = behavior(line, len, tab_stops);
     processed_line = entab(line, len, tab_stops, stop_list_len);
     printf("%s\n", processed_line);

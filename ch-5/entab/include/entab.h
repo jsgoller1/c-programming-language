@@ -3,11 +3,8 @@
 #define USE_ENTAB 42
 #define USE_DETAB 666
 
-typedef struct input_flags {
-} input_flags;
-
 // input
-int parse_flags(const int argc, char** const argv, int* tab_stops);
+int parse_flags(const int argc, char** const argv, int* tab_stops, int* stop_list_len));
 
 // entab
 char* entab(const char* const in_line, const int in_len,

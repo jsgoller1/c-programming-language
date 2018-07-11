@@ -1,10 +1,13 @@
+#include <ctype.h>
 #include <stdbool.h>
 #include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
 
 #include "entab.h"
 
 static char usage[] =
-    "usage: $tabber -b <entab|detab> -m <interval+offset> -l <stops>\n";
+    "usage: $tabber -b <entab|detab> -m <interval+start> -l <stops>\n";
 
 // flags for keeping track of what args we've already seen
 static bool seen_b = false;
@@ -12,12 +15,12 @@ static bool seen_l = false;
 static bool seen_m = false;
 
 // parse_b(): handle -b detab|entab
-static int parse_b(const int* i, int* const behavior) {
-  if (*seen_b) {
+static int parse_b(int* const i, char** const argv, int* const behavior) {
+  if (seen_b) {
     printf("tabber: error - duplicate '-b' args.\n");
     return -1;
   }
-  *seen_b = true;
+  seen_b = true;
 
   char* behavior_str = argv[++(*i)];
   if (behavior_str == NULL || strlen(behavior_str) != 5) {
@@ -38,18 +41,18 @@ static int parse_b(const int* i, int* const behavior) {
 
 // parse_m(): handle shorthand -m x+y for tab stops every x columns, starting at
 // column y
-static int parse_m(const int* i, char** const argv, int* const start,
+static int parse_m(int* const i, char** const argv, int* const start,
                    int* const interval) {
   // Determine if -m flag is valid given the other flags we've seen
-  if (*seen_m) {
+  if (seen_m) {
     printf("tabber: error - duplicate '-m' args.\n");
     return -1;
   }
-  if (*seen_l) {
+  if (seen_l) {
     printf("tabber: error - '-m' and '-l' are mutually exclusive.\n");
     return -1;
   }
-  *seen_m = true;
+  seen_m = true;
 
   // Begin parsing the shorthand; ensure the string is of sane size
   char* shorthand = argv[++(*i)];
@@ -74,21 +77,20 @@ static int parse_m(const int* i, char** const argv, int* const start,
 
   // ensure + symbol exists
   if (shorthand[j++] != '+') {
-    printf(
-        "tabber: error - invalid syntax for '-m'; use <interval+offset> .\n");
+    printf("tabber: error - invalid syntax for '-m'; use <interval+start> .\n");
     return -1;
   }
 
   // parse y and sanity check result
-  char offset_str[10];
+  char start_str[10];
   int l = 0;
   while (isdigit(shorthand[j])) {
-    offset_str[l++] = shorthand[j++];
+    start_str[l++] = shorthand[j++];
   }
-  *offset = atoi(offset_str);
-  if (*offset < 0 || 80 < *offset) {
+  *start = atoi(start_str);
+  if (*start < 0 || 80 < *start) {
     printf(
-        "tabber: error - invalid offset for '-m'; must be between 0 and 80.\n");
+        "tabber: error - invalid start for '-m'; must be between 0 and 80.\n");
     return -1;
   }
 
@@ -96,7 +98,7 @@ static int parse_m(const int* i, char** const argv, int* const start,
 }
 
 // parse_l(): handle -l <list of tab stops>
-static int parse_l(const int* i, const int argc, char** const argv,
+static int parse_l(int* const i, const int argc, char** const argv,
                    int* tab_stops, int* stop_list_len) {
   // determine if -l flag is valid given other flags we've seen
   if (seen_l) {
@@ -111,23 +113,24 @@ static int parse_l(const int* i, const int argc, char** const argv,
 
   // Allocate buffer for tab stops; we shouldn't have more than 80 tab stops if
   // no tab stops are allowed after 80 chars
-  if ((tab_stops = malloc(sizeof(int))) * 80) == -1){
+  if ((tab_stops = malloc(sizeof(int) * 80)) == NULL) {
     return -1;
   }
 
   // Read list of tab stop elements; verify that each tabstop is a number,
   // returning when we find the first one that isn't.
-  int j = 0;
+  *stop_list_len = 0;
+  char* current_stop;
   while (*i < argc) {
     current_stop = argv[++(*i)];
     // verify current stop is a number; quit if not.
-    for (int k = 0; k < strlen(current_stop); k++) {
-      if (isdigit(current_stop[i]) != 1) {
+    for (int k = 0; k < (int)strlen(current_stop); k++) {
+      if (isdigit(current_stop[*i]) != 1) {
         return 0;
       }
     }
     // copy stop to stop list
-    tab_stops[j++] = atoi(current_stop);
+    tab_stops[*stop_list_len++] = atoi(current_stop);
   }
 
   return 0;

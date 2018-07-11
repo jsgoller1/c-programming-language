@@ -13,7 +13,12 @@ char* entab(const char* const in_line, const int in_len,
             const int* const stop_list, const int stop_list_len) {
   char* out_line = {""};
   int i = 0, j = 0, next_stop = 0;
-  char temp[MAXLINE] = {0};
+  char temp[MAXLEN] = {0};
+
+  // TODO: fix this, added to make the program compile
+  int tab_stop = 0;
+  (void)stop_list;
+  (void)stop_list_len;
 
   // Copy char by char til we get a whitespace; if so,
   // look_ahead() to see if we can entab - do so if possible,
@@ -35,7 +40,7 @@ char* entab(const char* const in_line, const int in_len,
   }
   temp[j] = '\0';
 
-  outline = strdup(temp);
+  out_line = strdup(temp);
   return out_line;
 }
 

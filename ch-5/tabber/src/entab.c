@@ -20,18 +20,13 @@ char* entab(const char* const in_line, const int in_len,
   int i = 0, j = 0, next_stop = 0;
   char temp[MAXLEN] = {0};
 
-  // TODO: fix this, added to make the program compile
-  int tab_stop = 10;
-
-  printf("entab() | next stop test (col: %d): %d\n", tab_stop,
-         next_tab_stop(tab_stops, tab_stops_len, tab_stop));
-
   // Copy char by char til we get a whitespace; if so,
   // look_ahead() to see if we can entab - do so if possible,
   // otherwise just copy the char.
   for (j = i = 0; i < in_len; i++) {
+    next_stop = next_tab_stop(tab_stops, tab_stops_len, i);
     if (in_line[i] == ' ') {
-      if ((next_stop = look_ahead(in_line, in_len, i, tab_stop))) {
+      if ((next_stop = look_ahead(in_line, in_len, i, next_stop))) {
         temp[j] = TAB_CHAR;
         j++;
         i = next_stop - 1;

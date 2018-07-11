@@ -26,9 +26,6 @@ int main(int argc, char** argv) {
   }
 
   // Testing: input handling
-  (void)len;
-  (void)line;
-  (void)processed_line;
   printf("behavior function %d\ntab_stops (%d): ", input, tab_stops_len);
   for (int i = 0; i < tab_stops_len; i++) {
     printf("%d ", tab_stops[i]);

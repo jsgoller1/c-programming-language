@@ -16,8 +16,6 @@ static bool seen_m = false;
 
 // parse_b(): handle -b detab|entab
 static int parse_b(int* const i, char** const argv, int* const behavior) {
-  printf("parse_b() | argv[%d] - %s\n", *i, argv[*i]);
-
   if (seen_b) {
     printf("tabber: error - duplicate '-b' args.\n");
     return -1;
@@ -32,10 +30,8 @@ static int parse_b(int* const i, char** const argv, int* const behavior) {
 
   if (strcmp("entab", behavior_str) == 0) {
     *behavior = USE_ENTAB;
-    printf("parse_b() | using entab()\n");
   } else if (strcmp("detab", behavior_str) == 0) {
     *behavior = USE_DETAB;
-    printf("parse_b() | using detab()\n");
   } else {
     printf("tabber: error - invalid behavior (-b %s)\n", argv[*i]);
     return -1;
@@ -47,8 +43,6 @@ static int parse_b(int* const i, char** const argv, int* const behavior) {
 // column y
 static int parse_m(int* const i, char** const argv, int* const start,
                    int* const interval) {
-  printf("parse_m() | argv[%d] - %s\n", *i, argv[*i]);
-
   // Determine if -m flag is valid given the other flags we've seen
   if (seen_m) {
     printf("tabber: error - duplicate '-m' args.\n");
@@ -106,8 +100,6 @@ static int parse_m(int* const i, char** const argv, int* const start,
 // parse_l(): handle -l <list of tab stops>
 static int parse_l(int* const i, const int argc, char** const argv,
                    int** tab_stops, int* const tab_stops_len) {
-  printf("parse_l() | argv[%d] - %s\n", *i, argv[*i]);
-
   // determine if -l flag is valid given other flags we've seen
   if (seen_l) {
     printf("tabber: error - duplicate '-l' args.\n");
@@ -133,7 +125,6 @@ static int parse_l(int* const i, const int argc, char** const argv,
   // immediately following -l
   char* current_stop = argv[++(*i)];
   while (*i < argc) {
-    printf("parse_l() | current stop: %s\n", current_stop);
     // verify current stop is a number; quit if not.
     for (int k = 0; k < (int)strlen(current_stop); k++) {
       if (isdigit(current_stop[k]) != 1) {
@@ -164,7 +155,6 @@ int parse_flags(const int argc, char** const argv, int** tab_stops,
   for (int i = 1; i < argc; i++) {
     char* current_arg = argv[i];
     char flag = current_arg[1];  // ignore "-"
-    printf("parse_flags() | %s\n", current_arg);
     switch (flag) {
       case 'b':
         if (parse_b(&i, argv, &behavior) == -1) {
@@ -186,8 +176,6 @@ int parse_flags(const int argc, char** const argv, int** tab_stops,
         return -1;
     }
   }
-
-  printf("parse_flags() | parsed all args.\n");
 
   // if no tabstops are given, default to a stop every 5 chars
   if (interval == 0) {

@@ -8,8 +8,6 @@ int generate_stop_list(const int start, const int interval, int** tab_stops,
   int* stop_list;
   int stop_list_len;
 
-  printf("generate_stop_list() | generating list of tab stops.\n");
-
   if (*tab_stops != NULL || *tab_stops_len != 0) {
     printf(
         "generate_stop_list() | error - tab stops have already been generated; "

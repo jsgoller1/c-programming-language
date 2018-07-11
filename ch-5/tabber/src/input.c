@@ -129,18 +129,20 @@ static int parse_l(int* const i, const int argc, char** const argv,
   }
 
   // Read list of tab stop elements; verify that each tabstop is a number,
-  // returning when we find the first one that isn't.
-  char* current_stop;
+  // returning when we find the first one that isn't. Start at arg
+  // immediately following -l
+  char* current_stop = argv[++(*i)];
   while (*i < argc) {
-    current_stop = argv[++(*i)];
+    printf("parse_l() | current stop: %s\n", current_stop);
     // verify current stop is a number; quit if not.
     for (int k = 0; k < (int)strlen(current_stop); k++) {
-      if (isdigit(current_stop[*i]) != 1) {
+      if (isdigit(current_stop[k]) != 1) {
         return 0;
       }
     }
-    // copy stop to stop list
+    // copy stop to stop list, advance to next arg
     stop_list[stop_list_len++] = atoi(current_stop);
+    current_stop = argv[++(*i)];
   }
 
   *tab_stops = stop_list;

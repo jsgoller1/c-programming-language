@@ -62,7 +62,7 @@ static int parse_m(int* const i, char** const argv, int* const start,
   }
 
   // parse x and sanity check result
-  char interval_str[10];
+  char interval_str[10] = {0};
   int j = 0, k = 0;
   while (isdigit(shorthand[j])) {
     interval_str[k++] = shorthand[j++];
@@ -82,7 +82,7 @@ static int parse_m(int* const i, char** const argv, int* const start,
   }
 
   // parse y and sanity check result
-  char start_str[10];
+  char start_str[10] = {0};
   int l = 0;
   while (isdigit(shorthand[j])) {
     start_str[l++] = shorthand[j++];
@@ -127,7 +127,7 @@ static int parse_l(int* const i, const int argc, char** const argv,
   while (*i < argc) {
     // verify current stop is a number; quit if not.
     for (int k = 0; k < (int)strlen(current_stop); k++) {
-      if (isdigit(current_stop[k]) != 1) {
+      if (isdigit(current_stop[k]) == 0) {
         return 0;
       }
     }

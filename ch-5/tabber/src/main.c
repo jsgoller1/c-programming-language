@@ -22,6 +22,9 @@ int main(int argc, char** argv) {
       behavior = detab;
       break;
     default:
+      if (tab_stops != NULL) {
+        free(tab_stops);
+      }
       return -1;
   }
 

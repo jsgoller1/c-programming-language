@@ -1,6 +1,6 @@
 # TODO
 
-**94 of 97 completed (3 remaining)**
+**96 of 97 completed (3 remaining)**
 
 - Ch. 1
   - Valgrind reports no errors.
@@ -15,8 +15,6 @@
   - Valgrind reports no errors.
 - Ch. 5
   - Exercises
-    - 5-11 (entab - easy, just effortful)
-    - 5-12 (entab - easy, just effortful)
     - 5-17 (do sorting based on subfields of strings)
   - C11 `-Werror -Wall` compliance
   - Valgrind reports no errors.

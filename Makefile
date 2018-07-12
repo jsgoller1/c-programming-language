@@ -79,7 +79,7 @@ tail: clean
 sort: clean
 	$(COMPILE) -I ch-5/sort/include/ ch-5/sort/src/*.c -o bin/$@
 	@if [[ -z "$(TESTS)" ]]; then \
-		cat sort/sort-test.txt | $(VALGRIND) ./bin/$@; \
+		cat ch-5/sort/sort-test.txt | $(VALGRIND) ./bin/$@; \
 		else bin/$@; \
 	fi
 

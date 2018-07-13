@@ -44,14 +44,18 @@ int split(char* string, int offset, char splitchar, char** substrings) {
 }
 
 // split(): given an array of strings, combine them into one
-// string with each substring divided by joinchar (similar
+// string with each substring divided by joinstr (similar
 // to python's str.join() method), followed by a null terminator;
 // string is assumed to be of sufficient size and will be overflowed if too
-// small.
-int join(char** substrings, int count, char joinchar, char* string) {
-  (void)substrings;
-  (void)count;
-  (void)joinchar;
-  (void)string;
+// small. We have to
+int join(char** substrings, int count, char* joinstr, char* string) {
+  if (substrings == NULL || joinstr == NULL || string == NULL) {
+    return -1;
+  }
+
+  for (int i = 0; i < count; i++) {
+    strcat(string, substrings[i]);
+    strcat(string, joinstr);
+  }
   return 0;
 }

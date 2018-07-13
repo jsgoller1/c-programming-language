@@ -23,4 +23,4 @@ void dir_strip(char* const dest, const char* const src, const int n);
 
 // strings
 int split(char* string, int offset, char splitchar, char** substrings);
-int join(char** substrings, int count, char joinchar, char* string);
+int join(char** substrings, int count, char* joinstr, char* string);

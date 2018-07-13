@@ -60,20 +60,20 @@ int main(int argc, char **argv) {
 */
 int main() {
   char unsplit[] = "this string should be split into substrings";
-  char* split_strings[MAXLEN];
+  char* split_strings[MAXLEN] = {0};
   int count;
 
-  // char* unjoined[] = {"this",   "bunch", "of",    "substrings",
-  //                    "should", "be",    "joined"};
-  // char joined_string[MAXLEN];
+  char* unjoined[] = {"this",   "bunch", "of",    "substrings",
+                      "should", "be",    "joined"};
+  char joined_string[MAXLEN] = {0};
 
   count = split(unsplit, 0, ' ', split_strings);
   for (int i = 0; i < count; i++) {
     printf("%s\n", split_strings[i]);
   }
 
-  // join(unjoined, 7, ' ', joined_string);
-  // printf("%s\n", joined_string);
+  join(unjoined, 7, " ", joined_string);
+  printf("%s\n", joined_string);
 
   freelines(split_strings, count);
   return 0;

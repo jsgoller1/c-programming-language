@@ -20,3 +20,7 @@ int dircmp(const char* const s1, const char* const s2);
 int foldcmp(const char* const s1, const char* const s2);
 int numcmp(const char* const s1, const char* const s2);
 void dir_strip(char* const dest, const char* const src, const int n);
+
+// strings
+int split(char* string, int offset, char splitchar, char** substrings);
+int join(char** substrings, int count, char joinchar, char* string);

@@ -49,16 +49,7 @@ int main(int argc, char **argv) {
         return -1;
       }
 
-      // printf("main() | subsorting in %s ", string);
-      /*
-      for (int j = 0; j < count; j++) {
-        printf("[%s] (%d) | ", substrings[j], j);
-      }
-      printf("\n");
-      */
-      // call qsort on the substrings; -2 to not sort the \n
-
-      // do primary sort
+      // do secondary sort
       if (s_flags.numeric) {
         myqsort(substrings, 0, count - 1, &s_flags,
                 (int (*)(void *, void *))numcmp);
@@ -70,13 +61,6 @@ int main(int argc, char **argv) {
                 (int (*)(void *, void *))strcmp);
       }
 
-      /*
-      printf("main() | sorted in %s ", string);
-      for (int j = 0; j < count; j++) {
-        printf("%s | ", substrings[j]);
-      }
-      */
-
       // convert substrings back to a single string
       if (join(substrings, count, " ", sorted_str) == -1) {
         freelines(substrings, count);
@@ -86,11 +70,6 @@ int main(int argc, char **argv) {
       freelines(substrings, count);
 
       // overwrite unsorted portion of old string with sorted version
-      /*
-      printf("main() | overwriting %s [%d, %d bytes] with %s (%d bytes)\n",
-             string, offset, (int)strlen(string), sorted_str,
-             (int)strlen(sorted_str));
-      */
       strcpy(string + offset, sorted_str);
     }
   }

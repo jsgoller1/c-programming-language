@@ -6,8 +6,8 @@
 #include "sort.h"
 // main(): sort input lines depending on flags
 int main(int argc, char **argv) {
-  input_flags p_flags = {false, false, false, false, 0};
-  input_flags p_flags = {false, false, false, false, -1};
+  input_flags p_flags = {false, false, false, false, false, {0}};
+  input_flags s_flags = {false, false, false, false, false, {0}};
 
   if (parse_args(argc, argv, &p_flags, &s_flags) == -1) {
     return -1;
@@ -24,7 +24,7 @@ int main(int argc, char **argv) {
     myqsort(lines, 0, nlines - 1, &p_flags, (int (*)(void *, void *))strcmp);
   }
 
-  if (s_flags->offset >= 0) {
+  if (s_flags.in_use) {
     // Once index order is assured, go through each string and sort the
     // subfields
     for (int i = 0; i < nlines; i++) {

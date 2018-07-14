@@ -77,11 +77,8 @@ tail: clean
 
 # sort is exercises 5.14 through 5.17
 sort: clean
-	$(COMPILE) -I ch-5/sort/include/ ch-5/sort/src/*.c -o bin/$@
-	@if [[ -z "$(TESTS)" ]]; then \
-		cat ch-5/sort/sort-test.txt | $(VALGRIND) ./bin/$@; \
-		else bin/$@; \
-	fi
+	$(COMPILE) -I ch-5/sort/include/ ch-5/sort/src/{compare,input,main,sort,strings}.c -o bin/$@
+	cat ch-5/sort/sort-test-subfields.txt | $(VALGRIND) ./bin/$@ -r -i -n
 
 # decl/undecl are exercises 5.18 through 5.20
 decl undecl: clean

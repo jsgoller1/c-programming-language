@@ -5,8 +5,8 @@ typedef struct input_flags {
   bool fold;
   bool numeric;
   bool reverse;
-  int offset;
-
+  bool in_use;
+  char _align[3];
 } input_flags;
 
 // input

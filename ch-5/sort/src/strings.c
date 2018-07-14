@@ -66,11 +66,13 @@ int join(char** substrings, int count, char* joinstr, char* string) {
   }
 
   for (int i = 0; i < count; i++) {
-    strcat(string, joinstr);
     strcat(string, substrings[i]);
+    strcat(string, joinstr);
   }
 
   // remove last joinchar
-  // string[strlen(string) - 1] = '\0';
+  string[strlen(string) - 1] = '\n';
+  string[strlen(string)] = '\0';
+
   return 0;
 }

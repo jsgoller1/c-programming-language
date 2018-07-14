@@ -23,13 +23,12 @@ int main(int argc, char **argv) {
   }
 
   // Once index order is assured, go through each string and sort the subfields
-  char *substrings[MAXLEN] = {0};
-  char *string = NULL;
-  int count = 0;
-  int offset = 0;
-  char sorted_str[MAXLEN] = {0};
   for (int i = 0; i < nlines; i++) {
-    string = lines[i];
+    char *substrings[MAXLEN] = {0};
+    char *string = lines[i];
+    int count = 0;
+    int offset = 0;
+    char sorted_str[MAXLEN] = {0};
 
     // == 0 because -1 is an error and we add 1
     if ((offset = (indexof(string, ' ') + 1)) == 0) {

@@ -57,9 +57,11 @@ int readlines(char **lineptr, const int maxlines) {
 void writelines(char **lineptr, const int nlines) {
   int i;
 
+  // printf("writelines() | Writing lines:\n");
   for (i = 0; i < nlines; i++) {
     printf("%s", lineptr[i]);
   }
+  printf("\n");
 }
 
 // freelines(): frees all lines read in via readline()

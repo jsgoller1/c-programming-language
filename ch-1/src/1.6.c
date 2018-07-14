@@ -1,9 +1,5 @@
 #include <stdio.h>
 
-#ifndef DEBUG
-#pragma clang diagnostic ignored "-Wunused-function"
-#endif
-
 // Ex 1.6: Verify that the expression `getchar() != EOF` is 0 or 1.
 
 static int verify() {
@@ -19,10 +15,4 @@ static int verify() {
   }
 }
 
-int main() {
-#ifdef DEBUG
-  verify();
-#else
-  printf("1.6: No unit tests.\n");
-#endif
-}
+int main() { return verify(); }

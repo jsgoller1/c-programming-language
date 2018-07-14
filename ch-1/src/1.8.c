@@ -1,9 +1,5 @@
 #include <stdio.h>
 
-#ifndef DEBUG
-#pragma clang diagnostic ignored "-Wunused-function"
-#endif
-
 // Ex 1.8: Write a program to count blanks, tabs, and newlines.
 
 static int count_empties() {
@@ -26,10 +22,4 @@ static int count_empties() {
   return 0;
 }
 
-int main() {
-#ifdef DEBUG
-  count_empties();
-#else
-  printf("1.8: No unit tests.\n");
-#endif
-}
+int main() { return count_empties(); }

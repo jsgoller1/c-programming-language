@@ -1,9 +1,5 @@
 #include <stdio.h>
 
-#ifndef DEBUG
-#pragma clang diagnostic ignored "-Wunused-function"
-#endif
-
 /*
  * Ex 1.5: Modify the temperature conversion program to print the table in
  * reverse order, that is, from 300 degrees to O.
@@ -19,10 +15,4 @@ static int reverse_table() {
   return 0;
 }
 
-int main() {
-#ifdef DEBUG
-  reverse_table();
-#else
-  printf("1.5: No unit tests.\n");
-#endif
-}
+int main() { return reverse_table(); }

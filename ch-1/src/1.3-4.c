@@ -1,9 +1,5 @@
 #include <stdio.h>
 
-#ifndef DEBUG
-#pragma clang diagnostic ignored "-Wunused-function"
-#endif
-
 /*
  * Ex 1.3: Modify the temperature conversion program
  * to print a heading above the table.
@@ -31,10 +27,4 @@ static int cels_to_fahr() {
   return 0;
 }
 
-int main() {
-#ifdef DEBUG
-  cels_to_fahr();
-#else
-  printf("1.3-4: No unit tests.\n");
-#endif
-}
+int main() { return cels_to_fahr(); }

@@ -1,6 +1,7 @@
-#include "sort.h"
 #include <alloca.h>
 #include <string.h>
+
+#include "sort.h"
 
 // myqsort(): quicksort v into increasing order
 void myqsort(char **strings, int left, int right, input_flags *flags,

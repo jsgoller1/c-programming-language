@@ -1,9 +1,9 @@
 #include <stdio.h>
+#include <stdlib.h>
 #include <string.h>
 
 #include "common.h"
 #include "sort.h"
-/*
 // main(): sort input lines depending on flags
 int main(int argc, char **argv) {
   input_flags flags = {false, false, false, false};
@@ -23,24 +23,48 @@ int main(int argc, char **argv) {
   }
 
   // Once index order is assured, go through each string and sort the subfields
-  char *substrings[MAXLEN];
-  for (int i = 0; i < argc; i++) {
-    int count = 0;
-    char sorted_str[MAXLEN];
-    char *string = lines[i];
+  char *substrings[MAXLEN] = {0};
+  char *string = NULL;
+  int count = 0;
+  int offset = 0;
+  char sorted_str[MAXLEN] = {0};
+  for (int i = 0; i < nlines; i++) {
+    string = lines[i];
 
-    // convert each string into an array of substrings.
-    count = split(string, &substrings, offset);
-    if (count == -1) {
+    // == 0 because -1 is an error and we add 1
+    if ((offset = (indexof(string, ' ') + 1)) == 0) {
+      printf("main() | %s has no spaces.\n", string);
       freelines(lines, nlines);
       return -1;
     }
 
-    // call qsort on the substrings
-    myqsort(substrings, 0, count, flags);
+    // convert each string into an array of substrings.
+    count = split(string, offset, ' ', substrings);
+    if (count == -1) {
+      printf("main() | couldn't break string into substrings.\n");
+      freelines(lines, nlines);
+      return -1;
+    }
+
+    // printf("main() | subsorting in %s ", string);
+    /*
+    for (int j = 0; j < count; j++) {
+      printf("[%s] (%d) | ", substrings[j], j);
+    }
+    printf("\n");
+    */
+    // call qsort on the substrings; -2 to not sort the \n
+    myqsort(substrings, 0, count - 1, &flags, (int (*)(void *, void *))numcmp);
+
+    /*
+    printf("main() | sorted in %s ", string);
+    for (int j = 0; j < count; j++) {
+      printf("%s | ", substrings[j]);
+    }
+    */
 
     // convert substrings back to a single string
-    if (join(substrings, count, ' ', sorted_str) == -1) {
+    if (join(substrings, count, " ", sorted_str) == -1) {
       freelines(substrings, count);
       freelines(lines, nlines);
       return -1;
@@ -48,8 +72,12 @@ int main(int argc, char **argv) {
     freelines(substrings, count);
 
     // overwrite unsorted portion of old string with sorted version
-    strcpy(string + offset, sorted_substr);
-    free(sorted_substr);
+    /*
+    printf("main() | overwriting %s [%d, %d bytes] with %s (%d bytes)\n",
+           string, offset, (int)strlen(string), sorted_str,
+           (int)strlen(sorted_str));
+    */
+    strcpy(string + offset, sorted_str);
   }
 
   // Write out and clean up
@@ -57,24 +85,25 @@ int main(int argc, char **argv) {
   freelines(lines, nlines);
   return 0;
 }
-*/
-int main() {
-  char unsplit[] = "this string should be split into substrings";
-  char* split_strings[MAXLEN] = {0};
-  int count;
 
-  char* unjoined[] = {"this",   "bunch", "of",    "substrings",
-                      "should", "be",    "joined"};
+/*
+ int main() {
+  int count;
+  char unsplit[] = "joshua 55 12 667 224 90";
+  char* split_strings[MAXLEN] = {0};
   char joined_string[MAXLEN] = {0};
 
-  count = split(unsplit, 0, ' ', split_strings);
+  count = split(unsplit, 7, ' ', split_strings);
   for (int i = 0; i < count; i++) {
     printf("%s\n", split_strings[i]);
   }
 
-  join(unjoined, 7, " ", joined_string);
-  printf("%s\n", joined_string);
+  join(split_strings, count, " ", joined_string);
+  strcpy(unsplit + 7, joined_string);
+
+  printf("%s\n", unsplit);
 
   freelines(split_strings, count);
   return 0;
 }
+*/

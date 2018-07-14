@@ -5,6 +5,17 @@
 #include "common.h"
 #include "sort.h"
 
+// index(): get first occurence of character in string
+int indexof(char* string, char character) {
+  for (int i = 0; i < (int)strlen(string); i++) {
+    // printf("indexof() | evaluating %c\n", string[i]);
+    if (string[i] == character) {
+      return i;
+    }
+  }
+  return -1;
+}
+
 // split(): given a string and an offset into it,
 // divide the string into substrings divided by splitchar,
 // and return the number of them created (analagous to Python's str.split()
@@ -33,7 +44,8 @@ int split(char* string, int offset, char splitchar, char** substrings) {
 
     // copy characters out of string until we hit a splitchar or null
     // terminator
-    while (string[offset] != splitchar && string[offset] != '\0') {
+    while (string[offset] != splitchar && string[offset] != '\n' &&
+           string[offset] != '\0') {
       current[k++] = string[offset++];
     }
     current[k] = '\0';
@@ -54,8 +66,11 @@ int join(char** substrings, int count, char* joinstr, char* string) {
   }
 
   for (int i = 0; i < count; i++) {
-    strcat(string, substrings[i]);
     strcat(string, joinstr);
+    strcat(string, substrings[i]);
   }
+
+  // remove last joinchar
+  // string[strlen(string) - 1] = '\0';
   return 0;
 }

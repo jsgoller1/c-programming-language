@@ -5,10 +5,13 @@ typedef struct input_flags {
   bool fold;
   bool numeric;
   bool reverse;
+  int offset;
+
 } input_flags;
 
 // input
-int parse_args(const int argc, char** const argv, input_flags* const flags);
+int parse_args(const int argc, char** const argv, input_flags* const p_flags,
+               input_flags* const s_flags);
 
 // sort
 void myqsort(char** strings, int left, int right, input_flags* flags,

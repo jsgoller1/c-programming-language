@@ -1,6 +1,7 @@
-#include "1.11.h"
 #include <stdio.h>
 #include <string.h>
+
+#include "1.11.h"
 #include "common.h"
 #include "tests.h"
 
@@ -24,7 +25,6 @@ static void test(const char* const input, const int lines, const int words,
                  const int chars, const char* const message) {
   counter counts = {0, 0, 0};
   word_count(input, (int)strlen(input), &counts);
-
   assert_int_eq(lines, counts.lines, "word_count", message);
   assert_int_eq(words, counts.words, "word_count", message);
   assert_int_eq(chars, counts.chars, "word_count", message);

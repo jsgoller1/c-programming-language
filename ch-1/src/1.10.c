@@ -10,13 +10,12 @@
  * backspaces visible in an unambiguous way.
  *
  * Note: \b doesn't work on my system, as backspacing just deletes characters up
- * to an empty string, so I'll do this for spaces too.
+ * to an empty string, so I'll escape space characters instead.
  */
 
 static int replace_with_escape() {
   int c;
 
-  printf("Begin typing, terminate via ctrl-D on an empty line.\n");
   while ((c = getchar()) != EOF) {
     switch (c) {
       case '\\':
@@ -26,20 +25,15 @@ static int replace_with_escape() {
         printf("\\t");
         break;
       case ' ':
-        printf(".");
+        printf("\\w");
         break;
       default:
         putchar(c);
         break;
     }
   }
+  putchar('\n');
   return 0;
 }
 
-int main() {
-#ifdef DEBUG
-  replace_with_escape();
-#else
-  printf("1.10: No unit tests.\n");
-#endif
-}
+int main() { return replace_with_escape(); }

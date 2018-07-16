@@ -1,4 +1,3 @@
-#include "tests.h"
 #include <assert.h>
 #include <math.h>
 #include <stdbool.h>
@@ -6,20 +5,22 @@
 #include <stdlib.h>
 #include <string.h>
 
+#include "tests.h"
+
 /*
  * --------------------------------------------------------
- *  Tests
+ *  TEST_OUTPUTs
  * --------------------------------------------------------
  *
- * This is a simple testing library I wrote around the assert(3) macro; I
- * looked into some other testing libraries like cmocka but most of them were
- * overkill for my needs.
+ * This is a simple TEST_OUTPUTing library I wrote around the assert(3) macro; I
+ * looked into some other TEST_OUTPUTing libraries like cmocka but most of them
+ * were overkill for my needs.
  */
 
 // assert_ints_*(): compare integers
 void assert_int_eq(const int actual, const int expected,
                    const char* const func_name, const char* const message) {
-#ifdef TEST_MESSAGES
+#ifdef TEST_OUTPUT
   printf("%s(): %s\n", func_name, message);
 #else
   (void)func_name;
@@ -34,7 +35,7 @@ void assert_int_eq(const int actual, const int expected,
 
 void assert_int_neq(const int actual, const int expected,
                     const char* const func_name, const char* const message) {
-#ifdef TEST_MESSAGES
+#ifdef TEST_OUTPUT
   printf("%s(): %s\n", func_name, message);
 #else
   (void)func_name;
@@ -52,7 +53,7 @@ void assert_double_eq(const double actual, const double expected,
                       const double error, const char* const func_name,
                       const char* const message) {
   const double difference = fabs(actual - expected);
-#ifdef TEST_MESSAGES
+#ifdef TEST_OUTPUT
   printf("%s(): %s\n", func_name, message);
 #else
   (void)func_name;
@@ -69,7 +70,7 @@ void assert_double_neq(const double actual, const double expected,
                        const double error, const char* const func_name,
                        const char* const message) {
   const double difference = fabs(actual - expected);
-#ifdef TEST_MESSAGES
+#ifdef TEST_OUTPUT
   printf("%s(): %s\n", func_name, message);
 #else
   (void)func_name;
@@ -87,7 +88,7 @@ void assert_double_neq(const double actual, const double expected,
 // terminated
 void assert_string_eq(const char* const actual, const char* const expected,
                       const char* const func_name, const char* const message) {
-#ifdef TEST_MESSAGES
+#ifdef TEST_OUTPUT
   printf("%s(): %s\n", func_name, message);
 #else
   (void)func_name;
@@ -103,7 +104,7 @@ void assert_string_eq(const char* const actual, const char* const expected,
 
 void assert_string_neq(const char* const actual, const char* const expected,
                        const char* const func_name, const char* const message) {
-#ifdef TEST_MESSAGES
+#ifdef TEST_OUTPUT
   printf("%s(): %s\n", func_name, message);
 #else
   (void)func_name;
@@ -120,7 +121,7 @@ void assert_string_neq(const char* const actual, const char* const expected,
 // assert_<bool>(): assert truthiness / falsity of expression
 void assert_true(const bool expr, const char* const func_name,
                  const char* const message) {
-#ifdef TEST_MESSAGES
+#ifdef TEST_OUTPUT
   printf("%s(): %s\n", func_name, message);
 #else
   (void)func_name;
@@ -134,7 +135,7 @@ void assert_true(const bool expr, const char* const func_name,
 }
 void assert_false(const bool expr, const char* const func_name,
                   const char* const message) {
-#ifdef TEST_MESSAGES
+#ifdef TEST_OUTPUT
   printf("%s(): %s\n", func_name, message);
 #else
   (void)func_name;
@@ -153,7 +154,7 @@ void assert_false(const bool expr, const char* const func_name,
 void assert_mem_eq(const void* const actual, const void* const expected,
                    const int size, const char* const func_name,
                    const char* const message) {
-#ifdef TEST_MESSAGES
+#ifdef TEST_OUTPUT
   printf("%s(): %s\n", func_name, message);
 #else
   (void)func_name;
@@ -169,7 +170,7 @@ void assert_mem_eq(const void* const actual, const void* const expected,
 void assert_mem_neq(const void* const actual, const void* const expected,
                     const int size, const char* const func_name,
                     const char* const message) {
-#ifdef TEST_MESSAGES
+#ifdef TEST_OUTPUT
   printf("%s(): %s\n", func_name, message);
 #else
   (void)func_name;

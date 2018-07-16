@@ -1,5 +1,6 @@
-#include "1.22.h"
 #include <stdio.h>
+
+#include "1.22.h"
 #include "common.h"
 
 /*
@@ -11,21 +12,15 @@
  * I'm assuming this question is asking me to replicate the $fold program.
  */
 
-#ifdef DEBUG
 #define FOLD_COLUMN 5
-#endif
 
 int main() {
-#ifdef DEBUG
-  char line[MAXLINE];
+  char line[MAXLEN];
   int len;
-  printf("Begin entering text.\n");
-  while ((len = mygetline(line, MAXLINE))) {
-    fold(line, MAXLINE, FOLD_COLUMN);
+  while ((len = mygetline(line, MAXLEN))) {
+    fold(line, MAXLEN, FOLD_COLUMN);
   }
-#else
-  printf("1.22: No unit tests.\n");
-#endif
+
   return 0;
 }
 

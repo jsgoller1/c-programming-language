@@ -12,7 +12,6 @@
  */
 
 int main() {
-#ifdef DEBUG
   int c = 0;
   parsing_state ps = {0, 0, 0, 0, 0};
   input_registry ir = {0, 0, 0, 0};
@@ -24,9 +23,6 @@ int main() {
     }
   }
   print_output(&ir, &ps);
-#else
-  printf("1.24: No unit tests.\n");
-#endif
   return 0;
 }
 
@@ -58,14 +54,12 @@ void parsing_test(const int c1, parsing_state* ps) {
   else if (c1 == '\n') {
     ps->in_single_comment = 0;
   }  // enter or exit a single-tick quote
-  else if (c1 == '\'' &&
-           !(ps->in_single_comment || ps->in_multi_comment ||
-             ps->in_double_quote)) {
+  else if (c1 == '\'' && !(ps->in_single_comment || ps->in_multi_comment ||
+                           ps->in_double_quote)) {
     ps->in_single_quote = ~(ps->in_single_quote);
   }  // enter or exit a double-tick quote
-  else if (c1 == '\"' &&
-           !(ps->in_single_comment || ps->in_multi_comment ||
-             ps->in_single_quote)) {
+  else if (c1 == '\"' && !(ps->in_single_comment || ps->in_multi_comment ||
+                           ps->in_single_quote)) {
     ps->in_double_quote = ~(ps->in_double_quote);
   }
 

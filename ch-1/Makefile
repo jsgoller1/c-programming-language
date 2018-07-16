@@ -49,3 +49,7 @@ build: clean
 
 1.23: build
 	printf "// remove comments\nvoid main(){return 0;}" | $(VALGRIND) ./bin/$@
+
+1.24: build
+	printf "// remove comments\nvoid main(){return 0;}" | $(VALGRIND) ./bin/$@
+	printf "// remove comments\nvoid main(){return 0;}}" | $(VALGRIND) ./bin/$@

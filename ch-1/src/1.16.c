@@ -1,5 +1,6 @@
-#include "1.16.h"
 #include <stdio.h>
+
+#include "1.16.h"
 #include "common.h"
 
 /*
@@ -10,28 +11,24 @@
  * Note: if multiple strings are the longest, this program prints the first one.
  */
 
-int main() {
-#ifdef DEBUG
-  longest_line();
-#else
-  printf("1.16: No unit tests.\n");
-#endif
-}
+int main() { return longest_line(); }
 
 int longest_line() {
-  int len;                // current line length
-  int max;                // maximum length seen so far
-  char line[MAXLINE];     // current input line
-  char longest[MAXLINE];  // longest line saved here
+  int len;               // current line length
+  int max;               // maximum length seen so far
+  char line[MAXLEN];     // current input line
+  char longest[MAXLEN];  // longest line saved here
 
   max = 0;
-  while ((len = mygetline(line, MAXLINE)) > 0)
+  while ((len = mygetline(line, MAXLEN)) > 0)
     if (len > max) {
       max = len;
       copy(longest, line);
     }
-  if (max > 0)  // there was a line
+  if (max > 0) {  // there was a line
     printf("%d: %s", max - 1, longest);
+  }
+  printf("\n");
   return 0;
 }
 

@@ -8,25 +8,20 @@
  */
 
 int main() {
-#ifdef DEBUG
   int char_counts[26] = {0};  // Initializes all elements to zero
   char characters[26] = {'a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i',
                          'j', 'k', 'l', 'm', 'n', 'o', 'p', 'q', 'r',
                          's', 't', 'u', 'v', 'w', 'x', 'y', 'z'};
   get_chars(char_counts);
   print_histogram(characters, char_counts);
-#else
-  printf("1.14: No unit tests.\n");
-#endif
   return 0;
 }
 
 // get_chars(): reads character-by-character input until EOF from stdin
 void get_chars(int* const char_counts) {
-  int i, c, word_length;
-  i = c = word_length = 0;
+  int c, word_length;
+  c = word_length = 0;
 
-  printf("Begin typing, terminate via ctrl-D on an empty line.\n");
   while ((c = getchar()) != EOF) {
     if (c >= 'a' && c <= 'z') {
       char_counts[c - 'a']++;

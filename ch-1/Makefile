@@ -26,4 +26,4 @@ build: clean
 	printf "this this this program program prints a a a a histogram" | $(VALGRIND) ./bin/$@
 
 1.14: build
-	$(VALGRIND) ./bin/$@
+	printf "this program prints a char frequency histogram" | $(VALGRIND) ./bin/$@

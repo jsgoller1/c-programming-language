@@ -1,9 +1,5 @@
 #include <stdio.h>
 
-#ifndef DEBUG
-#pragma clang diagnostic ignored "-Wunused-function"
-#endif
-
 /*
  * Ex 1.23: Write a program to remove all comments from a C program. Don't
  * forget to handle quoted strings and character constants properly. C comments
@@ -55,10 +51,4 @@ static int remove_comments() {
   return 0;
 }
 
-int main() {
-#ifdef DEBUG
-  remove_comments();
-#else
-  printf("1.23: No unit tests.\n");
-#endif
-}
+int main() { return remove_comments(); }

@@ -46,3 +46,6 @@ build: clean
 
 1.22: build
 	printf "01234567890123456789" | $(VALGRIND) ./bin/$@
+
+1.23: build
+	printf "// remove comments\nvoid main(){return 0;}" | $(VALGRIND) ./bin/$@

@@ -41,5 +41,8 @@ build: clean
 1.20: build
 	printf "detabs\tlines\t" | $(VALGRIND) ./bin/$@
 
+1.21: build
+	printf "tab  stops every        5 chars" | $(VALGRIND) ./bin/$@
+
 1.22: build
 	printf "01234567890123456789" | $(VALGRIND) ./bin/$@

@@ -5,10 +5,7 @@
 #include "common.h"
 
 #define TAB_CHAR '$'
-
-#ifdef DEBUG
 #define TAB_STOPS 5
-#endif
 
 /*
  * Write a program entab that replaces strings of blanks by the minimum number
@@ -16,25 +13,21 @@
  * detab(). When either a tab or a single blank would suffice to reach a tab
  * stop, which should be given preference?
  * ---
- * We will use a tab for a single blank before a tab stop.
+ * We will use a tab for a single blank before a tab stop, and represent tabs
+ * with a special character.
  */
 
 int main() {
-#ifdef DEBUG
-  int len;             // current line length
-  char line[MAXLINE];  // current input line
+  int len;            // current line length
+  char line[MAXLEN];  // current input line
   char* stripped;
 
-  printf(
-      "Begin typing - tab stops every %d columns; \\t is represented as '$'\n",
-      TAB_STOPS);
-  while ((len = mygetline(line, MAXLINE)) > 0) {
+  while ((len = mygetline(line, MAXLEN)) > 0) {
     stripped = entab(line, len, TAB_STOPS);
     printf("%s\n", stripped);
+    free(stripped);
   }
-#else
-  printf("1.21: No unit tests.\n");
-#endif
+
   return 0;
 }
 // entab(): given a string of len, return it with all whitespaces of a given
@@ -42,7 +35,7 @@ int main() {
 char* entab(const char* const in_line, const int in_len, const int tab_stop) {
   char* out_line = {""};
   int i = 0, j = 0, next_stop = 0;
-  char temp[MAXLINE] = {0};
+  char temp[MAXLEN] = {0};
 
   // Copy char by char til we get a whitespace; if so,
   // look_ahead() to see if we can entab - do so if possible,

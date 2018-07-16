@@ -3,7 +3,8 @@ SHELL:=/bin/bash
 include ch-1/Makefile ch-2/Makefile ch-4/Makefile ch-5/Makefile
 include ch-6/Makefile ch-7/Makefile ch-8/Makefile
 
-#ANALYZER:=scan-build
+### Compile
+ANALYZER:=scan-build
 CC:=clang
 CFLAGS :=-std=gnu11 -g -lm
 WARNINGS :=-Weverything -Werror
@@ -11,6 +12,13 @@ INCLUDES :=-I common/include
 LIBS :=common/src/*.c
 COMPILE:=$(ANALYZER) $(CC) $(CFLAGS) $(WARNINGS) $(INCLUDES) $(LIBS)
 VALGRIND := valgrind -q --leak-check=full --show-leak-kinds=all --error-exitcode=42
+
+### Binaries
+setup:
+	-mkdir bin
+
+clean:
+	-rm -r bin/*
 
 ### Dockerized Linux workspace; setting up Valgrind on OSX is annoying.
 docker-clean:
@@ -25,7 +33,7 @@ docker:
 	-v `pwd`:/workspace \
 	ubuntu
 	docker exec ubuntu apt-get update
-	docker exec ubuntu apt-get install -y make valgrind clang clang-tools cdecl
+	docker exec ubuntu apt-get install -y make valgrind clang clang-tools cdecl perl
 
 shell:
 	docker exec -it ubuntu /bin/bash
@@ -33,13 +41,7 @@ shell:
 workspace: docker-clean docker shell
 
 
-### Setup commands
-setup:
-	-mkdir bin
-
-clean:
-	-rm -r bin/*
-
+### Build targets
 .PHONY: rpc sort tail decl malloc_j
 .PHONY: ch-%
 
@@ -55,12 +57,6 @@ ch-5: 5.12 tail sort decl
 ch-6: 6.1 charmatch crossref wordcount hashtable
 ch-7: 7.1 7.2 7.3 7.4 7.5 7.6 7.7 7.8
 ch-8: cat fopen_j 8.5 malloc_j
-
-#1.% 2.% 3.% 4.% 5.% 6.% 7.% 8.%: clean
-#	@# When making "3.4", get "3" as chapter value
-#	@$(eval CH := $(shell echo $@ | grep -o "[1-8]\." | sed 's/\.//' ))
-#	$(COMPILE) -I ch-$(CH)/include/ ch-$(CH)/src/$@.c -o bin/$@
-#	$(VALGRIND) ./bin/$@
 
 
 

@@ -3,7 +3,7 @@ export EX=$(MAKECMDGOALS)
 build: clean
 	$(COMPILE) -D TEST_OUTPUT -I ch-1/include/ ch-1/src/$$EX.c -o bin/$$EX
 
-1.3-4 1.5 1.7: build
+1.3-4 1.5 1.7 1.11: build
 	$(VALGRIND) ./bin/$@
 
 1.6: build
@@ -19,14 +19,11 @@ build: clean
 1.10: build
 	printf "this program escapes spaces and		tabs" |	$(VALGRIND) ./bin/$@
 
-1.11: build
-	$(VALGRIND) ./bin/$@
-
 1.12: build
-	$(VALGRIND) ./bin/$@
+	printf "this program prints every word in input" | $(VALGRIND) ./bin/$@
 
 1.13: build
-	$(VALGRIND) ./bin/$@
+	printf "this this this program program prints a a a a histogram" | $(VALGRIND) ./bin/$@
 
 1.14: build
 	$(VALGRIND) ./bin/$@

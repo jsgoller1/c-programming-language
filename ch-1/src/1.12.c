@@ -9,7 +9,6 @@
 static int print_every_word() {
   int c;
 
-  printf("Begin typing, terminate via ctrl-D on an empty line.\n");
   while ((c = getchar()) != EOF) {
     if (c == ' ')
       putchar('\n');
@@ -17,13 +16,8 @@ static int print_every_word() {
       putchar(c);
     }
   }
+  putchar('\n');
   return 0;
 }
 
-int main() {
-#ifdef DEBUG
-  print_every_word();
-#else
-  printf("1.12: No unit tests.\n");
-#endif
-}
+int main() { return print_every_word(); }

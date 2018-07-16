@@ -10,13 +10,9 @@
 #define OUT 0  // outside a word
 
 int main() {
-#ifdef DEBUG
   int words[10] = {0};  // Initializes all elements to zero
   get_words(words);
   print_histogram(words);
-#else
-  printf("1.13: No unit tests.\n");
-#endif
   return 0;
 }
 

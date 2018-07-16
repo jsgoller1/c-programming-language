@@ -3,7 +3,7 @@ export EX=$(MAKECMDGOALS)
 build: clean
 	$(COMPILE) -D TEST_OUTPUT -I ch-1/include/ ch-1/src/$$EX.c -o bin/$$EX
 
-1.3-4 1.5 1.7 1.11 1.15: build
+1.3-4 1.5 1.7 1.11 1.15 1.19: build
 	$(VALGRIND) ./bin/$@
 
 1.6: build
@@ -37,3 +37,6 @@ build: clean
 
 1.18: build
 	printf "removes trailing whitespace          " | $(VALGRIND) ./bin/$@
+
+1.20: build
+	printf "detabs\tlines\t" | $(VALGRIND) ./bin/$@

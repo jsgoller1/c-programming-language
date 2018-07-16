@@ -6,7 +6,6 @@ static int count_empties() {
   int c, spaces, tabs, newlines;
   spaces = tabs = newlines = 0;
 
-  printf("Begin typing, terminate via ctrl-D on an empty line.\n");
   while ((c = getchar()) != EOF) switch (c) {
       case ' ':
         spaces++;

@@ -10,12 +10,12 @@ For the purposes of this, I am only implementing base 0 through base 36 to avoid
 having to pick characters to represent 36+.
 */
 
-void itob(int n, char s[], int b);
-void reverse(char s[], int len);
+void itob(int n, unsigned char s[], unsigned int b);
+void reverse(unsigned char s[], int len);
 
 int main() {
   // 1010
-  char numstring[MAX_LEN];
+  unsigned char numstring[MAX_LEN];
   int num = 10;
   itob(num, numstring, 2);
   printf("%d base 10 == %s base %d\n", num, numstring, 2);
@@ -39,9 +39,9 @@ int main() {
   return 0;
 }
 
-void itob(int n, char s[], int b) {
-  int i, is_negative, remainder;
-  unsigned val;
+void itob(int n, unsigned char s[], unsigned b) {
+  int i;
+  unsigned val, remainder;
   i = 0;
 
   // Ignore unsuported inputs
@@ -52,33 +52,32 @@ void itob(int n, char s[], int b) {
 
   // Fix 0x80000000 issue; if the value is negative, multiply by
   // -1 and store the result as an unsigned int.
-  is_negative = (n < 0);
-  is_negative ? (val = n * -1) : (val = n);
+  (n < 0) ? (val = (unsigned)(n * -1)) : (val = (unsigned)(n));
 
   do {
-    remainder = (val % b);
+    remainder = (unsigned)(val % b);
     if (remainder >= 10) {
       // If we go above base 10, start using
       // A through Z; offset is different, and
       // we need to start from 0 (subtract 10).
-      (s[i] = ('A' + remainder - 10));
+      s[i] = (unsigned char)('A' + remainder - 10);
     } else {
       // same logic as itoa()
-      (s[i] = '0' + remainder);
+      s[i] = (unsigned char)('0' + remainder);
     }
     i++;
   } while ((val /= b) > 0);
 
-  if (is_negative) {
+  if (n < 0) {
     s[i++] = '-';
   }
   s[i] = '\0';
   reverse(s, i);
 }
 
-void reverse(char s[], int len) {
+void reverse(unsigned char s[], int len) {
   int i;
-  char temp;
+  unsigned char temp;
   for (i = 0; i < len / 2; i++) {
     temp = s[len - i - 1];
     s[len - i - 1] = s[i];

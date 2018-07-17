@@ -5,10 +5,3 @@ include vars.mk
 ifdef RUN_TESTS
 	$(VALGRIND) ./bin/$@
 endif
-
-#2.x: clean
-#	make EX=$@ build
-#ifdef RUN_TESTS
-#	printf "d" | $(VALGRIND) ./bin/$@
-#	cat EOF | $(VALGRIND) ./bin/$@
-#endif

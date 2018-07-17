@@ -1,7 +1,6 @@
 include vars.mk
 
-#CHAPTER:=ch-1
-
+# "build" is in the top-level makefile
 1.3-4 1.5 1.7 1.11 1.15 1.19: clean
 	make EX=$@ CH=ch-1 build
 ifdef RUN_TESTS

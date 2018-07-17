@@ -10,7 +10,28 @@ two. The third argument is a minimum field width; the converted number must
 be padded with blanks on the left if necessary to make it wide enough.
 */
 
-void itoa(int val, char s[], int pad);
+static void itoa(int n, char s[], int pad) {
+  int i = 0;
+  unsigned val;
+
+  // If the value is negative, multiply by
+  // -1 and store the result as an unsigned int.
+  (n < 0) ? (val = (unsigned int)(n * -1)) : (val = (unsigned int)n);
+
+  do {
+    s[i++] = val % 10 + '0';
+  } while ((val /= 10) > 0);
+  if (n < 0) {
+    s[i++] = '-';
+  }
+
+  // Doesn't execute if we exceed padding
+  while (i < pad) {
+    s[i++] = ' ';
+  }
+  s[i] = '\0';
+  reverse(s, i);
+}
 
 int main() {
   char numstring[MAX_LEN];
@@ -35,27 +56,4 @@ int main() {
   printf("%s == %d\n", numstring, num);
 
   return 0;
-}
-
-void itoa(int n, char s[], int pad) {
-  int i = 0;
-  unsigned val;
-
-  // If the value is negative, multiply by
-  // -1 and store the result as an unsigned int.
-  (n < 0) ? (val = (unsigned int)(n * -1)) : (val = (unsigned int)n);
-
-  do {
-    s[i++] = val % 10 + '0';
-  } while ((val /= 10) > 0);
-  if (n < 0) {
-    s[i++] = '-';
-  }
-
-  // Doesn't execute if we exceed padding
-  while (i < pad) {
-    s[i++] = ' ';
-  }
-  s[i] = '\0';
-  reverse(s, i);
 }

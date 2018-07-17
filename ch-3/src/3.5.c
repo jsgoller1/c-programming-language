@@ -1,5 +1,6 @@
 #include <stdio.h>
-#define MAX_LEN 1000
+
+#include "common.h"
 
 /*
 Write the function itob(n,s,b) that converts the integer n
@@ -10,36 +11,7 @@ For the purposes of this, I am only implementing base 0 through base 36 to avoid
 having to pick characters to represent 36+.
 */
 
-void itob(int n, unsigned char s[], unsigned int b);
-void reverse(unsigned char s[], int len);
-
-int main() {
-  // 1010
-  unsigned char numstring[MAX_LEN];
-  int num = 10;
-  itob(num, numstring, 2);
-  printf("%d base 10 == %s base %d\n", num, numstring, 2);
-
-  // Z
-  num = 35;
-  itob(num, numstring, 36);
-  printf("%d base 10 == %s base %d\n", num, numstring, 36);
-
-  // Quits with error, should print "35 base 10 == Z base 1"
-  // since values are unchanged from previous iteration
-  num = 35;
-  itob(num, numstring, 1);
-  printf("%d base 10 == %s base %d\n", num, numstring, 1);
-
-  // 0
-  num = 0;
-  itob(num, numstring, 10);
-  printf("%d base 10 == %s base %d\n", num, numstring, 10);
-
-  return 0;
-}
-
-void itob(int n, unsigned char s[], unsigned b) {
+static void itob(int n, unsigned char s[], unsigned b) {
   int i;
   unsigned val, remainder;
   i = 0;
@@ -72,15 +44,31 @@ void itob(int n, unsigned char s[], unsigned b) {
     s[i++] = '-';
   }
   s[i] = '\0';
-  reverse(s, i);
+  reverse((char*)s, i);
 }
 
-void reverse(unsigned char s[], int len) {
-  int i;
-  unsigned char temp;
-  for (i = 0; i < len / 2; i++) {
-    temp = s[len - i - 1];
-    s[len - i - 1] = s[i];
-    s[i] = temp;
-  }
+int main() {
+  // 1010
+  unsigned char numstring[MAXLEN];
+  int num = 10;
+  itob(num, numstring, 2);
+  printf("%d base 10 == %s base %d\n", num, numstring, 2);
+
+  // Z
+  num = 35;
+  itob(num, numstring, 36);
+  printf("%d base 10 == %s base %d\n", num, numstring, 36);
+
+  // Quits with error, should print "35 base 10 == Z base 1"
+  // since values are unchanged from previous iteration
+  num = 35;
+  itob(num, numstring, 1);
+  printf("%d base 10 == %s base %d\n", num, numstring, 1);
+
+  // 0
+  num = 0;
+  itob(num, numstring, 10);
+  printf("%d base 10 == %s base %d\n", num, numstring, 10);
+
+  return 0;
 }

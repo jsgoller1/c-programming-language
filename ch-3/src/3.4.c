@@ -1,5 +1,6 @@
 #include <stdio.h>
-#define MAX_LEN 1000
+
+#include "common.h"
 
 /*
 In a two's complement number representation, our version of itoa()
@@ -19,34 +20,7 @@ by -1 produces a positive value.
 
 */
 
-void itoa(int val, char s[]);
-void reverse(char s[], int len);
-
-int main() {
-  char numstring0[MAX_LEN];
-  int num0 = 0;  // 0
-  itoa(num0, numstring0);
-  printf("%d == %s\n", num0, numstring0);
-
-  char numstring1[MAX_LEN];
-  int num1 = 0x7FFFFFFF;  // 2147483647
-  itoa(num1, numstring1);
-  printf("%d == %s\n", num1, numstring1);
-
-  char numstring2[MAX_LEN];
-  int num2 = (int)0x80000000;  // -2147483648
-  itoa(num2, numstring2);
-  printf("%d == %s\n", num2, numstring2);
-
-  char numstring3[MAX_LEN];
-  int num3 = (int)0xFFFFFFFF;  // -1
-  itoa(num3, numstring3);
-  printf("%d == %s\n", num3, numstring3);
-
-  return 0;
-}
-
-void itoa(int n, char s[]) {
+static void itoa(int n, char s[]) {
   int i, is_negative;
   unsigned val;
   i = 0;
@@ -66,12 +40,26 @@ void itoa(int n, char s[]) {
   reverse(s, i);
 }
 
-void reverse(char s[], int len) {
-  int i;
-  char temp;
-  for (i = 0; i < len / 2; i++) {
-    temp = s[len - i - 1];
-    s[len - i - 1] = s[i];
-    s[i] = temp;
-  }
+int main() {
+  char numstring0[MAXLEN];
+  int num0 = 0;  // 0
+  itoa(num0, numstring0);
+  printf("%d == %s\n", num0, numstring0);
+
+  char numstring1[MAXLEN];
+  int num1 = 0x7FFFFFFF;  // 2147483647
+  itoa(num1, numstring1);
+  printf("%d == %s\n", num1, numstring1);
+
+  char numstring2[MAXLEN];
+  int num2 = (int)0x80000000;  // -2147483648
+  itoa(num2, numstring2);
+  printf("%d == %s\n", num2, numstring2);
+
+  char numstring3[MAXLEN];
+  int num3 = (int)0xFFFFFFFF;  // -1
+  itoa(num3, numstring3);
+  printf("%d == %s\n", num3, numstring3);
+
+  return 0;
 }

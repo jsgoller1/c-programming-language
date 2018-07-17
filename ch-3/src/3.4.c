@@ -1,6 +1,6 @@
 #include <stdio.h>
 #define MAX_LEN 1000
-#define WORD_SIZE 4
+//#define WORD_SIZE 4
 
 /*
 In a two's complement number representation, our version of itoa()
@@ -35,12 +35,12 @@ int main() {
   printf("%d == %s\n", num1, numstring1);
 
   char numstring2[MAX_LEN];
-  int num2 = 0x80000000;  // -2147483648
+  int num2 = (int)0x80000000;  // -2147483648
   itoa(num2, numstring2);
   printf("%d == %s\n", num2, numstring2);
 
   char numstring3[MAX_LEN];
-  int num3 = 0xFFFFFFFF;  // -1
+  int num3 = (int)0xFFFFFFFF;  // -1
   itoa(num3, numstring3);
   printf("%d == %s\n", num3, numstring3);
 
@@ -55,7 +55,7 @@ void itoa(int n, char s[]) {
   // If the value is negative, multiply by
   // -1 and store the result as an unsigned int.
   is_negative = (n < 0);
-  is_negative ? (val = n * -1) : (val = n);
+  is_negative ? (val = (unsigned)(n * -1)) : (val = (unsigned)n);
 
   do {
     s[i++] = val % 10 + '0';

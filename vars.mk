@@ -11,7 +11,7 @@ COMPILE:=$(ANALYZER) $(CC) $(CFLAGS) $(WARNINGS) $(EXTRA_FLAGS) $(INCLUDES) $(LI
 RUN_TESTS:=true
 
 ### Uncomment this to run Clang's static analyzer while building
-#ANALYZER:=scan-build
+ANALYZER:=scan-build
 
 ### Uncomment this to do memory leak analysis while running
-VALGRIND := valgrind -q --leak-check=full --show-leak-kinds=all --error-exitcode=42
+VALGRIND := valgrind -q --leak-check=full --show-leak-kinds=all --track-origins=yes --error-exitcode=42

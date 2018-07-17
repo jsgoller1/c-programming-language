@@ -1,6 +1,7 @@
-#include "2.2.h"
 #include <stdbool.h>
 #include <stdio.h>
+
+#include "2.2.h"
 #include "common.h"
 
 /*

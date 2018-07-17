@@ -1,7 +1,5 @@
 include vars.mk
 
-CHAPTER:=ch-1
-
 build:
 	$(COMPILE) -I ch-1/include ch-1/src/$$EX.c -o bin/$$EX
 

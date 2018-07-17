@@ -34,7 +34,10 @@ char* squeeze(char* const s1, const int len1, const char* const s2,
   int i, j;
   // the squeezed string will never be larger than the original,
   // so while possibly wasteful, using len1 is sufficient
-  char* squeezed = (char*)malloc((unsigned long)len1 + 1);
+  char* squeezed = (char*)calloc(1, (unsigned long)len1 + 1);
+  if (squeezed == NULL) {
+    return NULL;
+  }
 
   for (i = 0, j = 0; i < len1; i++) {
     if (charmatch(s1[i], s2, len2) == -1) {
@@ -59,10 +62,18 @@ int charmatch(const char c, const char* const str, const int len) {
 }
 
 void test(char* const str1, const char* const str2) {
-  printf("%s - removing '%s': ", str1, str2);
+  if (str1 == NULL || str2 == NULL) {
+    return;
+  }
+
   int len1 = (int)strlen(str1);
   int len2 = (int)strlen(str2);
   char* squeezed = squeeze(str1, len1, str2, len2);
+  if (squeezed == NULL) {
+    return;
+  }
+
+  printf("%s - removing '%s': ", str1, str2);
   printf("%s\n", squeezed);
   free(squeezed);
 }

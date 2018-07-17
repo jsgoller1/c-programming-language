@@ -45,5 +45,8 @@ ch-6: 6.1 charmatch crossref wordcount hashtable
 ch-7: 7.1 7.2 7.3 7.4 7.5 7.6 7.7 7.8
 ch-8: cat fopen_j 8.5 malloc_j
 
-
+# Each individual make target runs the build target to produce
+# the compiled binary.
+build:
+	$(COMPILE) -I $$CH/include $$CH/src/$$EX.c -o bin/$$EX
 

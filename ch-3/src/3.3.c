@@ -1,8 +1,9 @@
-#include "3.3.h"
 #include <stdbool.h>
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
+
+#include "3.3.h"
 #include "common.h"
 #include "tests.h"
 
@@ -23,16 +24,8 @@ a-c-e -> abc-e -> abcde (chained expansion)
 static void test(const char* const expr, const char* const expected,
                  const char* const message) {
   char* actual = expand(expr, (int)strlen(expr));
-#ifdef TEST_MESSAGES
   printf("expand(): %s...\n", message);
-#else
-  (void)message;
-#endif
-#ifdef DEBUG
-  printf("Expected: %s\n", expected);
-  printf("Actual: %s\n", actual);
-#endif
-  assert_string_eq(actual, expected);
+  assert_string_eq(actual, expected, "expand", message);
   free(actual);
 }
 
@@ -129,18 +122,18 @@ char* generate_expansion(const char a, const char b) {
   int i = 0;
 
   if (a < b) {
-    expansion = (char*)malloc((unsigned long)(b - a) + 1);
+    expansion = (char*)malloc((unsigned long)(b - a) + 2);
     for (i = 0; a + i <= b; i++) {
       expansion[i] = a + (char)i;
     }
   } else if (a > b) {
-    expansion = (char*)malloc((unsigned long)(a - b) + 1);
+    expansion = (char*)malloc((unsigned long)(a - b) + 2);
     for (i = 0; a - i >= b; i++) {
       expansion[i] = a - (char)i;
     }
   } else {
     // they're equal, so the "expansion" is just the character
-    expansion = (char*)malloc((unsigned long)2);
+    expansion = (char*)malloc(2 * sizeof(char));
     expansion[i++] = a;
   }
   expansion[i] = '\0';

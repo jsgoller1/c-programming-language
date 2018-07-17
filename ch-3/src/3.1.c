@@ -1,5 +1,6 @@
-#include "3.1.h"
 #include <stdio.h>
+
+#include "3.1.h"
 
 /*
 Ex 3.1:  Our binary search makes two tests inside the loop, when one

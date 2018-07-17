@@ -1,6 +1,6 @@
 # See vars.mk for compile / testing settings
 include vars.mk
-include ch-1/Makefile ch-2/Makefile ch-3/Makefile
+include ch-1/Makefile ch-2/Makefile ch-3/Makefile ch-4/Makefile
 
 ### Binaries
 setup:
@@ -47,7 +47,7 @@ ch-8: cat fopen_j 8.5 malloc_j
 
 # Each individual make target runs the build target to produce
 # the compiled binary. I didn't want to have to redefine this
-# target individually for each chapter makefile but I couldn't
+# target individually for each chapter's makefile but I couldn't
 # find a way to pass variables to make targets without recursive
 # making - see: https://stackoverflow.com/questions/14880419/share-variables-between-makefiles
 build:

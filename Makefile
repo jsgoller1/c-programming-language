@@ -46,7 +46,10 @@ ch-7: 7.1 7.2 7.3 7.4 7.5 7.6 7.7 7.8
 ch-8: cat fopen_j 8.5 malloc_j
 
 # Each individual make target runs the build target to produce
-# the compiled binary.
+# the compiled binary. I didn't want to have to redefine this
+# target individually for each chapter makefile but I couldn't
+# find a way to pass variables to make targets without recursive
+# making - see: https://stackoverflow.com/questions/14880419/share-variables-between-makefiles
 build:
 	$(COMPILE) -I $$CH/include $$CH/src/$$EX.c -o bin/$$EX
 

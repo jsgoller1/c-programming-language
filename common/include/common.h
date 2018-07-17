@@ -34,4 +34,4 @@ int powi(int base, int exp);
 
 // Strings
 // TODO: Either uncomment this or remove it and make 1.19 static.
-// void reverse(char *const s, const int len);
+void reverse(char* const s, const int len);

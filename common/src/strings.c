@@ -4,8 +4,7 @@
  * --------------------------------------------------------
  *  Strings
  * --------------------------------------------------------
-
- * TODO: Either uncomment this or remove it and make 1.19 static.
+ */
 
 void reverse(char *const s, const int len) {
   int i;
@@ -16,4 +15,3 @@ void reverse(char *const s, const int len) {
     s[i] = temp;
   }
 }
- */

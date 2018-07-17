@@ -1,8 +1,8 @@
 #include <stdio.h>
+
 #include "common.h"
 
 #define MAX_LEN 1000
-#define WORD_SIZE 4
 
 /*
 Write a version of itoa that accepts three arguments instead of
@@ -11,7 +11,6 @@ be padded with blanks on the left if necessary to make it wide enough.
 */
 
 void itoa(int val, char s[], int pad);
-void reverse(char s[], int len);
 
 int main() {
   char numstring[MAX_LEN];
@@ -39,19 +38,17 @@ int main() {
 }
 
 void itoa(int n, char s[], int pad) {
-  int i, is_negative;
+  int i = 0;
   unsigned val;
-  i = 0;
 
   // If the value is negative, multiply by
   // -1 and store the result as an unsigned int.
-  is_negative = (n < 0);
-  is_negative ? (val = n * -1) : (val = n);
+  (n < 0) ? (val = (unsigned int)(n * -1)) : (val = (unsigned int)n);
 
   do {
     s[i++] = val % 10 + '0';
   } while ((val /= 10) > 0);
-  if (is_negative) {
+  if (n < 0) {
     s[i++] = '-';
   }
 

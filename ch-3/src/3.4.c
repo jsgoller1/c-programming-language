@@ -1,6 +1,5 @@
 #include <stdio.h>
 #define MAX_LEN 1000
-//#define WORD_SIZE 4
 
 /*
 In a two's complement number representation, our version of itoa()

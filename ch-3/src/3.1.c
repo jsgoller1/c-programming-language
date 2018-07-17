@@ -17,7 +17,7 @@ int main() {
   return 0;
 }
 
-int binsearch(const int x, const int v[], const int n) {
+int binsearch(const int x, const int* const v, const int n) {
   int high, low, mid;
 
   low = 0;
@@ -39,7 +39,7 @@ int binsearch(const int x, const int v[], const int n) {
 // This is not asypmtotically faster than the other bin search;
 // it still takes log(n) steps instead of 3*log(n) steps for an
 // array of n integers - both are O(log(n));
-int newbinsearch(const int x, const int v[], const int n) {
+int newbinsearch(const int x, const int* const v, const int n) {
   int high, low, mid = 0;
 
   low = 0;
@@ -54,7 +54,7 @@ int newbinsearch(const int x, const int v[], const int n) {
   return -1;  // no match
 }
 
-void test(const int val, const int v[], const int n) {
+void test(const int val, const int* const v, const int n) {
   printf("binsearch: %d at %d\n", val, binsearch(val, v, n));
   printf("newbinsearch: %d at %d\n", val, newbinsearch(val, v, n));
 }

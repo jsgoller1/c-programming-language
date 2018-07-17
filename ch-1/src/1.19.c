@@ -10,9 +10,6 @@
  * Ex 1.19: Write a function reverse(s) that reverses the character
  * string s. Use it to write a program that reverses its input a line
  * at a time.
- * -------
- * TODO: reverse() should either be uncommented in common/src/strings.c,
- * or it should be made static here.
  */
 
 static void test(const char* const str, const char* const expected,
@@ -33,17 +30,6 @@ int main() {
   printf("1.19: PASS!\n");
 
   return 0;
-}
-
-// reverse(): given a string of len, return the reversed version of it;
-// assumes the string was created by getline(), and as such ends with \n\0
-void reverse(char* const string, const int len) {
-  int i, end;
-  end = len - 1;  // ignore null terminator
-  for (i = 0; i < len / 2; i++) {
-    swap(string, i, end);
-    end--;
-  }
 }
 
 // swap(): exchange string[a] with string[b]

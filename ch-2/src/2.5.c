@@ -1,6 +1,7 @@
-#include "2.5.h"
 #include <stdio.h>
 #include <string.h>
+
+#include "2.5.h"
 
 /*
 Ex 2.5: Write the function any(s1 ,s2), which returns the first location

@@ -1,10 +1,8 @@
-#include "2.6.h"
 #include <stdbool.h>
 #include <stdio.h>
-#include "common.h"
 
-#pragma clang diagnostic ignored "-Wgnu-binary-literal"
-// define DEBUG
+#include "2.6.h"
+#include "common.h"
 
 /*
 Ex 2.6: Write a function setbits(x,p,n,y) that returns x with the n
@@ -45,7 +43,7 @@ int main() {
   if (passing_tests == num_tests) {
     printf("2.6: PASS!\n");
   } else {
-    printf("2.6: FAIL - enable debug and re-run.\n");
+    printf("2.6: FAIL - %d tests didn't pass.\n", num_tests - passing_tests);
   }
 
   return 0;
@@ -55,20 +53,10 @@ int main() {
 int test(const int x, const int y, const int position, const int count,
          const int hypothesis) {
   const int z = set_to_rightmost(x, y, position, count);
-#ifdef DEBUG
-  printf("x: 0x%x\n", x);
-  printf("y: 0x%x\n", y);
-  printf("Set %d bits at %d\n", count, position);
-#endif
+
   if (z == hypothesis) {
-#ifdef DEBUG
-    printf("PASS: result: 0x%x, expected: 0x%x\n\n", z, hypothesis);
-#endif
     return 1;
   } else {
-#ifdef DEBUG
-    printf("FAIL: result: 0x%x, expected: 0x%x\n\n", z, hypothesis);
-#endif
     return 0;
   }
 }

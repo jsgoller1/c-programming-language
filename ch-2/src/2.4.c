@@ -1,7 +1,8 @@
-#include "2.4.h"
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
+
+#include "2.4.h"
 
 /*
 Ex 2.4: Write an alternate version of squeeze(s1 ,s2) that deletes

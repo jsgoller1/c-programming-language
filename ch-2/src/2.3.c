@@ -1,8 +1,9 @@
-#include "2.3.h"
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
 #include "common.h"
+
+#include "2.3.h"
 
 /*
 Ex 2.3: Write the function htoi(s), which converts a string of

@@ -1,1 +1,1 @@
-int getline_nobool(char s[], int lim);
+int getline_nobool(char* const s, int lim);

@@ -16,8 +16,8 @@ for (i=0; i<lim-1 && (c=getchar()) != '\n' && c != EOF; ++i) {
 
 int main() {
   int len;
-  char line[MAXLINE];  // current input line
-  while ((len = getline_nobool(line, MAXLINE)) > 0) {
+  char line[MAXLEN];  // current input line
+  while ((len = getline_nobool(line, MAXLEN)) > 0) {
     printf("%d: %s\n", len, line);
   }
 
@@ -25,7 +25,7 @@ int main() {
 }
 
 // getline(): read a line into s, return length
-int getline_nobool(char s[], const int lim) {
+int getline_nobool(char* const s, const int lim) {
   int i;
   char c = 0;
 

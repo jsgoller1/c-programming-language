@@ -15,7 +15,7 @@ typedef struct ps {
   int should_parse;       // should we count any symbols we see?
 } parsing_state;
 
-void parsing_test(const int c, parsing_state* ps);
+void parsing_test(const int c, parsing_state* const ps);
 void input_test(const int c1, input_registry* const ir);
 void print_output(const input_registry* const ir,
                   const parsing_state* const ps);

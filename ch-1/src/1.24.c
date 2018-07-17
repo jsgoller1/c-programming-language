@@ -29,7 +29,7 @@ int main() {
 // parsing_test(): A nasty function with a lot of nested
 // logic to determine if we should count any of the symbols
 // we read in; implements a simple FSM for parsing.
-void parsing_test(const int c1, parsing_state* ps) {
+void parsing_test(const int c1, parsing_state* const ps) {
   int c2 = 0;
 
   // Test for beginning of single or multi comment

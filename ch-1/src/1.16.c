@@ -33,7 +33,7 @@ int longest_line() {
 }
 
 // copy(): copy 'from' into 'to'; assumes 'to' is big enough
-void copy(char to[], const char from[]) {
+void copy(char* const to, const char* const from) {
   int i;
 
   i = 0;

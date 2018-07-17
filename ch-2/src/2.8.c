@@ -1,5 +1,6 @@
-#include "2.8.h"
 #include <stdio.h>
+
+#include "2.8.h"
 
 #pragma clang diagnostic ignored "-Wgnu-binary-literal"
 
@@ -9,7 +10,7 @@ integer x rotated to the right by n bit positions.
  */
 
 int main() {
-  // 0b11010100 = 0xD4
+  // 0b1100...00010100 = c0000014
   printf("%x\n", rightrot(0b10100110, 3));
 
   // 0b00000111 = 0x7
@@ -19,7 +20,7 @@ int main() {
   printf("%x\n", rightrot(0, 3));
 
   // 0xFF, no effect
-  printf("%x\n", rightrot(0b11111111, 3));
+  printf("%x\n", rightrot(0xFFFFFFFF, 3));
 
   // 0xEFDEADBE
   printf("%x\n", rightrot((unsigned)0xDEADBEEF, 8));
@@ -35,12 +36,13 @@ int main() {
 // try to preserve the sign bit if we shift a number with it set.
 unsigned int rightrot(unsigned int x, int n) {
   // Rotating 33 places is the same as rotating 1 for a 32bit word.
+
   if (n >= 32) {
     n = n % 32;
   }
 
   // capture n lowest bits
-  unsigned lowest_mask = (unsigned)~(~0 << n);
+  unsigned lowest_mask = (unsigned)~((unsigned)(~0) << n);
   unsigned int lowest = x & lowest_mask;
 
   // shift x by n to the right

@@ -1,5 +1,6 @@
-#include "2.9.h"
 #include <stdio.h>
+
+#include "2.9.h"
 
 /*
 Ex 2.9: In a two's complement number system, x &= (x-1) deletes the

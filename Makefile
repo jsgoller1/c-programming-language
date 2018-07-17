@@ -1,17 +1,6 @@
-SHELL:=/bin/bash
-
-include ch-1/Makefile ch-2/Makefile ch-4/Makefile ch-5/Makefile
-include ch-6/Makefile ch-7/Makefile ch-8/Makefile
-
-### Compile
-ANALYZER:=scan-build
-CC:=clang
-CFLAGS :=-std=gnu11 -g -lm
-WARNINGS :=-Weverything -Werror
-INCLUDES :=-I common/include
-LIBS :=common/src/*.c
-COMPILE:=$(ANALYZER) $(CC) $(CFLAGS) $(WARNINGS) $(INCLUDES) $(LIBS)
-VALGRIND := valgrind -q --leak-check=full --show-leak-kinds=all --error-exitcode=42
+# See vars.mk for compile / testing settings
+include vars.mk
+include ch-1/Makefile
 
 ### Binaries
 setup:
@@ -40,10 +29,8 @@ shell:
 
 workspace: docker-clean docker shell
 
-
 ### Build targets
-.PHONY: rpc sort tail decl malloc_j
-.PHONY: ch-%
+.PHONY: ch-1 ch-2 ch-3 ch-4 ch-5 ch-6 ch-7 ch-8
 
 all: setup ch-1 ch-2 ch-3 ch-4 ch-5 ch-6 ch-7 ch-8
 

@@ -10,7 +10,7 @@ two. The third argument is a minimum field width; the converted number must
 be padded with blanks on the left if necessary to make it wide enough.
 */
 
-static void itoa(int n, char s[], int pad) {
+static void itoa(const int n, char* const s, const int pad) {
   int i = 0;
   unsigned val;
 

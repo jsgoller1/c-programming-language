@@ -20,7 +20,7 @@ by -1 produces a positive value.
 
 */
 
-static void itoa(int n, char s[]) {
+static void itoa(const int n, char* const s) {
   int i, is_negative;
   unsigned val;
   i = 0;

@@ -11,7 +11,7 @@ For the purposes of this, I am only implementing base 0 through base 36 to avoid
 having to pick characters to represent 36+.
 */
 
-static void itob(int n, unsigned char s[], unsigned b) {
+static void itob(const int n, unsigned char* const s, const unsigned b) {
   int i;
   unsigned val, remainder;
   i = 0;

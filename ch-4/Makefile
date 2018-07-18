@@ -17,6 +17,13 @@ ifdef RUN_TESTS
 	printf "" | $(VALGRIND) ./bin/$@
 endif
 
+4.11:
+	make EX=$@ CH=ch-4 build
+ifdef RUN_TESTS
+	printf "20 5 +\n" | $(VALGRIND) ./bin/$@
+	printf "20 5 5 + +\n" | $(VALGRIND) ./bin/$@
+	printf "" | $(VALGRIND) ./bin/$@
+endif
 
 ## Chapter 4
 # the reverse polish calc is exercises 4.3 through 4.10.

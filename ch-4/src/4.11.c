@@ -2,6 +2,9 @@
 #include <stdio.h>
 #include <stdlib.h>  // for atof()
 
+// Ex. 4.11 - Modify getop so that it doesn't need to use ungetch. Hint: use an
+// internal static variable.
+
 #define MAXOP 100  // max size for operand or operator
 #define NUMBER '0'
 
@@ -61,8 +64,8 @@ int main() {
 
 #define MAXVAL 100  // maximum depth of val stack
 
-int sp = 0;
-double val[MAXVAL];
+static int sp = 0;
+static double val[MAXVAL];
 
 // push() - push f onto value stack
 void push(double f) {
@@ -86,9 +89,8 @@ double pop() {
 // getop: get next operator or numeric operand
 int getop(char s[]) {
   int i;
-  extern int c;
 
-  while (((s[0] = c) == ' ') || (c == '\t')) {
+  while (((s[0] = (char)c) == ' ') || (c == '\t')) {
     // no op; get all characters until a space/tab/newline is hit
     c = getchar();
   }
@@ -99,13 +101,13 @@ int getop(char s[]) {
   i = 0;
   if (isdigit(c))  // collect integer part
   {
-    while (isdigit(s[++i] = c = getchar())) {
+    while (isdigit(s[++i] = c = (char)getchar())) {
       // no-op
     }
   }
   if (c == '.')  // collect fractional part
   {
-    while (isdigit(s[++i] = c = getchar())) {
+    while (isdigit(s[++i] = c = (char)getchar())) {
       // no-op
     }
   }

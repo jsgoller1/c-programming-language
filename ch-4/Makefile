@@ -25,8 +25,11 @@ ifdef RUN_TESTS
 	printf "" | $(VALGRIND) ./bin/$@
 endif
 
-## Chapter 4
 # the reverse polish calc is exercises 4.3 through 4.10.
 rpc: clean
-	$(COMPILE) -I ch-4/rpc/include/ ch-4/rpc/src/$@.c -o bin/$@
-	$(VALGRIND) ./bin/$@
+	$(COMPILE) -I ch-4/rpc/include/ ch-4/rpc/src/*.c -o bin/$@
+ifdef RUN_TESTS
+	printf "20 5 +\n" | $(VALGRIND) ./bin/$@
+	printf "20 5 5 + +\n" | $(VALGRIND) ./bin/$@
+	printf "" | $(VALGRIND) ./bin/$@
+endif

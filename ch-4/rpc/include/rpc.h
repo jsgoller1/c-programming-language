@@ -1,22 +1,23 @@
 #pragma once
 
-#include <stdio.h>
-#include <stdlib.h> // for atof()
-#include <string.h>
 #include <ctype.h>
 #include <math.h>
+#include <stdbool.h>
+#include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
 
 #define NUMBER '0'
-#define MAX_STACK_SIZE 100      // maximum depth of values stack
-#define MAX_TOKEN_SIZE 100      // max size for operand or operator
-#define PARSE_BUFFER_SIZE 100   // buffer for ungetch
+#define MAX_STACK_SIZE 100     // maximum depth of values stack
+#define MAX_TOKEN_SIZE 100     // max size for operand or operator
+#define PARSE_BUFFER_SIZE 100  // buffer for ungetch
 
 // The calculator accepts whitespace separated operands; as we parse
 // operands from stdin, the parser logic makes determinations about what they
-// are - supported types of operands are numeric (i.e. doubles), single-character
-// variables, and strings of characters representing mathematical functions (sine,
-// cosine, etc). The determination is returned to the switch block in main(), which
-// does the right thing.
+// are - supported types of operands are numeric (i.e. doubles),
+// single-character variables, and strings of characters representing
+// mathematical functions (sine, cosine, etc). The determination is returned to
+// the switch block in main(), which does the right thing.
 #define EXIT 0
 #define VAR 1
 #define RAW 2
@@ -54,8 +55,8 @@
 #define false 0
 
 // parser.c
-int getch(void);
-void ungetch(int);
+int rpc_getch(void);
+void rpc_ungetch(int);
 void ungets(char s[], int len);
 int parse(char s[], int s_size);
 
@@ -67,6 +68,7 @@ int is_operator(char oper[]);
 int handle_operator(char oper[]);
 
 // rpn_math.c
+bool double_eq(const double x, const double y);
 void rpn_add(double val1[], double val2[]);
 void rpn_subtract(double val1[], double val2[]);
 void rpn_multiply(double val1[], double val2[]);
@@ -83,15 +85,14 @@ void rpn_exp(double val1[]);
 void rpn_sqrt(double val1[]);
 void rpn_floor(double val1[]);
 
-
 // stack.c
 void push(double val[]);
 void pop(double ret[]);
 void peek(double ret[]);
-void duplicate_top();
-void swap_top();
-int get_stack_size();
-void display();
+void duplicate_top(void);
+void swap_top(void);
+int get_stack_size(void);
+void display(void);
 
 // vars.c
 void assign(double val1[], double val2[]);

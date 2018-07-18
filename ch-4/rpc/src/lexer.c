@@ -1,4 +1,4 @@
-#include "calc.h"
+#include "rpc.h"
 
 /*
 NOTE: I do not actually know anything serious about lexing as I write this;
@@ -56,28 +56,28 @@ int handle_alpha(char operator[], int len) {
   }
 
   if (len == 3) {
-    if (strncmp(operator, SIN_STR, len) == 0) {
+    if (strncmp(operator, SIN_STR,(unsigned long) len) == 0) {
       return SIN;
-    } else if (strncmp(operator, COS_STR, len) == 0) {
+    } else if (strncmp(operator, COS_STR,(unsigned long) len) == 0) {
       return COS;
-    } else if (strncmp(operator, TAN_STR, len) == 0) {
+    } else if (strncmp(operator, TAN_STR,(unsigned long) len) == 0) {
       return TAN;
-    } else if (strncmp(operator, POW_STR, len) == 0) {
+    } else if (strncmp(operator, POW_STR,(unsigned long) len) == 0) {
       return POW;
-    } else if (strncmp(operator, EXP_STR, len) == 0) {
+    } else if (strncmp(operator, EXP_STR,(unsigned long) len) == 0) {
       return EXP;
     }
   }
   if (len == 4) {
-    if (strncmp(operator, ASIN_STR, len) == 0) {
+    if (strncmp(operator, ASIN_STR,(unsigned long) len) == 0) {
       return ASIN;
-    } else if (strncmp(operator, ACOS_STR, len) == 0) {
+    } else if (strncmp(operator, ACOS_STR,(unsigned long) len) == 0) {
       return ACOS;
-    } else if (strncmp(operator, ATAN_STR, len) == 0) {
+    } else if (strncmp(operator, ATAN_STR,(unsigned long) len) == 0) {
       return ATAN;
-    } else if (strncmp(operator, SQRT_STR, len) == 0) {
+    } else if (strncmp(operator, SQRT_STR,(unsigned long) len) == 0) {
       return SQRT;
-    } else if (strncmp(operator, FLOR_STR, len) == 0) {
+    } else if (strncmp(operator, FLOR_STR,(unsigned long) len) == 0) {
       return FLOR;
     }
   }

@@ -13,102 +13,7 @@ reverses the string s in place.
 #define TOO_SHORT 3
 #define OFF_BY_ONE 6
 
-int itoa(char arr[], int len, int val);
-int convert(char arr[], int len, int val, int place, int index);
-void reverse(char arr[], int first, int last);
-void swap(char arr[], int x, int y);
-
-int main() {
-  int len;
-  char string_number[MAX_LEN];
-  char too_short[TOO_SHORT];
-  char off_by_one[OFF_BY_ONE];
-
-  char test_str1[] = {"Joshua"};
-  reverse(test_str1, 0, 5);
-  printf("%s\n", test_str1);
-  reverse(test_str1, 0, 5);
-  printf("%s\n\n", test_str1);
-
-  char test_str2[] = {"Josh"};
-  reverse(test_str2, 0, 3);
-  printf("%s\n", test_str2);
-  reverse(test_str2, 0, 3);
-  printf("%s\n\n", test_str2);
-
-  int w = 1256;
-  len = itoa(string_number, MAX_LEN, w);
-  reverse(string_number, 0, len - 1);
-  printf("%d == %s\n", w, string_number);
-
-  int x = 41236124;
-  len = itoa(string_number, MAX_LEN, x);
-  reverse(string_number, 0, len - 1);
-  printf("%d == %s\n", x, string_number);
-
-  int y = -41236124;
-  len = itoa(string_number, MAX_LEN, y);
-  printf("%d == %s\n", y, string_number);
-
-  int z = 0;
-  len = itoa(string_number, MAX_LEN, z);
-  reverse(string_number, 0, len - 1);
-  printf("%d == %s\n", z, string_number);
-
-  int q = 1;
-  len = itoa(string_number, MAX_LEN, q);
-  reverse(string_number, 0, len - 1);
-  printf("%d == %s\n\n", q, string_number);
-
-  printf("Now testing with bad input...\n");
-
-  int bad_num = 123456;
-  len = itoa(too_short, TOO_SHORT, bad_num);
-  reverse(too_short, 0, len - 1);
-  printf("%d == %s\n\n", bad_num, too_short);
-
-  len = itoa(off_by_one, OFF_BY_ONE, bad_num);
-  reverse(off_by_one, 0, len - 1);
-  printf("%d == %s\n\n", bad_num, off_by_one);
-
-  bad_num = -12345;
-  len = itoa(off_by_one, OFF_BY_ONE, bad_num);
-  reverse(off_by_one, 0, len - 1);
-  printf("%d == %s\n\n", bad_num, off_by_one);
-
-  return 0;
-}
-
-int itoa(char arr[], int len, int val) {
-  int res;
-  bool negative = false;
-
-  // Handle negative case
-  if (val < 0) {
-    val *= -1;
-    negative = true;
-  }
-
-  // Begin recursive conversion
-  res = convert(arr, len, val, 1, 0);
-
-  if ((res == -1) || (res == len + 1))  // Is this correct?
-  {
-    printf("Error: Insufficient space for conversion; quitting...\n");
-    return -1;
-  }
-
-  // Add negative if necessary, then reverse
-  if (negative) {
-    arr[res++] = '-';
-  }
-  arr[res] = '\0';
-  reverse(arr, 0, res - 1);
-
-  return 0;
-}
-
-int convert(char arr[], int len, int val, int place, int index) {
+static int convert(char arr[], int len, int val, int place, int index) {
   /*
   General idea for computing each place of the string;
   assume we're itoa-ing 1256:
@@ -144,17 +49,107 @@ int convert(char arr[], int len, int val, int place, int index) {
   }
 }
 
-void reverse(char arr[], int first, int last) {
+static void swap(char arr[], int x, int y) {
+  char temp = arr[x];
+  arr[x] = arr[y];
+  arr[y] = temp;
+}
+
+static void rec_reverse(char arr[], int first, int last) {
   if (first >= last) {
     return;
   } else {
     swap(arr, first, last);
-    reverse(arr, first + 1, last - 1);
+    rec_reverse(arr, first + 1, last - 1);
   }
 }
 
-void swap(char arr[], int x, int y) {
-  char temp = arr[x];
-  arr[x] = arr[y];
-  arr[y] = temp;
+static int itoa(char arr[], int len, int val) {
+  int res;
+  bool negative = false;
+
+  // Handle negative case
+  if (val < 0) {
+    val *= -1;
+    negative = true;
+  }
+
+  // Begin recursive conversion
+  res = convert(arr, len, val, 1, 0);
+
+  if ((res == -1) || (res == len + 1))  // Is this correct?
+  {
+    printf("Error: Insufficient space for conversion; quitting...\n");
+    return -1;
+  }
+
+  // Add negative if necessary, then reverse
+  if (negative) {
+    arr[res++] = '-';
+  }
+  arr[res] = '\0';
+  rec_reverse(arr, 0, res - 1);
+
+  return 0;
+}
+
+int main() {
+  int len;
+  char string_number[MAX_LEN];
+  char too_short[TOO_SHORT];
+  char off_by_one[OFF_BY_ONE];
+
+  char test_str1[] = {"Joshua"};
+  rec_reverse(test_str1, 0, 5);
+  printf("%s\n", test_str1);
+  rec_reverse(test_str1, 0, 5);
+  printf("%s\n\n", test_str1);
+
+  char test_str2[] = {"Josh"};
+  rec_reverse(test_str2, 0, 3);
+  printf("%s\n", test_str2);
+  rec_reverse(test_str2, 0, 3);
+  printf("%s\n\n", test_str2);
+
+  int w = 1256;
+  len = itoa(string_number, MAX_LEN, w);
+  rec_reverse(string_number, 0, len - 1);
+  printf("%d == %s\n", w, string_number);
+
+  int x = 41236124;
+  len = itoa(string_number, MAX_LEN, x);
+  rec_reverse(string_number, 0, len - 1);
+  printf("%d == %s\n", x, string_number);
+
+  int y = -41236124;
+  itoa(string_number, MAX_LEN, y);
+  printf("%d == %s\n", y, string_number);
+
+  int z = 0;
+  len = itoa(string_number, MAX_LEN, z);
+  rec_reverse(string_number, 0, len - 1);
+  printf("%d == %s\n", z, string_number);
+
+  int q = 1;
+  len = itoa(string_number, MAX_LEN, q);
+  rec_reverse(string_number, 0, len - 1);
+  printf("%d == %s\n\n", q, string_number);
+
+  printf("Now testing with bad input...\n");
+
+  int bad_num = 123456;
+  len = itoa(too_short, TOO_SHORT, bad_num);
+  rec_reverse(too_short, 0, len - 1);
+  printf("%d == %s\n\n", bad_num, too_short);
+
+  len = itoa(off_by_one, OFF_BY_ONE, bad_num);
+  rec_reverse(off_by_one, 0, len - 1);
+  printf("%d == %s\n\n", bad_num, off_by_one);
+
+  bad_num = -12345;
+  len = itoa(off_by_one, OFF_BY_ONE, bad_num);
+  rec_reverse(off_by_one, 0, len - 1);
+  printf("%d == %s\n\n", bad_num, off_by_one);
+
+  return 0;
 }

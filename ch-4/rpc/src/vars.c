@@ -35,7 +35,7 @@ void assign(double val1[], double val2[]) {
     vars_stack[lval_index - upper_case_offset] = val2[0];
   }
 
-  printf("Stored %c = %f.\n", (int)val1[0], val2[0]);
+  // printf("Stored %c = %f.\n", (int)val1[0], val2[0]);
 
   // Observe C style where assignment returns the value assigned
   push(val2);
@@ -66,8 +66,9 @@ int validate_var(double var[]) {
   if (!((var[0] >= 'a' && var[0] <= 'z') || (var[0] >= 'A' && var[0] <= 'Z'))) {
     printf("Error: invalid variable name.\n");
     return 0;
-  } else if (double_eq(var[1], VAR)) {
-    printf("Error: not a variable, cannot assign.\n");
+  } else if (!(double_eq(var[1], (double)VAR))) {
+    printf("validate_var() | Error: %f not %f (VAR), cannot assign.\n", var[1],
+           (double)VAR);
     return 0;
   }
   return 1;

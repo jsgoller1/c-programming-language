@@ -1,22 +1,18 @@
 #include <ctype.h>
 #include <stdio.h>
+#include <stdlib.h>
 
-#define MAXLINE 1000
+#include "common.h"
 
 /*
-Extend atof to handle scientific notation of the form 123.45e-6
-where a floating-point number may be followed by e or E and an
-optionally signed exponent.
-*/
+ * Ex. 4.2: Extend atof to handle scientific notation of the form 123.45e-6
+ * where a floating-point number may be followed by e or E and an
+ * optionally signed exponent.
+ */
 
-double atof(char s[]);
-int atoi(char s[]);
-int mygetline(char s[], int max);
-float mypow(float exp, float base);
-
-// atof() - convert string s to double
-double atof(char s[]) {
-  char sn_exp[MAXLINE];
+// myatof() - convert string s to double
+static double myatof(const char* const s) {
+  char sn_exp[MAXLEN];
   double val, power;
   int i, j, sign, sn_sign, sn_val;
 
@@ -81,32 +77,11 @@ double atof(char s[]) {
   return sign * (val / power);
 }
 
-// atoi: convert string s to integer using atof
-int atoi(char s[]) {
-  double atof(char s[]);
-  return (int)atof(s);
-}
-
-// mygetline(): get line into s, return length
-int mygetline(char s[], int max) {
-  int c, i;
-  i = 0;
-
-  while ((--max > 0) && ((c = getchar()) != EOF) && (c != '\n')) {
-    s[i++] = c;
-  }
-  if (c == '\n') {
-    s[i++] = c;
-  }
-  s[i] = '\0';
-  return i;
-}
 int main() {
-  double sum;
-  char line[MAXLINE];
+  char line[MAXLEN];
 
-  while (mygetline(line, MAXLINE) > 0) {
-    printf("%f\n", atof(line));
+  while (mygetline(line, MAXLEN) > 0) {
+    printf("%f\n", myatof(line));
   }
 
   return 0;

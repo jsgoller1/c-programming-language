@@ -13,7 +13,8 @@ reverses the string s in place.
 #define TOO_SHORT 3
 #define OFF_BY_ONE 6
 
-static int convert(char arr[], int len, int val, int place, int index) {
+static int convert(char* const arr, const int len, const int val,
+                   const int place, const int index) {
   /*
   General idea for computing each place of the string;
   assume we're itoa-ing 1256:
@@ -49,13 +50,13 @@ static int convert(char arr[], int len, int val, int place, int index) {
   }
 }
 
-static void swap(char arr[], int x, int y) {
+static void swap(char* const arr, const int x, const int y) {
   char temp = arr[x];
   arr[x] = arr[y];
   arr[y] = temp;
 }
 
-static void rec_reverse(char arr[], int first, int last) {
+static void rec_reverse(char* const arr, const int first, const int last) {
   if (first >= last) {
     return;
   } else {
@@ -64,7 +65,7 @@ static void rec_reverse(char arr[], int first, int last) {
   }
 }
 
-static int itoa(char arr[], int len, int val) {
+static int itoa(char* const arr, const int len, int val) {
   int res;
   bool negative = false;
 

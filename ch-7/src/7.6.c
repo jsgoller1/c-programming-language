@@ -58,5 +58,7 @@ int main(int argc, char** argv) {
     printf("Files %s and %s are the same.\n", argv[1], argv[2]);
   }
 
+  fclose(f1);
+  fclose(f2);
   return 0;
 }

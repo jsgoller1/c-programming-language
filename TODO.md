@@ -2,20 +2,22 @@
 
 **97 of 97 completed (0 remaining)**
 
-- Ch. 4 / RPN
+- Ch. 4 (only RPN)
   - Fix the RPN calculator
-  - C11 `-Werror -Wall` compliance
-  - Valgrind reports no errors.
-  - `scan-build` has no true-positives.
+  - Builds / compiles with new make system
+  - Maximum `const` correctness
 - Ch. 5
-  - C11 `-Werror -Wall` compliance
-  - Valgrind reports no errors.
-  - `scan-build` has no true-positives.
+  - Builds / compiles with new make system
+  - Maximum `const` correctness
 - Ch. 6
   - Handle typedef / define in charmatch
-  - C11 `-Werror -Wall` compliance
-  - Valgrind reports no errors.
-  - `scan-build` has no true-positives.
+  - Builds / compiles with new make system
+  - Maximum `const` correctness
+- Ch. 7
+  - Builds / compiles with new make system
+  - Maximum `const` correctness
+- Ch. 8
+  - Maximum `const` correctness
 - Appendix A
   - Reading
 - Appendix B

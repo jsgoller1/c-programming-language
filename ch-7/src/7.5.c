@@ -3,6 +3,8 @@
 #include <stdio.h>
 #include <stdlib.h>
 
+#define MAX_TOKEN 1000
+
 /*
  * Ex. 7.5: Rewrite the postfix calculator of Chapter 4 to use scanf and/or
  * sscanf to do the input and number conversion.
@@ -22,6 +24,7 @@ static void push(const int val) {
     printf("Error: stack full, cannot push more values.\n");
   }
   stack[++top] = val;
+  printf("push() | top %d -> %d\n", top - 1, top);
 }
 
 static int pop() {
@@ -31,20 +34,46 @@ static int pop() {
     return -1;
   }
   ret = stack[top--];
+  printf("pop() | top %d -> %d\n", top + 1, top);
   return ret;
+}
+
+static int gettoken(char* const token, const int len) {
+  int c = 0;
+  for (int i = 0; i < len; i++) {
+    c = getchar();
+    if (isspace(c)) {
+      token[i] = '\0';
+      return i;
+    } else {
+      token[i] = (char)c;
+    }
+  }
+  return -1;
 }
 
 int main() {
   int op1 = 0;
   int op2 = 0;
+  int read = 0;
   int scanned_int = 0;
   char scanned_char = '\0';
+  char token[MAX_TOKEN] = {0};
   bool scanning = true;
 
   while (scanning) {
-    if (scanf("%d", &scanned_int) == 1) {
+    read = gettoken(token, MAX_TOKEN);
+    if (read <= 0) {
+      break;
+    } else {
+      printf("%d: %s\n", read, token);
+    }
+
+    if (sscanf(token, " %d ", &scanned_int) == 1) {
+      printf("got int %d\n", scanned_int);
       push(scanned_int);
-    } else if (scanf("%c", &scanned_char) == 1) {
+    } else if (sscanf(token, " %c ", &scanned_char) == 1) {
+      printf("got int %c\n", scanned_char);
       switch (scanned_char) {
         case '+':
           op1 = pop();
@@ -70,6 +99,10 @@ int main() {
           op2 = pop();
           push(op1 * op2);
           break;
+        case EOF:
+        case '\n':
+          scanning = false;
+          break;
         default:
           printf("Error: invalid character: %c\n", scanned_char);
           printf("Usage: expr <rpn expression using +,*,-,/.\n");
@@ -79,8 +112,9 @@ int main() {
       scanning = false;
     }
   }
+
   if (top != 0) {
-    printf("Error: invalid expression.\n");
+    printf("Error: invalid expression (top index is %d).\n", top);
     printf("Usage: expr <rpn expression using +,*,-,/.\n");
   } else {
     printf("Result: %d\n", pop());

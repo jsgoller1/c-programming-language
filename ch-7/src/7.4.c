@@ -1,6 +1,8 @@
 #include <stdarg.h>
 #include <stdio.h>
 
+#pragma clang diagnostic ignored "-Wcast-qual"
+
 /*
 Exercise 7-4: Write a private version of scanf
 analogous to minprintf from the previous section.
@@ -14,7 +16,7 @@ read;
 */
 
 // minscanf(): private scanf with variable argument list
-static int minscanf(char* fmt, ...) {
+static int minscanf(const char* const fmt, ...) {
   // va_list points to each unnamed arg in turn
   va_list ptr;
   int c;
@@ -25,7 +27,7 @@ static int minscanf(char* fmt, ...) {
 
   // make ap point to first unnamed arg
   va_start(ptr, fmt);
-  for (p = fmt; *p; p++) {
+  for (p = (char*)fmt; *p; p++) {
     if (*p != '%') {
       if ((c = getchar()) != *p) {
         printf("minscanf() | Ordinary character mismatch; quitting.\n");

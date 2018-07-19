@@ -54,7 +54,7 @@ static void open_file_desc(const char *const path, FILE_J *fp,
 }
 
 // setup_buffering(): private function for intializing the I/O buffer.
-static int setup_buffering(FILE_J *fp) {
+static int setup_buffering(FILE_J *const fp) {
   // set up buffering
   if ((fp->buff = (char *)malloc((unsigned long)BUFF_SIZE)) == NULL) {
     return -1;

@@ -38,11 +38,11 @@ int fclose_j(FILE_J *file);
 int fseek_j(FILE_J *const fp, const long offset, const int whence);
 
 // buffering.c
-void print_buffer(FILE_J *fp);
-int fflush_j(FILE_J *fp);
-int _fillbuff(FILE_J *fp);
-int _flushbuff(FILE_J *fp);
+void print_buffer(const FILE_J *const fp);
+int fflush_j(FILE_J *const fp);
+int _fillbuff(FILE_J *const fp);
+int _flushbuff(FILE_J *const fp);
 
 // io.c
-int getc_j(FILE_J *fp);
-int putc_j(FILE_J *fp, int character);
+int getc_j(FILE_J *const fp);
+int putc_j(FILE_J *const fp, const int character);

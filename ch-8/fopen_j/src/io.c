@@ -5,7 +5,7 @@
 #include "fopen_j.h"
 
 // getc(): retrieve a single character from the file
-int getc_j(FILE_J* fp) {
+int getc_j(FILE_J* const fp) {
   int ret;
   // if read would go outside of the buffer, flush it,
   // and fill with the next region
@@ -24,7 +24,7 @@ int getc_j(FILE_J* fp) {
 }
 
 // putc(): write a single char to a FILE_J
-int putc_j(FILE_J* fp, int character) {
+int putc_j(FILE_J* const fp, const int character) {
   // same flushing behavior as getc_j()
   if (fp->ptr == fp->buff + BUFF_SIZE) {
     if (fflush_j(fp) == -1) {

@@ -8,7 +8,7 @@
 #include "fopen_j.h"
 
 // print_buffer(): displays contents of buffer, useful for debugging.
-void print_buffer(FILE_J* fp) {
+void print_buffer(const FILE_J* const fp) {
   printf("print_buffer() | Buffer contents:\n");
   for (int i = 0; i < BUFF_SIZE; i++) {
     printf("%c", fp->buff[i]);
@@ -18,7 +18,7 @@ void print_buffer(FILE_J* fp) {
 
 // fflush_j(): empty a FILE_J's buffer to its file descriptor, and correct
 // the position. Can be called at will / arbitrarily many times.
-int fflush_j(FILE_J* fp) {
+int fflush_j(FILE_J* const fp) {
   int flush, fill;
   flush = _flushbuff(fp);
   fill = _fillbuff(fp);
@@ -26,7 +26,7 @@ int fflush_j(FILE_J* fp) {
 }
 
 //_fillbuff(): refill the I/O buffer with characters from the file
-int _fillbuff(FILE_J* fp) {
+int _fillbuff(FILE_J* const fp) {
   int count;
   count = (int)read(fp->fd, fp->buff, BUFF_SIZE);
   if (count == -1) {
@@ -50,7 +50,7 @@ int _fillbuff(FILE_J* fp) {
 }
 
 // _flush_buff(): write fp's buffer to the file descriptor.
-int _flushbuff(FILE_J* fp) {
+int _flushbuff(FILE_J* const fp) {
   if (fp->flags._ERR) {
     printf("_flushbuff() | cannot write to file.\n");
     return -1;

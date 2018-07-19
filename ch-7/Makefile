@@ -33,4 +33,7 @@ endif
 ifdef RUN_TESTS
 	echo "300 5 +" | $(VALGRIND) ./bin/$@
 	echo "300 5 + 200 5 - +" | $(VALGRIND) ./bin/$@
+	echo "1 5 *" | $(VALGRIND) ./bin/$@
+	echo "10 5 /" | $(VALGRIND) ./bin/$@
+	-echo "10 0 /" | $(VALGRIND) ./bin/$@
 endif

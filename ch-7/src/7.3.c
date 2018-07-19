@@ -1,12 +1,14 @@
 #include <stdarg.h>
 #include <stdio.h>
 
+#pragma clang diagnostic ignored "-Wcast-qual"
+
 /*
  * Revise minprintf to handle more of the other facilities of printf()
  */
 
 // minprintf(): minimal printf with variable argument list
-static void minprintf(char* fmt, ...) {
+static void minprintf(const char* const fmt, ...) {
   // va_list points to each unnamed arg in turn
   va_list ap;
   char *p, *sval;
@@ -15,7 +17,7 @@ static void minprintf(char* fmt, ...) {
 
   // make ap point to first unnamed arg
   va_start(ap, fmt);
-  for (p = fmt; *p; p++) {
+  for (p = (char*)fmt; *p; p++) {
     if (*p != '%') {
       putchar(*p);
       continue;

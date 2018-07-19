@@ -1,7 +1,7 @@
 # See vars.mk for compile / testing settings
 include vars.mk
 include ch-1/Makefile ch-2/Makefile ch-3/Makefile ch-4/Makefile
-include ch-8/Makefile
+include ch-7/Makefile ch-8/Makefile
 
 
 ### Binaries

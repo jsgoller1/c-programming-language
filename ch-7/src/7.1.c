@@ -26,8 +26,8 @@ static char* read_stdin() {
 
 // main(): solves exercise
 int main(int argc, char** argv) {
-  char* case_flag;
-  char* in_string;
+  char* case_flag = NULL;
+  char* in_string = NULL;
   bool alloc = false;
 
   // set vars based on cli args;
@@ -57,6 +57,9 @@ int main(int argc, char** argv) {
       putchar(tolower(in_string[i]));
     }
   } else {
+    if (alloc) {
+      free(in_string);
+    }
     printf("usage: caser -[ul] <string>\n");
     return -1;
   }

@@ -14,7 +14,7 @@
 // read_stdin(): helper function if program
 // is called with piped input. Will not
 // work if input is too large.
-static char* read_stdin() {
+static char* read_stdin(void) {
   int i = 0;
   int c = 0;
   char* string = (char*)calloc(1, 1000);

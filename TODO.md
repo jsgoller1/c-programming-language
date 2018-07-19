@@ -16,8 +16,6 @@
 - Ch. 7
   - Builds / compiles with new make system
   - Maximum `const` correctness
-- Ch. 8
-  - Maximum `const` correctness
 - Appendix A
   - Reading
 - Appendix B

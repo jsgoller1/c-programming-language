@@ -38,7 +38,7 @@ void skip_whitespace() {
 // words and ignores whitespace. Always reads at least one valid character or
 // EOF character, but will stop parsing when it reads the first non-alphanum
 // character. Returns number of chars read.
-int gettoken(char* word, const int len) {
+int gettoken(char* const word, const int len) {
   int c = 0;
   int i = 0;
 

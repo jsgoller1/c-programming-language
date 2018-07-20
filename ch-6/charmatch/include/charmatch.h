@@ -39,7 +39,7 @@ void cleanup_typenames(void);
 // misc
 void skip_whitespace(void);
 int parse_input(const int argc, char** const argv);
-int gettoken(char* word, const int len);
+int gettoken(char* const word, const int len);
 
 // strings
 string* alloc_string(const char* const characters);

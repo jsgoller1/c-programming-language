@@ -53,12 +53,15 @@ static keyword keywords[] = {
 
 // check_keyword(): given a word, check if it's a keyword and increment if so.
 static void check_keyword(const char* const word) {
+  // printf("check_keyword() | testing %s\n", word);
   for (unsigned long i = 0; i < KW_COUNT; i++) {
     if (strcmp(word, keywords[i].word) == 0) {
       keywords[i].count++;
+      // printf("check_keyword() | %s matches %s\n", word, keywords[i].word);
       return;
     }
   }
+  // printf("check_keyword() | %s isn't a keyword\n", word);
 }
 
 // display_keywords(): Print all keywords and their counts
@@ -72,16 +75,17 @@ static void display_keywords(void) {
 
 // get_word(): assuming the stream is in a valid region of code, get the next
 // word. Will break if the word is longer than MAXWORD.
-static void getword(int c, char* const word) {
+static int getword(int c, char* const word) {
   int i;
   for (i = 0; i < MAXWORD - 1; c = (char)getchar(), i++) {
     if (isalnum(c) || c == '#' || c == '_') {
       word[i] = (char)c;
     } else {
       word[i] = '\0';
-      return;
+      return i;
     }
   }
+  return i;
 }
 
 // parsing_test(): A nasty function with a lot of nested
@@ -91,7 +95,8 @@ static void parsing_test(const int c1, parsing_state* const ps) {
   int c2 = 0;
 
   // Test for beginning of single or multi comment
-  if (c1 == '/' && !(ps->in_single_quote || ps->in_double_quote)) {
+  if (c1 == '/' && !(ps->in_single_quote || ps->in_double_quote ||
+                     ps->in_multi_comment || ps->in_single_comment)) {
     c2 = getchar();
     if (c2 == '*' && ps->in_multi_comment == 0) {
       ps->in_multi_comment = 1;
@@ -139,8 +144,9 @@ int main() {
   while ((c = getchar()) != EOF) {
     parsing_test(c, &ps);
     if (ps.should_parse) {
-      getword(c, word);
-      check_keyword(word);
+      if (getword(c, word) > 0) {
+        check_keyword(word);
+      }
     }
   }
 

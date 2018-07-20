@@ -55,4 +55,4 @@ Once we are certain the token is a variable, we will store it in a table of vars
     * `int c = 1 + 2 + result_of_foo();`
   * `struct` variables.
   * Variables with compound type names, e.g. `unsigned int` or `signed char`.
-  * Function parameters are treated as variables.
+  * Parameters in function declarations are not treated as variables ONLY IF there is no whitespace between the function name and "(". This sucks but I (as of now) make no claims of skill with parsing / lexing.

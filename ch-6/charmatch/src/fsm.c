@@ -11,8 +11,16 @@ bool IN_FUNCTION_PARAMS = false;
 
 void update_fsm(const char* const token) {
   int c = 0;
-  if (token == NULL) {
+  int token_len = (int)strlen(token);
+  if (token == NULL || token_len < 1) {
     return;
+  }
+
+  // Crappy way to test for function parameters; there's
+  // quite a few places where "something(" might not represent
+  // a function declaration
+  if (token[token_len - 1] == '(') {
+    IN_FUNCTION_PARAMS = true;
   }
 
   if ((strcmp(token, ")") == 0) && IN_FUNCTION_PARAMS) {

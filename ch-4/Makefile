@@ -1,5 +1,3 @@
-include vars.mk
-
 # "build" is in the top-level makefile
 4.1 4.12-13 4.14: clean
 	make EX=$@ CH=ch-4 build

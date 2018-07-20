@@ -24,7 +24,7 @@ VALGRIND := valgrind -q --leak-check=full --show-leak-kinds=all --track-origins=
 	$(COMPILE) -I $(CHAPTER)/include $(CHAPTER)/src/$(EXERCISE).c -o bin/$(EXERCISE)
 
 ### Exercises that do not need any input for testing can use this target for testing;
-### otherwise, they will run tests their own way
+### otherwise, they will run tests their own way.
 %-basic-test:
 ifdef RUN_TESTS
 	$(eval EXERCISE := $(shell echo $@ | sed 's/-basic-test//'))

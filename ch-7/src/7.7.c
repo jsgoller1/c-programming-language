@@ -4,6 +4,12 @@
 
 #include "common.h"
 
+/*
+Exercise 7-7. Modify the pattern finding program of Chapter 5 to take its input
+from a set of named files or, if no files are named as arguments, from the
+standard input. Should the file name be printed when a matching line is found?
+*/
+
 #define MAXLINE 1000
 
 static char* get_pattern_file(const char* const path) {
@@ -44,8 +50,8 @@ static char* get_pattern_file(const char* const path) {
   return pattern;
 }
 
-static char* parse_flags(int argc, char** argv, int* non_match,
-                         int* show_line_nums) {
+static char* parse_flags(const int argc, char* const* const argv,
+                         int* const non_match, int* const show_line_nums) {
   char* pattern = NULL;
   char* current = NULL;
 
@@ -84,10 +90,16 @@ static char* parse_flags(int argc, char** argv, int* non_match,
           break;
         default:
           printf("find: illegal option %c\n", current[1]);
+          if (pattern != NULL) {
+            free(pattern);
+          }
           return NULL;
       }
     } else {
       printf("find: illegal argument: %s\n", current);
+      if (pattern != NULL) {
+        free(pattern);
+      }
       return NULL;
     }
   }
@@ -114,7 +126,7 @@ int main(int argc, char** argv) {
       if (show_line_nums) {
         printf("%ld: ", lineno);
       }
-      printf("%s", line);
+      printf("%s\n", line);
       found++;
     }
   }

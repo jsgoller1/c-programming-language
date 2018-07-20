@@ -1,7 +1,7 @@
 include vars.mk
 
 # "build" is in the top-level makefile
-7.3 7.7 7.8 7.9: clean
+7.3 7.8 7.9: clean
 	make EX=$@ CH=ch-7 build
 ifdef RUN_TESTS
 	$(VALGRIND) ./bin/$@
@@ -47,4 +47,14 @@ ifdef RUN_TESTS
 	echo "foobar" >> ./bin/7.6-test-1.txt
 	echo "foobaz" >> ./bin/7.6-test-2.txt
 	$(VALGRIND) ./bin/$@ ./bin/7.6-test-2.txt ./bin/7.6-test-1.txt
+endif
+
+7.7: clean
+	make EX=$@ CH=ch-7 build
+ifdef RUN_TESTS
+	printf "match-on-this" > ./bin/7.7-pattern.txt
+	printf "match-on-this" | $(VALGRIND) ./bin/$@ -f ./bin/7.7-pattern.txt
+	printf "match because x" | $(VALGRIND) ./bin/$@ -x -f ./bin/7.7-pattern.txt
+	printf "no match" | $(VALGRIND) ./bin/$@ -f ./bin/7.7-pattern.txt
+
 endif

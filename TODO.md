@@ -13,9 +13,6 @@
   - Handle typedef / define in charmatch
   - Builds / compiles with new make system
   - Maximum `const` correctness
-- Ch. 7
-  - Builds / compiles with new make system
-  - Maximum `const` correctness
 - Appendix A
   - Reading
 - Appendix B

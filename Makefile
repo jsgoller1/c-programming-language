@@ -44,7 +44,7 @@ ch-4: 4.1 4.2 rpc 4.11 4.12-13 4.14
 ch-5: 5.1 5.2 5.3 5.4 5.5 5.6 5.7 5.8-9 5.14-17 5.10 5.11
 ch-5: 5.12 tail sort decl
 ch-6: 6.1 charmatch crossref wordcount hashtable
-ch-7: 7.1 7.2 7.3 7.4 7.5 7.6 7.7 7.8
+ch-7: 7.1 7.2 7.3 7.4 7.5 7.6 7.7 7.8 7.9
 ch-8: cat fopen_j 8.5 malloc_j
 
 # Each individual make target runs the build target to produce

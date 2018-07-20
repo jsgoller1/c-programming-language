@@ -72,7 +72,7 @@ static void display_keywords(void) {
 
 // get_word(): assuming the stream is in a valid region of code, get the next
 // word. Will break if the word is longer than MAXWORD.
-static void getword(int c, char* word) {
+static void getword(int c, char* const word) {
   int i;
   for (i = 0; i < MAXWORD - 1; c = (char)getchar(), i++) {
     if (isalnum(c) || c == '#' || c == '_') {
@@ -87,7 +87,7 @@ static void getword(int c, char* word) {
 // parsing_test(): A nasty function with a lot of nested
 // logic to determine if we are in a valid region of code for keyword parsing;
 // Regions we do not care about keywords in are comments and string literals
-static void parsing_test(const int c1, parsing_state* ps) {
+static void parsing_test(const int c1, parsing_state* const ps) {
   int c2 = 0;
 
   // Test for beginning of single or multi comment

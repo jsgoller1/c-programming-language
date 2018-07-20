@@ -1,11 +1,8 @@
 # The C Programming Language (K&R)
 Solutions for every exercise from "The C Programming Language" by Kernighan / Ritchie. I wrote a [Medium post (WIP)]() and a [Show HN (WIP)]() about this project.
 
-## Important Note
-Other than the stated goals below, code quality may vary wildly in some places - in addition to jumping around a good bit, this was the first "classic CS book" that I read, so as in addition to learning C I also learned how to write code productively and how to read a CS textbook productively.
-
 ## Goals
-My goals for this textbook changed as I read it. I settled on the following definition for "complete":
+ This was the first "classic CS book" that I read; in addition to learning C, I also learned how to write code productively and how to read a CS textbook. As such, my goals for this textbook changed as I read it (especially given that I jumped around a good bit). I settled on the following definition for "complete":
 - All pages read, including the appendices
 - All exercises solved, with maximum const correctness
 - All solutions compile against C11 with `-Werror -Wall`
@@ -15,7 +12,12 @@ My goals for this textbook changed as I read it. I settled on the following defi
 I have _not_ tried to hold to the text as closely as possible at the cost of writing straightforward code; e.g. I may use structs in my solutions in chapter 5 despite them not being introduced til chapter 6.
 
 ## Running via Makefile
- its own target (e.g. `make 5.4` will make exercise 4 in chapter 5). `make all` compiles all exercises, and runs some with test input. Some exercises are refactored into their own shared subprograms when warranted; e.g. 5.14 - 5.17 are all about the `sort` program, so they exist in `ch-5/sort/`. Makefile targets exist for these solutions independently.
+The Makefile system is divided into three parts:
+* Chapter-specific Makefiles containing specific patterns for building and testing individual exercises.
+* A `vars.mk` containing build settings; you can toggle valgrind, static analysis, and tests from this file.
+* A top level Makefile tying everything together; all exercises should be built in the top-level directory of the repo.
+
+Every exercise either has its own target (e.g. `make 5.4` will make exercise 4 in chapter 5) or is grouped into a subproject with its own target (e.g. 5.14 - 5.17 are all about the `sort` program, so they exist in `ch-5/sort/` and are built with `make sort`). Chapters also have their own targets (e.g. all exercises from chapter 6 are buildable with `make ch-6`), and `make all` builds everything.
 
 ## Top Highlights
 * `ch-8/malloc_j/` - a storage allocator / the final boss of K&R
@@ -32,7 +34,7 @@ I have my editor set up to run `clang-format -i --style=Google` on save.
 * For programs reading from stdin, it is expected behavior that you will need to hit CTRL-D twice to exit if the last character entered was not a newline - this behavior is defined by the POSIX standard (see this [Stack Overflow question](https://stackoverflow.com/questions/21260674/why-do-i-need-to-type-ctrl-d-twice-to-mark-end-of-file?utm_medium=organic&utm_source=google_rich_qa&utm_campaign=google_rich_qa)).
 
 ## Source text
-You can find the full 2nd edition text with examples [here](http://cs.indstate.edu/~cbasavaraj/cs559/the_c_programming_language_2.pdf).
+You can find the full 2nd edition text with examples [here](http://cs.indstate.edu/~cbasavaraj/cs559/the_c_programming_language_2.pdf). You can find problem statements and solutions [here](https://clc-wiki.net/wiki/K%26R2_solutions:Chapter_4).
 
 ## Special thanks
 * [Elliott Jin](https://github.com/robot-dreams) for the many hours of help with debugging and review.

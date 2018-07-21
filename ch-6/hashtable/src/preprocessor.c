@@ -8,7 +8,6 @@
 int define(const char* const word) {
   int c1 = 0;
   int c2 = 0;
-  kv* entry = NULL;
   char key[MAXLEN] = {0};
   char value[MAXLEN] = {0};
 
@@ -21,9 +20,8 @@ int define(const char* const word) {
   printf("%s", value);
 
   if (c1 != EOF || c2 != EOF) {
-    entry = install(key, value);
+    install(key, value);
   }
-  // printf("install() | installed %s as %s\n", entry->key, entry->value);
   return 0;
 }
 

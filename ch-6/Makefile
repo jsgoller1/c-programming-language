@@ -1,7 +1,7 @@
 # kwcount is 6.1
 kwcount: clean
 	$(COMPILE) -I ch-6/$@/include/ ch-6/$@/src/*.c -o bin/$@
-	#cat ch-6/$@/$@-test.c | $(VALGRIND) ./bin/$@
+	cat ch-6/$@/$@-test.c | $(VALGRIND) ./bin/$@
 	cat ch-6/$@/src/$@.c | $(VALGRIND) ./bin/$@
 
 # charmatch is 6.2

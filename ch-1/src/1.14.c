@@ -19,8 +19,7 @@ int main() {
 
 // get_chars(): reads character-by-character input until EOF from stdin
 void get_chars(int* const char_counts) {
-  int c, word_length;
-  c = word_length = 0;
+  int c;
 
   while ((c = getchar()) != EOF) {
     if (c >= 'a' && c <= 'z') {

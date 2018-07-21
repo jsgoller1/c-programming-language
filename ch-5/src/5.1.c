@@ -1,7 +1,7 @@
-#include "5.1.h"
 #include <ctype.h>
 #include <stdio.h>
-#include "5-common.h"
+
+#include "5.1.h"
 
 // getint: get the next inter from input into *pn
 int getint(int *pn) {

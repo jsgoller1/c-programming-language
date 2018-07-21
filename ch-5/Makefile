@@ -1,3 +1,13 @@
+5.1: 5.1-build 5.1-basic-test
+5.2: 5.2-build 5.2-basic-test
+5.3: 5.3-build 5.3-basic-test
+5.4: 5.4-build 5.4-basic-test
+5.5: 5.5-build 5.5-basic-test
+5.6: 5.6-build 5.6-basic-test
+5.7: 5.7-build 5.7-basic-test
+5.8-9: 5.8-9-build 5.8-9-basic-test
+5.10: 5.10-build 5.10-basic-test
+
 # tabber covers the entab / detab exercises in 5.11 and 5.12
 tabber: clean
 	$(COMPILE) -I ch-5/$@/include ch-5/$@/src/*.c -o bin/$@

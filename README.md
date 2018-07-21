@@ -12,12 +12,15 @@ Solutions for every exercise from "The C Programming Language" by Kernighan / Ri
 I have _not_ tried to hold to the text as closely as possible at the cost of writing straightforward code; e.g. I may use structs in my solutions in chapter 5 despite them not being introduced til chapter 6.
 
 ## Running via Makefile
-The Makefile system is divided into three parts:
-* Chapter-specific Makefiles containing specific patterns for building and testing individual exercises.
-* A `vars.mk` containing build settings; you can toggle valgrind, static analysis, and tests from this file.
-* A top level Makefile tying everything together; all exercises should be built in the top-level directory of the repo.
+All exercises are built via Makefile and should be executed from the top-level of the repo, inside the Dockerized workspace (see `makefiles/docker.mk` for targets to create this workspace).
 
-Every exercise either has its own target (e.g. `make 5.4` will make exercise 4 in chapter 5) or is grouped into a subproject with its own target (e.g. 5.14 - 5.17 are all about the `sort` program, so they exist in `ch-5/sort/` and are built with `make sort`). Chapters also have their own targets (e.g. all exercises from chapter 6 are buildable with `make ch-6`), and `make all` builds everything.
+Every exercise either has its own target (e.g. `make 5.4` will make exercise 4 in chapter 5) or is grouped into a subproject with its own target (e.g. 5.14 - 5.17 are all about the `sort` program, so they exist in `ch-5/sort/` and are built with `make sort`). Chapters also have their own targets (e.g. all exercises from chapter 6 are buildable with `make ch-6`), and `make all` builds everything. All buildable targets are listed in the top-level Makefile, at the botom.
+
+The Makefile system is divided into four parts:
+* Chapter-specific Makefiles containing specific patterns for building and testing individual exercises.
+* A `docker.mk` for managing the Dockerized workspace.
+* A `buikding.mk` containing build settings; you can find targets for producing binaries and toggle valgrind, static analysis, and tests from this file.
+* A top level Makefile tying everything together; all exercises should be built in the top-level directory of the repo.
 
 ## Top Highlights
 * `ch-8/malloc_j/` - a storage allocator / the final boss of K&R

@@ -18,8 +18,8 @@ int main() {
 
 // get_words(): reads whitespace separated words from stdin until EOF
 void get_words(int* const words) {
-  int i, c, word_length, state;
-  i = c = word_length = 0;
+  int c, word_length, state;
+  word_length = 0;
   state = OUT;
 
   printf("Begin typing, terminate via ctrl-D on an empty line.\n");
@@ -55,7 +55,6 @@ void print_histogram(int* const words) {
   // Print the actual rows; decrement
   // each nonzero entry in words[] and print
   // spaced X characters until all entries are zero
-  curr_column = 0;
   more_rows = 1;
   while (more_rows) {
     more_rows = 0;

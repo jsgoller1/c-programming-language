@@ -1,1 +1,1 @@
-int getint(int *pn);
+int getint(int* const pn);

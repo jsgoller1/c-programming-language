@@ -7,10 +7,11 @@ endif
 5.2: 5.2-build
 ifdef RUN_TESTS
 	printf "4.5" | $(VALGRIND) ./bin/$@
-	printf "12.5" | $(VALGRIND) ./bin/$@
+	echo "-12.5" | $(VALGRIND) ./bin/$@
 	printf ".5" | $(VALGRIND) ./bin/$@
 	printf "0.5" | $(VALGRIND) ./bin/$@
 	printf "2." | $(VALGRIND) ./bin/$@
+	-echo "-" | $(VALGRIND) ./bin/$@
 endif
 
 5.3: 5.3-build 5.3-basic-test

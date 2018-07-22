@@ -1,17 +1,20 @@
-#include "5.3.h"
 #include <stdio.h>
 #include <stdlib.h>
 
 // Write a program to concatenate a string at
-// the end of another string. Since K&R talked about
-// alloc already(), I'm going to use malloc() here -
+// the end of another string.
+//--
+// Since K&R talked about alloc already(),
+// I'm going to use malloc() here -
 // we cannot just append t to the end of s, because
 // we don't know if s has enough space for all
 // the characters; we could mandate that a third
 // array is passed in that does have sufficient capacity,
 // but doing this is probably the safest and most concise
 // approach.
-char* my_strcat(char* s, unsigned int s_len, char* t, unsigned int t_len) {
+
+static char* my_strcat(char* s, unsigned int s_len, char* t,
+                       unsigned int t_len) {
   int i = 0;
   char* new = malloc(sizeof(char) * (s_len + t_len));
 

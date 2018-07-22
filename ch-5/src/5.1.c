@@ -1,13 +1,11 @@
 #include <ctype.h>
 #include <stdio.h>
 
-#include "5.1.h"
-
 // Ex 5.1: As written, getint treats a + or - not followed by a digit as a valid
 // representation of zero. Fix it to push such a character back on the input.
 
 // getint: get the next inter from input into *pn
-int getint(int* const pn) {
+static int getint(int* const pn) {
   int c, sign;
 
   while (isspace(c = getchar())) {

@@ -1,11 +1,15 @@
-#include "5.2.h"
 #include <ctype.h>
 #include <math.h>
 #include <stdio.h>
-#include "5-common.h"
+
+#include "5.2.h"
+#include "common.h"
+
+// Write getfloat(), the floating-point analog of getint(). What type does
+// getfloat return as its function value?
 
 // getint: get the next inter from input into *pn
-int getdouble(double *pd) {
+int getdouble(double *const pd) {
   int c, sign;
 
   while (isspace(c = getch())) {
@@ -14,7 +18,7 @@ int getdouble(double *pd) {
 
   // If the first char after whitespace isn't a number,
   // we aren't reading a number.
-  if (!isdigit(c) && c != EOF && c != '+' && c != '-') {
+  if (!isdigit(c) && c != EOF && c != '+' && c != '-' && c != '.') {
     ungetch(c);
     return 0;
   }
@@ -40,7 +44,6 @@ int getdouble(double *pd) {
   // to a running sum;
   if (c == '.') {
     double digit, fractional, divisor;
-    digit = fractional = divisor = 0.0;
     double ten_pow = 1;
 
     c = getch();
@@ -63,10 +66,7 @@ int getdouble(double *pd) {
 
 int main() {
   double result = 0.0;
-  printf(
-      "Enter a number representable as an float (6 points precision, "
-      "rounds): ");
   getdouble(&result);
-  printf("You entered: %f\n", result);
+  printf("%f\n", result);
   return 0;
 }

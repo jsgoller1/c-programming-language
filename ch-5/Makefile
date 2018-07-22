@@ -4,8 +4,15 @@ ifdef RUN_TESTS
 	-echo "-" | $(VALGRIND) ./bin/$@ # This causes a false positive in Valgrind; see README
 endif
 
+5.2: 5.2-build
+ifdef RUN_TESTS
+	printf "4.5" | $(VALGRIND) ./bin/$@
+	printf "12.5" | $(VALGRIND) ./bin/$@
+	printf ".5" | $(VALGRIND) ./bin/$@
+	printf "0.5" | $(VALGRIND) ./bin/$@
+	printf "2." | $(VALGRIND) ./bin/$@
+endif
 
-5.2: 5.2-build 5.2-basic-test
 5.3: 5.3-build 5.3-basic-test
 5.4: 5.4-build 5.4-basic-test
 5.5: 5.5-build 5.5-basic-test

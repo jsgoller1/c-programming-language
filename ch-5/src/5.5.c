@@ -1,12 +1,12 @@
-#include "5.5.h"
 #include <stdio.h>
 #include <string.h>
 
 #define MAX_LEN 100
 
-// Write versions of the library functions strcpy(), strncat(), and strncmp(),
-// which operate on at most the first n characters of their arguments;
-// it is the caller's responsibility to ensure the space is large enough.
+// Ex. 5.5: Write versions of the library functions strcpy(), strncat(), and
+// strncmp(), which operate on at most the first n characters of their
+// arguments; it is the caller's responsibility to ensure the space is large
+// enough.
 
 /*
 Copy at most n characters of s to t; If there is no null byte among the first n
@@ -16,16 +16,17 @@ ensure that a total of n bytes are written (I looked at the man page for part
 of this).
 */
 
-char *my_strncpy(char *s, char *t, unsigned int len) {
+static char *my_strncpy(char *const dest, const char *const src,
+                        const unsigned int len) {
   unsigned int i;
-  for (i = 0; i < len && s[i] != '\0'; i++) {
-    t[i] = s[i];
+  for (i = 0; i < len && src[i] != '\0'; i++) {
+    dest[i] = src[i];
   }
   for (; i < len; i++) {
-    t[i] = '\0';
+    dest[i] = '\0';
   }
 
-  return t;
+  return dest;
 }
 
 /*
@@ -41,9 +42,9 @@ dest(n from src plus the terminating null byte). Therefore, the size of dest
 must be at least strlen(dest)+n+1.
 */
 
-char *my_strncat(char *s, char *t, unsigned int len) {
+static char *my_strncat(char *const s, const char *const t,
+                        const unsigned int len) {
   unsigned int i, j;
-  t = (void *)t;
 
   // advance to the end of the string,
   for (i = 0; s[i] != '\0'; i++) {
@@ -59,7 +60,8 @@ char *my_strncat(char *s, char *t, unsigned int len) {
   return s;
 }
 
-int my_strncmp(char *s, char *t, unsigned int len) {
+static int my_strncmp(const char *const s, const char *const t,
+                      const unsigned int len) {
   unsigned int i;
   for (i = 0; s[i] == t[i] && i < len; i++) {
     // no-op
@@ -76,11 +78,11 @@ int main() {
   char first[MAX_LEN] = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
 
   // JosDEFGHIJKLMNOPQRSTUVWXYZ
-  printf("%s\n", my_strncpy("Joshua", first, 3));
+  printf("%s\n", my_strncpy(first, "Joshua", 3));
   // JoshuaGHIJKLMNOPQRSTUVWXYZ
-  printf("%s\n", my_strncpy("Joshua", first, 6));
+  printf("%s\n", my_strncpy(first, "Joshua", 6));
   // Joshua + nulls
-  printf("%s\n\n", my_strncpy("Joshua", first, 11));
+  printf("%s\n\n", my_strncpy(first, "Joshua", 11));
 
   // JoshuaGoller
   printf("%s\n", my_strncat(first, "Goller", 6));

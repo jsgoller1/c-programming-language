@@ -17,7 +17,7 @@ will likely not be noticeably faster.
 #define STORAGE_BUFFER_SIZE 5000  // number of bytes for stack buffer
 
 // swap(): interchange v[i] and v[j]
-static void swap(char *v[], int i, int j) {
+static void swap(char **const v, const int i, const int j) {
   char *temp;
 
   temp = v[i];
@@ -26,7 +26,7 @@ static void swap(char *v[], int i, int j) {
 }
 
 // qsort(): sort v[left]...v[right] into increasing order
-static void qsort(char *v[], int left, int right) {
+static void qsort(char **const v, const int left, const int right) {
   int i, last;
 
   if (left >= right) {
@@ -45,8 +45,9 @@ static void qsort(char *v[], int left, int right) {
 }
 
 // bufferedreadlines(): read input lines into a supplied string buffer
-static int bufferedreadlines(char *lineptr_buffer[], int lineptr_buffer_size,
-                             char lines[], int lines_size) {
+static int bufferedreadlines(char **const lineptr_buffer,
+                             const int lineptr_buffer_size, char *const lines,
+                             const int lines_size) {
   int len, nlines, bufferindex;
   char line[MAXLEN];
 

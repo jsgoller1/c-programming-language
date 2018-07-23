@@ -18,7 +18,13 @@ endif
 5.4: 5.4-build 5.4-basic-test
 5.5: 5.5-build 5.5-basic-test
 5.6: 5.6-build 5.6-basic-test
-5.7: 5.7-build 5.7-basic-test
+
+5.7: 5.7-build
+ifdef RUN_TESTS
+	printf "A line\nQ line\nD line\nC line\nS line\n" | $(VALGRIND) ./bin/$@
+	printf "" | $(VALGRIND) ./bin/$@
+endif
+
 5.8-9: 5.8-9-build 5.8-9-basic-test
 5.10: 5.10-build 5.10-basic-test
 

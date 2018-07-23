@@ -16,15 +16,13 @@ int mygetline(char *const line, const int lim) {
   int c, i;
   c = i = 0;
 
-  for (i = 0; i < lim - 1 && (c = getchar()) != EOF && c != '\n'; ++i) {
+  for (i = 0; i < lim - 1 && (c = getchar()) != EOF && c != '\n'; i++) {
     line[i] = (char)c;
   }
   if (c == '\n') {
-    line[i] = (char)c;
-    ++i;
+    line[i++] = (char)c;
   }
   line[i] = '\0';
-  // printf("getline(): %d bytes.\n", i);
   return i;
 }
 

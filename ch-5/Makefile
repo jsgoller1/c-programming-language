@@ -26,7 +26,19 @@ ifdef RUN_TESTS
 endif
 
 5.8-9: 5.8-9-build 5.8-9-basic-test
-5.10: 5.10-build 5.10-basic-test
+5.10: 5.10-build
+ifdef RUN_TESTS
+	$(VALGRIND) ./bin/$@ 10 5 +
+	$(VALGRIND) ./bin/$@ 10 5 /
+	$(VALGRIND) ./bin/$@ 5 10 -
+	$(VALGRIND) ./bin/$@ 5 10 "*"
+	@# ((10 5 +) + (10 / 5)) + ((5 10 -) + (5 10 *))
+	$(VALGRIND) ./bin/$@ 10 5 + 10 5 / + 5 10 - 5 10 "*" + +
+	@# tests that should cause exceptions
+	-$(VALGRIND) ./bin/$@ 10 5 %
+	-$(VALGRIND) ./bin/$@ herp derp ferp
+	-$(VALGRIND) ./bin/$@
+endif
 
 # tabber covers the entab / detab exercises in 5.11 and 5.12
 tabber: clean

@@ -1,12 +1,11 @@
-#include "5.10.h"
 #include <ctype.h>
 #include <stdio.h>
 #include <stdlib.h>
 
 /*
-Write the program expr(), which evaluates a reverse polish expression from the
-command line, where each operator and operand is a separate argument. For
-example, "expr 2 3 4 + *" evaluates "2 x (3 + 4)".
+Ex. 5.10: Write the program expr(), which evaluates a reverse polish expression
+from the command line, where each operator and operand is a separate argument.
+For example, "expr 2 3 4 + *" evaluates "2 x (3 + 4)".
 */
 
 #define MAX_SIZE 100
@@ -14,14 +13,14 @@ example, "expr 2 3 4 + *" evaluates "2 x (3 + 4)".
 static int top = -1;
 static int stack[MAX_SIZE];
 
-void push(int val) {
+static void push(const int val) {
   if (top >= MAX_SIZE - 1) {
     printf("Error: stack full, cannot push more values.\n");
   }
   stack[++top] = val;
 }
 
-int pop() {
+static int pop(void) {
   int ret;
   if (top == -1) {
     printf("Error: stack empty.\n");
@@ -31,14 +30,15 @@ int pop() {
   return ret;
 }
 
-int is_number(char* num_string, int* val) {
+// to_number(): like atoi() but with better validation
+static int to_number(const char* const num_string, int* const val) {
   for (int i = 0; num_string[i] != '\0'; i++) {
     if (!(isdigit(num_string[i]))) {
-      return 0;
+      return -1;
     }
   }
   *val = atoi(num_string);
-  return 1;
+  return 0;
 }
 
 int main(int argc, char* argv[]) {
@@ -47,7 +47,7 @@ int main(int argc, char* argv[]) {
     char* current_arg = argv[i];
     int arg_val;
 
-    if (is_number(current_arg, &arg_val)) {
+    if (to_number(current_arg, &arg_val) == 0) {
       push(arg_val);
     } else {
       switch (*(current_arg)) {

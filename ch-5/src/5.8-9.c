@@ -76,9 +76,8 @@ int month_day(const int year, int yearday, int *const pmonth, int *const pday) {
 
 int main() {
   int year, month, day, yearday;
-  int *pday, *pmonth;
-  pday = malloc(sizeof(int));
-  pmonth = malloc(sizeof(int));
+  int pday = 0;
+  int pmonth = 0;
 
   // daytab is an array of pointers to arrays of chars; these could now
   // be of different lengths as opposed to a "true" array of arrays
@@ -92,29 +91,29 @@ int main() {
   month = 6;
   day = 12;
   yearday = day_of_year(year, month, day);
-  month_day(year, yearday, pmonth, pday);
+  month_day(year, yearday, &pmonth, &pday);
   printf("%d/%d/%d was day #%d.\n", month, day, year, yearday);
-  printf("day %d of year %d was %d/%d.\n\n", yearday, year, *pmonth, *pday);
+  printf("day %d of year %d was %d/%d.\n\n", yearday, year, pmonth, pday);
 
   // Invalid day
   day = 2000;
   yearday = day_of_year(year, month, day);
-  month_day(year, yearday, pmonth, pday);
+  month_day(year, yearday, &pmonth, &pday);
   printf("%d/%d/%d was day #%d.\n", month, day, year, yearday);
-  printf("day %d of year %d was %d/%d.\n\n", yearday, year, *pmonth, *pday);
+  printf("day %d of year %d was %d/%d.\n\n", yearday, year, pmonth, pday);
 
   // Invalid month
   month = 87;
   yearday = day_of_year(year, month, day);
-  month_day(year, yearday, pmonth, pday);
+  month_day(year, yearday, &pmonth, &pday);
   printf("%d/%d/%d was day #%d.\n", month, day, year, yearday);
-  printf("day %d of year %d was %d/%d.\n\n", yearday, year, *pmonth, *pday);
+  printf("day %d of year %d was %d/%d.\n\n", yearday, year, pmonth, pday);
 
   // Invalid year
   year = -2587;
   yearday = day_of_year(year, month, day);
-  month_day(year, yearday, pmonth, pday);
+  month_day(year, yearday, &pmonth, &pday);
   printf("%d/%d/%d was day #%d.\n", month, day, year, yearday);
-  printf("day %d of year %d was %d/%d.\n\n", yearday, year, *pmonth, *pday);
+  printf("day %d of year %d was %d/%d.\n\n", yearday, year, pmonth, pday);
   return 0;
 }

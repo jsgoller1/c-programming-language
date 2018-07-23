@@ -3,6 +3,13 @@
 #include <string.h>
 #include <tests.h>
 
+/*
+Ex. 5.6: Rewrite appropriate programs from earlier chapters and exercises with
+pointers instead of array indexing. Good possibilities include getline (Chapters
+1 and 4), atoi, itoa, and their variants (Chapters 2, 3, and 4), reverse
+(Chapter 3), and strindex and getop (Chapter 4).
+*/
+
 static void reverse_p(char* const str, const int len) {
   char *first, *last;
   char temp;
@@ -17,7 +24,7 @@ static void reverse_p(char* const str, const int len) {
 static void test(char* const input, const char* const expected,
                  const char* const message) {
   const int len = (int)strlen(input);
-  char* copy = (char*)malloc((unsigned long)len);
+  char* copy = (char*)malloc((unsigned long)len + 1);
   strcpy(copy, input);
 
   reverse_p(copy, len);

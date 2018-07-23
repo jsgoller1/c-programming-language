@@ -11,7 +11,7 @@ ifdef RUN_TESTS
 	printf ".5" | $(VALGRIND) ./bin/$@
 	printf "0.5" | $(VALGRIND) ./bin/$@
 	printf "2." | $(VALGRIND) ./bin/$@
-	-echo "-" | $(VALGRIND) ./bin/$@
+	-echo "-" | $(VALGRIND) ./bin/$@ # This causes a false positive in Valgrind; see README
 endif
 
 5.3: 5.3-build 5.3-basic-test

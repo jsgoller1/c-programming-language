@@ -2,7 +2,7 @@ Ch-5
 ---
 
 ## Notes about the exercises
-* `5.1`
+* `5.1` and `5.2`
   * Calling `ungetc(c, stdin)` before a function exits appears to cause a false positive in Valgrind for that character being lost (even though the character is read back by the caller if the function returns -1)
 * `5.2`
   * I wrote `getdouble()` instead.

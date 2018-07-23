@@ -1,11 +1,9 @@
 #include "5.4.h"
 #include <stdio.h>
 
-// Write a program strend(s, t) that returns 1 if string t is
-// found at the end of string s, and 0 otherwise. K&R's version
-// doesn't use len parameters because (probably) it relies on
-// null-terminated strings, but I don't think that's a safe assumption.
-// Here, it is the caller's responsibility to provide the correct lengths.
+// Ex 5.4: Write a program strend(s, t) that returns 1 if string t is
+// found at the end of string s, and 0 otherwise.
+
 int strend(char *s, unsigned int s_len, char *t, unsigned int t_len) {
   // By convention, a null-terminated string is found at the end of any string.
   if (t_len == 0) {

@@ -1,10 +1,10 @@
-#include "5.4.h"
 #include <stdio.h>
 
 // Ex 5.4: Write a program strend(s, t) that returns 1 if string t is
 // found at the end of string s, and 0 otherwise.
 
-int strend(char *s, unsigned int s_len, char *t, unsigned int t_len) {
+static int strend(const char *const s, const unsigned int s_len,
+                  const char *const t, const unsigned int t_len) {
   // By convention, a null-terminated string is found at the end of any string.
   if (t_len == 0) {
     return 1;

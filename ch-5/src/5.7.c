@@ -1,7 +1,5 @@
-#include "5.7.h"
 #include <stdio.h>
 #include <string.h>
-#include "5-common.h"
 
 /*
 Exercise 5-7. Rewrite readlines to store lines in an array supplied by main,
@@ -11,27 +9,13 @@ program?
 There is now one less function call, but alloc() is O(c), so the program
 will likely not be noticeably faster.
 */
+#define MAXLINES 5000             // maximum number of sortable lines
+#define STORAGE_BUFFER_SIZE 5000  // number of bytes for stack buffer
 
 static char *glineptr[MAXLINES];
 
-// main(): sort input lines
-int main() {
-  int nlines;  // number of input lines read
-  char storagebuffer[STORAGE_BUFFER_SIZE];
-
-  if ((nlines = bufferedreadlines(glineptr, MAXLINES, storagebuffer,
-                                  STORAGE_BUFFER_SIZE)) >= 0) {
-    qsort(glineptr, 0, nlines - 1);
-    writelines(glineptr, nlines);
-    return 0;
-  } else {
-    printf("error: input too big to sort.\n");
-    return 1;
-  }
-}
-
 // swap(): interchange v[i] and v[j]
-void swap(char *v[], int i, int j) {
+static void swap(char *v[], int i, int j) {
   char *temp;
 
   temp = v[i];
@@ -40,7 +24,7 @@ void swap(char *v[], int i, int j) {
 }
 
 // qsort(): sort v[left]...v[right] into increasing order
-void qsort(char *v[], int left, int right) {
+static void qsort(char *v[], int left, int right) {
   int i, last;
 
   if (left >= right) {
@@ -59,8 +43,8 @@ void qsort(char *v[], int left, int right) {
 }
 
 // bufferedreadlines(): read input lines into a supplied string buffer
-int bufferedreadlines(char *lineptr[], int maxlines, char storagebuffer[],
-                      int buffersize) {
+static int bufferedreadlines(char *lineptr[], int maxlines,
+                             char storagebuffer[], int buffersize) {
   int len, nlines, bufferindex;
   char line[MAXLEN];
 
@@ -83,4 +67,20 @@ int bufferedreadlines(char *lineptr[], int maxlines, char storagebuffer[],
     }
   }
   return nlines;
+}
+
+// main(): sort input lines
+int main() {
+  int nlines;  // number of input lines read
+  char storagebuffer[STORAGE_BUFFER_SIZE];
+
+  if ((nlines = bufferedreadlines(glineptr, MAXLINES, storagebuffer,
+                                  STORAGE_BUFFER_SIZE)) >= 0) {
+    qsort(glineptr, 0, nlines - 1);
+    writelines(glineptr, nlines);
+    return 0;
+  } else {
+    printf("error: input too big to sort.\n");
+    return 1;
+  }
 }

@@ -28,7 +28,7 @@ function tail_test(){
   local TEST_NAME=${3}
 
   ACTUAL_OUT_LINES=$(cat $TESTFILE | bin/tail $N | wc | awk '{print $1}')
-  
+
   if [[ $ACTUAL_OUT_LINES -ne $EXPECTED_OUT_LINES ]]
   then
     fatal "Test failure, $TEST_NAME: $ACTUAL_OUT_LINES != $EXPECTED_OUT_LINES"
@@ -50,7 +50,7 @@ tail_test 0 0 "n = 0"
 
 clean_up
 echo "Generating huge input for tail; this is slow."
-generate_test_file 2000000
+generate_test_file 20000
 echo "Huge input generated."
 tail_test "" 10 "Huge input"
 

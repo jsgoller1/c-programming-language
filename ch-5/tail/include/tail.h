@@ -11,9 +11,9 @@ typedef struct {
 } queue;
 
 int check_input(const int argc, const char* const* const argv);
-void read_lines(queue* q);
+int read_lines(queue* const q);
 
 // queue.c
-queue* new_queue(int max_size);
-int enqueue(queue* const q, char* data);
+queue* new_queue(const int max_size);
+int enqueue(queue* const q, const char* const data);
 int dequeue(queue* const q, char* data);

@@ -78,15 +78,18 @@ int check_input(const int argc, const char* const* const argv) {
 }
 
 // read_lines(): read input from stdin and enqueue each line
-void read_lines(queue* q) {
+int read_lines(queue* const q) {
   char temp_line[MAXLEN];
-  unsigned long line_len;
+  int line_len;
+  char* line = NULL;
 
-  while (mygetline(temp_line, MAXLEN) != 0) {
-    line_len = strlen(temp_line);
-    char* line = malloc(line_len + 1);
-    strncpy(line, temp_line, line_len);
-    line[line_len] = '\0';
-    enqueue(q, line);
+  while ((line_len = mygetline(temp_line, MAXLEN)) != 0) {
+    line = malloc((size_t)line_len + 1);
+    strncpy(line, temp_line, (size_t)(line_len + 1));
+    if (enqueue(q, line) == -1) {
+      free(line);
+      return -1;
+    }
   }
+  return 0;
 }

@@ -20,3 +20,4 @@ int generate_stop_list(const int start, const int interval, int** tab_stops,
                        int* const tab_stops_len);
 int next_tab_stop(const int* const tab_stops, const int tab_stops_len,
                   const int column);
+int isdigits(const char* const string, const int len);

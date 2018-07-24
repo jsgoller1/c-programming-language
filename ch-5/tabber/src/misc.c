@@ -1,7 +1,8 @@
+#include <ctype.h>
 #include <stdio.h>
 #include <stdlib.h>
 
-#include "entab.h"
+#include "tabber.h"
 
 int generate_stop_list(const int start, const int interval, int** tab_stops,
                        int* const tab_stops_len) {
@@ -56,4 +57,15 @@ int next_tab_stop(const int* const tab_stops, const int tab_stops_len,
   }
 
   return -1;
+}
+
+// isdigits(): if string contains only digits, return 1;
+// otherwise return 0.
+int isdigits(const char* const string, const int len) {
+  for (int i = 0; i < len; i++) {
+    if (isdigit(string[i]) == 0) {
+      return 0;
+    }
+  }
+  return 1;
 }

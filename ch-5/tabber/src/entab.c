@@ -3,7 +3,7 @@
 #include <string.h>
 
 #include "common.h"
-#include "entab.h"
+#include "tabber.h"
 
 #define TAB_CHAR '$'
 

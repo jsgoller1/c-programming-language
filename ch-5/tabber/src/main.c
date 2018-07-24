@@ -2,7 +2,7 @@
 #include <stdlib.h>
 
 #include "common.h"
-#include "entab.h"
+#include "tabber.h"
 
 int main(int argc, char** argv) {
   int len = 0;                  // current line length
@@ -27,13 +27,6 @@ int main(int argc, char** argv) {
       }
       return -1;
   }
-
-  // Testing: input handling
-  printf("tab_stops (%d): ", tab_stops_len);
-  for (int i = 0; i < tab_stops_len; i++) {
-    printf("%d ", tab_stops[i]);
-  }
-  printf("\n");
 
   // do the thing
   while ((len = mygetline(line, MAXLEN)) > 0) {

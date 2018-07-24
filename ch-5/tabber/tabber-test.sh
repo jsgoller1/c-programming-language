@@ -4,7 +4,7 @@ function valg(){
   valgrind -q --leak-check=full --show-leak-kinds=all --error-exitcode=42 $1
 }
 
-#./bin/tabber
+./bin/tabber
 printf "a         b" | valgrind -q --leak-check=full --show-leak-kinds=all --error-exitcode=42  ./bin/tabber -b entab
 printf "a\t\tb" | valgrind -q --leak-check=full --show-leak-kinds=all --error-exitcode=42 ./bin/tabber -b detab
 printf "a         b" | valgrind -q --leak-check=full --show-leak-kinds=all --error-exitcode=42 ./bin/tabber -b detab -l 0 5 10 15 20 25 30 35 40 45 50 55 60 65 70 75

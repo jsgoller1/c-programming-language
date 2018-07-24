@@ -4,7 +4,7 @@
 #include <stdlib.h>
 #include <string.h>
 
-#include "entab.h"
+#include "tabber.h"
 
 static char usage[] =
     "usage: $tabber -b <entab|detab> -m <interval+start> -l <stops>\n";
@@ -121,19 +121,16 @@ static int parse_l(int* const i, const int argc, char** const argv,
   }
 
   // Read list of tab stop elements; verify that each tabstop is a number,
-  // returning when we find the first one that isn't. Start at arg
-  // immediately following -l
-  char* current_stop = argv[++(*i)];
+  // returning when we find the first one that isn't.
+  char* current_stop = NULL;
+  (*i)++;  // advance from -l to first tab stop
   while (*i < argc) {
-    // verify current stop is a number; quit if not.
-    for (int k = 0; k < (int)strlen(current_stop); k++) {
-      if (isdigit(current_stop[k]) == 0) {
-        return 0;
-      }
+    current_stop = argv[(*i)++];
+    if (isdigits(current_stop, (int)strlen(current_stop))) {
+      stop_list[stop_list_len++] = atoi(current_stop);
+    } else {
+      break;
     }
-    // copy stop to stop list, advance to next arg
-    stop_list[stop_list_len++] = atoi(current_stop);
-    current_stop = argv[++(*i)];
   }
 
   *tab_stops = stop_list;
@@ -168,6 +165,9 @@ int parse_flags(const int argc, char** const argv, int** tab_stops,
         break;
       case 'l':
         if (parse_l(&i, argc, argv, tab_stops, tab_stops_len) == -1) {
+          return -1;
+        }
+        if (tab_stops == NULL) {
           return -1;
         }
         break;

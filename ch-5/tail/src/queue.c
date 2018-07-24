@@ -20,7 +20,7 @@ queue* new_queue(const int max_size) {
 }
 
 // enqueue(): add an item to the queue
-int enqueue(queue* const q, const char* const data) {
+int enqueue(queue* const q, char* const data) {
   if (q->current_size == q->max_size) {
     // If the queue is full, dequeue the last item to make room
     char* deleted = malloc(MAXLEN);
@@ -32,6 +32,7 @@ int enqueue(queue* const q, const char* const data) {
     free(deleted);
   } else if (q->current_size > q->max_size) {
     printf("enqueue(): Error - queue exceeds maximum size.\n");
+    free(data);
     return -1;
   }
 

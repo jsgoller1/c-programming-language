@@ -86,10 +86,7 @@ int read_lines(queue* const q) {
   while ((line_len = mygetline(temp_line, MAXLEN)) != 0) {
     line = malloc((size_t)line_len + 1);
     strncpy(line, temp_line, (size_t)(line_len + 1));
-    if (enqueue(q, line) == -1) {
-      free(line);
-      return -1;
-    }
+    enqueue(q, line);
   }
   return 0;
 }

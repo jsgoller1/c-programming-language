@@ -66,7 +66,8 @@ void tree_walk(word_node* head) {
 void tree_cleanup(word_node* node) {
   if (node->left != NULL) {
     tree_cleanup(node->left);
-  } else if (node->right != NULL) {
+  }
+  if (node->right != NULL) {
     tree_cleanup(node->right);
   }
   free(node->word);

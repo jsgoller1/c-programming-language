@@ -1,0 +1,10 @@
+dog
+cat
+fish
+fox
+bear
+dog fox
+cat bear
+fish cat
+fish bear
+dog fox

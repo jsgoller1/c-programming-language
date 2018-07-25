@@ -1,8 +1,9 @@
 #include "rpc.h"
 
 static char buf[PARSE_BUFFER_SIZE];  // buffer for ungetch
+// Uncomment below for 4-8
 // static int buffered = false;
-// static int bufval = 0;  // this answers 4-8
+// static int bufval = 0;
 static int bufp = 0;
 
 int rpc_getch() {

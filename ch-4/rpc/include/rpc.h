@@ -18,41 +18,46 @@
 // single-character variables, and strings of characters representing
 // mathematical functions (sine, cosine, etc). The determination is returned to
 // the switch block in main(), which does the right thing.
-#define EXIT 0
-#define VAR 1
-#define RAW 2
-#define GARBAGE 3
-#define SIN 4
-#define SIN_STR "SIN"
-#define COS 5
-#define COS_STR "COS"
-#define TAN 6
-#define TAN_STR "TAN"
-#define ASIN 7
-#define ASIN_STR "ASIN"
-#define ACOS 8
-#define ACOS_STR "ACOS"
-#define ATAN 9
-#define ATAN_STR "ATAN"
-#define POW 10
-#define POW_STR "POW"
-#define EXP 11
-#define EXP_STR "EXP"
-#define SQRT 12
-#define SQRT_STR "SQRT"
-#define FLOR 13
-#define FLOR_STR "FLOR"
-#define ASSIGN 14
-#define ADD 15
-#define SUB 16
-#define DIV 17
-#define MUL 18
-#define MOD 19
-#define DISPLAY 20
+typedef enum {
+  EXIT,
+  VAR,
+  VAL,
+  GARBAGE,
+  SIN,
+  COS,
+  TAN,
+  ASIN,
+  ACOS,
+  ATAN,
+  POW,
+  EXP,
+  SQRT,
+  FLOR,
+  ASSIGN,
+  ADD,
+  SUB,
+  DIV,
+  MUL,
+  MOD,
+  DISPLAY
+} operand_type;
 
-// bools
-#define true 1
-#define false 0
+typedef struct {
+  operand_type type;
+  char cval;
+  double dvalue;
+} operand;
+
+#define SIN_STR "SIN"
+#define COS_STR "COS"
+#define TAN_STR "TAN"
+#define ASIN_STR "ASIN"
+#define ACOS_STR "ACOS"
+#define ATAN_STR "ATAN"
+#define POW_STR "POW"
+#define EXP_STR "EXP"
+#define SQRT_STR "SQRT"
+#define FLOR_STR "FLOR"
 
 // parser.c
 int rpc_getch(void);
@@ -63,38 +68,38 @@ int parse(char s[], int s_size);
 // lexer.c
 int lex(char symbol[], int len);
 int handle_alpha(char oper[], int len);
-int handle_numeric(char oper[], int len);
-int is_operator(char oper[]);
-int handle_operator(char oper[]);
+operand_type handle_numeric(char oper[], int len);
+int is_operator(char oper);
+operand_type handle_operator(char oper[]);
 
 // rpn_math.c
 bool double_eq(const double x, const double y);
-void rpn_add(double val1[], double val2[]);
-void rpn_subtract(double val1[], double val2[]);
-void rpn_multiply(double val1[], double val2[]);
-void rpn_divide(double val1[], double val2[]);
-void rpn_modulus(double val1[], double val2[]);
-void rpn_sin(double val1[]);
-void rpn_cos(double val1[]);
-void rpn_tan(double val1[]);
-void rpn_asin(double val1[]);
-void rpn_acos(double val1[]);
-void rpn_atan(double val1[]);
-void rpn_pow(double val1[], double val2[]);
-void rpn_exp(double val1[]);
-void rpn_sqrt(double val1[]);
-void rpn_floor(double val1[]);
+void rpn_add(operand val1, operand val2);
+void rpn_subtract(operand val1, operand val2);
+void rpn_multiply(operand val1, operand val2);
+void rpn_divide(operand val1, operand val2);
+void rpn_modulus(operand val1, operand val2);
+void rpn_sin(operand val1);
+void rpn_cos(operand val1);
+void rpn_tan(operand val1);
+void rpn_asin(operand val1);
+void rpn_acos(operand val1);
+void rpn_atan(operand val1);
+void rpn_pow(operand val1, operand val2);
+void rpn_exp(operand val1);
+void rpn_sqrt(operand val1);
+void rpn_floor(operand val1);
 
 // stack.c
-void push(double val[]);
-void pop(double ret[]);
-void peek(double ret[]);
+void push(operand op);
+void pop(operand op);
+void peek(operand op);
 void duplicate_top(void);
 void swap_top(void);
 int get_stack_size(void);
 void display(void);
 
 // vars.c
-void assign(double val1[], double val2[]);
-void dereference(double var[]);
-int validate_var(double var[]);
+void assign(operand val1, operand val2);
+void dereference(operand op);
+int validate_var(operand op);

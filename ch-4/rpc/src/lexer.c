@@ -9,7 +9,7 @@ this file do.
 */
 
 // lex: get next operator or numeric operand
-int lex(char symbol[], int token_len) {
+operand_type lex(char symbol[], int token_len) {
   int len;
 
   while ((len = parse(symbol, token_len))) {
@@ -23,10 +23,12 @@ int lex(char symbol[], int token_len) {
     if (isalpha(symbol[0])) {
       return handle_alpha(symbol, len);
     } else if (isdigit(symbol[0]) || symbol[0] == '.') {
-      // uncomment this line to test ungets();
-      // this will push all floats back to the
-      // buffer before pushing them onto the
-      // stack, i.e. "4 +" will evaluate to 8
+      /*
+      uncomment the line below line to test ungets();
+      this will push all floats back to the
+      buffer before pushing them onto the
+      stack, i.e. "4 +" will evaluate to 8
+      */
       // ungets(symbol, len);
       return RAW;
     } else {
@@ -38,7 +40,7 @@ int lex(char symbol[], int token_len) {
   return DISPLAY;
 }
 
-int handle_alpha(char operator[], int len) {
+operand_type handle_alpha(char operator[], int len) {
   /*
   If we hit an alpha char, there are only two valid expressions:
   1) it's one character long, and therefore a variable
@@ -87,13 +89,13 @@ int handle_alpha(char operator[], int len) {
   return GARBAGE;
 }
 
-int is_operator(char oper[]) {
-  return ((oper[0] == '+') || (oper[0] == '-') || (oper[0] == '/') ||
-          (oper[0] == '*') || (oper[0] == '%') || (oper[0] == '='));
+int is_operator(char op) {
+  return ((op == '+') || (op == '-') || (op == '/') || (op == '*') ||
+          (op == '%') || (op == '='));
 }
 
-int handle_operator(char operator[]) {
-  switch (operator[0]) {
+operand_type handle_operator(char operator) {
+  switch (operator) {
     case '+':
       return ADD;
     case '-':

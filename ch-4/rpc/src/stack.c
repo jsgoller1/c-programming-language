@@ -1,13 +1,13 @@
 #include "rpc.h"
 
 static int sp = 0;
-static double stack[MAX_STACK_SIZE];  // 2 for value and type
+static operand stack[MAX_STACK_SIZE];
 
 // push() - push f onto value stack
-void push(double val[]) {
-  if (sp < MAX_STACK_SIZE - 1) {
-    stack[sp++] = val[1];
-    stack[sp++] = val[0];
+int push(const operand op) {
+  if (sp < MAX_STACK_SIZE) {
+    stack[sp++] = op;
+    return 0;
   } else {
     printf("Error; stack full.\n");
   }
@@ -15,34 +15,35 @@ void push(double val[]) {
 
 // pop: return the top value/type pair from stack and decrement the stack
 // pointer
-void pop(double ret[]) {
+operand pop(void) {
   if (sp == 0) {
     printf("Error: stack empty.\n");
+    return (operand){GARBAGE, 0};
   } else if (sp < 1) {
     printf("Error: stack invalid.\n");
+    return (operand){GARBAGE, 0};
   } else {
-    ret[0] = stack[--sp];  // val
-    ret[1] = stack[--sp];  // type
+    return stack[sp--];
   }
 }
 
 // peek: return the top value/type pair from stack without decrementing sp;
-void peek(double ret[]) {
+operand peek(void) {
   if (sp == 0) {
     printf("Error: stack empty.\n");
+    return (operand){GARBAGE, 0};
   } else if (sp < 1) {
     printf("Error: stack invalid.\n");
+    return (operand){GARBAGE, 0};
   } else {
-    ret[0] = stack[sp];      // val
-    ret[1] = stack[sp - 1];  // type
+    return stack[sp];
   }
 }
 
 // duplicate_top: instructions were unclear, but assuming that
 // this means add another element equal to the top element.
 void duplicate_top() {
-  // zero-initialize for -Werror=maybe-uninitialized
-  double top[2] = {0.0, 0.0};
+  operand top = {0, 0.0};
 
   pop(top);  // and the fun don't stop!
   push(top);
@@ -52,8 +53,8 @@ void duplicate_top() {
 // swap_top: switch the top two elements of the stack
 void swap_top() {
   // zero-initialize for -Werror=maybe-uninitialized
-  double top[2] = {0.0, 0.0};
-  double second[2] = {0.0, 0.0};
+  operand top = {0, 0.0};
+  operand second = {0, 0.0};
 
   pop(top);
   pop(second);
@@ -61,10 +62,10 @@ void swap_top() {
   push(second);
 }
 
-int get_stack_size() { return sp / 2; }
+int get_stack_size() { return sp; }
 
 void display() {
-  double op1[2] = {0.0, 0.0};
+  operand op1 = {0, 0.0};
 
   // pop stack and display result, unless the
   // resultant expression is bad. If so, dump the stack.

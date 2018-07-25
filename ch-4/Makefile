@@ -14,10 +14,10 @@ rpc: clean
 	$(COMPILE) -I ch-4/rpc/include/ ch-4/rpc/src/*.c -o bin/$@
 ifdef RUN_TESTS
 	printf "4 5 +\n" | $(VALGRIND) ./bin/$@
-	printf "4 5 + 5 6 + -\n" | $(VALGRIND) ./bin/$@
-	printf "a 5 =" | $(VALGRIND) ./bin/$@
-	printf "b 6 = \n b 10 * SIN\n" | $(VALGRIND) ./bin/$@
-	printf "" | $(VALGRIND) ./bin/$@
+	@#printf "4 5 + 5 6 + -\n" | $(VALGRIND) ./bin/$@
+	@#printf "5 SIN" | $(VALGRIND) ./bin/$@
+	@#printf "b 6 = \n b 10 *\n" | $(VALGRIND) ./bin/$@
+	@#printf "" | $(VALGRIND) ./bin/$@
 endif
 
 4.11: 4.11-build

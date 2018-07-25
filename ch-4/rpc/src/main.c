@@ -2,21 +2,23 @@
 
 // Reverse Polish calculator
 int main() {
-  double op1[2];
-  double op2[2];
-  int type;
+  operand op1;
+  operand op2;
+  operand_type type;
   char token[MAX_TOKEN_SIZE];
 
-  while ((type = lex(token, MAX_TOKEN_SIZE))) {
+  while ((type = lex(token, MAX_TOKEN_SIZE)) != EXIT) {
     switch (type) {
-      case RAW:
-        op1[0] = atof(token);
-        op1[1] = (double)RAW;
+      case VAL:
+        op1.type = VAL;
+        op1.dvalue = atof(token);
+        op1.cvalue = 0;
         push(op1);
         break;
       case VAR:
-        op1[0] = token[0];
-        op1[1] = (double)VAR;
+        op1.type = VAR;
+        op1.cvalue = token;
+        op1.dvalue = 0.0;
         push(op1);
         break;
       case ASSIGN:
@@ -90,16 +92,18 @@ int main() {
         pop(op1);
         rpn_floor(op1);
         break;
-      case DISPLAY:
-        display();
-        break;
       case GARBAGE:
       default:
         printf("Error: invalid expression %s.\n", token);
-        break;
+        return -1;
     }
   }
-
-  printf("Quitting, bye!\n");  // TODO: Never actually called?
-  return 0;
+  if (get_stack_size() == 1) {
+    operand final = pop();
+    printf("%8.8g\n", final.dvalue);
+    return 0;
+  } else {
+    printf("Error: invalid expression; quitting.\n");
+    return -1;
+  }
 }

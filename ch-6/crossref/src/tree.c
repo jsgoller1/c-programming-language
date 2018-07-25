@@ -2,10 +2,12 @@
 #include <stdlib.h>
 #include <string.h>
 
+#pragma clang diagnostic ignored "-Wcast-qual"
+
 #include "crossref.h"
 
 // tree_insert(): insert word in tree
-word_node* tree_insert(char* word, word_node* node) {
+word_node* tree_insert(const char* const word, word_node* const node) {
   if (node == NULL) {
     return NULL;
   }
@@ -36,7 +38,7 @@ word_node* tree_insert(char* word, word_node* node) {
 }
 
 // tree_search(): return node in tree storing word, or NULL
-word_node* tree_search(char* word, word_node* node) {
+word_node* tree_search(const char* const word, const word_node* const node) {
   if (node == NULL) {
     return NULL;
   }
@@ -44,7 +46,7 @@ word_node* tree_search(char* word, word_node* node) {
   // walk tree based on comparison to word
   int result = strcmp(node->word, word);
   if (result == 0) {
-    return node;
+    return (word_node*)node;
   } else if (result < 0) {
     return tree_search(word, node->left);
   } else {
@@ -53,7 +55,7 @@ word_node* tree_search(char* word, word_node* node) {
 }
 
 // tree_walk(): post-order walk the tree, printing strings and line buffers
-void tree_walk(word_node* head) {
+void tree_walk(const word_node* const head) {
   if (head == NULL) {
     return;
   }

@@ -6,7 +6,7 @@
 #include "crossref.h"
 
 // create_node(): allocate a new node
-word_node* create_node(char* word) {
+word_node* create_node(const char* const word) {
   if (word == NULL) {
     printf("create_node() | cannot create node for null string.\n");
     return NULL;
@@ -47,7 +47,7 @@ word_node* create_node(char* word) {
 }
 
 // add_line(): add a line number to a node's list of lines
-int add_line(word_node* node, size_t line_no) {
+int add_line(word_node* const node, const size_t line_no) {
   if (node == NULL) {
     return -1;
   }
@@ -76,7 +76,7 @@ int add_line(word_node* node, size_t line_no) {
 }
 
 // display_line(): display all lines in line buffer
-void display_lines(word_node* node) {
+void display_lines(const word_node* const node) {
   printf("%s (n: %lu, max: %lu): ", node->word, node->lines_n, node->lines_max);
   for (size_t i = 0; i < node->lines_n; i++) {
     printf("%lu ", node->lines[i]);

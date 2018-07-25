@@ -11,15 +11,15 @@ typedef struct word_node {
 } word_node;
 
 // io.c
-int getword(char* word);
+int getword(char* const word);
 
 // node.c
-int add_line(word_node* node, size_t line_no);
-void display_lines(word_node* node);
+word_node* create_node(const char* const word);
+int add_line(word_node* const node, const size_t line_no);
+void display_lines(const word_node* const node);
 
 // tree.c
-word_node* create_node(char* word);
-word_node* tree_insert(char* word, word_node* node);
-word_node* tree_search(char* word, word_node* node);
-void tree_walk(word_node* head);
+word_node* tree_insert(const char* const word, word_node* const node);
+word_node* tree_search(const char* const word, const word_node* const node);
+void tree_walk(const word_node* const head);
 void tree_cleanup(word_node* head);

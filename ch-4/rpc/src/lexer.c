@@ -9,11 +9,10 @@ this file do.
 */
 
 // lex: get next operator or numeric operand
-operand_type lex(char symbol[], int token_len) {
+operand_type lex(char* const symbol, const int token_len) {
   int len;
 
   while ((len = parse(symbol, token_len))) {
-    // printf("lex() | parsed symbol: %s (%d)\n", symbol, len);
     if (len == -1) {
       return EXIT;
     }
@@ -41,7 +40,7 @@ operand_type lex(char symbol[], int token_len) {
   return CONTINUE;
 }
 
-operand_type handle_alpha(char operator[], int len) {
+operand_type handle_alpha(const char* const operator, const int len) {
   /*
   If we hit an alpha char, there are only two valid expressions:
   1) it's one character long, and therefore a variable
@@ -90,12 +89,12 @@ operand_type handle_alpha(char operator[], int len) {
   return GARBAGE;
 }
 
-int is_operator(char op) {
+int is_operator(const char op) {
   return ((op == '+') || (op == '-') || (op == '/') || (op == '*') ||
           (op == '%') || (op == '='));
 }
 
-operand_type handle_operator(char operator) {
+operand_type handle_operator(const char operator) {
   // printf("handle_operator() | handling %c\n", operator);
   switch (operator) {
     case '+':

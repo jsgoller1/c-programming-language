@@ -67,11 +67,11 @@ void ungets(const char* const s, const int len);
 int parse(char* const s, const int s_size);
 
 // lexer.c
-operand_type lex(char symbol[], int len);
-operand_type handle_alpha(char oper[], int len);
-operand_type handle_numeric(char oper[], int len);
-int is_operator(char oper);
-operand_type handle_operator(char oper);
+operand_type lex(char* const symbol, const int len);
+operand_type handle_alpha(const char* const oper, const int len);
+operand_type handle_numeric(const char* const oper, const int len);
+int is_operator(const char oper);
+operand_type handle_operator(const char oper);
 
 // rpn_math.c
 bool double_eq(const double x, const double y);
@@ -92,7 +92,7 @@ void rpn_sqrt(operand val1);
 void rpn_floor(operand val1);
 
 // stack.c
-int push(operand op);
+int push(const operand op);
 operand pop(void);
 operand peek(void);
 void duplicate_top(void);
@@ -100,6 +100,6 @@ void swap_top(void);
 int get_stack_top(void);
 
 // vars.c
-void assign(operand val1, operand val2);
-operand dereference(operand op);
-int validate_var(operand op);
+void assign(const operand val1, const operand val2);
+operand dereference(const operand op);
+int validate_var(const operand op);

@@ -13,11 +13,11 @@ endif
 rpc: clean
 	$(COMPILE) -I ch-4/rpc/include/ ch-4/rpc/src/*.c -o bin/$@
 ifdef RUN_TESTS
-	printf "4 5 +" | $(VALGRIND) ./bin/$@
-	@#printf "4 5 + 5 6 + -\n" | $(VALGRIND) ./bin/$@
-	@#printf "5 SIN" | $(VALGRIND) ./bin/$@
-	@#printf "b 6 = \n b 10 *\n" | $(VALGRIND) ./bin/$@
-	@#printf "" | $(VALGRIND) ./bin/$@
+	printf "4 5 +" | $(VALGRIND) ./bin/$@ | grep "9"
+	printf "4 5 + 5 6 + -\n" | $(VALGRIND) ./bin/$@ | grep "\-2"
+	printf "5 SIN" | $(VALGRIND) ./bin/$@ | grep "\-0.95892427"
+	printf "b 6 = \n b 10 *\n" | $(VALGRIND) ./bin/$@ | grep "60"
+	printf "" | $(VALGRIND) ./bin/$@
 endif
 
 4.11: 4.11-build

@@ -97,7 +97,7 @@ operand pop(void);
 operand peek(void);
 void duplicate_top(void);
 void swap_top(void);
-int get_stack_size(void);
+int get_stack_top(void);
 
 // vars.c
 void assign(operand val1, operand val2);

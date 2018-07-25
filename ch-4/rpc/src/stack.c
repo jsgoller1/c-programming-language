@@ -7,8 +7,6 @@ static operand stack[MAX_STACK_SIZE];
 int push(const operand op) {
   if (sp < MAX_STACK_SIZE) {
     stack[++sp] = op;
-    printf("push() | pushed (%d, %c, %lf)\n", stack[sp].type, stack[sp].cvalue,
-           stack[sp].dvalue);
     return 0;
   } else {
     printf("Error; stack full.\n");
@@ -26,8 +24,6 @@ operand pop(void) {
     printf("Error: stack invalid.\n");
     return (operand){GARBAGE, 0, 0.0};
   } else {
-    printf("pop() | popping (%d, %c, %lf)\n", stack[sp].type, stack[sp].cvalue,
-           stack[sp].dvalue);
     return stack[sp--];
   }
 }
@@ -63,4 +59,4 @@ void swap_top() {
   push(second);
 }
 
-int get_stack_size() { return sp; }
+int get_stack_top() { return sp; }

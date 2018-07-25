@@ -8,7 +8,6 @@ int main() {
   char token[MAX_TOKEN_SIZE];
 
   while ((type = lex(token, MAX_TOKEN_SIZE))) {
-    printf("main() | evaluating type %d, token %s\n", type, token);
     switch (type) {
       case VAL:
         op1.type = VAL;
@@ -106,12 +105,14 @@ int main() {
         return -1;
     }
   }
-  if (get_stack_size() == 0) {
+  int top = get_stack_top();
+  if (top == 0) {
     operand final = pop();
     printf("%8.8g\n", final.dvalue);
     return 0;
+  } else if (top == -1) {
+    return 0;
   } else {
-    printf("stack size: %d\n", get_stack_size());
     printf("Error: invalid expression; quitting.\n");
     return -1;
   }

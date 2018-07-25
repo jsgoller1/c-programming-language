@@ -93,7 +93,13 @@ int main() {
         op1 = pop();
         rpn_floor(op1);
         break;
+      case CONTINUE:
+        op1 = pop();
+        printf("%8.8g\n", op1.dvalue);
+        break;
       case EXIT:
+        // this never occurs, but the compiler
+        // whines if it's not present.
         break;
       case GARBAGE:
         printf("Error: invalid expression %s.\n", token);

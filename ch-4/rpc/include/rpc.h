@@ -40,6 +40,7 @@ typedef enum {
   DIV,
   MUL,
   MOD,
+  CONTINUE
 } operand_type;
 
 typedef struct {

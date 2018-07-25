@@ -38,7 +38,7 @@ operand_type lex(char symbol[], int token_len) {
   }
 
   // Loop breaks on display.
-  return EXIT;
+  return CONTINUE;
 }
 
 operand_type handle_alpha(char operator[], int len) {

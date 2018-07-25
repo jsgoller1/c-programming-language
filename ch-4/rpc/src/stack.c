@@ -34,10 +34,10 @@ operand pop(void) {
 
 // peek: return the top value/type pair from stack without decrementing sp;
 operand peek(void) {
-  if (sp == 0) {
+  if (sp == -1) {
     printf("Error: stack empty.\n");
     return (operand){GARBAGE, 0, 0.0};
-  } else if (sp < 1) {
+  } else if (sp < -1) {
     printf("Error: stack invalid.\n");
     return (operand){GARBAGE, 0, 0.0};
   } else {

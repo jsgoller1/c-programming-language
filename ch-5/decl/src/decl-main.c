@@ -9,7 +9,7 @@ int main() {
   }
   out[0] = '\0';
   if (decl() == 0) {
-    printf("declare %s as %s %s\n", name, out, datatype);
+    printf("declare %s as%s %s\n", name, out, datatype);
     return 0;
   } else {
     return -1;

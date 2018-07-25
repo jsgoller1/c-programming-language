@@ -34,12 +34,12 @@ int dirdecl(void) {
         strcat(out, " of");
         break;
       case '(':
-        strcat(out, " function with args (");
+        strcat(out, " function (");
         char args[] = {" "};
         while ((args[0] = (char)getchar()) != ')') {
           strcat(out, args);
         }
-        type = PARENS;
+        // type = PARENS;
         strcpy(token, "()");
         strcat(out, ") returning");
         break;

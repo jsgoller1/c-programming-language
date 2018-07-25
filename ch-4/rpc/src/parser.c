@@ -78,7 +78,7 @@ int parse(char s[], int s_size) {
   }
   s[i] = '\0';
 
-  if (c == EOF) {
+  if (c == EOF && i == 0) {
     return -1;
   } else if (c == '\n') {
     // \n indicates we're at the end of the expression,

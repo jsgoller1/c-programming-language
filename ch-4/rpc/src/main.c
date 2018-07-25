@@ -7,7 +7,8 @@ int main() {
   operand_type type;
   char token[MAX_TOKEN_SIZE];
 
-  while ((type = lex(token, MAX_TOKEN_SIZE)) != EXIT) {
+  while ((type = lex(token, MAX_TOKEN_SIZE))) {
+    printf("main() | evaluating type %d, token %s\n", type, token);
     switch (type) {
       case VAL:
         op1.type = VAL;
@@ -17,92 +18,94 @@ int main() {
         break;
       case VAR:
         op1.type = VAR;
-        op1.cvalue = token;
+        op1.cvalue = token[0];
         op1.dvalue = 0.0;
         push(op1);
         break;
       case ASSIGN:
-        pop(op2);
-        pop(op1);
+        op2 = pop();
+        op1 = pop();
         assign(op1, op2);
         break;
       case ADD:
-        pop(op2);
-        pop(op1);
+        op2 = pop();
+        op1 = pop();
         rpn_add(op1, op2);
         break;
       case MUL:
-        pop(op2);
-        pop(op1);
+        op2 = pop();
+        op1 = pop();
         rpn_multiply(op1, op2);
         break;
       case SUB:
-        pop(op2);
-        pop(op1);
+        op2 = pop();
+        op1 = pop();
         rpn_subtract(op1, op2);
         break;
       case DIV:
-        pop(op2);
-        pop(op1);
+        op2 = pop();
+        op1 = pop();
         rpn_divide(op1, op2);
         break;
       case MOD:
-        pop(op2);
-        pop(op1);
+        op2 = pop();
+        op1 = pop();
         rpn_modulus(op1, op2);
         break;
       case SIN:
-        pop(op1);
+        op1 = pop();
         rpn_sin(op1);
         break;
       case COS:
-        pop(op1);
+        op1 = pop();
         rpn_cos(op1);
         break;
       case TAN:
-        pop(op1);
+        op1 = pop();
         rpn_tan(op1);
         break;
       case ASIN:
-        pop(op1);
+        op1 = pop();
         rpn_asin(op1);
         break;
       case ACOS:
-        pop(op1);
+        op1 = pop();
         rpn_acos(op1);
         break;
       case ATAN:
-        pop(op1);
+        op1 = pop();
         rpn_atan(op1);
         break;
       case POW:
-        pop(op2);
-        pop(op1);
+        op2 = pop();
+        op1 = pop();
         rpn_pow(op1, op2);
         break;
       case EXP:
-        pop(op1);
+        op1 = pop();
         rpn_exp(op1);
         break;
       case SQRT:
-        pop(op1);
+        op1 = pop();
         rpn_sqrt(op1);
         break;
       case FLOR:
-        pop(op1);
+        op1 = pop();
         rpn_floor(op1);
         break;
+      case EXIT:
+        break;
       case GARBAGE:
-      default:
         printf("Error: invalid expression %s.\n", token);
         return -1;
     }
   }
-  if (get_stack_size() == 1) {
+  if (get_stack_size() == 0) {
     operand final = pop();
     printf("%8.8g\n", final.dvalue);
     return 0;
   } else {
+    printf("stack size: %d\n", get_stack_size());
     printf("Error: invalid expression; quitting.\n");
     return -1;
   }

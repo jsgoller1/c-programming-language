@@ -1,4 +1,5 @@
 #pragma once
+#pragma clang diagnostic ignored "-Wpadded"
 
 #include <ctype.h>
 #include <math.h>
@@ -39,12 +40,11 @@ typedef enum {
   DIV,
   MUL,
   MOD,
-  DISPLAY
 } operand_type;
 
 typedef struct {
   operand_type type;
-  char cval;
+  char cvalue;
   double dvalue;
 } operand;
 
@@ -66,11 +66,11 @@ void ungets(char s[], int len);
 int parse(char s[], int s_size);
 
 // lexer.c
-int lex(char symbol[], int len);
-int handle_alpha(char oper[], int len);
+operand_type lex(char symbol[], int len);
+operand_type handle_alpha(char oper[], int len);
 operand_type handle_numeric(char oper[], int len);
 int is_operator(char oper);
-operand_type handle_operator(char oper[]);
+operand_type handle_operator(char oper);
 
 // rpn_math.c
 bool double_eq(const double x, const double y);
@@ -91,15 +91,14 @@ void rpn_sqrt(operand val1);
 void rpn_floor(operand val1);
 
 // stack.c
-void push(operand op);
-void pop(operand op);
-void peek(operand op);
+int push(operand op);
+operand pop(void);
+operand peek(void);
 void duplicate_top(void);
 void swap_top(void);
 int get_stack_size(void);
-void display(void);
 
 // vars.c
 void assign(operand val1, operand val2);
-void dereference(operand op);
+operand dereference(operand op);
 int validate_var(operand op);

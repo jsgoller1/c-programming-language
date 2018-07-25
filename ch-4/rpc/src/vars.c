@@ -10,15 +10,15 @@ void assign(operand val1, operand val2) {
     return;
   }
 
-  if (val2.type == VAR)) {
+  if (val2.type == VAR) {
     val2 = dereference(val2);
   }
 
-  if (val1.cval >= 'a' && val1.cval <= 'z') {
-    vars_table[val1.cval - 'a'] = val2.dval;
-  } else if (lval_index >= 'A' && lval_index <= 'Z') {
+  if (val1.cvalue >= 'a' && val1.cvalue <= 'z') {
+    vars_table[val1.cvalue - 'a'] = val2.dvalue;
+  } else if (val1.cvalue >= 'A' && val1.cvalue <= 'Z') {
     // upper case var storage starts at vars_table[26]
-    vars_table[lval_index - 'A' + 26] = val2.dval;
+    vars_table[val1.cvalue - 'A' + 26] = val2.dvalue;
   }
 
   // C style assignment returns the value assigned
@@ -26,23 +26,21 @@ void assign(operand val1, operand val2) {
 }
 
 operand dereference(operand op) {
-  int index;
-
   if (!validate_var(op)) {
-    return;
+    return (operand){GARBAGE, 0, 0.0};
   }
 
-  if (op.cval >= 'a' && op.cval <= 'z') {
-    op.dval = vars_table[op.cval - 'a'];
-  } else if (op.cval >= 'A' && op.cval <= 'Z') {
-    op.dval = vars_table[op.cval - upper_case_offset + 26];
+  if (op.cvalue >= 'a' && op.cvalue <= 'z') {
+    op.dvalue = vars_table[op.cvalue - 'a'];
+  } else if (op.cvalue >= 'A' && op.cvalue <= 'Z') {
+    op.dvalue = vars_table[op.cvalue - 'A' + 26];
   } else {
     printf("Error: Invalid lvalue for variable assignment.\n");
     return (operand){GARBAGE, 0, 0.0};
   }
 
   op.type = VAL;
-  op.cval = 0;
+  op.cvalue = 0;
   return op;
 }
 
@@ -52,9 +50,9 @@ int validate_var(operand var) {
     return 0;
   }
 
-  if (!((var.cval >= 'a' && var.cval <= 'z') ||
-        (var.cval >= 'A' && var.cval <= 'Z'))) {
-    printf("validate_var() | Error: invalid variable name %c.\n", var.cval);
+  if (!((var.cvalue >= 'a' && var.cvalue <= 'z') ||
+        (var.cvalue >= 'A' && var.cvalue <= 'Z'))) {
+    printf("validate_var() | Error: invalid variable name %c.\n", var.cvalue);
     return 0;
   }
 

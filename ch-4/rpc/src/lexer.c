@@ -13,11 +13,12 @@ operand_type lex(char symbol[], int token_len) {
   int len;
 
   while ((len = parse(symbol, token_len))) {
+    // printf("lex() | parsed symbol: %s (%d)\n", symbol, len);
     if (len == -1) {
       return EXIT;
     }
-    if (is_operator(symbol)) {
-      return handle_operator(symbol);
+    if (is_operator(symbol[0])) {
+      return handle_operator(symbol[0]);
     }
 
     if (isalpha(symbol[0])) {
@@ -30,14 +31,14 @@ operand_type lex(char symbol[], int token_len) {
       stack, i.e. "4 +" will evaluate to 8
       */
       // ungets(symbol, len);
-      return RAW;
+      return VAL;
     } else {
       return GARBAGE;
     }
   }
 
   // Loop breaks on display.
-  return DISPLAY;
+  return EXIT;
 }
 
 operand_type handle_alpha(char operator[], int len) {
@@ -95,6 +96,7 @@ int is_operator(char op) {
 }
 
 operand_type handle_operator(char operator) {
+  // printf("handle_operator() | handling %c\n", operator);
   switch (operator) {
     case '+':
       return ADD;

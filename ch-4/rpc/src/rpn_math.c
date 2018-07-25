@@ -17,8 +17,10 @@ void rpn_add(operand val1, operand val2) {
   if (val2.type == VAR) {
     dereference(val2);
   }
-  val1.dval = val1.dval + val2.dval;
+  printf("rpn_add() | %lf + %lf\n", val1.dvalue, val2.dvalue);
+  val1.dvalue = val1.dvalue + val2.dvalue;
   val1.type = VAL;
+  printf("rpn_add() | called (new dvalue %lf).\n", val1.dvalue);
   push(val1);
 }
 
@@ -29,7 +31,7 @@ void rpn_subtract(operand val1, operand val2) {
   if (val2.type == VAR) {
     dereference(val2);
   }
-  val1.dval = val1.dval - val2.dval;
+  val1.dvalue = val1.dvalue - val2.dvalue;
   val1.type = VAL;
   push(val1);
 }
@@ -41,7 +43,7 @@ void rpn_multiply(operand val1, operand val2) {
   if (val2.type == VAR) {
     dereference(val2);
   }
-  val1.dval = val1.dval * val2.dval;
+  val1.dvalue = val1.dvalue * val2.dvalue;
   val1.type = VAL;
   push(val1);
 }
@@ -53,11 +55,11 @@ void rpn_divide(operand val1, operand val2) {
   if (val2.type == VAR) {
     dereference(val2);
   }
-  if (double_eq(val2.dval, 0.0)) {
+  if (double_eq(val2.dvalue, 0.0)) {
     printf("Error: division by zero.\n");
     return;
   }
-  val1.dval = val1.dval / val2.dval;
+  val1.dvalue = val1.dvalue / val2.dvalue;
   val1.type = VAL;
   push(val1);
 }
@@ -69,12 +71,12 @@ void rpn_modulus(operand val1, operand val2) {
   if (val2.type == VAR) {
     dereference(val2);
   }
-  if (double_eq(val2.dval, 0.0)) {
+  if (double_eq(val2.dvalue, 0.0)) {
     printf("Error: modulo by zero.\n");
     return;
   }
 
-  val1.dval = (int)val1.dval % (int)val2.dval;
+  val1.dvalue = (int)val1.dvalue % (int)val2.dvalue;
   val1.type = VAL;
   push(val1);
 }
@@ -84,7 +86,7 @@ void rpn_sin(operand val1) {
     dereference(val1);
   }
 
-  val1.dval = sin(val1.dval);
+  val1.dvalue = sin(val1.dvalue);
   val1.type = VAL;
   push(val1);
 }
@@ -94,7 +96,7 @@ void rpn_cos(operand val1) {
     dereference(val1);
   }
 
-  val1.dval = cos(val1.dval);
+  val1.dvalue = cos(val1.dvalue);
   val1.type = VAL;
   push(val1);
 }
@@ -104,7 +106,7 @@ void rpn_tan(operand val1) {
     dereference(val1);
   }
 
-  val1.dval = tan(val1.dval);
+  val1.dvalue = tan(val1.dvalue);
   val1.type = VAL;
   push(val1);
 }
@@ -114,7 +116,7 @@ void rpn_asin(operand val1) {
     dereference(val1);
   }
 
-  val1.dval = asin(val1.dval);
+  val1.dvalue = asin(val1.dvalue);
   val1.type = VAL;
   push(val1);
 }
@@ -124,7 +126,7 @@ void rpn_acos(operand val1) {
     dereference(val1);
   }
 
-  val1.dval = acos(val1.dval);
+  val1.dvalue = acos(val1.dvalue);
   val1.type = VAL;
   push(val1);
 }
@@ -134,7 +136,7 @@ void rpn_atan(operand val1) {
     dereference(val1);
   }
 
-  val1.dval = atan(val1.dval);
+  val1.dvalue = atan(val1.dvalue);
   val1.type = VAL;
   push(val1);
 }
@@ -147,7 +149,7 @@ void rpn_pow(operand val1, operand val2) {
     dereference(val2);
   }
 
-  val1.dval = pow(val1.dval, val2.dval);
+  val1.dvalue = pow(val1.dvalue, val2.dvalue);
   val1.type = VAL;
   push(val1);
 }
@@ -157,7 +159,7 @@ void rpn_exp(operand val1) {
     dereference(val1);
   }
 
-  val1.dval = exp(val1.dval);
+  val1.dvalue = exp(val1.dvalue);
   val1.type = VAL;
   push(val1);
 }
@@ -167,7 +169,7 @@ void rpn_sqrt(operand val1) {
     dereference(val1);
   }
 
-  val1.dval = sqrt(val1.dval);
+  val1.dvalue = sqrt(val1.dvalue);
   val1.type = VAL;
   push(val1);
 }
@@ -177,7 +179,7 @@ void rpn_floor(operand val1) {
     dereference(val1);
   }
 
-  val1.dval = floor(val1.dval);
+  val1.dvalue = floor(val1.dvalue);
   val1.type = VAL;
   push(val1);
 }

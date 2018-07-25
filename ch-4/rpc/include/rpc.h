@@ -62,9 +62,9 @@ typedef struct {
 
 // parser.c
 int rpc_getch(void);
-void rpc_ungetch(int);
-void ungets(char s[], int len);
-int parse(char s[], int s_size);
+void rpc_ungetch(const int);
+void ungets(const char* const s, const int len);
+int parse(char* const s, const int s_size);
 
 // lexer.c
 operand_type lex(char symbol[], int len);

@@ -6,7 +6,7 @@ static char buf[PARSE_BUFFER_SIZE];  // buffer for ungetch
 // static int bufval = 0;
 static int bufp = 0;
 
-int rpc_getch() {
+int rpc_getch(void) {
   // uncomment for 4-8
   /*
   if (buffered == true > 0)
@@ -23,7 +23,7 @@ int rpc_getch() {
   return (bufp > 0) ? buf[--bufp] : getchar();
 }
 
-void rpc_ungetch(int c) {
+void rpc_ungetch(const int c) {
   // uncomment for 4-8
   /*
   buffered = true;
@@ -37,7 +37,7 @@ void rpc_ungetch(int c) {
   }
 }
 
-void ungets(char s[], int len) {
+void ungets(const char* const s, const int len) {
   int i;
 
   for (i = 0; i < len && s[len] != '0'; i++) {
@@ -45,7 +45,7 @@ void ungets(char s[], int len) {
   }
 }
 
-int parse(char s[], int s_size) {
+int parse(char* const s, const int s_size) {
   int i, c;
 
   // no op; skip over all leading whitespace and tabs

@@ -44,14 +44,21 @@ endif
 # tail is exercise 5.13
 tabber tail: clean
 	$(COMPILE) -I ch-5/$@/include ch-5/$@/src/*.c -o bin/$@
+ifdef RUN_TESTS
 	./ch-5/$@/$@-test.sh
+endif
 
 # sort is exercises 5.14 through 5.17
 sort: clean
-	$(COMPILE) -I ch-5/sort/include/ ch-5/sort/src/{compare,input,main,sort,strings}.c -o bin/$@
+	$(COMPILE) -I ch-5/sort/include/ ch-5/sort/src/*.c -o bin/$@
+ifdef RUN_TESTS
+	cat ch-5/sort/sort-test.txt | $(VALGRIND) ./bin/$@
+	cat ch-5/sort/sort-test-mixed-case.txt | $(VALGRIND) ./bin/$@ -f
+	cat ch-5/sort/sort-test-homedir.txt | $(VALGRIND) ./bin/$@ -d -r
 	cat ch-5/sort/sort-test-subfields.txt | $(VALGRIND) ./bin/$@ -r -i -n
+endif
 
 # decl/undecl are exercises 5.18 through 5.20
 decl undecl: clean
-	$(COMPILE) -I ch-5/decl/include/ ch-5/decl/src/{decl,dirdecl,gettoken,$@-main,vars}.c -o bin/$@
+	$(COMPILE) -I ch-5/decl/include/ ch-5/decl/src/common/*.c ch-5/decl/src/$@-main.c -o bin/$@
 	./ch-5/decl/$@-test.sh

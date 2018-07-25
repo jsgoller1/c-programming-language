@@ -6,9 +6,6 @@
   - Fix the RPN calculator
   - Builds / compiles with new make system
   - Maximum `const` correctness
-- Ch. 5
-  - Builds / compiles with new make system
-  - Maximum `const` correctness
 - Ch. 6
   - Refactor crossref to use BST library
   - Handle typedef / define in charmatch

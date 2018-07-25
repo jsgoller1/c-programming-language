@@ -1,4 +1,3 @@
-#include "5.8-9.h"
 #include <stdio.h>
 #include <stdlib.h>
 
@@ -19,7 +18,7 @@ else (it is a leap year)
 static char *daytab[2];
 
 // set day of year from month & day
-int day_of_year(const int year, const int month, int day) {
+static int day_of_year(const int year, const int month, int day) {
   int i, leap;
 
   // Reject invalid year and month values
@@ -49,7 +48,8 @@ int day_of_year(const int year, const int month, int day) {
 }
 
 // set month, day, from day of year
-int month_day(const int year, int yearday, int *const pmonth, int *const pday) {
+static int month_day(const int year, int yearday, int *const pmonth,
+                     int *const pday) {
   int i, leap;
 
   // Reject invalid year or yearday values

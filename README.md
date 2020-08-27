@@ -27,7 +27,7 @@ The Makefile system is divided into four parts:
 * `common/trees/` - a generic binary search tree library I wrote to handle exercises in Chapter 6
 * `ch-8/fopen_j/` - buffered FILE I/O
 * `common/tests/` - a simple unit testing library that wraps around the `assert(3)` macro; I wound up not using this too much beyond ch-1 as my testing stategy evolved.
-* [C FAQ](https://github.com/jsgoller1/c-faq) - this is a separate repo I started to help work through questions I had about C as I read K&R.
+* `faq/` - Experiments / questions I had to test my understanding of C as I read K&R.
 
 ## Conventions
 I have my editor set up to run `clang-format -i --style=Google` on save.

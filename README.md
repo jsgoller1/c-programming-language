@@ -1,5 +1,5 @@
 # The C Programming Language (K&R)
-Solutions for every exercise from "The C Programming Language" by Kernighan / Ritchie. I wrote a [Medium post (WIP)]() and a [Show HN (WIP)]() about this project.
+Solutions for every exercise from "The C Programming Language" by Kernighan / Ritchie. 
 
 ## Goals
  This was the first "classic CS book" that I read; in addition to learning C, I also learned how to write code productively and how to read a CS textbook. As such, my goals for this textbook changed as I read it (especially given that I jumped around a good bit). I settled on the following definition for "complete":
